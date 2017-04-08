@@ -9,6 +9,7 @@
 \bibliographystyle{plainnat}
 \usepackage{array}
 \usepackage{csquotes}
+\usepackage{url}
 
 % Document properties
 \title{Theoretical Grounds and Market Adaptations of Financial Fx and Interest Rate Options}
@@ -27,11 +28,13 @@
 
 % Cite as: AUTHOR(YEAR) style
 \newcommand{\aycite}[1]{%
- \citeauthor{#1}(\citeyear{#1})}
+ \citeauthor{#1} (\citeyear{#1})}
  
 \begin{document}
-\chapter{Financial Markets}
 
+
+
+\chapter{Financial Markets}
 Throughout modern history, the value of \textit{anything} has been of great importance. In order to set the value of exchange in a transaction, any two parties involved must agree in the current worth of whatever it is that will be transacted, and take opposite sides of interest in it\footnote{In other words, one party wants to buy (obtain) and the other to sell (get rid off)}. Furthermore, these two parties require to communicate, and be able to find one another or a third whose worth of the \textit{something} at play favors any one of them more.\\
 
 A \textbf{security}, is the epitome of a tradable object in financial markets. We define a security as an instrument that either represents ownership or that derives its value from a commodity. We say that a security is \textbf{fungible} if any unit of the instrument is economically indistinguishable from all other units. That is, whomever buys (or sells) the instrument can pay any unit at the same price at a given point in time.\\
@@ -97,15 +100,28 @@ Bond can be issued either by a corporation or by a government. Its main function
 In addition, bonds may or may not pay an interest on the nominal of the bond. In the former case, this is known as a \textbf{coupon bearing bond}, while the latter is referred to as the \textbf{zero coupon bond}.
 
 \subsection{Stocks}
-A stock is a security that represents ownership on a fraction of a corporation; it is a proportional division of a company's assets and distributed through what is known as a \textbf{divdend}. Future dividens are generally not known in advance. This contrast a big difference between bonds and stocks, while the former has a predefined number of payments, the latter is uncertain in amount and frequency.
+A stock is a security that represents ownership on a fraction of a corporation; it is a proportional division of a company's assets and distributed through what is known as a \textbf{dividend}. Future dividends are generally not known in advance. This contrast a big difference between bonds and stocks, while the former has a predefined number of payments, the latter is uncertain in amount and frequency.
 
-\subsection{Currencies}
+\subsection{Foreign Exchange Currencies}
+\aycite{kozy} defines a foreign currency as ``one country's currency freely convertible in the foreign exchange market''.\\
+
+The foreign exchange market is an over the counter (or OTC for short) market where buyers and sellers get together to buy and sell foreign currencies or financial contracts on said currencies. The foreign exchange market is also known as the \textit{FX market}
+
 \subsection{Derivatives}
+Derivatives are the main topic in this work. \aycite{hull} defines derivatives as ``as a financial instrument whose value depends on (or derives from) the values of other, more basic, underlying variables''. This definition leaves room for many possible products that can depend on more than one factor.\\
+
+Derivatives are mainly used to hedge and/or arbitrage. We can categorize them into two main categories: listed and OTC contracts.\\
+
+Listed contracts can be bought or sold in an organized market. These are standardised products that can be traded in financial markets. OTC contracts, on the other hand, represent a contract between two parties without the need of a market for the two parties to meet. 
 
 \section{Risk: Hedging and Arbitrage}
-Risk is an inherent aspect of financial markets. For bonds, for example, risk is represented as the plausibility of default for thr government or the company which issued the asset. For stocks, risk is presented as uncertainty of future prices, whether the company goes bankrupt or the amount of the dividend to be payed.  
+Risk is an inherent aspect of financial markets. For bonds, for example, risk is represented as the plausibility of default for the government or the company which issued the asset. For stocks, risk is presented as uncertainty of future prices, whether the company goes bankrupt, or the amount of the future dividend to be payed.\\
 
-In order for us to further de
+From a financial institution's perspective interested in selling derivative contracts, their intention may not be to speculate with the products they sell, as to where the price of products may go, but rather to sell this a service. This forces the financial institution to eliminate all possible risk associated with the contract. Furthermore, the price they sell this contract for, must be such that no one else may take a riskless profit from it.
+
+Hedging refers to the way a financial institution may \textit{cover} their position
+
+\chapter{Measure Theory and Probability}
 
 \newpage
 \nocite{*}
