@@ -1,0 +1,113 @@
+\documentclass[11pt]{report}
+
+% Packages to use
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[T1]{fontenc} %uncomment to display chapters
+\usepackage{titlesec, color}
+\usepackage[numbers]{natbib}
+\bibliographystyle{plainnat}
+\usepackage{array}
+\usepackage{csquotes}
+
+% Document properties
+\title{Theoretical Grounds and Market Adaptations of Financial Fx and Interest Rate Options}
+\author{Gerardo Dur\'an Mart\'in}
+
+% Command: Chapter Style
+\definecolor{gray75}{gray}{0.75}
+\newcommand{\hsp}{\hspace{20pt}}
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\Huge\bfseries}
+
+% Cite authors. Use \citeauhor*{auth}
+
+% Set line breaks inside cells
+\newcommand{\breakcell}[2][c]{%
+  \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+
+% Cite as: AUTHOR(YEAR) style
+\newcommand{\aycite}[1]{%
+ \citeauthor{#1}(\citeyear{#1})}
+ 
+\begin{document}
+\chapter{Financial Markets}
+
+Throughout modern history, the value of \textit{anything} has been of great importance. In order to set the value of exchange in a transaction, any two parties involved must agree in the current worth of whatever it is that will be transacted, and take opposite sides of interest in it\footnote{In other words, one party wants to buy (obtain) and the other to sell (get rid off)}. Furthermore, these two parties require to communicate, and be able to find one another or a third whose worth of the \textit{something} at play favors any one of them more.\\
+
+A \textbf{security}, is the epitome of a tradable object in financial markets. We define a security as an instrument that either represents ownership or that derives its value from a commodity. We say that a security is \textbf{fungible} if any unit of the instrument is economically indistinguishable from all other units. That is, whomever buys (or sells) the instrument can pay any unit at the same price at a given point in time.\\
+
+The problem of searching for the price and the party whose view on the value of a security reflect ours is called \textbf{trading}. A \textbf{market} is the place where buyers meet sellers. Markets can be both a physical place (called a trading floor), or an electronic system.
+
+\section{The Participants}
+In a financial market, participants have various reasons to trade. On the one hand there is the \textbf{buy-side}. They trade in order to solve a financial problem originated outside of the market. This group sees the market as a means to an end, and thus, they rely on the resources available in the market.\\
+
+\begin{table}[!h]
+	\centering
+	\begin{tabular}{ c c m{3cm} c}
+		\hline
+		Trader Type & Examples & Why They Trade & Instruments\\
+		\hline
+		Investor & \breakcell{Individual \\ Corporate pension funds \\ Insurance funds \\ Charitable and legal trusts \\ Endowments \\ Mutual Funds \\ Money Managers} & {To move wealth from the present to the future for themselves or for their clients} & \breakcell{Stocks \\ Bonds} \\
+		\\
+		Borrowers & \breakcell{Homeowners \\ Students \\ Corporations} & {To move wealth from the future to the present} & \breakcell{Mortgages \\ Bonds \\ Notes}\\
+		\\
+		Hedgers & \breakcell{Farmers \\ Manufacturers \\ Miners \\ Shippers \\ Financial Institutions} & {To reduce business operating risk} & \breakcell{Futures contracts \\ Forward contracts \\ Swaps}\\
+		\\
+		\breakcell{Asset \\ Exchangers} & \breakcell{International corporations \\ Manufacturers \\ Travelers} & {To acquire an asset that they value mire than the asset that they tender} & \breakcell{Currencies \\ Commodities} \\
+		\\
+		Gamblers & Individuals & {To entertain themselves} & Various\\
+		\hline
+	\end{tabular}
+	\caption{Buy-side of the market. \aycite{harris}}
+\end{table}
+
+
+ On the other hand are the participants who offer exchange services to the buy-side. Their trading purpose is to satisfy the needs of the buy-side by taking the opposite side of the trade. This group sells exchange services to the buy-side, consequently they are known as the \textbf{sell-side}.\\
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{c c m{3cm}}
+    	\hline
+    	Trader Type & Examples & Why They Trade \\
+    	\hline
+    	Dealer & \breakcell{Market Maker \\ Specialist \\ Floor Trader \\ Locals \\ Day traders \\ Scalpers} & {To earn trading profits by supplying liquidity} \\
+    	\\  	
+    	Brokers & \breakcell{Retail brokers \\ Discount brokers \\ Full-service brokers \\ Institutional Brokers \\ Block brokers \\ Futures commission merchants} & {To earn commissions by arranging trades for clients} \\
+    	\\
+    	Broker-dealers & \breakcell{Wirehouses} & {To earn profits and trading commissions} \\
+    	\hline
+    \end{tabular}
+    \caption{Sell-side of the market. \aycite{harris}}
+\end{table}
+
+We can classify the buy-side and the sell-side as those who require liquidity and as those who provide it. \textbf{Liquidity} is an important concept in financial markets. Although the term itself can be regarded in many ways, we will denote it as the likelihood of trading constraint to units available, price offered and time.
+
+\section{The Instruments}
+Financial instruments comprise a wide array of products. Each one of these serve a purpose to either the buy-side or the sell-side. We will review briefly the instruments that will serve for the development of this work.
+
+\subsection{Bonds}
+
+According to the SEC,
+\begin{displayquote}
+``A bond is a debt obligation, like an IOU. Investors who buy corporate bonds are lending money to the company issuing the bond. In return, the company makes a legal commitment to pay interest on the principal and, in most cases, to return the principal when the bond comes due, or matures.''
+\end{displayquote}
+
+Bond can be issued either by a corporation or by a government. Its main function is to raise capital for the issuer of the bond, known as the \textbf{debtor}, who promises a payment to the buyer of the bond, or as the \textbf{creditor} or the \textbf{bondholder}. The amount of money to be paid at the time of maturity is the \textbf{nominal value} or the \textbf{principal} of the bond.\\
+
+In addition, bonds may or may not pay an interest on the nominal of the bond. In the former case, this is known as a \textbf{coupon bearing bond}, while the latter is referred to as the \textbf{zero coupon bond}.
+
+\subsection{Stocks}
+A stock is a security that represents ownership on a fraction of a corporation; it is a proportional division of a company's assets and distributed through what is known as a \textbf{divdend}. Future dividens are generally not known in advance. This contrast a big difference between bonds and stocks, while the former has a predefined number of payments, the latter is uncertain in amount and frequency.
+
+\subsection{Currencies}
+\subsection{Derivatives}
+
+\section{Risk: Hedging and Arbitrage}
+Risk is an inherent aspect of financial markets. For bonds, for example, risk is represented as the plausibility of default for thr government or the company which issued the asset. For stocks, risk is presented as uncertainty of future prices, whether the company goes bankrupt or the amount of the dividend to be payed.  
+
+In order for us to further de
+
+\newpage
+\nocite{*}
+\bibliography{ref}
+\end{document}
