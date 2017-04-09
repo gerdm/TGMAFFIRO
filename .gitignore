@@ -35,6 +35,7 @@ __pycache__
 *.out
 *.synctex.gz
 *.pdf
+.texpadtmp
 
 # Mac IDE files
 *.swp
