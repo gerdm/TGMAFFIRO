@@ -9,10 +9,16 @@
 \bibliographystyle{plainnat}
 \usepackage{array}
 \usepackage{csquotes}
-\usepackage{url}
-\usepackage{tikz}
-\usepackage{pgfplots}
-\usepackage{standalone}
+\usepackage{url} % insert Urls in bib
+\usepackage{tikz} % images
+\usepackage{pgfplots} %images
+\usepackage{standalone} % Load tikz from library 
+\usepackage{mathrsfs} %Pretty fonts
+\usepackage{enumerate} %Roman numerals
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm} % For proofs
 
 % Document properties
 \title{Theoretical Grounds and Market Adaptations of Financial Fx and Interest Rate Options}
@@ -33,7 +39,9 @@
 \newcommand{\aycite}[1]{%
  \citeauthor{#1} (\citeyear{#1})}
  
+% .............. It starts here ..............
 \begin{document}
+\tableofcontents
 
 \chapter{Financial Markets}
 Throughout modern history, the value of \textit{anything} has been of great importance. In order to set the value of exchange in a transaction, any two parties involved must agree in the current worth of whatever it is that will be transacted, and take opposite sides of interest in it\footnote{In other words, one party wants to buy (obtain) and the other to sell (get rid off)}. Furthermore, these two parties require to communicate, and be able to find one another or a third whose worth of the \textit{something} at play favors any one of them more.\\
@@ -129,15 +137,17 @@ Two important concepts emerge for a financial institution interested in covering
  
   Three months from now the trader must pay the price of the contract, which he can do since the amount he invested in the bank is greater than the price of the contract. Also, he can return the stock he shorted since the bank will give it to him, thus making a riskless profit.\\
  
-Although the bank decided cover its position in order to fulfill its future obligation, the price it priced the contract was such that the trader made a profit without taking any risk from it. Strictly speaking, the bank \textbf{hedged} its position and the trader made an \textbf{arbitrage}.\\
+Although the bank decided cover its position in order to fulfill its future obligation, the price it gave the contract was such that the trader made a profit without taking any risk from it. Strictly speaking, the bank \textbf{hedged} its position and the trader made an \textbf{arbitrage}.\\
 
-This simple example presents the key ideas to take account whenever we try to price any derivative. By replicating what the trader did, the bank would be hedged and would not incur in anyone making an arbitrage. Composing an effective hedge may not be so easy for every contract. Consider a derivative that provides to the buyer the option to buy a stock at a future date and at a predetermined price. What we would like is to know the price of this derivative, known as as premium, such that it allow us for an effective hedge and prevent anyone from making an arbitrage.\\
+This simple example presents the key ideas to take account whenever we try to price any derivative. By replicating what the trader did, the bank would be hedged and would not incur in anyone making an arbitrage. Composing an effective hedge may not be so easy for every contract. Consider a derivative that provides to the buyer the option to buy a stock at a future date and at a predetermined price. What we would like is to know the present value of this derivative, known as as the premium, such that it allow us for an effective hedge and prevent anyone from making an arbitrage.\\
 
 At maturity date, the payoff for the option will be
 
 \begin{equation}
 	\max\{S-K, 0\}
 \end{equation}
+
+This contract is known as an European Option.
 
 %% Importing Call payoff from images folder
 \begin{figure}[h]
@@ -146,8 +156,71 @@ At maturity date, the payoff for the option will be
 	\caption{European Call Payoff}
 \end{figure}
 
-The knowledge and tools we currently have can only take us so far as to know the price for this derivative. For us to effectively price this \textbf{option}, we will need tools to explain the random movements of stocks in pursuance for the premium we desire.
+The knowledge and tools we currently have can only take us so far as to know the price for this derivative. For us to effectively price this \textbf{option}, we will need tools to explain the random movements of stocks in pursuance of the desired premium.
 
+
+\chapter{Probability Theory}
+
+\section{Measurable Spaces}
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{remark}{Remark}[chapter]
+
+\begin{definition}{\textbf{Algebra}}
+	Let $\Omega$ be a set of points $\omega$. A system $\mathscr{A}$ of subsets of $\Omega$ is an Algebra if:
+	\begin{enumerate}[I.]
+		\item $\Omega \in \mathscr{A}$
+		\item If $A, B \in \mathscr{A} \Rightarrow A \cap B \in \mathscr{A}$
+		\item If $A \in \mathscr{A} \Rightarrow A^\mathsf{c} \in \mathscr{F}$
+	\end{enumerate}
+\end{definition}
+
+\begin{definition}{\textbf{$\sigma$-algebra}}\label{salgebra}
+	A system $\mathscr{F}$ of subsets of $\Omega$ is a $\sigma$-algebra if it is an algebra and it satisfies one additional condition:
+	\begin{equation*}
+		\text{If } \{A_n\}_{n\geq 1} \in \mathscr{F} \Rightarrow \bigcup_{k=1}^{\infty} A_k \in \mathscr{F} 
+	\end{equation*}
+\end{definition}
+
+\begin{remark}
+	for $\{A_n\}_{n\geq 1} \in \mathscr{F}$ then, definition \ref{salgebra} is equivalent to say that
+	\begin{equation*}
+		\text{If } \{A_n\}_{n\geq 1} \in \mathscr{F} \Rightarrow \bigcap_{k=1}^{\infty} A_k \in \mathscr{F}
+	\end{equation*}
+\end{remark}
+
+\begin{proof}
+	By the generalized form of De Morgan's laws, $(\bigcap_k A_k)^\mathsf{c} \equiv \bigcup_k A_k^\mathsf{c}$. Since $A_k \in \mathscr{F} \ \forall \ k$ then, by definition,  $A_k^\mathsf{c} \in \mathscr{F} \ \forall \ k$ which implies  $\bigcup_k A_k^\mathsf{c}$ and this complement is also in $\mathscr{F}$
+\end{proof}
+
+\begin{definition}{\textbf{Measurable Space}}
+	If $\mathscr{F}$ is a $\sigma$-algebra of subsets of $\Omega$, $(\Omega, \mathscr{F})$ is said to be a measurable space. If $A$ is a set in $\mathscr{F}$, we say that $A$ is $\mathscr{F}$-measurable (or measurable w.r.t. $\mathscr{F}$)
+\end{definition}
+
+\begin{definition}{\textbf{Measure}}
+	Let $\bar{\mathbb R} := \mathbb R \cup \{-\infty, \infty\}$ be the extended real line and let $(\Omega, \mathscr{F})$ be a measurable space. t is said that a function $\mu: \mathscr{F} \rightarrow \bar{\mathbb R}$ is a measure over $(\Omega, \mathscr{F})$ if
+	\begin{enumerate}[I.]
+		\item $\mu(\emptyset) = 0$
+		\item $\mu(A) \geq 0\ \forall \ A \in \mathscr{F} $
+		\item $\mu$ is $\sigma$-additive: If $\{A_k\}_{k=1}^{\infty}$ is a set of disjoint events in $\mathscr{F}$ ($A_i \cap A_j = \emptyset \ \forall \ i \neq j$), 
+		\begin{equation*}
+			\bigcup_{k=1}^{\infty} \mu(A_k) = \mu(\sum_{k=1}^{\infty} A_k)
+		\end{equation*}
+	\end{enumerate}
+\end{definition}
+
+If this last definition holds true then, $(\Omega, \mathscr{F}, \mu)$ is said to be a \textbf{measure space}. $\mu(A)$ is the measure of $A\in\mathscr{F}$. Furthermore, if $\mu(\Omega) < \infty$ then, $\mu$ is said to be a finite measure. Lastly, if  $\mu(\Omega) = 1$ then, $\mu$ is said to be a probability.\\
+
+If $\mu$ is a probability then, $\mu \equiv \mathbb{P}$ is said to be a probability space. We can formalize this definition as follows:
+
+\begin{definition}{\textbf{Kolmogorov's Axiom System}}
+	An ordered triple $(\Omega, \mathscr{F}, \mathbb{P})$ where
+	\begin{itemize}
+		\item $\Omega$ is a set of points $\omega$
+		\item $\mathscr{F}$ is a $\sigma$-algebra of subsets of $\Omega$
+		\item $\mathbb P$ is a probability on $\mathscr{F}$
+	\end{itemize}
+	is called a \textbf{probability space} or \textbf{model} (of an experiment)
+\end{definition}
 \newpage
 \nocite{*}
 \bibliography{ref}
