@@ -252,8 +252,40 @@ If $\mu$ is a probability then, $\mu \equiv \mathbb{P}$ is said to be a probabil
 	\end{equation}
 \end{definition}
 
+\begin{definition}\label{dist_func}
+	Consider the event $\{X < x\} := X^{-1}(-\infty, x]$. The function $F_X: \mathbb{R} \rightarrow [0, 1]$ defined as:
+	\begin{equation}
+		F_X(x) := \mathbb{P}\{X \leq x\}
+	\end{equation}
+	is known as the \textbf{distribution function} of the random variable $X$.
+\end{definition}
+
+Furthermore, a probability distribution function has the following properties:
+\begin{itemize}
+	\item For $x \leq y$ then, $F_X(x) \leq F_X(y)$
+	\item $\lim\limits_{x\to\infty} F_X(x) = 1$ and $\lim\limits_{x\to - \infty} F_X(x) = 0$
+	\item $F_X$ is right-continuous, meaning that $\lim\limits_{y\to x^+} F_X(y) = F_X(x)$ for every $x \in \mathbb{R}$
+\end{itemize}
+
+\begin{definition}
+	A random variable $X$ is said to be \textbf{absolutely continuous} is there exists a nonnegative borel-measurable function $f: \mathbb{R}\rightarrow\mathbb{R}$ such that 
+	\begin{equation}
+		F_X(x) = \int_{-\infty}^{x} f(t) dt
+	\end{equation}
+\end{definition}
+
+The function $f$ is known as the \textbf{probability density function} of the random variable $X$.
+
+\section{Lebesgue Integrals and Expectations}
+
+% Left to add:
+%	- Lesbesgue Integral, Expectations and changes of measure, randon-nikodym
+%	- Stochastic Processes: a collection of random variables index by a set space T
+
+
 \chapter{A Primer on Option Pricing}
-\chapter{Brownian Motion}
+\chapter{Brownian Motion and Random Walks}
+
 \chapter{Stochastic Calculus}
 \chapter{The Black-Scholes-Merton Formula}
 \chapter{Pricing Under Real Market Conditions}
