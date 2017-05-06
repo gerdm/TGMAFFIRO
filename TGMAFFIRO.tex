@@ -20,6 +20,14 @@
 \usepackage{amsfonts}
 \usepackage{amsthm} % For proofs
 
+
+
+%% Defining mathematical environments
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{remark}{Remark}[chapter]
+\newtheorem{proposition}{Proposition}[chapter]
+
+
 %%%% COMMANDS %%%%
 % sigma-algebra
 \newcommand{\salg}{\sigma\text{-algebra}}
@@ -108,12 +116,12 @@ Financial instruments comprise a wide array of products. Each one of these serve
 
 \subsection{Bonds}
 
-According to the SEC,
+According to the Securities and Exchange Commission (SEC),
 \begin{displayquote}
 ``A bond is a debt obligation, like an IOU. Investors who buy corporate bonds are lending money to the company issuing the bond. In return, the company makes a legal commitment to pay interest on the principal and, in most cases, to return the principal when the bond comes due, or matures.''
 \end{displayquote}
 
-Bond can be issued either by a corporation or by a government. Its main function is to raise capital for the issuer of the bond, known as the \textbf{debtor}, who promises a payment to the buyer of the bond, or as the \textbf{creditor} or the \textbf{bondholder}. The amount of money to be paid at the time of maturity is the \textbf{nominal value} or the \textbf{principal} of the bond.\\
+A bond can be issued either by a corporation or by a government. Its main function is to raise capital for the issuer of the bond, known as the \textbf{debtor}, who promises a payment to the buyer of the bond, or as the \textbf{creditor} or the \textbf{bondholder}. The amount of money to be paid at the time of maturity is the \textbf{nominal value} or the \textbf{principal} of the bond.\\
 
 In addition, bonds may or may not pay an interest on the nominal of the bond. In the former case, this is known as a \textbf{coupon bearing bond}, while the latter is referred to as the \textbf{zero coupon bond}.
 
@@ -141,11 +149,15 @@ Two important concepts emerge for a financial institution interested in covering
  
  One clever trader realizes that he can borrow, for three months, the current price of the stock, buy the stock, and pay the interested the bank imposes plus the nominal three months from now. If the value of the nominal plus interest is greater than the price for which the bank is selling this derivative, the trader can short-sell the stock, invest the amount received and enter the contract.\\
  
-  Three months from now the trader must pay the price of the contract, which he can do since the amount he invested in the bank is greater than the price of the contract. Also, he can return the stock he shorted since the bank will give it to him, thus making a riskless profit.\\
- 
+  Three months from now the trader must pay the price of the contract, which he can do since the amount he invested in the bank is greater than the price of the contract. Also, he can return the stock he shorted since the bank will give it to him, thus making a riskless profit.
+  
+\newpage
+
 Although the bank decided cover its position in order to fulfill its future obligation, the price it gave the contract was such that the trader made a profit without taking any risk from it. Strictly speaking, the bank \textbf{hedged} its position and the trader made an \textbf{arbitrage}.\\
 
-This simple example presents the key ideas to take account whenever we try to price any derivative. By replicating what the trader did, the bank would be hedged and would not incur in anyone making an arbitrage. Composing an effective hedge may not be so easy for every contract. Consider a derivative that provides to the buyer the option to buy a stock at a future date and at a predetermined price. What we would like is to know the present value of this derivative, known as as the premium, such that it allow us for an effective hedge and prevent anyone from making an arbitrage.\\
+This simple example presents the key ideas to take account whenever we try to price any derivative. By replicating what the trader did, the bank would be hedged and would not incur in anyone making an arbitrage. Composing an effective hedge may not be so easy for every contract.\\
+
+Consider a derivative that provides to the buyer the option to buy a stock at a future date and at a predetermined price. What we would like is to know the present value of this derivative, known as as the premium, such that it allow us for an effective hedge and prevent anyone from making an arbitrage.\\
 
 At maturity date, the payoff for the option will be
 
@@ -153,7 +165,7 @@ At maturity date, the payoff for the option will be
 	\max\{S-K, 0\}
 \end{equation}
 
-This contract is known as an European Option.
+This contract is known as an European Call Option.
 
 %% Importing Call payoff from images folder
 \begin{figure}[h]
@@ -162,14 +174,13 @@ This contract is known as an European Option.
 	\caption{European Call Payoff}
 \end{figure}
 
+\newpage
+
 The knowledge and tools we currently have can only take us so far as to know the price for this derivative. For us to effectively price this \textbf{option}, we will need tools to explain the random movements of stocks in pursuance of the desired premium.
 
 \chapter{Probability Theory}
 
 \section{Measurable Spaces}
-\newtheorem{definition}{Definition}[chapter]
-\newtheorem{remark}{Remark}[chapter]
-
 \begin{definition}{\textbf{Algebra}}
 	Let $\Omega$ be a set of points $\omega$. A system $\mathscr{A}$ of subsets of $\Omega$ is an Algebra if:
 	\begin{enumerate}[I.]
@@ -218,7 +229,7 @@ Definition \ref{borel_sigma_alg} is the smallest $\salg$ that contains all open 
 \end{definition}
 
 \begin{definition}{\textbf{Measure}}
-	Let $\bar{\mathbb R} := \mathbb R \cup \{-\infty, \infty\}$ be the extended real line and let $(\Omega, \mathscr{F})$ be a measurable space. t is said that a function $\mu: \mathscr{F} \rightarrow \bar{\mathbb R}$ is a measure over $(\Omega, \mathscr{F})$ if
+	Let $\bar{\mathbb R} := \mathbb R \cup \{-\infty, \infty\}$ be the extended real line and let $(\Omega, \mathscr{F})$ be a measurable space. It is said that a function $\mu: \mathscr{F} \rightarrow \bar{\mathbb R}$ is a measure over $(\Omega, \mathscr{F})$ if
 	\begin{enumerate}[I.]
 		\item $\mu(\emptyset) = 0$
 		\item $\mu(A) \geq 0\ \forall \ A \in \mathscr{F} $
@@ -253,7 +264,7 @@ If $\mu$ is a probability then, $\mu \equiv \mathbb{P}$ is said to be a probabil
 \end{definition}
 
 \begin{definition}\label{dist_func}
-	Consider the event $\{X < x\} := X^{-1}(-\infty, x]$. The function $F_X: \mathbb{R} \rightarrow [0, 1]$ defined as:
+	Consider the event $\{X \leq x\} := X^{-1}(-\infty, x]$. The function $F_X: \mathbb{R} \rightarrow [0, 1]$ defined as:
 	\begin{equation}
 		F_X(x) := \mathbb{P}\{X \leq x\}
 	\end{equation}
@@ -282,10 +293,48 @@ The function $f$ is known as the \textbf{probability density function} of the ra
 %	- Lesbesgue Integral, Expectations and changes of measure, randon-nikodym
 %	- Stochastic Processes: a collection of random variables index by a set space T
 
+\chapter{Random Walks and Brownian Motion}
+
+\section{Random Walks}
+As stated in the first chapter, the behavior of stocks in financial markets behaves stochastically. We cannot be certain of the value that any stock will take some future time, no matter how small the future time-interval is.\\
+
+Consider a more simple example of a stochastic process: Suppose that two players (A and B) toss an even coin $d$ times, one toss for every unit of time\footnote{Note that this unit of time can be one second, one day, 5 minutes, etc.}. Whenever tails land, A will pay B \$1. On the contrary, A will receive \$1 from B. Suppose further that we decide to model how much did A won (or lost) after $n$ tosses. To do so, we define the following:
+
+\begin{definition}\label{srwalk}
+	Let $\{X_j\}_{j\geq0}$ be a set of i.i.d. random variables such that $\mathbb{P}(X_i = \pm 1) = \frac{1}{2}$; $i \geq 1$. Define $M_0 = 0$ and
+	\[M_n := \sum_{k=1}^n X_k \ \forall \ k \in \mathbb{N}\] 
+	The process $\{M_d\}_{d\geq 0}$ is known as a \textbf{symmetric random walk}
+\end{definition}
+
+%% Importing symmetric random walk figure
+\begin{figure}[h]
+	\centering
+	\includestandalone{images/symmetric_random_walk}
+	\caption{Symmetric Random Walk}
+\end{figure}
+
+Definition \ref{srwalk} captures what we intended to model. From the outset of the game, both players start with with \$0 and, as the game progresses, whichever amount A wins, B looses it. These type of games, for which whatever one players wins, the other looses it are called \textbf{Zero-sum games}.\\
+
+From here on we can start forming questions about the intrinsic behavior of the game. 
+
+\begin{proposition}\label{expectation_srw}
+	The expectation of a symmetric random walk is 0.
+\end{proposition}
+
+\begin{proof}
+	Let $n \in \mathbb{N}$ then,
+	\begin{align}
+	\mathbb{E}(M_n) &= \mathbb{E}\left[X_0 + \sum_{i=1}^d X_i\right] \nonumber \\
+				    &= \mathbb{E}[X_0] + \sum_{i=1}^d \mathbb{E}\left[X_i\right] \label{srw_jump}\\
+				    &= 0 + n  \left( 1 \cdot \frac{1}{2} + (-1) \cdot \frac{1}{2}\right) \nonumber
+	\end{align}
+\end{proof}
+
+Note That eq. \ref{srw_jump} is true because $X_0$ is a constant, and $X_i$, $i \geq 1$ are all i.i.d. random variables. Also, after a large number of times for which the game is played we expect to break even. Nobody would win or loose once we played a large number of times\footnote{In fact, according to Law of Large Number, we would expect to break even after a number so large that it approaches to infinity.}\\
+
+This simple process can be transformed into a process that takes $n$ steps between any two units of time. This new process
 
 \chapter{A Primer on Option Pricing}
-\chapter{Brownian Motion and Random Walks}
-
 \chapter{Stochastic Calculus}
 \chapter{The Black-Scholes-Merton Formula}
 \chapter{Pricing Under Real Market Conditions}
