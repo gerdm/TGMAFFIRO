@@ -313,7 +313,7 @@ Consider a more simple example of a stochastic process: Suppose that two players
 	\caption{Symmetric Random Walk}
 \end{figure}
 
-Definition \ref{srwalk} captures what we intended to model. From the outset of the game, both players start with with \$0 and, as the game progresses, whichever amount A wins, B looses it. These type of games, for which whatever one players wins, the other looses it are called \textbf{Zero-sum games}.\\
+Definition \ref{srwalk} captures what we intended to model. From the outset, both players start with with \$0 and, as the game progresses, whichever amount A wins, B looses it. These type of games, for which whatever one players wins, the other looses it are called \textbf{Zero-sum games}.\\
 
 From here on we can start forming questions about the intrinsic behavior of the game. 
 
@@ -332,27 +332,65 @@ From here on we can start forming questions about the intrinsic behavior of the 
 
 Note That eq. \ref{srw_jump} is true because $X_0$ is a constant, and $X_i$, $i \geq 1$ are all i.i.d. random variables. Also, after a large number of times for which the game is played we expect to break even. Nobody would win or loose once we played a large number of times\footnote{In fact, according to Law of Large Number, we would expect to break even after a number so large that it approaches to infinity.}\\
 
-This type of process is also known as a fair-game. This is because what one would expect to win at any given future point in time is dependent on the amount that one has today. In other words, if both of the players start with a P\&L of \$0, then they would not expect, after a large amount of games\footnote{mathmatically speaking, the expectation of the game is zero in the sense that, as the number of games tends to infinity, the return of any of the players turn to zero}, to earn any more money that what they started with: \$0.
+This type of process is also known as a fair-game. This is because what one would expect to win at any given future point in time is dependent on the amount that one has today. In other words, if both of the players start with a P\&L of \$0, then they would not expect, after a large amount of games\footnote{Mathematically speaking, the expectation of the game is zero in the sense that, as the number of games tends to infinity, the average P\&L for any of the players turn to zero} to earn any more money than what they started with: \$0.\\
 
 To see why, consider the following proposition
+
 \begin{proposition}
 	The simple random walk is a martingale for $k < \ell$
 \end{proposition}
 
 \begin{proof}
-	
+	\begin{align*}
+				\mathbb{E}[M_\ell|\mathscr{F}_k] &= \mathbb{E}[(M_\ell - M_k) + M_k | \mathscr{F}_k] \\
+				&= \mathbb{E}[(M_\ell - M_k) | \mathscr{F}_k] + \mathbb{E}[M_k | \mathscr{F}_k] \\
+				&= \mathbb{E}[M_\ell - M_k] + M_k\\
+				&= M_k
+	\end{align*}
 \end{proof}
 
-This simple process can be transformed into a process that takes $n$ steps between any two units of time. This new process is more alike to be the model of a financial asset that changes its value more than once between any two units of time.
+This shows that the expected value of a game at a future time is a martingale. No matter the point in time in the future that we are referring to. The value that we would expect to have is the one that we have today. This does not mean that the game has more information, on the contrary, this shows that the only \textit{useful} information is the one we have today. \\
+
 
 \section{Scaled Random Walk}
+The simple random walk can altered such that between any two units of time the process takes $n$ steps. This is more alike to be the behavior of the financial asset we desire to model. 
 
+\begin{definition}
+	We define the \textbf{scaled random walk} $W^n(t)$ as the following transformation of the simple random walk:
+	\[W^n(t) := \frac{1}{\sqrt{n}}M_{nt}\]
+\end{definition}
 
+\begin{remark}
+	The scaled random walk has the following properties:
+	\begin{itemize}
+		\item The increments are independent: \[\left(W^n(t_{i+1}) - W^n(t_{i})\right) \perp \left(W^n(t_{j+1}) - W^n(t_{j})\right) \ \forall \ i \neq j \ i, j \geq 1\]
+		\item For $s < t$ such that ($ns$ \& $nt$) $\in \mathbb{W}$, 
+		\begin{itemize}
+			\item $\mathbb{E}[W^n(t_{i}) - W^n(t_{j})] = 0$
+			\item $\mathbb{V}[W^n(t_{i}) - W^n(t_{j})] = t - s$
+		\end{itemize}
+		\item The Scaled random walk is a martingale: for all $k < \ell$
+		\[\mathbb{E}[W^n(\ell) | \mathscr{F}_k] = W^n(k)\]
+	\end{itemize}
+\end{remark}
+
+One complication arises from this model in the modeling of a financial asset, that of choosing the partition the model. Consider fig. \ref{scaled_random_walk}, it shows sample paths for different partitions of time. As the number of partition increases, the number of ways a symmetric random walk can take increases. \\
+
+%%% Scaled Random Walk figure
+\begin{figure}[h]
+	\label{scaled_random_walk}
+	\centering
+	\includestandalone{images/scaled_random_walk}
+	\caption{Scaled Random Walk}
+\end{figure}
+
+One possible alternative to the symmetric random walk is to assume that the asset moves at infinitesimal units of time. 
 
 \chapter{A Primer on Option Pricing}
 \chapter{Stochastic Calculus}
 \chapter{The Black-Scholes-Merton Formula}
 \chapter{Pricing Under Real Market Conditions}
+
 \newpage
 \nocite{*}
 \bibliography{ref}
