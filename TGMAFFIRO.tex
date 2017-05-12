@@ -1,5 +1,9 @@
 \documentclass[11pt]{report}
 
+%%%%%%%%%%%%%%%%%%%
+% Theoretical Grounds And Market Adaptations of Financial Fx Options
+%%%%%%%%%%%%%%%%%%%
+
 % Packages to use
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -19,12 +23,14 @@
 \usepackage{amssymb}
 \usepackage{amsfonts}
 \usepackage{amsthm} % For proofs
-
+\usepackage{mathtools} % For arrows with limits underneath
+\usepackage[toc,page]{appendix} %For appendices
 
 
 %% Defining mathematical environments
 \newtheorem{definition}{Definition}[chapter]
 \newtheorem{remark}{Remark}[chapter]
+\newtheorem{theorem}{Theorem}
 \newtheorem{proposition}{Proposition}[chapter]
 
 
@@ -33,6 +39,9 @@
 \newcommand{\salg}{\sigma\text{-algebra}}
 % borel sigma-algebra
 \newcommand{\borelsalg}{\mathscr{B}(\mathbb{R})}
+% Insert only one number in the "align" environment
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
 
 % Document properties
 \title{Theoretical Grounds and Market Adaptations of Financial Fx and Interest Rate Options}
@@ -374,7 +383,7 @@ The simple random walk can altered such that between any two units of time the p
 	\end{itemize}
 \end{remark}
 
-One complication arises from this model in the modeling of a financial asset, that of choosing the partition the model. Consider fig. \ref{scaled_random_walk}, it shows sample paths for different partitions of time. As the number of partition increases, the number of ways a symmetric random walk can take increases. Conversely, if there is only one partition, the process will only reach 1 or -1.\\
+One complication arises from this model in the modeling of a financial asset, that of choosing the partition between any two units of time. Consider fig. \ref{scaled_random_walk}, it shows sample paths for different partitions of time. As the number of partition increases, the number of ways a symmetric random walk can take increases. Conversely, if there is only one partition, the process will reach either 1 or -1. With this in mind, the question of whether there exists a \textit{correct} partition may seem partial and confined if we desire to generalize his model to any financial market\\
 
 %%% Scaled Random Walk figure
 \begin{figure}[h]
@@ -385,10 +394,70 @@ One complication arises from this model in the modeling of a financial asset, th
 \end{figure}
 
 
+To further develop this theory we we will start assuming that the market moves in continuous time. This, as we will later see, allow us to use more sophisticated methods to work with the process while generalizing this to any market we desire. This assumptions leads to an important theorem that will help keep building the model for the financial asset.
+
+\begin{theorem}
+	Let $t \geq 0$. As $n \to \infty$, the distribution of the scaled random walk $W^n(t)$ converges to a normal distribution with mean $0$ and variance $t$.
+\end{theorem}
+
+\begin{proof}
+	We will show that the moment generating function for a symmetric random walk tends to the moment generation function of a normal with $\mu = 0$ and $\sigma^2 = t$.\\
+	
+	Denote $\varphi_n(u)$ and $\varphi(u)$ the moment generating functions of the symmetric random walk and the normal distribution respectively. We will then show that
+	
+	\[\varphi_n(u) \xrightarrow[n \to \infty]{} \varphi(u)\] \\
+	
+	Where $\varphi_n(u) = \left(\frac{1}{2}e^{\frac{u}{\sqrt{n}}} + \frac{1}{2}e^{-\frac{u}{\sqrt{n}}}\right)^{nt}$ and $\varphi(u) = e^{\frac{1}{2}u^2t}$ (Refer to appendix \ref{mgf_srm} and \ref{mgf_nd} for the derivation of both moment generating functions)
+	
+\end{proof}
+
 \chapter{A Primer on Option Pricing}
 \chapter{Stochastic Calculus}
 \chapter{The Black-Scholes-Merton Formula}
 \chapter{Pricing Under Real Market Conditions}
+
+\begin{appendices}
+\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+\makeatletter
+\addtocontents{toc}{%
+  \begingroup
+  \let\protect\l@chapter\protect\l@section
+  \let\protect\l@section\protect\l@subsection
+}
+\makeatother
+  \chapter{Aditional Proofs}
+  \section{MGF for the symmetric random walk} \label{mgf_srm}
+  \section{MGF for the the normal distribution} \label{mgf_nd}
+  \begin{proposition}
+  	The moment generating function for a random variable $X \sim N(0, t)$ is $\varphi_x(u) = e^{\frac{1}{2}u^2t}$
+  \end{proposition}
+  
+  \begin{proof}
+  	Recall, for $X \sim N(0, t)$,
+  	\[f_X(x) = \frac{1}{\sqrt{2\pi t}}e^{-\frac{x^2}{2t}} \]  	
+  	
+  	Now, 
+  	\begin{align*}
+  		\mathbb{E}[e^{ux}] &= \int_{-\infty}^{\infty} e^{ux} f(x) dx \\
+  		&= \frac{1}{\sqrt{2\pi t}}e^{ux - \frac{x^2}{2t}} \numberthis \label{mgf_eq1} \\
+  	\end{align*}
+  	Note that
+  	\begin{align*}
+  		ux - \frac{x^2}{2t} &= \frac{2utx - x^2}{2t}\\
+  		&= \frac{-1}{2t}\left[x^2 -2(ut)x + (ut)^2 - (ut)^2\right]\\
+  		&= \frac{-1}{2t}\left[x - ut\right]^2 + \frac{1}{2}u^2t
+  	\end{align*}
+  	Thus, \ref{mgf_eq1} becomes
+  	\begin{equation}
+  		e^{\frac{1}{2}u^2t} \frac{1}{\sqrt{2\pi t}}\int_{-\infty}^{\infty}e^{-\frac{\left(x - ut\right)^2}{2t}} = e^{\frac{1}{2}u^2t}
+  	\end{equation}
+  \end{proof}
+  \chapter{Second appendix}
+  \section{First section}
+  \section{Second section}
+\addtocontents{toc}{\endgroup}
+\end{appendices}
+
 
 \newpage
 \nocite{*}
