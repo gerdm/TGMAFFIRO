@@ -26,7 +26,6 @@
 \usepackage{mathtools} % For arrows with limits underneath
 \usepackage[toc,page]{appendix} %For appendices
 
-
 %% Defining mathematical environments
 \newtheorem{definition}{Definition}[chapter]
 \newtheorem{remark}{Remark}[chapter]
@@ -315,7 +314,7 @@ Consider a more simple example of a stochastic process: Suppose that two players
 	The process $\{M_d\}_{d\geq 0}$ is known as a \textbf{symmetric random walk}
 \end{definition}
 
-%% Importing symmetric random walk figure
+%%% Importing symmetric random walk figure %%%
 \begin{figure}[h]
 	\centering
 	\includestandalone{images/symmetric_random_walk}
@@ -385,7 +384,7 @@ The simple random walk can altered such that between any two units of time the p
 
 One complication arises from this model in the modeling of a financial asset, that of choosing the partition between any two units of time. Consider fig. \ref{scaled_random_walk}, it shows sample paths for different partitions of time. As the number of partition increases, the number of ways a symmetric random walk can take increases. Conversely, if there is only one partition, the process will reach either 1 or -1. With this in mind, the question of whether there exists a \textit{correct} partition may seem partial and confined if we desire to generalize his model to any financial market\\
 
-%%% Scaled Random Walk figure
+%%% Scaled Random Walk figure %%%
 \begin{figure}[h]
 	\label{scaled_random_walk}
 	\centering
@@ -396,7 +395,7 @@ One complication arises from this model in the modeling of a financial asset, th
 
 To further develop this theory we we will start assuming that the market moves in continuous time. This, as we will later see, allow us to use more sophisticated methods to work with the process while generalizing this to any market we desire. This assumptions leads to an important theorem that will help keep building the model for the financial asset.
 
-\begin{theorem}
+\begin{theorem}\label{th:convergence_rw}
 	Let $t \geq 0$. As $n \to \infty$, the distribution of the scaled random walk $W^n(t)$ converges to a normal distribution with mean $0$ and variance $t$.
 \end{theorem}
 
@@ -409,7 +408,37 @@ To further develop this theory we we will start assuming that the market moves i
 	
 	Where $\varphi_n(u) = \left(\frac{1}{2}e^{\frac{u}{\sqrt{n}}} + \frac{1}{2}e^{-\frac{u}{\sqrt{n}}}\right)^{nt}$ and $\varphi(u) = e^{\frac{1}{2}u^2t}$ (Refer to appendix \ref{mgf_srm} and \ref{mgf_nd} for the derivation of both moment generating functions)
 	
+	Now,
+	\begin{equation*}
+		\varphi_n(u) = \left(\frac{1}{2}e^{\frac{u}{\sqrt{n}}} + \frac{1}{2}e^{-\frac{u}{\sqrt{n}}}\right)^{nt}
+	\end{equation*}
+	Then,
+	\begin{equation}
+		\ln\varphi_n(u) = nt\cdot\ln\left(\frac{1}{2}e^{\frac{u}{\sqrt{n}}} + \frac{1}{2}e^{-\frac{u}{\sqrt{n}}}\right)
+	\end{equation}
+	Let $x = \frac{1}{\sqrt{n}}$, and take the limit as $n$ tends to infinity,
+	\begin{align*}
+		\lim_{n\to\infty}\ln\varphi_n(u) &= \ln\lim_{n\to\infty}\varphi_n(u) \tag*{($\varphi_n$ is cont. at $n > 0$) }\\
+		&= \lim_{x\to 0} \frac{t\ln\left(\frac{1}{2}e^{ux}+ \frac{1}{2}e^{-ux}\right)}{x^2}
+		\intertext{Applying l'H\^opital's rule}
+		&= \frac{t}{2}\lim_{x\to 0}\frac{\frac{u}{2}e^{ux} - \frac{u}{2}e^{-ux}}{x}
+		\intertext{Applying l'H\^opital's rule again}
+		&= \frac{t}{2}\lim_{x\to 0}\left(\frac{u^2}{2}e^{ux} + \frac{u^2}{2}e^{-ux} \right)
+	\end{align*}
+	
+	$\therefore \lim_{n\to\infty}\varphi_n(u) = e^{\frac{1}{2}u^2t}$
 \end{proof}
+
+Theorem \ref{th:convergence_rw} shows the distribution that follows if we assume that the market moves continuously. The process that emerges from this assumption  
+
+%%% Scaled Random Walk figure %%%
+\begin{figure}[h]
+	\label{arithmetic_brownian_motion}
+	\centering
+	\includestandalone{images/standard_bw}
+	\caption{Sample Paths of a Brownian Motion}
+\end{figure}
+
 
 \chapter{A Primer on Option Pricing}
 \chapter{Stochastic Calculus}
