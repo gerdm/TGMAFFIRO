@@ -1,8 +1,8 @@
 \documentclass[11pt]{report}
 
-%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Theoretical Grounds And Market Adaptations of Financial Fx Options
-%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Packages to use
 \usepackage{amsmath}
@@ -116,7 +116,7 @@ In a financial market, participants have various reasons to trade. On the one ha
     \caption{Sell-side of the market. \aycite{harris}}
 \end{table}
 
-We can classify the buy-side and the sell-side as those who require liquidity and as those who provide it. \textbf{Liquidity} is an important concept in financial markets. Although the term itself can be regarded in many ways, we will denote it as the likelihood of trading constraint to units available, price offered and time.
+We can classify the buy-side and the sell-side as those who require liquidity and as those who provide it. \textbf{Liquidity} is a critical concept in financial markets. Although the term itself can be regarded in many ways, we will denote it as the likelihood of trading constraint to units available of the asset to buy (or sell), price offered, and time.
 
 % TODO: Add present information about the current state of these products.
 \section{The Instruments}
@@ -151,7 +151,7 @@ Risk is an inherent aspect of financial markets. For bonds, for example, risk is
 
 From a financial institution's perspective interested in selling derivative contracts, their intention may not be to speculate with the products they sell, as to where the price of the contracts may go, but rather to sell this a service. This forces the financial institution to eliminate all possible risk associated with the contract. Furthermore, the price they sell this contract for must be such that no one else may take a riskless profit from it.\\
 
-Two important concepts emerge for a financial institution interested in covering the needs of the sell-side. That of \textbf{hedging} and \textbf{arbitrage}. Although we will define it more rigourously in upcoming chapters, the following will motivate the idea of what we want to achieve\\
+Two essential concepts emerge for a financial institution interested in covering the needs of the sell-side. That of \textbf{hedging} and \textbf{arbitrage}. Although we will define it more rigourously in upcoming chapters, the following will motivate the idea of what we want to achieve\\
 
  Consider the following example. Suppose we are bank willing to sell a stock three months from now. Since we do not know the price the stock will take three months from now and we are not interested in taking risk selling this \textit{derivative}, we wrongly decide to price this derivative as the current price of the stock plus an arbitrary fee, thus allowing us to deliver the stock three months from now and get a profit from it.\\
  
@@ -374,7 +374,7 @@ The simple random walk can altered such that between any two units of time the p
 		\item The increments are independent: \[\left(W^n(t_{i+1}) - W^n(t_{i})\right) \perp \left(W^n(t_{j+1}) - W^n(t_{j})\right) \ \forall \ i \neq j \ i, j \geq 1\]
 		\item For $s < t$ such that ($ns$ \& $nt$) $\in \mathbb{W}$, 
 		\begin{itemize}
-			\item $\mathbb{E}[W^n(t_{i}) - W^n(t_{j})] = 0$
+			\item $\mathbb{E}[W^n(t_{i}) - W^n(t_{j})] = 0$ 
 			\item $\mathbb{V}[W^n(t_{i}) - W^n(t_{j})] = t - s$
 		\end{itemize}
 		\item The Scaled random walk is a martingale: for all $k < \ell$
@@ -393,7 +393,7 @@ One complication arises from this model in the modeling of a financial asset, th
 \end{figure}
 
 
-To further develop this theory we we will start assuming that the market moves in continuous time. This, as we will later see, allow us to use more sophisticated methods to work with the process while generalizing this to any market we desire. This assumptions leads to an important theorem that will help keep building the model for the financial asset.
+To further develop this theory we we will start assuming that the market moves in continuous time. This, as we will later see, allow us to use more sophisticated methods to work with the process while generalizing this to any market we desire. This assumptions leads to an important theorem that will help us keep building the model for the financial asset.
 
 \begin{theorem}\label{th:convergence_rw}
 	Let $t \geq 0$. As $n \to \infty$, the distribution of the scaled random walk $W^n(t)$ converges to a normal distribution with mean $0$ and variance $t$.
@@ -429,16 +429,40 @@ To further develop this theory we we will start assuming that the market moves i
 	$\therefore \lim_{n\to\infty}\varphi_n(u) = e^{\frac{1}{2}u^2t}$
 \end{proof}
 
-Theorem \ref{th:convergence_rw} shows the distribution that follows if we assume that the market moves continuously. The process that emerges from this assumption  
+Theorem \ref{th:convergence_rw} shows the distribution that follows at every time $t$ if we assume that the market moves continuously. The process that emerges from this assumption is paramount in what follows. In fact, this process has a name of its own.
 
-%%% Scaled Random Walk figure %%%
+\section{Brownian Motion}
+\begin{definition}\label{def:brownian_motion}
+	A \textbf{Brownian Motion} with parameter $\sigma^2$ is a stochastic process $\{B_t \in \mathbb{R}:t\geq 0\}$ that satisfies the following properties:
+	\begin{itemize}
+		\item $B_0 = 0$
+		\item The trajectories are continuous
+		\item The process has independent increments
+		\item $\forall \ 0 \leq s \leq t \Longrightarrow (B_t - B_s) \sim N(0, \sigma^2(s - t)$
+	\end{itemize}
+\end{definition}
+
+The Brownian Motion is a first desirable result since it allow us to work in continuous time. Furthermore, it allow us to measure a probability at every $t\geq 0$ with tools already known for continuous random variables. 
+
+%%% Arithmetic Brownian Motion Image %%%
 \begin{figure}[h]
-	\label{arithmetic_brownian_motion}
 	\centering
-	\includestandalone{images/standard_bw}
+	\label{fig:Brownian_Motion}
+	\includegraphics[width=0.9\textwidth]{images/bm.pdf}	
 	\caption{Sample Paths of a Brownian Motion}
 \end{figure}
 
+Although it is computationally impossible to properly simulate a Brownian Motion, it can be approximated via the scaled random walk for big $n$. Figure \ref{fig:Brownian_Motion} shows this idea approximating a brownian motion with $n=9000$. In pursuance of pricing a European call option, we will see that it is possible to arrive at a closed form solution for these types of option. Nevertheless, more complex products may or may not have a closed form solution\\
+
+To further develop the properties of the Brownian Motion, let us define the following:
+\begin{definition}\label{def:quadratic_variation}
+	Let $f$ be a real-valued function defined over $[0, T]$. Consider a partition $\Pi= \{t_i\}_{i=0}^{n}$ over $[0, T]$ where $t_0 = 0$, $t_n = T$, and $||\Pi|| = \max_j\{t_{j+1} - t_j\}$. We define the \textbf{Quadratic Variation} of $f$ up to time $T$ as
+	\[
+		[f, f]_T := \lim_{||\Pi|| \to 0} \sum_{t=0}^{n-1}\left[f(t_{j+1}) - f(t_{j})\right]^2
+	\]
+\end{definition}
+
+The quadratic variation for a function $f$ mentions the amount of total quadratic oscillation inside $D = [0,T]$. It can be shown (see \aycite{shreve}) that for $f \in C^1(D)$, $[f,f]_T = 0$.
 
 \chapter{A Primer on Option Pricing}
 \chapter{Stochastic Calculus}
