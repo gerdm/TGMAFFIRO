@@ -66,7 +66,9 @@
 \tableofcontents
 
 \chapter{Financial Markets}
-Throughout modern history, the value of \textit{anything} has been of great importance. In order to set the value of exchange in a transaction, any two parties involved must agree in the current worth of whatever it is that will be transacted, and take opposite sides of interest in it\footnote{In other words, one party wants to buy (obtain) and the other to sell (get rid off)}. Furthermore, these two parties require to communicate, and be able to find one another or a third whose worth of the \textit{something} at play favors any one of them more.\\
+% TODO: set context: why is it true that te value of something has been of great importance?
+
+Throughout modern history, the value of \textit{anything} has been of great importance. For any two members taking opposite sides of a desired object\footnote{In other words, one member wants to buy (obtain) and the other member to sell (get rid off)}, an exchange takes place if they both agree on the current worth of the object to exchange. For this to happen, both members must be able to find one another. It may also be the case for any of them two to find a third whose worth of the object at play favors any one of them more.\\
 
 A \textbf{security}, is the epitome of a tradable object in financial markets. We define a security as an instrument that either represents ownership or that derives its value from a commodity. We say that a security is \textbf{fungible} if any unit of the instrument is economically indistinguishable from all other units. That is, whomever buys (or sells) the instrument can pay (or receive) any unit at the same price at a given point in time.\\
 
@@ -406,7 +408,7 @@ To further develop this theory we we will start assuming that the market moves i
 	
 	\[\varphi_n(u) \xrightarrow[n \to \infty]{} \varphi(u)\] \\
 	
-	Where $\varphi_n(u) = \left(\frac{1}{2}e^{\frac{u}{\sqrt{n}}} + \frac{1}{2}e^{-\frac{u}{\sqrt{n}}}\right)^{nt}$ and $\varphi(u) = e^{\frac{1}{2}u^2t}$ (Refer to appendix \ref{mgf_srm} and \ref{mgf_nd} for the derivation of both moment generating functions)
+	Where $\varphi_n(u) = \left(\frac{1}{2}e^{\frac{u}{\sqrt{n}}} + \frac{1}{2}e^{-\frac{u}{\sqrt{n}}}\right)^{nt}$ and $\varphi(u) = e^{\frac{1}{2}u^2t}$ (Refer to appendix \ref{proof:mgf_srm} and \ref{proof:mgf_nd} for the derivation of both moment generating functions)
 	
 	Now,
 	\begin{equation*}
@@ -433,14 +435,18 @@ Theorem \ref{th:convergence_rw} shows the distribution that follows at every tim
 
 \section{Brownian Motion}
 \begin{definition}\label{def:brownian_motion}
-	A \textbf{Brownian Motion} with parameter $\sigma^2$ is a stochastic process $\{B_t \in \mathbb{R}:t\geq 0\}$ that satisfies the following properties:
+	A \textbf{Brownian Motion} with parameter $\sigma^2$ is a stochastic process $\{W_t \in \mathbb{R}:t\geq 0\}$ that satisfies the following properties:
 	\begin{itemize}
-		\item $B_0 = 0$
+		\item $W_0 = 0$
 		\item The trajectories are continuous
 		\item The process has independent increments
-		\item $\forall \ 0 \leq s \leq t \Longrightarrow (B_t - B_s) \sim N(0, \sigma^2(s - t)$
+		\item $\forall \ 0 \leq s \leq t \Longrightarrow (W_t - W_s) \sim N(0, \sigma^2(s - t)$
 	\end{itemize}
 \end{definition}
+
+\begin{remark}
+	A Brownian Motion with $\sigma^2 = 1$ is known as a Standard Brownian Motion.
+\end{remark}
 
 The Brownian Motion is a first desirable result since it allow us to work in continuous time. Furthermore, it allow us to measure a probability at every $t\geq 0$ with tools already known for continuous random variables. 
 
@@ -462,7 +468,75 @@ To further develop the properties of the Brownian Motion, let us define the foll
 	\]
 \end{definition}
 
-The quadratic variation for a function $f$ mentions the amount of total quadratic oscillation inside $D = [0,T]$. It can be shown (see \aycite{shreve}) that for $f \in C^1(D)$, $[f,f]_T = 0$.
+
+The quadratic variation for a function $f$ represents the amount of total quadratic oscillation inside $D = [0,T]$. It can be shown (see \aycite{shreve}) that for $f \in C^1(D)$, $[f,f]_T = 0$.\\
+
+%TODO: Is it relevant to prove this?
+Asking how much does $W(t)$ oscillates between $D$ posses the question of whether $W(t) \in C^1(D)$. The answer is no, since the Brownian Motion is a continuous, nowhere-differentiable function. A consequence of this last remark is the following.
+
+\begin{theorem}\label{th:quadratic_brownian_motion}
+	Let $W(t)$ be a Standard Brownian Motion, then $[W, W]_T = T \ \forall \ T \geq 0$ almost surely.
+\end{theorem}
+
+\begin{proof}
+	Let $\Pi = \{t_j\}_{j=0}^n$ be a partition of $[0, T]$. Define the sample quadratic variation corresponding to this partition to be
+	
+	\[
+		Q_{\Pi} = \sum_{j=0}^{n-1}(W_{t_{j+1}} - W_{t_{j}})^2
+	\]
+	
+	To show that $[W, W]_T = T$, is equivalent to show that, as $n\to\infty$, $\mathbb{E}[Q_\Pi] = T$ and $\mathbb{V}(Q_\Pi) = 0$ almost surely.\\
+	
+	First note that, by definition of the Standard Brownian Motion,
+	\begin{equation}\label{eq:exp_change_bm}
+		\mathbb{E}[(W_{t_{j+1}} - W_{t_{j}})^2] = \mathbb{V}[W_{t_{j+1}} - W_{t_{j}}] = t_{j+1} - t_{j}
+	\end{equation}
+	
+	\begin{equation}\label{eq:var_change_bm}
+		\mathbb{V}([W_{t_{j+1}} - W_{t_{j}}]^2) = 2(t_{j+1} - t_{j})^2
+	\end{equation}
+	
+	Refer to appendix \ref{proof:var_change_bm} for a derivation of eq. \ref{eq:var_change_bm}.\\
+	
+	Consider now
+	\begin{align*}
+		\mathbb{E}[Q_\Pi] &= \mathbb{E}[\sum_{j=0}^{n-1}(W_{t_{j+1}} - W_{t_{j})}^2] \\
+		&= \sum_{j=0}^{n-1}\mathbb{E}[(W_{t_{j+1}} - W_{t_{j}})^2] \\
+		&= \sum_{j=0}^{n-1}(t_{j+1} - t_{j}) \\
+		&= T
+	\end{align*}
+	
+	Now,
+	\begin{align*}
+		\mathbb{V}(Q_T) &= \mathbb{V}(\sum_{j=0}^{n-1}(W_{t_{j+1}} - W_{t_{j}})^2) \shortintertext{By independence,}
+		&=  \sum_{j=0}^{n-1}\mathbb{V}((W_{t_{j+1}} - W_{t_{j}})^2)\\
+		&= \sum_{j=0}^{n-1} 2(t_{j+1} - t_{j})^2 \\
+		&\leq 2 \sum_{j=0}^{n-1}||\Pi||\cdot (t_{j+1} - t_{j}) \numberthis
+	\end{align*}
+	
+	Finally, note that
+	
+	\begin{equation}
+		\lim_{||\Pi||\to 0} 2 \sum_{j=0}^{n-1}||\Pi||\cdot (t_{j+1} - t_{j}) = \lim_{||\Pi||\to 0} 2 ||\Pi|| T = 0
+	\end{equation}
+	$\therefore \lim_{||\Pi||\to 0} Q_\Pi = T$ almost surely.
+\end{proof}
+
+We state theorem \ref{th:quadratic_brownian_motion} informally by writing
+\begin{equation}
+	dW^2 = dt
+\end{equation}
+
+Two final consequences of \ref{th:quadratic_brownian_motion} are the following
+\begin{equation}\label{eq:wt_0}
+	\lim_{||\Pi||\to 0} \sum_{j=0}^{n-1}(W_{t_{j+1}} - W_{t_{j}})(t_{j+1} - t_{j}) = 0
+\end{equation}
+
+\begin{equation}\label{eq:w2_0}
+	\lim_{||\Pi||\to 0} \sum_{j=0}^{n-1}(t_{j+1} - t_{j})^2 = 0
+\end{equation}
+
+Equations \ref{eq:wt_0} and \ref{eq:w2_0} are informally expressed as $dW_tdt = 0$ and $dt^2 = 0$
 
 \chapter{A Primer on Option Pricing}
 \chapter{Stochastic Calculus}
@@ -479,8 +553,23 @@ The quadratic variation for a function $f$ mentions the amount of total quadrati
 }
 \makeatother
   \chapter{Aditional Proofs}
-  \section{MGF for the symmetric random walk} \label{mgf_srm}
-  \section{MGF for the the normal distribution} \label{mgf_nd}
+  \section{MGF for the symmetric random walk} \label{proof:mgf_srm}
+  \begin{proposition}
+  	The moment generating function of an scaled random walk $W^n(t)$ is $\varphi_{W^n}(u) = (\frac{1}{2}e^{\frac{u}{\sqrt{n}}} + \frac{1}{2}e^{-\frac{u}{\sqrt{n}}})^{nt}$
+  \end{proposition}
+  
+  \begin{proof}
+  By definition, the moment generating function for a scaled random walk is
+  \begin{align*}
+  	\mathbb{E}[e^{uW^n(t)}] &= \mathbb{E}(e^{\frac{u}{\sqrt{n}}M_{nt}})\\
+  	&= \mathbb{E}\left[\exp\left(\frac{u}{\sqrt{n}}\sum_{k=0}^{nt}X_k\right)\right]\\
+  	\shortintertext{Since $X_i \perp X_j \ \forall \ i \neq j$}
+  	&= \prod_{k=1}^{nt}\mathbb{E}\left[\exp\left(\frac{u}{\sqrt{n}}X_k\right)\right]\\
+  	&= \left[\frac{1}{2}\exp\left(\frac{u}{\sqrt{n}}\cdot 1 \right) + \frac{1}{2}\exp\left(\frac{u}{\sqrt{n}}\cdot -1\right) \right]^{nt}\\
+  \end{align*}
+  \end{proof}
+  
+  \section{MGF for the the normal distribution} \label{proof:mgf_nd}
   \begin{proposition}
   	The moment generating function for a random variable $X \sim N(0, t)$ is $\varphi_x(u) = e^{\frac{1}{2}u^2t}$
   \end{proposition}
@@ -488,15 +577,14 @@ The quadratic variation for a function $f$ mentions the amount of total quadrati
   \begin{proof}
   	Recall, for $X \sim N(0, t)$,
   	\[f_X(x) = \frac{1}{\sqrt{2\pi t}}e^{-\frac{x^2}{2t}} \]  	
-  	
-  	Now, 
   	\begin{align*}
+  	\shortintertext{Now,}
   		\mathbb{E}[e^{ux}] &= \int_{-\infty}^{\infty} e^{ux} f(x) dx \\
   		&= \frac{1}{\sqrt{2\pi t}}e^{ux - \frac{x^2}{2t}} \numberthis \label{mgf_eq1} \\
   	\end{align*}
-  	Note that
   	\begin{align*}
-  		ux - \frac{x^2}{2t} &= \frac{2utx - x^2}{2t}\\
+	  	\shortintertext{Note that}
+  		ux - \frac{x^2}{2t} &= \frac{2utx 	- x^2}{2t}\\
   		&= \frac{-1}{2t}\left[x^2 -2(ut)x + (ut)^2 - (ut)^2\right]\\
   		&= \frac{-1}{2t}\left[x - ut\right]^2 + \frac{1}{2}u^2t
   	\end{align*}
@@ -505,9 +593,26 @@ The quadratic variation for a function $f$ mentions the amount of total quadrati
   		e^{\frac{1}{2}u^2t} \frac{1}{\sqrt{2\pi t}}\int_{-\infty}^{\infty}e^{-\frac{\left(x - ut\right)^2}{2t}} = e^{\frac{1}{2}u^2t}
   	\end{equation}
   \end{proof}
-  \chapter{Second appendix}
-  \section{First section}
-  \section{Second section}
+  
+  \section{Derivation of equation \ref{eq:var_change_bm}} \label{proof:var_change_bm}
+  \begin{proposition}
+  Let $W_t$ be a standard Brownian Motion, 
+  \begin{equation*}
+  	\mathbb{V}(\left[W_{t_j+1} - W_{t_j}\right]^2) = 2\left(t_{j+1} - t_j\right)^2 \ \forall \ j \geq 0 
+  \end{equation*}
+  
+  \begin{proof}
+  \begin{align*}
+  	\mathbb{V}(\left[W_{t_j+1} - W_{t_j}\right]^2) &= \mathbb{E}\left[\left(W_{t_j+1} - W_{t_j}\right)^2 - \mathbb{E}\left[W_{t_j+1} - W_{t_j}\right]^2\right] \\
+  	&= \mathbb{E}\left[\left(W_{t_j+1} - W_{t_j}\right)^2 -\left(t_{j+1} - t_j\right)\right]^2 \\
+  	&= \mathbb{E}\left[\left(W_{t_j+1} - W_{t_j}\right)^4  - 2\left(W_{t_j+1} - W_{t_j}\right)^2 \left(t_{j+1} - t_j\right) + \left(t_{j+1} - t_j\right)^2\right] \\
+  	\intertext{Where $\mathbb{E}\left[\left(W_{t_j+1} - W_{t_j}\right)^4\right] = 3(t_{j+1} - t_j)^2$}
+   	&= 2(t_{j+1} - t_j)^2
+  \end{align*}
+  \end{proof}
+  \end{proposition}
+  
+
 \addtocontents{toc}{\endgroup}
 \end{appendices}
 
