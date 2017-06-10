@@ -32,6 +32,7 @@
 \newtheorem{remark}{Remark}[chapter]
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}{Proposition}[chapter]
+\newtheorem{corollary}{Corollary}[chapter]
 
 
 %%%% COMMANDS %%%%
@@ -45,6 +46,10 @@
 \newcommand{\ind}{\mathbbm{1}}
 % F: Sigma Algebra
 \newcommand{\salgF}{\mathscr{F}}
+% Expectation of X w.r.t measure P
+\newcommand{\expec}[2][P]{\mathbb{E}_{\mathbb{#1}}\left[#2\right]}
+% Probability P
+\newcommand{\Pm}{\mathbb{P}}
 % Insert only one number in the "align" environment
 \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
 
@@ -258,10 +263,10 @@ Definition \ref{borel_sigma_alg} is the smallest $\salg$ that contains all open 
 
 If this last definition holds true then, $(\Omega, \salgF, \mu)$ is said to be a \textbf{measure space}. $\mu(A)$ is the measure of $A\in\salgF$. Furthermore, if $\mu(\Omega) < \infty$ then, $\mu$ is said to be a finite measure. Lastly, if  $\mu(\Omega) = 1$ then, $\mu$ is said to be a probability.\\
 
-If $\mu$ is a probability then, $\mu \equiv \mathbb{P}$ is said to be a probability space. We can formalize this definition as follows:
+If $\mu$ is a probability then, $\mu \equiv \Pm$ is said to be a probability space. We can formalize this definition as follows:
 
 \begin{definition}{\textbf{Kolmogorov's Axiom System}}
-	An ordered triple $(\Omega, \salgF, \mathbb{P})$ where
+	An ordered triple $(\Omega, \salgF, \Pm)$ where
 	\begin{itemize}
 		\item $\Omega$ is a set of points $\omega$
 		\item $\salgF$ is a $\salg$ of subsets of $\Omega$
@@ -281,7 +286,7 @@ If $\mu$ is a probability then, $\mu \equiv \mathbb{P}$ is said to be a probabil
 \begin{definition}\label{dist_func}
 	Consider the event $\{X \leq x\} := X^{-1}(-\infty, x]$. The function $F_X: \RNums \rightarrow [0, 1]$ defined as:
 	\begin{equation}
-		F_X(x) := \mathbb{P}\{X \leq x\}
+		F_X(x) := \Pm\{X \leq x\}
 	\end{equation}
 	is known as the \textbf{distribution function} of the random variable $X$.
 \end{definition}
@@ -304,7 +309,7 @@ The function $f$ is known as the \textbf{probability density function} of the ra
 
 \section{Lebesgue Integrals and Expectations}
 \begin{definition}
-	Let $(\Omega, \salgF, \mu)$ be a measure space and $X: \Omega \to \RNums an \salgF-measurable function$. Denote $\ind_A(\omega)$ the indicator function of $\omega$ in a set $A$. That is,
+	Let $(\Omega, \salgF, \mu)$ be a measure space and $X: \Omega \to \RNums$ an $\salgF-measurable function$. Denote $\ind_A(\omega)$ the indicator function of $\omega$ in a set $A$. That is,
 	\[
 	\ind_A(\omega) = 
 		\begin{cases}
@@ -398,8 +403,7 @@ The function $f$ is known as the \textbf{probability density function} of the ra
 	Let $X \leq Y$ then, $Y - X \geq 0$ is an $\salgF$-measurable function. By proposition \ref{prop:nnlmsf},
 	\begin{equation}
 		Y - X \geq 0 \implies \int_\Omega (Y - X) d\mu \geq 0
-	\end{equation}
-	
+	\end{equation}	
 \end{proof}
 
 \begin{definition}
@@ -409,8 +413,151 @@ The function $f$ is known as the \textbf{probability density function} of the ra
 	\end{equation}
 \end{definition}
 
+If $X$ is any measurable function, we define the negative and positive parts of $X$:
+\begin{align}
+	X^+ := \max\{X(\omega), 0\} \\
+	X^- := \max\{-X(\omega), 0\}
+\end{align}
 
-% TODO: Stochastic Processes: a collection of random variables index by a set space T
+Thus, $X = X^+ - X^-$, and $|X| = X^+ + X^-$. Since both parts of $X$ are positive, their integrals are well defined.\\
+
+If both $\int_\Omega X^+ d\mu$ and $\int_\Omega X^- d\mu$ are finite, we say that $X$ is integrable w.r.t. $\mu$. By linearity, 
+
+\begin{equation}
+	\int_\Omega X d\mu = \int_\Omega X^+ d\mu - \int_\Omega X^- d\mu.
+\end{equation}
+
+And,
+
+\begin{equation}
+	\int_\Omega |X| d\mu = \int_\Omega X^+ d\mu + \int_\Omega X^- d\mu.
+\end{equation} \\
+
+We will denote by $L_1 \equiv L_1(\Omega, \salgF, \mu)$ the family of integrable functions w.r.t. $\mu$. Note that $X \in L_1$ if and only if $|X| \in L_1$. i.e.,
+
+\begin{align}
+	\int_\Omega |X| d\mu = \int_\Omega X^+ d\mu + \int_\Omega X^- d\mu < \infty
+\end{align}
+
+If $A \in \salgF$, we define
+\begin{equation}
+	\int_A X d\mu := \int_\Omega X \ind_A d\mu
+\end{equation}
+
+%TODO: Left for the reader to do?
+
+\begin{proposition} \label{prop:lebesgue_integral_props}
+	For any $X$, $Y$ $\salgF$-measurable functions in $L_1$, $A$, $B$ members of $\salgF$, it can be proven that:
+	\begin{equation}
+		X \geq 0 \implies \int_\Omega X d\mu \geq 0 \\
+	\end{equation}
+	
+	If $X \leq Y$ (monotonicity),
+	\begin{equation}
+		\int_\Omega X d\mu \leq \int_\Omega Y d\mu
+	\end{equation}
+	
+	If $A \subseteq B$ and $X \geq 0$,
+	\begin{equation}
+		\int_A X d\mu \leq \int_B X d\mu
+	\end{equation}
+	
+	If $\alpha$, $\beta$ $\in \RNums$ (linearity),
+	\begin{equation}
+	\int_\Omega (\alpha X + \beta Y) d\mu = \alpha \int_\Omega X d\mu + \beta \int_\Omega Y d\mu
+	\end{equation}
+\end{proposition}
+
+\begin{theorem} \label{th:salg-lebesgue-int}
+	Let $(\Omega, \salgF, \mu)$ be a measurable space, and $X$ a nonnegative $\salgF$-measurable function. If $X: \Omega \to \RNums$, the mapping from $\Omega \to [0, \infty]$ given by $A \to \int_A f d\mu$ is $\sigma$-additive, i.e.
+	\begin{equation}
+		\int_A X d\mu = \sum_{i=1}^{\infty}\int_{A_i} X d\mu
+	\end{equation}
+	For disjoint sets $\{A_i\}_{i\geq1}$
+\end{theorem}
+
+For a proof of theorem \ref{th:salg-lebesgue-int}, see \aycite{applebaum}. This last theorem is important in the sense that the treatment of lebesgue integrals can be taken as a measure. One consequence of this last one is the following corollary
+
+\begin{corollary} \label{cor:partition_limit_integral}
+	Let $X: \Omega \to \RNums$ a nonnegative measurable function and $\{E_n\}_{n\geq 1}$ a sequence of sets in $\Omega$ such that $E_n \subseteq E_{n+1}$ for every $n \in \mathbb{N}$. Denote $E = \bigcup_{n=1}^{\infty} E_n$. Then,
+	\begin{equation}
+		\int_E X d\mu = \lim_{n\to \infty} \int_{E_n} X d\mu
+	\end{equation}
+\end{corollary}
+
+\begin{proof}
+	Denote $A_1$ = $E_1$, and $A_n = E_n - E_{n-1} \ \forall \ n \geq 2$. The set $A_n$ is a sequence of disjoint sets. Furthermore, $E = \bigcup_{i=1}^\infty A_i$ and $E_n = \bigcup_{i=1}^n A_i \ \forall \ n \in \mathbb{N}$.\\
+	
+	By corollary \ref{cor:partition_limit_integral},
+	
+	\begin{align*}
+		\int_E X d\mu &= \int_{\bigcup_{i=1}^{\infty} A_i} X d\mu \\
+		&= \sum_{i=1}^{\infty} \int_{A_i} X d\mu \\
+		&= \lim_{n\to\infty} \sum_{i=1}^{n} \int_{A_i} X d\mu \\ 
+		&= \lim_{n\to\infty} \int_{\bigcup_{i=1}^{n} A_i} X d\mu \\
+		&= \lim_{n\to\infty} \int_{E_n} X d\mu
+	\end{align*}
+\end{proof}
+
+\begin{theorem} (\textbf{Monotone Convergence Theorem})
+Let $\{X_n\}_{n\geq 1}$ be a sequence of nonnegative functions where $X_i: \Omega \to \RNums$ such that $X_n \leq X_{n+1}$ $\forall \ n \in \mathbb{N}$. Let $X$ be another random variable such that $X_n \xrightarrow[n \to \infty]{}X$ then,
+\begin{equation}
+	\int_\Omega X d\mu = \lim_{n\to \infty} \int_\Omega X_n d\mu
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+	Since $X = \sup_{n\in \mathbb{N}}X_n$, by monotonicity,
+	\begin{equation*}
+		\int_\Omega X_1 d\mu \leq \int_\Omega X_1 d\mu \leq \ldots \leq \int_\Omega X d\mu
+	\end{equation*}
+	Thus,
+	\begin{equation*}
+		\lim_{n\to\infty}\int_\Omega X_n d\mu \leq \int_\Omega X d\mu
+	\end{equation*}
+	
+	To show the reverse inequality, let $0 \leq h \leq X$ a a simple function and let $c \in (0,1)$. Denote $A_n = \{\omega\in\Omega \ | \ X_n(\omega) \geq c\cdot h(\omega)\}$.\\
+	
+	Since $\{X_n\}_{n\geq 1}$ is a sequence of nondecreasing functions, $A_n \subseteq A_{n+1}$ $\forall$  $n\in\mathbb{N}$. One final property of $\{A_n\}$ is the fact that $\bigcup_nA_n = \Omega$.	This last property can be shown by noticing that each $A_n$ has two possible outcomes to determine whether any $\omega\in\Omega$ is inside $A_n$:\\
+	
+	Consider $h(\omega)=0$. In that case, any $A_k = \{\omega\in\Omega \ | \  X_k(\omega) \geq 0\}$ will capture every element $\omega$. Consider now $h(\omega) \neq 0$. In this case, we do not know for which $k\in\mathbb{N}$ will $c\cdot h \leq X_k$, nonetheless, since $X_n \to X$, for some $k\in\mathbb N$, $X_k(\omega) \leq c\cdot h(\omega)$.
+	
+	By proposition \ref{prop:lebesgue_integral_props},
+	\begin{equation}
+		\lim_{n\to\infty}\int_\Omega X_n d\mu \geq \int_\Omega X_n d\mu \geq \int_{A_n} X_n d\mu \geq \int_{A_n} c\cdot h d\mu
+	\end{equation}
+	
+	As $A_n$ is an increasing sequence,
+	\begin{equation}
+		\lim_{n\to\infty}\int_\Omega X_n d\mu \geq \lim_{n\to\infty}\int_{A_n} c\cdot h d\mu
+	\end{equation}
+	
+	Taking account of the linearity property for lebesgue integrals and corollary \ref{cor:partition_limit_integral},
+	\begin{equation}
+  		\lim_{n\to\infty}\int_{A_n} c\cdot h d\mu = c\int_{\Omega} \cdot h d\mu
+	\end{equation}
+	
+	Choosing an arbitrary $c \in (0,1)$, set $c= 1 - \frac{1}{k}$ and let $k\to\infty$,
+	\begin{equation}
+  		\lim_{n\to\infty}\int_\Omega X_n d\mu \geq \lim_{k\to\infty} \left(1 - \frac{1}{k}\right)\int_{\Omega} h d\mu = \int_{\Omega} \cdot h d\mu
+	\end{equation}
+	
+	Choosing and arbitrary $h$, we find that
+	\begin{equation}
+  		\lim_{n\to\infty}\int_\Omega X_n d\mu \geq \sup\left\{\int_{\Omega} h d\mu\right\} = \int_\Omega X d\mu
+	\end{equation}
+\end{proof}
+
+\begin{definition} (\textbf{Expectation})
+	Let $X$ be a random variable in $(\Omega, \salgF, \Pm)$. The integral of $X$ w.r.t. the measure $\Pm$ is known as the expectation of $X$ w.r.t. $\Pm$. 
+	\begin{equation}
+		\expec{X} := \int_\Omega X d\Pm
+	\end{equation}
+\end{definition}
+
+\section{Conditional Expectations}
+\section{Martingales}
+\section{Stochastic Processes}
 
 \chapter{Random Walks and Brownian Motion}
 
@@ -420,7 +567,7 @@ As stated in the first chapter, the behavior of stocks in financial markets beha
 Consider a more simple example of a stochastic process: Suppose that two players (A and B) toss an even coin $d$ times, one toss for every unit of time\footnote{Note that this unit of time can be one second, one day, 5 minutes, etc.}. Whenever tails land, A will pay B \$1. On the contrary, A will receive \$1 from B. Suppose further that we decide to model how much did A won (or lost) after $n$ tosses. To do so, we define the following:
 
 \begin{definition}\label{srwalk}
-	Let $\{X_j\}_{j\geq0}$ be a set of i.i.d. random variables such that $\mathbb{P}(X_i = \pm 1) = \frac{1}{2}$; $i \geq 1$. Define $M_0 = 0$ and
+	Let $\{X_j\}_{j\geq0}$ be a set of i.i.d. random variables such that $\Pm(X_i = \pm 1) = \frac{1}{2}$; $i \geq 1$. Define $M_0 = 0$ and
 	\[M_n := \sum_{k=1}^n X_k \ \forall \ k \in \mathbb{N}\] 
 	The process $\{M_d\}_{d\geq 0}$ is known as a \textbf{symmetric random walk}
 \end{definition}
