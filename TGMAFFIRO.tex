@@ -16,6 +16,7 @@
 \usepackage{url} % insert Urls in bib
 \usepackage{tikz} % images
 \usepackage{pgfplots} %images
+\usepgfplotslibrary{groupplots}
 \usepackage{standalone} % Load tikz from library 
 \usepackage{mathrsfs} %Pretty fonts
 \usepackage{enumerate} %Roman numerals
@@ -185,22 +186,51 @@ At maturity date, the payoff for the option will be
 	\max\{S-K, 0\}
 \end{equation}
 
-This contract is known as an European Call Option.
-
 %% Importing Call payoff from images folder
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centering
 	\includestandalone{images/Call}
 	\caption{European Call Payoff}
 \end{figure}
 
-\newpage
+This contract is known as an European Call Option.\\
 
-The knowledge and tools we currently have can only take us so far as to know the price for this derivative. For us to effectively price this \textbf{option}, we will need tools to explain the random movements of stocks in pursuance of the desired premium.
+The knowledge and tools we currently have can only take us so far as to know the price of this derivative. For us to effectively price this \textbf{option}, we require tools to analyze and model the random movements of financial securities in pursuance of the desired premium.
 
 \chapter{Probability Theory}
+In the following chapter we present an overview of the theory of probability required to motivate and comprehend the rest of this work. We will present the intuition behind the definitions to use and the outcome of some proven theorems.
 
 \section{Measurable Spaces}
+Suppose we wanted to compute the probability of a fair coin landing two times heads. To do so, we may start by inquiring about all possible outcomes to arise. In this case,
+
+\[
+	\{HH\}, \ \{HT\}, \ \{TH\}, \ \{TT\}.
+\]
+
+The outcome of any possible event in a certain experiment is known as the \textbf{universe} of the experiment, and we denote it with $\Omega$. We can think about every element in this space ($\{\{HH\}, \ \{HT\}, \ \{TH\}, \ \{TT\}, \ \Omega\}$) as a possible question to ask. As we can see, the elements we currently have to answer questions about the outcomes of the experiment is constraint. For example, we are not taking account of the event in which tails do not land two times in a row: $\{TH, HT, HH\}$
+
+
+HH
+HT
+TH
+TT
+
+HH TH
+HH HT
+HT TH
+HH TT
+TH TT
+HT TT
+
+TH HT HH
+TH HT TT
+HH TH TT
+
+omega
+empty
+
+
+
 \begin{definition}{\textbf{Algebra}}
 	Let $\Omega$ be a set of points $\omega$. A system $\mathscr{A}$ of subsets of $\Omega$ is an Algebra if:
 	\begin{enumerate}[I.]
@@ -342,6 +372,15 @@ The function $f$ is known as the \textbf{probability density function} of the ra
 		\int_\Omega X(\omega) d\mu(\omega) := \sum_{i=1}^{n}x_i\mu(A_i)
 	\end{equation}
 \end{definition}
+
+
+%% Simple Functions aproximations %%
+\begin{figure}[h]
+	\centering
+	\label{fig:simple_approx_sine}
+	\includegraphics[width=0.9\textwidth]{images/simple_sine.pdf}	
+	\caption{Sample Paths of a Brownian Motion}
+\end{figure}
 
 %% Nonnegative lebesgue measure for nonnegative simple functions
 \begin{proposition} \label{prop:nnlmsf}
