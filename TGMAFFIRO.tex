@@ -587,7 +587,7 @@ Let $\{X_n\}_{n\geq 1}$ be a sequence of nonnegative functions where $X_i: \Omeg
 \end{proof}
 
 \begin{definition} (\textbf{Expectation})
-	Let $X$ be a random variable in $(\Omega, \salgF, \Pm)$. The integral of $X$ w.r.t. the measure $\Pm$ is known as the expectation of $X$ w.r.t. $\Pm$. 
+	Let $X$ be a random variable on $(\Omega, \salgF, \Pm)$. The integral of $X$ w.r.t. the measure $\Pm$ is known as the expectation of $X$ w.r.t. $\Pm$. 
 	\begin{equation}
 		\mathbb{E}_{\Pm}[X] := \int_\Omega X d\Pm
 	\end{equation}
@@ -596,7 +596,7 @@ Let $\{X_n\}_{n\geq 1}$ be a sequence of nonnegative functions where $X_i: \Omeg
 
 
 \begin{theorem}\label{h1_borel}
-		Let $X$ be a random variable in $(\Omega, \salgF, \Pm)$ and $h: \RNums \to \RNums$ a Borel-measurable function. Let $F_X$ be the distribution of $X$ and $P_X(B):= \Pm[X^{-1}(B)]$ for every $B \in \borelsalg$ the probability measure induced by $X$ on $(\RNums, \borelsalg)$ then,
+		Let $X$ be a random variable on $(\Omega, \salgF, \Pm)$ and $h: \RNums \to \RNums$ a Borel-measurable function. Let $F_X$ be the distribution of $X$ and $P_X(B):= \Pm[X^{-1}(B)]$ for every $B \in \borelsalg$ the probability measure induced by $X$ on $(\RNums, \borelsalg)$ then,
 		\begin{equation}
 			h \in L_1(\Omega, \salgF, \mathbb{P}) \iff h \in L_1(\RNums, \borelsalg, P_X)
 		\end{equation}
@@ -605,30 +605,6 @@ Let $\{X_n\}_{n\geq 1}$ be a sequence of nonnegative functions where $X_i: \Omeg
 To prove theorem \ref{h1_borel} we will make use of the so called ``\textbf{standard machine}'' approach. This approach will let us prove the theorem for simple functions then, by linearity, it is true for simple function and finally, we conclude by the monotone convergence theorem.\\
 
 \begin{proof}	
-	Suppose $h$ is the indicator function for some $B \in \borelsalg$ then, $\ind_B(X(\omega))$ if and only if $\omega \in X^{-1}(B)$. As a consequence,
-	\[
-		\int_\Omega \ind_B(X()) d\Pm = \mathbb{P}(X^{-1}(B)) = P_X(B) = \int_\RNums \ind_B dP_X(x)
-	\]
-	
-	If it is true for indicator functions, it follows true for simple functions. To observe this, let $\{B_i\}_{i=1}^n \subseteq \borelsalg$ and $\{a_i\}_{i=1}^{n} \in \RNums$. For which we write,
-	
-	\begin{align*}
-		& a_1\int_\Omega \ind_{B_1}d\Pm + \ldots + a_n\int_\Omega \ind_{B_n}d\Pm\\
-		&= \sum_{i=1}^{n}a_i\int_\Omega \ind_{B_i} d\mathbb{P} \\
-		&= \sum_{i=1}^{n}a_i\int_\RNums \ind_{B_i}(x) dP_X \\
-		\intertext{By linearity}
-		&= \int_\RNums \sum_{i=1}^{n}a_i \ind_{B_i}(x) dP_X \\
-		&= \int_\RNums S_n dP_X \\
-	\end{align*}
-	Then it is true for simple functions.\\
-	
-	Finally, suppose $h$ is a nonnegative Borel-Measurable function then there exists a set $\{s_i\}_{i=1}^n$ of simple functions such that $0 \leq s_1 \leq \ldots \leq h$ for which $S_n \to h$ pointwise. By the theorem of monotone converge,
-	
-	\begin{align*}
-		E[h(X)] &= \mathbb{E}_{\Pm}\left[h(X)\right] \\
-				&= \mathbb{E}_{\Pm}\left[\lim_n (X)\right] \\
-				&= 
-	\end{align*}
 \end{proof}
 
 \begin{theorem}\textbf{Radon-Nikodym Theorem}
@@ -956,7 +932,6 @@ Equations \ref{eq:wt_0} and \ref{eq:w2_0} are informally expressed as $dW_tdt = 
 
 \addtocontents{toc}{\endgroup}
 \end{appendices}
-
 
 \newpage
 \nocite{*}
