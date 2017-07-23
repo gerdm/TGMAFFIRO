@@ -1,0 +1,62 @@
+\documentclass[../TGMAFFIRO]{subfiles}
+
+\begin{document}
+  \section{MGF for the symmetric random walk} \label{proof:mgf_srm}
+  \begin{proposition}
+  	The moment generating function of an scaled random walk $W^n(t)$ is $\varphi_{W^n}(u) = (\frac{1}{2}e^{\frac{u}{\sqrt{n}}} + \frac{1}{2}e^{-\frac{u}{\sqrt{n}}})^{nt}$
+  \end{proposition}
+  
+  \begin{proof}
+  By definition, the moment generating function for a scaled random walk is
+  \begin{align*}
+  	\mathbb{E}[e^{uW^n(t)}] &= \mathbb{E}(e^{\frac{u}{\sqrt{n}}M_{nt}})\\
+  	&= \mathbb{E}\left[\exp\left(\frac{u}{\sqrt{n}}\sum_{k=0}^{nt}X_k\right)\right]\\
+  	\shortintertext{Since $X_i \perp X_j \ \forall \ i \neq j$}
+  	&= \prod_{k=1}^{nt}\mathbb{E}\left[\exp\left(\frac{u}{\sqrt{n}}X_k\right)\right]\\
+  	&= \left[\frac{1}{2}\exp\left(\frac{u}{\sqrt{n}}\cdot 1 \right) + \frac{1}{2}\exp\left(\frac{u}{\sqrt{n}}\cdot -1\right) \right]^{nt}\\
+  \end{align*}
+  \end{proof}
+  
+  \section{MGF for the the normal distribution} \label{proof:mgf_nd}
+  \begin{proposition}
+  	The moment generating function for a random variable $X \sim N(0, t)$ is $\varphi_x(u) = e^{\frac{1}{2}u^2t}$
+  \end{proposition}
+  
+  \begin{proof}
+  	Recall, for $X \sim N(0, t)$,
+  	\[f_X(x) = \frac{1}{\sqrt{2\pi t}}e^{-\frac{x^2}{2t}} \]  	
+  	\begin{align*}
+  	\shortintertext{Now,}
+  		\mathbb{E}[e^{ux}] &= \int_{-\infty}^{\infty} e^{ux} f(x) dx \\
+  		&= \frac{1}{\sqrt{2\pi t}}e^{ux - \frac{x^2}{2t}} \numberthis \label{mgf_eq1} \\
+  	\end{align*}
+  	\begin{align*}
+	  	\shortintertext{Note that}
+  		ux - \frac{x^2}{2t} &= \frac{2utx 	- x^2}{2t}\\
+  		&= \frac{-1}{2t}\left[x^2 -2(ut)x + (ut)^2 - (ut)^2\right]\\
+  		&= \frac{-1}{2t}\left[x - ut\right]^2 + \frac{1}{2}u^2t
+  	\end{align*}
+  	Thus, \ref{mgf_eq1} becomes
+  	\begin{equation}
+  		e^{\frac{1}{2}u^2t} \frac{1}{\sqrt{2\pi t}}\int_{-\infty}^{\infty}e^{-\frac{\left(x - ut\right)^2}{2t}} = e^{\frac{1}{2}u^2t}
+  	\end{equation}
+  \end{proof}
+  
+  \section{Derivation of equation \ref{eq:var_change_bm}} \label{proof:var_change_bm}
+  \begin{proposition}
+  Let $W_t$ be a standard Brownian Motion, 
+  \begin{equation*}
+  	\mathbb{V}(\left[W_{t_j+1} - W_{t_j}\right]^2) = 2\left(t_{j+1} - t_j\right)^2 \ \forall \ j \geq 0 
+  \end{equation*}
+  
+  \begin{proof}
+  \begin{align*}
+  	\mathbb{V}(\left[W_{t_j+1} - W_{t_j}\right]^2) &= \mathbb{E}\left[\left(W_{t_j+1} - W_{t_j}\right)^2 - \mathbb{E}\left[W_{t_j+1} - W_{t_j}\right]^2\right] \\
+  	&= \mathbb{E}\left[\left(W_{t_j+1} - W_{t_j}\right)^2 -\left(t_{j+1} - t_j\right)\right]^2 \\
+  	&= \mathbb{E}\left[\left(W_{t_j+1} - W_{t_j}\right)^4  - 2\left(W_{t_j+1} - W_{t_j}\right)^2 \left(t_{j+1} - t_j\right) + \left(t_{j+1} - t_j\right)^2\right] \\
+  	\intertext{Where $\mathbb{E}\left[\left(W_{t_j+1} - W_{t_j}\right)^4\right] = 3(t_{j+1} - t_j)^2$}
+   	&= 2(t_{j+1} - t_j)^2
+  \end{align*}
+  \end{proof}
+  \end{proposition}
+\end{document}
