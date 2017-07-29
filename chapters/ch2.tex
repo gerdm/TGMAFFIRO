@@ -12,28 +12,6 @@ Suppose we wanted to compute the probability of a fair coin landing two times he
 
 The outcome of any possible event in a certain experiment is known as the \textbf{universe} of the experiment, and we denote it with $\Omega$. We can think about every element in this space ($\{\{HH\}, \ \{HT\}, \ \{TH\}, \ \{TT\}, \ \Omega\}$) as a possible question to ask. As we can see, the elements we currently have to answer questions about the outcomes of the experiment is constraint. For example, we are not taking account of the event in which tails do not land two times in a row: $\{TH, HT, HH\}$
 
-% TODO Finish explanation on sigma algebra as a form to ask question of the given data
-
-HH
-HT
-TH
-TT
-
-HH TH
-HH HT
-HT TH
-HH TT
-TH TT
-HT TT
-
-TH HT HH
-TH HT TT
-HH TH TT
-
-omega
-empty
-
-
 
 \begin{definition}{\textbf{Algebra}}
 	Let $\Omega$ be a set of points $\omega$. A system $\mathscr{A}$ of subsets of $\Omega$ is an Algebra if:
@@ -393,13 +371,83 @@ Let $\{X_n\}_{n\geq 1}$ be a sequence of nonnegative functions where $X_i: \Omeg
 	\end{equation}
 \end{proof}
 
+% TODO: Must writing about convergence a.e. and convergence in measure
+
+\begin{proposition} \label{prop:convergence_ae_measure}
+	If $f_n \to f$ a.e. then $f_n \to f$ in measure
+\end{proposition}
+
 \begin{theorem} \textbf{Bounded Convergence Theorem}
+	If the sequence $\{f_n\}_{n\geq 1}$ of measurable functions is uniformly bounded and if $f_n \to f$ in measure then,
+	\begin{equation}
+		\lim_{n\to\infty} \int_\Omega f_n = 	\int_\Omega \lim_{n\to\infty} f_n d\mu = \int_\Omega f d\mu
+	\end{equation}
 \end{theorem}
+
+\begin{proof}
+	First we note that
+	\[
+		|\int f_n d\mu - \int f d\mu| = |\int (f_n - f) d\mu| \leq \int| (f_n - f) | d\mu
+	\]
+	We now denote $g_n := f_n - f$. Thus, we are left to show that if $g_n \to 0$ in measure and $|g_n| \leq M$ then $\int |g_n| d\mu \to 0$. To prove this, consider the following partition
+	\[
+		\int|g_n| d\mu = \int_{|g_n| \leq \epsilon}|g_n| d\mu + \int_{|g_n| > \epsilon}|g_n| d\mu \ \forall \ \epsilon > 0.
+	\]
+	Where,
+	\[
+		\int_{|g_n| \leq \epsilon} |g_n| d\mu \leq \epsilon,
+	\]
+	and
+	\[
+		\int_{|g_n| > \epsilon} f_n d\mu \leq M\int_{|g_n| > \epsilon} d\mu = M\cdot\mu(\{\omega : |g_n(\omega)| > \epsilon\}).
+	\]
+	Then,
+	\begin{equation}
+		\int g_n d\mu \leq \epsilon + M\cdot\mu(\{\omega : |g_n(\omega)| > \epsilon\}).
+	\end{equation}
+	Taking limits we find that that
+	\[
+		\lim_{n\to\infty} |g_n| d\mu \leq \epsilon
+	\]
+	since $\{\omega : |g_n(\omega)| > \epsilon\}$ converges to an empty set as $n\to\infty$. This completes the proof since $\epsilon > 0$ is as small as desired.
+\end{proof}
 
 \begin{theorem} \textbf{Fatou's Lemma}
+If $\{f_n\}_{n\geq 1}$ is a sequence of nonnegative measurable functions such that $f_n \to f$ in measure. Then,
+\begin{equation}
+	\int\lim_{n\to\infty}\inf f_n d\mu = \int f d\mu \leq \lim_{n\to\infty}\inf\int f_n d\mu
+\end{equation}
 \end{theorem}
 
+\begin{proof}
+	Let $0 \leq g \leq f$, and define $h_n:= \min\{f_n, g\}$ then,
+	\[
+		\lim_{n\to\infty} h_n = g,
+	\]
+	since $h_n$ tends to $g$ a.e., by proposition \ref{prop:convergence_ae_measure}, $h_n \to g$ in measure. It follows by the bounded convergence theorem that
+	\begin{equation}
+		\lim \int h_n d\mu = \int \lim h_n d\mu = \int g d\mu
+	\end{equation}
+	Now, 
+	\[
+		\int h_n d\mu = \int \min\{g, f_n\} d\mu \leq \int f_n d	\mu \ \forall \ n.
+	\]
+	It follows that
+	\[
+		\int h_n d\mu \leq \inf\int f_n d\mu.
+	\]
+	Finally, taking limits,
+	\[
+		\lim_{n\to\infty} \int h_n d\mu = \int g d\mu \leq \lim_{n\to\infty}\inf \int f_n d\mu
+	\]
+	As $0 \leq g \leq f$ is arbitrary, choosing $g = f$ concretes the proof.
+\end{proof}
+
 \begin{theorem} \textbf{Dominated Convergence Theorem}
+If the sequence $\{f_n\}_{n\geq 1}$ is such that $f_n \to f$ in measure, and $|f_n| \leq g$ for measurable $g$, and all $n$, $\omega$ then,
+\begin{equation}
+	\lim_{n\to\infty}\int f_n d\mu = \int \lim_{n\to\infty} f_n d\mu  = \int f d\mu
+\end{equation}
 \end{theorem}
 
 
