@@ -1,7 +1,7 @@
 \documentclass[../TGMAFFIRO.tex]{subfiles}
 
 \begin{document}
-In the following chapter we present an overview of the theory of probability required to motivate and comprehend the rest of this work. We will present the intuition behind the definitions to use and the outcome of some proven theorems.
+In this first chapter we present an overview of the theory of probability and measure theory required to motivate the rest of this work. Remember from chapter one that we posed the question of the price of an option. In order to explain this random movement, we need to express what we mean with \textit{randomness} and the consequences of the universe that bears defining the universe as such.
 
 \section{Measurable Spaces}
 Suppose we wanted to compute the probability of a fair coin landing two times heads. To do so, we may start by inquiring about all possible outcomes to arise. In this case,
@@ -265,8 +265,6 @@ If $A \in \salgF$, we define
 \begin{equation}
 	\int_A X d\mu := \int_\Omega X \ind_A d\mu
 \end{equation}
-
-%TODO: Left for the reader to do?
 
 \begin{proposition} \label{prop:lebesgue_integral_props}
 	For any $X$, $Y$ $\salgF$-measurable functions in $L_1$, $A$, $B$ members of $\salgF$, it can be proven that:
