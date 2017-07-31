@@ -19,7 +19,6 @@
 \usepgfplotslibrary{groupplots}
 \usepackage{standalone} % Load tikz from library 
 \usepackage{mathrsfs} %Pretty fonts
-\usepackage{enumerate} %Roman numerals
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsfonts}
@@ -30,11 +29,11 @@
 \usepackage{subfiles}
 
 %% Defining mathematical environments
-\newtheorem{definition}{Definition}[chapter]
-\newtheorem{remark}{Remark}[chapter]
-\newtheorem{theorem}{Theorem}
-\newtheorem{proposition}{Proposition}[chapter]
-\newtheorem{corollary}{Corollary}[chapter]
+\newtheorem{definition}[equation]{Definition}
+\newtheorem{remark}[equation]{Remark}
+\newtheorem{theorem}[equation]{Theorem}
+\newtheorem{proposition}[equation]{Proposition}
+\newtheorem{corollary}[equation]{Corollary}
 
 
 %%%% COMMANDS %%%%
@@ -104,7 +103,7 @@
   \let\protect\l@chapter\protect\l@section
   \let\protect\l@section\protect\l@subsection
 }
-\makeatother
+\makeatother 
   \chapter{Aditional Proofs}
   \subfile{chapters/app_proofs}
   
