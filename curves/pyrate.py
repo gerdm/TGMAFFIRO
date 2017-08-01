@@ -25,10 +25,9 @@ class RateCurves(object):
         self.holidays = holidays
         self.pillars = self.compute_pillars()
         self.market_coupons = market_coupons
-        self.discount_rates = np.zeros(len(pillars))
+        self.discount_rates = np.zeros(len(self.pillars))
         self.days_to_pillar = np.array([(pillar - self.val_date).days
                                         for pillar in  self.pillars])
-        self.market_flows = dict()
         self.fitted_curve = False
         self.rate_curve = None
         
@@ -56,25 +55,22 @@ class RateCurves(object):
 
         if ((self.holidays is not None) and (end_date in self.holidays)) \
            or (weekday in [5,6]):
-            return forward_busdays(end_date, 1, self.holidays)
+           return self.forward_busdays(days + 1)
         else:
             return end_date
     
-    def length_flows(self, nflows):
+    def length_flows(self, nflows, save_periods=False):
         """
         Retrieve the start, end and number of days of "n" flows.
         """
-        start_periods = np.array([forward_busdays(self.val_date,
-                                  self.coupon_length * period, holidays)
+        start_periods = np.array([self.forward_busdays(self.coupon_length * period)
                                   for period in range(nflows)])
         
-        end_periods = np.array([forward_busdays(self.val_date,
-                                self.coupon_length * period, holidays)
+        end_periods = np.array([self.forward_busdays(self.coupon_length * period)
                                 for period in range(1, nflows + 1)])
 
         period_days = np.array([(end - start).days for
                                 start, end in zip(start_periods, end_periods)])
-
         return period_days
     
     # TODO: Add market conventions to compute the coupons 
@@ -119,6 +115,7 @@ class RateCurves(object):
     
     def fit_curve(self, i0=0):
         """
+        Fit the values of the curve
         """
         for ix, nflow in enumerate(self.number_flows):
             irate = self.estimate_pillar_discount_rate(nflow, i0)
