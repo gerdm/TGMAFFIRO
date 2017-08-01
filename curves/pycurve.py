@@ -4,6 +4,10 @@ from datetime import datetime, timedelta
 from scipy.optimize import minimize
 from scipy.interpolate import interp1d
 
+# TODO: * Add computation of discount factor given a date
+#       * Add computation of forward factor: F(t_k-1, t_k-1)
+#       * Add simple, compound and continous conventions; market conventions
+
 class RateCurves(object):
     def __init__(self, val_date, market_coupons,
                  number_flows, coupon_length, holidays=None):
