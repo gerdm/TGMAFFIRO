@@ -3,11 +3,13 @@
 \begin{document}
 	
 
-% TODO: write about what's to expect about this chapter. The first part
-% will relax riguourous assumptions in order to build an intuition of
-% how to get to the brownian motion from a simpe random walk.
-% The second part will prove some important elements of the brownian motion
-% finally, how to get to the geometric browianian motion
+% TODO: write about what's to expect about this chapter. 
+% 	*The first part will relax riguourous assumptions 
+% in order to build an intuition of the brownian motion as the limit of a random walk
+% 	* The second part will get into he details of L2 spaces and the connection with
+% the BM and the rest of the work
+% 	* The third and final part will prove some important components of the brownian motion
+% and the geometric brownian motion as an example of this.
 
 \section{Random Walks}
 As stated in the first chapter, the behavior of stocks in financial markets behaves stochastically. We cannot be certain of the value that any stock will take some future time, no matter how small the future time-interval is.\\
@@ -110,11 +112,7 @@ To further develop this theory we we will start assuming that the market moves i
 \begin{proof}
 	We will show that the moment generating function for a symmetric random walk tends to the moment generation function of a normal with $\mu = 0$ and $\sigma^2 = t$.\\
 	
-	Denote $\varphi_n(u)$ and $\varphi(u)$ the moment generating functions of the symmetric random walk and the normal distribution respectively. We will then show that
-	
-	\[\varphi_n(u) \xrightarrow[n \to \infty]{} \varphi(u)\] \\
-	
-	Where $\varphi_n(u) = \left(\frac{1}{2}e^{\frac{u}{\sqrt{n}}} + \frac{1}{2}e^{-\frac{u}{\sqrt{n}}}\right)^{nt}$ and $\varphi(u) = e^{\frac{1}{2}u^2t}$ (Refer to appendix \ref{proof:mgf_srm} and \ref{proof:mgf_nd} for the derivation of both moment generating functions)
+	Denote $\varphi_n(u)$ and $\varphi(u)$ the moment generating functions of the symmetric random walk and the normal distribution respectively. We will then show that $\varphi_n(u) \to \varphi(u)$. Where $\varphi_n(u) = \left(\frac{1}{2}e^{\frac{u}{\sqrt{n}}} + \frac{1}{2}e^{-\frac{u}{\sqrt{n}}}\right)^{nt}$ and $\varphi(u) = e^{\frac{1}{2}u^2t}$ (Refer to appendix \ref{proof:mgf_srm} and \ref{proof:mgf_nd} for the derivation of both moment generating functions).\\
 	
 	Now,
 	\begin{equation*}
@@ -138,6 +136,8 @@ To further develop this theory we we will start assuming that the market moves i
 \end{proof}
 
 Theorem \ref{th:convergence_rw} shows the distribution that follows at every time $t$ if we assume that the market moves continuously. The process that emerges from this assumption is paramount in what follows. In fact, this process has a name of its own.
+
+\section{$L_2$ Spaces}
 
 \section{Brownian Motion}
 \begin{definition}\label{def:brownian_motion}

@@ -84,7 +84,7 @@ Concerning the set of elements $\Omega$, equipped with a $\salg \ \salgF$, group
 	If $\salgF$ is a $\salg$ of subsets of $\Omega$, $(\Omega, \salgF)$ is said to be a measurable space. If $A$ is a set in $\salgF$, we say that $A$ is $\salgF$-measurable (or measurable w.r.t. $\salgF$)
 \end{definition}
 
-Definition \ref{def:measurable_space} urges an auxiliary way to make sense of the information any $(\Omega, \salgF)$ provides. Concretely, we now define a way to fathom any abstract measurable space.
+Definition \ref{def:measurable_space} urges an auxiliary way to make sense of the information provided by $(\Omega, \salgF)$. Concretely, we now define a way to fathom any abstract measurable space.
 
 \begin{definition}{\textbf{Measure}.}
 	Let $\bar{\mathbb R} := \mathbb R \cup \{-\infty, \infty\}$ be the extended real line and let $(\Omega, \salgF)$ be a measurable space. It is said that a function $\mu: \salgF \rightarrow \bar{\mathbb R}$ is a measure over $(\Omega, \salgF)$ if
@@ -99,27 +99,34 @@ Definition \ref{def:measurable_space} urges an auxiliary way to make sense of th
 \end{definition}
 
 
-If the last definition holds true for a given $\mu$ inside $(\Omega, \salgF)$, then $(\Omega, \salgF, \mu)$ is said to be a \textbf{measure space}.\\
+If the last definition holds true for a given $\mu$ inside $(\Omega, \salgF)$, then $\MeasureSpace{\mu}$ is said to be a \textbf{measure space}. Thus, for any $A\in\salgF$, $\mu(A)$ is the measure of $A$.\\
 
-For any $A\in\salgF$, $\mu(A)$ is the measure of $A$. Furthermore, if $\mu(\Omega) < \infty$ then, $\mu$ is said to be a finite measure. Lastly, if  $\mu(\Omega) = 1$, then $\mu$ is said to be a probability, which we denote $\Pm \equiv \mu$. Consequently, $(\Omega, \salgF, \Pm)$ is said to be a probability space. We formalize this last definition as follows:
+ Furthermore, if $\mu(\Omega) < \infty$ then, $\mu$ is said to be a finite measure. Lastly, if  $\mu(\Omega) = 1$, then $\mu$ is said to be a probability, which we denote $\Pm \equiv \mu$. Consequently, $\ProbSpace$ is said to be a \textbf{probability space}. We formalize this last definition as follows:
 
-\begin{definition}{\textbf{Kolmogorov's Axiom System}.}
-	An ordered triple $(\Omega, \salgF, \Pm)$ where
+\begin{definition}{\textbf{Kolmogorov's Axiom System}.} 	\label{def:kolmogorov_axions}
+	An ordered triple $\ProbSpace$ where
 	\begin{enumerate}
 		\item $\Omega$ is a set of points $\omega$;
 		\item $\salgF$ is a $\salg$ of subsets of $\Omega$; and
-		\item $\mathbb P$ is a probability on $\salgF$.
+		\item $\mathbb P$ is a probability on $\salgF$,
 	\end{enumerate}
 	is called a \textbf{probability space} or \textbf{model} (of an experiment)
 \end{definition}
 
+As a result of definition \ref{def:kolmogorov_axions}, if $\ProbSpace$ is a probability space and $A \in \salgF$, it is said that $\Pm(A)$ is the \textit{probability of the event A}.
+
 \section{Random Variables}
-\begin{definition}{\textbf{Random Variable}}\label{rvar}
-	Let $(\Omega, \salgF, \mu)$ be a measure space. The function $X: \Omega \rightarrow \RNums$ is an $\salgF$-measurable function if
+For any given probability space $\ProbSpace$, $\Omega$ is defined to be any abstract space. To overcome the problem of abstraction, it is desirable to find a mapping from elements in $\Omega$ to the more convenient $\RNums$, in the sense that, measurements on the real line, if mapped correctly, may become easier to interpret. In view of the coveted property of interpretability, we define a mapping $\Omega\to\RNums$ that is consistent with the theory developed so far.
+
+\begin{definition}{\textbf{Random Variable}}\label{def:rvar}
+	Let $\ProbSpace$ be a probability space. The function $X: \Omega \rightarrow \RNums$ it is defined an $\salgF$-measurable function or a \textbf{random variable} if
 	\begin{equation}
-		X^{-1}(B) = \{\omega \in \Omega \ | \ X(w) \in B\} \in \salgF \ \ \forall \ \ B \subseteq \RNums
+		X^{-1}(B) = \{\omega \in \Omega \ | \ X(\omega) \in B\} \in \salgF \ \ \forall \ \ B \subseteq \RNums
 	\end{equation}
 \end{definition}
+
+% dovetail.- verb: to join or fit together compactly or harmoniously.
+With definition \ref{def:rvar}, measurements over $\Omega$ dovetail with an element of order. Consequently, the next definition follows:
 
 \begin{definition}\label{dist_func}
 	Consider the event $\{X \leq x\} := X^{-1}(-\infty, x]$. The function $F_X: \RNums \rightarrow [0, 1]$ defined as:
@@ -148,7 +155,7 @@ The function $f$ is known as the \textbf{probability density function} of the ra
 
 \section{Lebesgue Integrals and Expectations}
 \begin{definition}
-	Let $(\Omega, \salgF, \mu)$ be a measure space and $X: \Omega \to \RNums$ an $\salgF-measurable function$. Denote $\ind_A(\omega)$ the indicator function of $\omega$ in a set $A$. That is,
+	Let $\MeasureSpace{\mu}$ be a measure space and $X: \Omega \to \RNums$ an $\salgF-measurable function$. Denote $\ind_A(\omega)$ the indicator function of $\omega$ in a set $A$. That is,
 	\[
 	\ind_A(\omega) = 
 		\begin{cases}
@@ -183,7 +190,7 @@ The function $f$ is known as the \textbf{probability density function} of the ra
 \end{definition}
 
 
-%% Simple Functions aproximations %%
+%% Approximation by Simple Functions %%
 \begin{figure}[h]
 	\centering
 	\label{fig:simple_approx_sine}
@@ -193,7 +200,7 @@ The function $f$ is known as the \textbf{probability density function} of the ra
 
 %% Nonnegative lebesgue measure for nonnegative simple functions
 \begin{proposition} \label{prop:nnlmsf}
-	Let $X$ be a simple function defined on a measurable space $(\Omega, \salgF, \mu)$, in which $\mu(\Omega) < \infty$. Then,
+	Let $X$ be a simple function defined on a measurable space $\MeasureSpace{\mu}$, in which $\mu(\Omega) < \infty$. Then,
 	\begin{equation}
 		X \geq 0 \implies \int_\Omega X d\mu \geq 0
 	\end{equation}
@@ -281,7 +288,7 @@ And,
 	\int_\Omega |X| d\mu = \int_\Omega X^+ d\mu + \int_\Omega X^- d\mu.
 \end{equation} \\
 
-We will denote by $L_1 \equiv L_1(\Omega, \salgF, \mu)$ the family of integrable functions w.r.t. $\mu$. Note that $X \in L_1$ if and only if $|X| \in L_1$. i.e.,
+We will denote by $L_1 \equiv L_1\MeasureSpace{\mu}$ the family of integrable functions w.r.t. $\mu$. Note that $X \in L_1$ if and only if $|X| \in L_1$. i.e.,
 
 \begin{align}
 	\int_\Omega |X| d\mu = \int_\Omega X^+ d\mu + \int_\Omega X^- d\mu < \infty
@@ -315,7 +322,7 @@ If $A \in \salgF$, we define
 \end{proposition}
 
 \begin{theorem} \label{th:salg-lebesgue-int}
-	Let $(\Omega, \salgF, \mu)$ be a measurable space, and $X$ a nonnegative $\salgF$-measurable function. If $X: \Omega \to \RNums$, the mapping from $\Omega \to [0, \infty]$ given by $A \to \int_A f d\mu$ is $\sigma$-additive, i.e.
+	Let $\MeasureSpace{\mu}$ be a measurable space, and $X$ a nonnegative $\salgF$-measurable function. If $X: \Omega \to \RNums$, the mapping from $\Omega \to [0, \infty]$ given by $A \to \int_A f d\mu$ is $\sigma$-additive, i.e.
 	\begin{equation}
 		\int_A X d\mu = \sum_{i=1}^{\infty}\int_{A_i} X d\mu
 	\end{equation}
@@ -495,7 +502,7 @@ If the sequence $\{f_n\}_{n\geq 1}$ is such that $f_n \to f$ in measure, and $|f
 
 
 \begin{definition} (\textbf{Expectation})
-	Let $X$ be a random variable on $(\Omega, \salgF, \Pm)$. The integral of $X$ w.r.t. the measure $\Pm$ is known as the expectation of $X$ w.r.t. $\Pm$. 
+	Let $X$ be a random variable on $\ProbSpace$. The integral of $X$ w.r.t. the measure $\Pm$ is known as the expectation of $X$ w.r.t. $\Pm$. 
 	\begin{equation}
 		\mathbb{E}_{\Pm}[X] := \int_\Omega X d\Pm
 	\end{equation}
@@ -503,16 +510,16 @@ If the sequence $\{f_n\}_{n\geq 1}$ is such that $f_n \to f$ in measure, and $|f
 
 
 \begin{theorem}\label{h1_borel}
-		Let $X$ be a random variable on $(\Omega, \salgF, \Pm)$ and $h: \RNums \to \RNums$ a Borel-measurable function. Let $F_X$ be the distribution of $X$ and $P_X(B):= \Pm[X^{-1}(B)]$ for every $B \in \borelsalg$ the probability measure induced by $X$ on $(\RNums, \borelsalg)$ then,
+		Let $X$ be a random variable on $\ProbSpace$ and $h: \RNums \to \RNums$ a Borel-measurable function. Let $F_X$ be the distribution of $X$ and $P_X(B):= \Pm[X^{-1}(B)]$ for every $B \in \borelsalg$ the probability measure induced by $X$ on $(\RNums, \borelsalg)$ then,
 		\begin{equation}
 			h \in L_1(\Omega, \salgF, \mathbb{P}) \iff h \in L_1(\RNums, \borelsalg, P_X)
 		\end{equation}
 \end{theorem}
 
-To prove theorem \ref{h1_borel} we will make use of the so called ``\textbf{standard machine}'' approach. This approach will let us prove the theorem for simple functions then, by linearity, it is true for simple function and finally, we conclude by the monotone convergence theorem.\\
+To prove theorem \ref{h1_borel} we will make use of the so called ``\textbf{standard machine}'' approach. This approach will let us prove the theorem for simple functions then, by linearity, it is true for simple function and finally, we conclude by the monotone convergence theorem.
 
 \begin{proof}
-Let $X$ be a random variable on $(\Omega, \salgF, \Pm)$ and let $h$ be the indicator function for some set $B \in \borelsalg$. Then, for every $\omega \in \Omega$, $\ind_B\left(X(\omega) \right) = 1$ iff $\omega \in X^{-1}(B) := \{\omega \in \Omega | X(\omega) \in B\}$. This is because for $\ind_B(X(\omega))$ to be 1, the value $X(\omega)$ in $\borelsalg$, say $x$, is an element in $B$ if and only if, the inverse image of $X$ over $B$ i.e. the set of elements $\omega$ that comprise $B$ through a mapping from $X$, has $\omega$ as an element in it.\\
+Let $X$ be a random variable on $\ProbSpace$ and let $h$ be the indicator function for some set $B \in \borelsalg$. Then, for every $\omega \in \Omega$, $\ind_B\left(X(\omega) \right) = 1$ iff $\omega \in X^{-1}(B) := \{\omega \in \Omega | X(\omega) \in B\}$. This is because for $\ind_B(X(\omega))$ to be 1, the value $X(\omega)$ in $\borelsalg$, say $x$, is an element in $B$ if and only if, the inverse image of $X$ over $B$ i.e. the set of elements $\omega$ that comprise $B$ through a mapping from $X$, has $\omega$ as an element in it.\\
 
 From this on,
 \begin{equation*}
@@ -621,7 +628,7 @@ Note that the existence of this random variable is given by the Radon-Nikodym th
 \section{Stochastic Processes, Filtrations \& Martingales}
 
 \begin{definition}\textbf{Stochastic Process}
-	Let $(\Omega, \salgF, \Pm)$ be a probability space. A stochastic process is a set of random variables that takes values in some set $S$ called the state space, and are indexed by some set $T$.
+	Let $\ProbSpace$ be a probability space. A stochastic process is a set of random variables that takes values in some set $S$ called the state space, and are indexed by some set $T$.
 	\begin{equation}
 		\{X_t \ | \ t \in T\}
 	\end{equation}
@@ -660,7 +667,7 @@ Where,
 % look to see a random variable. i.e. distribution v.s. path on a graph
 
 \begin{definition}
-Let $(\Omega, \salgF, \Pm)$ a probability space. A filtration is a non-decreasing sequence of sub-$\salg$s of $\salgF$, $\{\salgF_n\}_{n\geq 0}$ such that 
+Let $\ProbSpace$ a probability space. A filtration is a non-decreasing sequence of sub-$\salg$s of $\salgF$, $\{\salgF_n\}_{n\geq 0}$ such that 
 \[
 	\salgF_t \leq \salgF_s \ \forall \ 0 \leq t \leq s
 \]

@@ -47,7 +47,7 @@
 \newcommand{\ind}{\mathbbm{1}}
 % F: Sigma Algebra
 \newcommand{\salgF}{\mathscr{F}}
-% Probability P
+% Probability P (P measure)
 \newcommand{\Pm}{\mathbb{P}}
 % Expectation's E
 \newcommand{\E}{\mathbb{E}}
@@ -57,6 +57,10 @@
 \newcommand{\dtspr}{\{X_n\}_{n\geq 0}}
 % Insert only one number in the "align" environment
 \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+% Measure Space
+\newcommand{\MeasureSpace}[1]{(\Omega, \salgF, #1)}
+% Proabability Space
+\newcommand{\ProbSpace}{\MeasureSpace{\Pm}}
 
 % Document properties
 \title{Theoretical Grounds and Market Adaptations of Financial Fx and Interest Rate Options}
@@ -87,7 +91,7 @@
 \chapter{Probability Theory}
 \subfile{chapters/ch2}
 
-\chapter{Random Walks and Brownian Motion}
+\chapter{$L_2$ Spaces and the Brownian Motion}
 \subfile{chapters/ch3}
 
 \chapter{A Primer on Option Pricing}
