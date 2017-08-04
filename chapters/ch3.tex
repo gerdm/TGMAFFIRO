@@ -42,12 +42,11 @@ From here on we can start forming questions about the intrinsic behavior of the 
 	Let $n \in \mathbb{N}$ then,
 	\begin{align}
 	\mathbb{E}(M_n) &= \mathbb{E}\left[X_0 + \sum_{i=1}^d X_i\right] \nonumber \\
-				    &= \mathbb{E}[X_0] + \sum_{i=1}^d \mathbb{E}\left[X_i\right] \label{srw_jump}\\
 				    &= 0 + n  \left( 1 \cdot \frac{1}{2} + (-1) \cdot \frac{1}{2}\right) \nonumber
 	\end{align}
 \end{proof}
 
-Note That eq. \ref{srw_jump} is true because $X_0$ is a constant, and $X_i$, $i \geq 1$ are all i.i.d. random variables. Also, after a large number of times for which the game is played we expect to break even. Nobody would win or loose once we played a large number of times\footnote{In fact, according to Law of Large Number, we would expect to break even after a number so large that it approaches to infinity.}\\
+After a large number of times for which the game is played we expect to break even. Nobody would win or loose once we played a large number of times\footnote{In fact, according to Law of Large Number, we would expect to break even after a number so large that it approaches to infinity.}\\
 
 This type of process is also known as a fair-game. This is because what one would expect to win at any given future point in time is dependent on the amount that one has today. In other words, if both of the players start with a P\&L of \$0, then they would not expect, after a large amount of games\footnote{Mathematically speaking, the expectation of the game is zero in the sense that, as the number of games tends to infinity, the average P\&L for any of the players turn to zero} to earn any more money than what they started with: \$0.\\
 

@@ -150,8 +150,20 @@ Furthermore, a probability distribution function has the following properties:
 	\end{equation}
 \end{definition}
 
-% TODO: Add example of normal distribution
-The function $f$ is known as the \textbf{probability density function} of the random variable $X$.
+
+The function $f$ is known as the \textbf{probability density function} of the random variable $X$. Perhaps one of the most known probability density functions, and crucial tool for this work, is the density function of the normal distribution:
+
+\begin{equation}
+	\phi(x) = \frac{1}{\sqrt{2\pi}}e^{-{x^2}/{2}}  
+\end{equation}
+
+\begin{figure}[h]
+	\centering
+	\label{fig:normal_distribution}
+	\includegraphics[width=0.6\textwidth]{images/normal_distribution}
+	\caption{Probability Density Function of a Normal Distribution}
+\end{figure}
+
 
 \section{Lebesgue Integrals and Expectations}
 We now present the key ideas behind Lebesgue integration. As we shall later see, random movements over time (e.g. that of a stock or FX exchange rate) can be modeled as the sum of infinitesimal random changes. A through understanding of the ideas behind integration allow us to more easily understand the machinery for much more complex, stochastic models. In addition, Lebesgue integrals pave the way to the mathematical expectation, a core idea in the theory of probability.\\
@@ -267,7 +279,7 @@ We start the motivation of an Lebesgue integral by defining the most basic class
 
 \begin{definition}
 	For any nonnegative function $X$, we define the integral of $X$ w.r.t. a measure $\mu$ as
-	\begin{equation}
+	\begin{equation}\label{def:lebesgue_integral}
 		\int_\Omega Xd\mu := \sup\left\{\int_\Omega h d\mu \ | \ 0 \leq h \leq X \text{, $h$ is simple}\right\}
 	\end{equation}
 \end{definition}
@@ -305,13 +317,14 @@ If $A \in \salgF$, we define
 
 \begin{proposition} \label{prop:lebesgue_integral_props}
 	For any $X$, $Y$ $\salgF$-measurable functions in $L_1$; $A$, $B$ members of $\salgF$, it can be shown that:
-	\begin{equation}
+	\begin{equation}\label{prop:integral_positive_measure}
 		X \geq 0 \implies \int_\Omega X d\mu \geq 0 \\
 	\end{equation}
 	
 	If $X \leq Y$ (monotonicity),
 	\begin{equation}
-		\int_\Omega X d\mu \leq \int_\Omega Y d\mu
+		\int_\Omega X d\mu \
+		 ,m,.-.¨Ñlkjhgfxdzh  leq \int_\Omega Y d\mu
 	\end{equation}
 	
 	If $A \subseteq B$ and $X \geq 0$,
@@ -335,8 +348,8 @@ If $A \in \salgF$, we define
 	For disjoint sets $\{A_i\}_{i\geq1}$
 \end{theorem}
 
-%%%%%%%%%%%%%% write more clearly %%%%%%%%%%%%%% 
-For a proof of theorem \ref{th:salg-lebesgue-int}, see \aycite{applebaum}. Theorem \ref{th:salg-lebesgue-int} allow us to treat integrals as measurable functions This last theorem is important in the sense that the treatment of lebesgue integrals can be taken as a measure. One consequence of this last one is the following corollary
+For a proof of theorem \ref{th:salg-lebesgue-int} see \aycite{applebaum}. Consider \ref{def:lebesgue_integral}, \ref{prop:integral_positive_measure}, together with \ref{th:salg-lebesgue-int}. It is then clear, that the Lebesgue integral for random variables $X \in \ProbSpace$ such that $X(\omega) \geq 0 \ \forall \ \omega \in \Omega$ is then a measure defined over $(\RNums, \borelsalg)$. This last remark yields a corollary that will aid in the result of one of the fundamental theorems of integration and convergence. 
+
 \begin{corollary} \label{cor:partition_limit_integral}
 	Let $X: \Omega \to \RNums$ a nonnegative measurable function and $\{E_n\}_{n\geq 1}$ a sequence of sets in $\Omega$ such that $E_n \subseteq E_{n+1}$ for every $n \in \mathbb{N}$. Denote $E = \bigcup_{n=1}^{\infty} E_n$. Then,
 	\begin{equation}
@@ -345,7 +358,7 @@ For a proof of theorem \ref{th:salg-lebesgue-int}, see \aycite{applebaum}. Theor
 \end{corollary}
 
 \begin{proof}
-	Denote $A_1$ = $E_1$, and $A_n = E_n - E_{n-1} \ \forall \ n \geq 2$. The set $A_n$ is a sequence of disjoint sets. Furthermore, $E = \bigcup_{i=1}^\infty A_i$ and $E_n = \bigcup_{i=1}^n A_i \ \forall \ n \in \mathbb{N}$.\\
+	Denote $A_1$ = $E_1$, and $A_n = E_n - E_{n-1} \ \forall \ n \geq 2$. The set $\{A_n\}_n$ is a sequence of disjoint sets. Note that, $E = \bigcup_{i=1}^\infty A_i$ and $E_n = \bigcup_{i=1}^n A_i$ $\forall \ n \in \mathbb{N}$.\\
 	
 	By theorem \ref{th:salg-lebesgue-int},
 	
@@ -360,7 +373,7 @@ For a proof of theorem \ref{th:salg-lebesgue-int}, see \aycite{applebaum}. Theor
 
 
 \begin{theorem} (\textbf{Monotone Convergence Theorem})
-Let $\{X_n\}_{n\geq 1}$ be a sequence of nonnegative functions where $X_i: \Omega \to \RNums$ such that $X_n \leq X_{n+1}$ $\forall \ n \in \mathbb{N}$. Let $X$ be another random variable such that $X_n \xrightarrow[n \to \infty]{}X$ then,
+Let $\{X_n\}_{n\geq 1}$ be a sequence of nonnegative functions where $X_i: \Omega \to \RNums$ such that $X_n \leq X_{n+1}$ $\forall \ n \in \mathbb{N}$. Let $X$ be another random variable such that $X_n \to X$ then,
 \begin{equation}
 	\int_\Omega X d\mu = \lim_{n\to \infty} \int_\Omega X_n d\mu
 \end{equation}
@@ -506,6 +519,8 @@ If the sequence $\{f_n\}_{n\geq 1}$ is such that $f_n \to f$ in measure, and $|f
 	\]
 \end{proof}
 
+\section{Expectations}
+A recurrent theme in the theory of probability is the so called \textbf{expectation} of a random variable. Aridly, we will define an expectation as the integral of a random variable w.r.t. its probability measure. Nonetheless, the concept of an expectation under $\ProbSpace$ serves a practical purpose 
 
 \begin{definition} (\textbf{Expectation})
 	Let $X$ be a random variable on $\ProbSpace$. The integral of $X$ w.r.t. the measure $\Pm$ is known as the expectation of $X$ w.r.t. $\Pm$. 
@@ -522,7 +537,7 @@ If the sequence $\{f_n\}_{n\geq 1}$ is such that $f_n \to f$ in measure, and $|f
 		\end{equation}
 \end{theorem}
 
-To prove theorem \ref{h1_borel} we will make use of the so called ``\textbf{standard machine}'' approach. This approach will let us prove the theorem for simple functions then, by linearity, it is true for simple function and finally, we conclude by the monotone convergence theorem.
+To prove theorem \ref{h1_borel} we will make use of the so called \textit{standard machine} approach. This approach will let us prove the theorem for simple functions then, by linearity, it is true for simple function and finally, we conclude by the monotone convergence theorem.
 
 \begin{proof}
 Let $X$ be a random variable on $\ProbSpace$ and let $h$ be the indicator function for some set $B \in \borelsalg$. Then, for every $\omega \in \Omega$, $\ind_B\left(X(\omega) \right) = 1$ iff $\omega \in X^{-1}(B) := \{\omega \in \Omega | X(\omega) \in B\}$. This is because for $\ind_B(X(\omega))$ to be 1, the value $X(\omega)$ in $\borelsalg$, say $x$, is an element in $B$ if and only if, the inverse image of $X$ over $B$ i.e. the set of elements $\omega$ that comprise $B$ through a mapping from $X$, has $\omega$ as an element in it.\\
@@ -588,8 +603,6 @@ Let $\mu$ and $\lambda$ be $\sigma$-finite positive measures defined on $(\Omega
 
 Where the function $f$ is defined up to sets with measure zero. $f$ is sometimes called the Radon-Nikodym derivative and it can be written as $\frac{d\mu}{d\lambda}$
 \end{theorem}
-
-\section{Conditional Expectations}
 
 \begin{definition}\textbf{Conditional Expectation w.r.t. a $\sigma$-algebra}
 The conditional expectation of a nonnegative random variable $X$ with respect to the $\sigma$-algebra $\mathscr{G}$ is a nonnegative random variable denoted $\mathbb{E}[X | \mathscr{G}]$ or $\mathbb{E}[X | \mathscr{G}](\omega)$ such that,
@@ -672,7 +685,7 @@ Where,
 % TODO: insert example of how would it look to see a path v.s. how would it 
 % look to see a random variable. i.e. distribution v.s. path on a graph
 
-\begin{definition}
+\begin{definition} \textbf{Filtration}.
 Let $\ProbSpace$ a probability space. A filtration is a non-decreasing sequence of sub-$\salg$s of $\salgF$, $\{\salgF_n\}_{n\geq 0}$ such that 
 \[
 	\salgF_t \leq \salgF_s \ \forall \ 0 \leq t \leq s
@@ -683,7 +696,24 @@ The stochastic process $\ctspr$ is said to be \textbf{adapted} to the filtration
 
 The minimal $\salg$ generated by $\ctspr$ at time $\tau$ is known as the \textbf{natural filtration} of $\ctspr$ at time $\tau$. Note that $\ctspr$ is always adapted to its natural filtration at time $t$. That is $X_t$ is $\sigma(\{X_s | s \leq t\})$-measurable.\\
 
-In a discrete time process, we denote the minimal $\salg$ generated by $\dtspr$ up to time $k$ as $\{X_1, \ldots, X_k\} := \sigma(\{X_1, \ldots, X_k\})$
+In a discrete time process, we denote the minimal $\salg$ generated by $\dtspr$ up to time $k$ as $\{X_1, \ldots, X_k\} := \sigma(\{X_1, \ldots, X_k\})$.
+
+\begin{definition} \textbf{Martingale}.
+	An stochastic process $\ctspr$ defined over $\ProbSpace$ is said to be a martingale w.r.t. a filtration $\{\salgF_n\}_{n\geq 0}$ if, for all $t \geq 0$, and $t \leq s$,
+	\begin{enumerate}
+		\item $X_t$ is $\salgF_t$-measurable;
+		\item $X_t$ is in $L_1$ (i.e. is is measurable for all $t$); and
+		\item $\E[X_t | \salgF_s] = X_t$.
+	\end{enumerate}
+\end{definition}
+
+\begin{theorem} \textbf{Doob's Martingale Inequality}. \label{th:doob_martingale}
+	If. $\ctspr$ is a continuous-time martingale, then 
+	\begin{equation}
+		\Pm(\sup_{t\in [0, T]} |X_t| \geq \lambda) \leq \frac{1}{\lambda^p}\E\left[|X_t|^p\right]
+	\end{equation}
+	
+\end{theorem}
 
 	
 \end{document}
