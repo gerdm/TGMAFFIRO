@@ -650,7 +650,7 @@ The conditional expectation of a nonnegative random variable $X$ with respect to
 
 
 \section{Stochastic Processes, Filtrations \& Martingales}
-Hitherto the random variables for which we have been taking measures from constitute a single outcome of an experiment. In pursuance of a model that describes the dynamics of financial assets over time, we require a way to pinpoint both place in time, and distribution for a random variable. That is, we would like to have a way to represent the evolution of a distribution over time in which random variables take values.This last idea yields to a comprehensive definition for the movement of any random variable over time.
+Hitherto the random variables for which we have been taking measures from constitute a single outcome of an experiment. In pursuance of a model that describes the dynamics of financial assets over time, we require a way to pinpoint both place in time, and distribution of a random variable. In other words, we would like to represent the evolution of a distribution over time in which random variables take values. This last idea yields to a comprehensive definition for the movement of any random variable indexed by time.
 
 \begin{definition}\textbf{Stochastic Process}
 	Let $\ProbSpace$ be a probability space. A stochastic process is a set of random variables that takes values in some set $S$ called the \textbf{state space}, and are indexed by some set $T$.
@@ -664,16 +664,16 @@ For $S$ to make sense, it must be measurable with respect to some $\salg$. In pa
 	S \cap \borelsalg \neq \emptyset.
 \]
 
-Note that $T$ can be any arbitrary set, nonetheless, we will work with only two state spaces:
+Note that $T$ can be any arbitrary set, nonetheless, for the sake of simplicity, we will only work with any of the following sets:
 \begin{enumerate}
-	\item if $T = \{0, 1, \ldots, \}$, we say that the process is a \textbf{discrete time process}. For notation purposes, we will denote a discrete time process as
+	\item If $T = \{0, 1, \ldots, \}$, we say that the process is a \textbf{discrete time process}. For notation purposes, we will denote a discrete time process as
 	\begin{equation}
-		\{X_n\}_{n\geq 0}:= \{X_n \ | \ n \in \{0, 1, \ldots, \}\}
+		\{X_n\}_{n\geq 0}:= \{X_n \ | \ n \in \{0, 1, \ldots, \}\}; \text{ and}
 	\end{equation}
 	
 	\item if $T = \{t \ | \ t\in\RNums^+\}$, the process is said to be a \textbf{continuous time process}. In this case, we will denote this process as the one indexed by the letter $t$,
 	\begin{equation}
-		\{X_t\}_{t\geq 0} := \{X_t \ | \ t \in \RNums^+\}
+		\{X_t\}_{t\geq 0} := \{X_t \ | \ t \in \RNums^+\}.
 	\end{equation}
 \end{enumerate}
 
@@ -684,8 +684,8 @@ With this in mind, we can consider a stochastic process as a two variable functi
 
 Where,
 \begin{enumerate}
-	\item For every $t\in T$, $\omega \to X_t(\omega)$ is random variable; and
-	\item for every $\omega \in \Omega$, $t \to X_t(\omega)$ is the path of the process.
+	\item For for fixed $t\in T$, $\omega \to X_t(\omega)$ is random variable; and
+	\item for fixed $\omega \in \Omega$, $t \to X_t(\omega)$ is the path of the process.
 \end{enumerate}
 
 
@@ -696,11 +696,9 @@ Where,
 	\label{fig:stochastic_process}
 \end{figure}
 
-Consider figure \ref{fig:stochastic_process}, where we graph the stochastic process $\ctspr$ such that $X_t \sim \mathcal{N}(0, t)$ (see 	eq. \ref{eq:normal_distribution}). Indeed, $\ctspr$ can be seen as either a function indexed by $T$, in which case we graph the path of a single trajectory (red colored); or, for fixed $t\geq 0$, as a single random variable with probability density function $\phi(x | 0, t)$.\\
+Consider figure \ref{fig:stochastic_process}, where we graph a single path of the stochastic process $\ctspr$ in which $X_t \sim \mathcal{N}(0, t)$ (see eq. \ref{eq:normal_distribution}). Indeed, $\ctspr$ can be seen as either a function indexed by $T$, in which case we graph the path of a single trajectory (red colored); or, for fixed $t\geq 0$, as a single random variable with probability density function $\phi(x | 0, t)$.\\
 
-% TODO: ****CONTINUE HERE ****
-Note that, as time passes, the variability of the processes increases, this is due
-
+With stochastic processes well defined, the next step is to measure the outcome of an event at a given $t \geq 0$. A stochastic process need not be $\borelsalg$-measurable for every $t$ (as seen on the last example). The values that any $\ctspr$ can take at a certain $t$ may vary. For this reason, it is sensible to equip a stochastic process, with $\salg$s of subsets of $\salgF$ that give us clue as to the subsets that are \textit{reasonable} to measure at a given $t$. 
 
 \begin{definition} \textbf{Filtration}.
 Let $\ProbSpace$ a probability space. A filtration is a non-decreasing sequence of sub-$\salg$s of $\salgF$, $\{\salgF_n\}_{n\geq 0}$ such that 
@@ -709,11 +707,14 @@ Let $\ProbSpace$ a probability space. A filtration is a non-decreasing sequence 
 \]
 \end{definition}
 
-The stochastic process $\ctspr$ is said to be \textbf{adapted} to the filtration $\{\salgF_t\}_{t\geq 0}$ if $X_t$ is $\salgF_t$-measurable for every $t\geq 0$\\
+The stochastic process $\ctspr$ is said to be \textbf{adapted} to the filtration $\{\salgF_t\}_{t\geq 0}$ if $X_t$ is $\salgF_t$-measurable for every $t\geq 0$.\\
 
 The minimal $\salg$ generated by $\ctspr$ at time $\tau$ is known as the \textbf{natural filtration} of $\ctspr$ at time $\tau$. Note that $\ctspr$ is always adapted to its natural filtration at time $t$. That is $X_t$ is $\sigma(\{X_s | s \leq t\})$-measurable.\\
 
-In a discrete time process, we denote the minimal $\salg$ generated by $\dtspr$ up to time $k$ as $\{X_1, \ldots, X_k\} := \sigma(\{X_1, \ldots, X_k\})$.
+In a discrete time process, we denote the minimal $\salg$ generated by $\dtspr$ up to time $k$ as $\{X_1, \ldots, X_k\} := \sigma(\{X_1, \ldots, X_k\})$.\\
+
+
+An recurrent topic throughout this work is a particular case of stochastic process. We will limit ourselves to define it here and develop its intuition in the following chapter.
 
 \begin{definition} \textbf{Martingale}.
 	An stochastic process $\ctspr$ defined over $\ProbSpace$ is said to be a martingale w.r.t. a filtration $\{\salgF_n\}_{n\geq 0}$ if, for all $t \geq 0$, and $t \leq s$,
