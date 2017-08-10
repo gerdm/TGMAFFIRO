@@ -1,20 +1,18 @@
 \documentclass[../TGMAFFIRO.tex]{subfiles}
 
 \begin{document}
-In order to explain the random movements of a stock, we must define somehow what we mean by \textit{randomness}. In this chapter, we define what will randomness mean and the ways we will measure it.
-
-In this chapter, we gradually build the tools required to make sense of a space in which we can compute probabilities 
+In order to explain the likelihood of certain events, we must first define what we mean by \textit{randomness}, specify which events are being referred to, and to express, in mathematical sense, the likelihood of any event. With this in mind, we dedicate this chapter to gradually build the tools that will later be required to \textit{make sense} of random events and further develop a theory to model the dynamics of assets such as stocks and currencies.
 
 \section{Measurable Spaces}
-Suppose we had a fair con and were interested in the outcomes that could arise by throwing the fair coin two times in a row. Undoubtedly, by doing so, one the possible scenarios may arise:
+Suppose we had a fair con and were interested in the outcomes that could arise by throwing it twice in a row. Undoubtedly, by doing so, one the following scenarios take place:
 \[
 	\{HH\}, \ \{HT\}, \ \{TH\}, \ \{TT\}.
 \]
 By throwing the fair coin twice, we are effectively performing an \textbf{experiment}. In this context, the outcome of any possible single event in the experiment is known as the \textbf{universe}. We denote the universe with the letter greek Omega ($\Omega$).\\
 
-Although $\Omega$ contains every element of occurrence in the experiment, its elements are not enough to answer any possible question we may have about the outcome of the experiment. Suppose we were interested in knowing which elements in $\Omega$ constitute the outcome of the experiment in which at leas one head ($H$) appears.  Clearly, this subset of $\Omega$, which contains the elements $\{TH, HT, HH\}$, is not currently expressed anywhere. Likewise, the subset of $\Omega$ in which only two coins of the same side appear, is not currently expressed.\\
+Although $\Omega$ contains every element of occurrence in the experiment, its members alone are not enough to answer any possible question we may have about the outcome of the experiment. Suppose, for example, we were interested in knowing which elements in $\Omega$ constitute the outcome of the experiment in which at least one head ($H$) appears.  Clearly, this subset of $\Omega$, which contains the elements $\{TH, HT, HH\}$, is not currently expressed anywhere. Likewise, the subset of $\Omega$ in which only two coins of the same side appear, is not currently expressed.\\
 
-To address this problem, we define the set of subsets of the experiment, called an \textbf{algebra}, that captures the likely questions to ask, as to the occurrences that could happen in this experiment.
+To address this problem, we define the set of subsets of the experiment, called an \textbf{algebra}, that captures the feasible questions to ask, as to the occurrences that could happen in any experiment.
 
 \begin{definition}{\textbf{Algebra}}\label{def:algebra}
 	Let $\Omega$ be a set of points $\omega$. A system $\mathscr{A}$ of subsets of $\Omega$ is an Algebra if:
@@ -29,7 +27,6 @@ With definition \ref{def:algebra} in mind, we can now consider the \textit{algeb
 
 \begin{figure}[h]
 	\centering
-	
 	\begin{verbatim}
 		{{}, {HH}, {HT}, {TH}, {TT}, {HH, HT}, {HH, TH}, {HH, TT},
 		{HT, TH}, {HT, TT}, {TH, TT}, {HH, HT, TH}, {HH, HT, TT},
@@ -38,10 +35,10 @@ With definition \ref{def:algebra} in mind, we can now consider the \textit{algeb
   \caption{The algebra of an experiment: tossing a coin twice.}
 \end{figure}
 
-Experiments are not necessarily countably finite. Some experiments may be countably infinite (e.g., the natural numbers), or even uncountably infinite (e.g., the subset of real numbers between 0 and 1). Concerning a more abstract space $\Omega$, we then need to impose an additional property to the definition of an algebra called the \textit{$\sigma$-additivity}.
+Experiments are not necessarily countably finite. Some experiments may be countably infinite (e.g., the natural numbers), or even uncountably infinite (e.g., the subset of real numbers between 0 and 1). Concerning a more abstract space $\Omega$, we then need to impose an additional property to an algebra called the \textit{$\sigma$-additivity}.
 
 \begin{definition}{\textbf{$\salg$}}\label{salgebra}
-	A system $\salgF$ of subsets of $\Omega$ is a $\salg$ if it is an algebra and it satisfies the $\sigma$-additive. 
+	A system $\salgF$ of subsets of $\Omega$ is a $\salg$ if it is an algebra and it satisfies the $\sigma$-additive property:
 	\begin{equation*}
 		\text{If } \{A_n\}_{n\geq 1} \in \salgF \Rightarrow \bigcup_{k=1}^{\infty} A_k \in \salgF.
 	\end{equation*}
@@ -78,7 +75,7 @@ Consider the collection of open intervals $(a,b) \in \RNums$. For every $a \leq 
 
 Definition \ref{def:borel_sigma_alg} is the smallest $\salg$ that contains all open intervals in the real line. Furthermore, it can be proven that $[a, b]$, $(a,\infty)$, $(-\infty, b)$, $[a, b)$, $(a, b]$ are all elements in $\borelsalg$.\\
 
-Concerning the set of elements $\Omega$, equipped with a $\salg \ \salgF$, grouping these two concepts yields an important definition that will formalize an abstract space in which we can further develop a theory.
+Concerning the set of elements $\Omega$, equipped with a $\salg \ \salgF$, yields an important definition that will formalize an abstract space in which we can further develop a theory.
 
 \begin{definition}{\textbf{Measurable Space}.} \label{def:measurable_space}
 	If $\salgF$ is a $\salg$ of subsets of $\Omega$, $(\Omega, \salgF)$ is said to be a measurable space. If $A$ is a set in $\salgF$, we say that $A$ is $\salgF$-measurable (or measurable w.r.t. $\salgF$)
@@ -374,7 +371,7 @@ For a proof of theorem \ref{th:salg-lebesgue-int} see \aycite{applebaum}. Consid
 \end{proof}
 
 
-\begin{theorem} (\textbf{Monotone Convergence Theorem})
+\begin{theorem}[\textbf{Monotone Convergence Theorem}]
 Let $\{X_n\}_{n\geq 1}$ be a sequence of nonnegative functions where $X_i: \Omega \to \RNums$ such that $X_n \leq X_{n+1}$ $\forall \ n \in \mathbb{N}$. Let $X$ be another random variable such that $X_n \to X$ then,
 \begin{equation}
 	\int_\Omega X d\mu = \lim_{n\to \infty} \int_\Omega X_n d\mu
@@ -570,31 +567,31 @@ Assume $h$ is now a simple function, $h(\cdot) =: h_n(\cdot) = \sum_{i=1}^n \alp
 	&= \sum_{i=1}^{n}\alpha_i\int_\Omega\ind_{B_i}(X(\omega)) d\Pm\\
 	&= \sum_{i=1}^n\alpha_i\int_\RNums\ind_{B_i}(x) P_X\\
 	&= \int_\RNums\sum_{i=1}^n\alpha_i\ind_{B_i}(x) dP_X\\
-	&= \int_\RNums h_n(x) dP_x
+	&= \int_\RNums h_n(x) dP_x.
 \end{align*}
 
 Finally, let $h$ be a nonnegative Borel-Measurable function. Then, there exists a nondecreasing sequence of simple functions such that $h_n \to h$ as $n \to \infty$,
 
 \begin{align*}
-	\int_\Omega h((X(\omega)) d\Pm &= \int_\Omega \lim_{n\to\infty} h_n(X(\omega)) d\Pm \\
+	\int_\Omega h((X(\omega)) d\Pm &= \int_\Omega \lim_{n\to\infty} h_n(X(\omega)) d\Pm. \\
 	\intertext{By the monotone convergence theorem,}
 	&= \lim_{n\to\infty} \int_\Omega h_n(X(\omega)) d\Pm\\
 	&= \lim_{n\to\infty} \int_\RNums h_n(x) dP_x\\
 	&= \int_\RNums \lim_{n\to\infty} h_n(x) dP_x\\
-	&= \int_\RNums h(x) dP_x
+	&= \int_\RNums h(x) dP_x.
 \end{align*}
 \end{proof}
 
 Now, recall that if $X$ is any random variable with density function $f(x)$ then, for any $B \in \borelsalg$,
 \begin{equation*}
-	P_X(B) = \int_\RNums  f(x) dx
+	P_X(B) = \int_\RNums  f(x) dx.
 \end{equation*}
 
 The same argument as theorem \ref{th:h1_borel} results in the following corollary,
 \begin{corollary}
 	Let $X$ be a random variable with density function $f(x)$, and let $h$ be a Borel-measurable function $h$ such that. $\mathbb{E}[h(X)] < \infty$ then,
 	\begin{equation}
-		\mathbb{E}[h(X)] = \int_\RNums h(x) f(x) dx
+		\mathbb{E}[h(X)] = \int_\RNums h(x) f(x) dx.
 	\end{equation}
 \end{corollary}
 
@@ -603,7 +600,7 @@ We now state, without proof, a theorem that allows to work with different measur
 \begin{theorem}\textbf{Radon Nikodym Theorem}.\label{th:radon-nikodym}
 Let $\mu$ and $\lambda$ be $\sigma$-finite positive measures defined on $(\Omega, \mathscr{F})$ such that for every $A \in \mathscr{F}$, $\lambda(A) = 0 \implies \mu(A)= 0$. Then, there exists a function $f: \Omega \to [0, \infty]$ such that
 \[
-	\mu(A) = \int_A f d\lambda
+	\mu(A) = \int_A f d\lambda.
 \]
 
 Where the function $f$ is defined up to sets with measure zero. $f$ is sometimes called the Radon-Nikodym derivative and it can be written as $\frac{d\mu}{d\lambda}$
@@ -616,7 +613,7 @@ The conditional expectation of a nonnegative random variable $X$ with respect to
 \begin{enumerate}
 	\item $\mathbb{E}[X | \mathscr{G}]$ is $\mathscr{G}$-measurable; and
 	\item For every $A \in \mathscr{G}$,
-	\[\int_A X d\Pm = \int_A \mathbb{E}[X | \mathscr{G}] d\Pm\]
+	\[\int_A X d\Pm = \int_A \mathbb{E}[X | \mathscr{G}] d\Pm\].
 \end{enumerate}
 
 \end{definition}
@@ -655,7 +652,7 @@ Hitherto the random variables for which we have been taking measures from consti
 \begin{definition}\textbf{Stochastic Process}
 	Let $\ProbSpace$ be a probability space. A stochastic process is a set of random variables that takes values in some set $S$ called the \textbf{state space}, and are indexed by some set $T$.
 	\begin{equation}
-		\{X_t \ | \ t \in T\}
+		\{X_t \ | \ t \in T\}.
 	\end{equation}
 \end{definition}
 
@@ -703,7 +700,7 @@ With stochastic processes well defined, the next step is to measure the outcome 
 \begin{definition} \textbf{Filtration}.
 Let $\ProbSpace$ a probability space. A filtration is a non-decreasing sequence of sub-$\salg$s of $\salgF$, $\{\salgF_n\}_{n\geq 0}$ such that 
 \[
-	\salgF_t \leq \salgF_s \ \forall \ 0 \leq t \leq s
+	\salgF_t \leq \salgF_s \ \forall \ 0 \leq t \leq s.
 \]
 \end{definition}
 
@@ -714,7 +711,7 @@ The minimal $\salg$ generated by $\ctspr$ at time $\tau$ is known as the \textbf
 In a discrete time process, we denote the minimal $\salg$ generated by $\dtspr$ up to time $k$ as $\{X_1, \ldots, X_k\} := \sigma(\{X_1, \ldots, X_k\})$.\\
 
 
-An recurrent topic throughout this work is a particular case of stochastic process. We will limit ourselves to define it here and develop its intuition in the following chapter.
+A recurrent topic throughout this work is a particular case of stochastic process. We will limit ourselves to define it here and develop its intuition in the following chapter.
 
 \begin{definition} \textbf{Martingale}.
 	An stochastic process $\ctspr$ defined over $\ProbSpace$ is said to be a martingale w.r.t. a filtration $\{\salgF_n\}_{n\geq 0}$ if, for all $t \geq 0$, and $t \leq s$,
