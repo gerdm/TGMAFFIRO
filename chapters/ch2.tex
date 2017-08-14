@@ -1,20 +1,23 @@
 \documentclass[../TGMAFFIRO.tex]{subfiles}
 
 \begin{document}
-In order to explain the likelihood of certain events, we must first define what we mean by \textit{randomness}, specify which events are being referred to, and to express, in mathematical sense, the likelihood of any event. With this in mind, we dedicate this chapter to gradually build the tools that will later be required to \textit{make sense} of random events and further develop a theory to model the dynamics of assets such as stocks and currencies.
+In order to explain the likelihood of certain random events, we must first define what we mean by \textit{randomness}, specify which events are being referred to, and to express, in mathematical sense, the possibility of any such event. With this in mind, we dedicate this chapter to gradually build the tools that will later be required to \textit{make sense} of random events and further develop a theory to model the dynamics of assets such as stocks and currencies.\\
+
+We begin by motivating the need of \textit{measurable spaces}, and their fundamental importance throughout this work.
 
 \section{Measurable Spaces}
-Suppose we had a fair con and were interested in the outcomes that could arise by throwing it twice in a row. Undoubtedly, by doing so, one the following scenarios take place:
+Assume we had a fair coin and decided to represent the possible outcomes that bring about throwing it twice in a row. Let us represent with the letter $H$ the scenario in which \textit{head} lands; on the contrary, we will denote with the letter $T$ the scenario in which \textit{tail} lands. Evidently, the possible scenarios are the following: 
 \[
 	\{HH\}, \ \{HT\}, \ \{TH\}, \ \{TT\}.
 \]
+
 By throwing the fair coin twice, we are effectively performing an \textbf{experiment}. In this context, the outcome of any possible single event in the experiment is known as the \textbf{universe}. We denote the universe with the letter greek Omega ($\Omega$).\\
 
-Although $\Omega$ contains every element of occurrence in the experiment, its members alone are not enough to answer any possible question we may have about the outcome of the experiment. Suppose, for example, we were interested in knowing which elements in $\Omega$ constitute the outcome of the experiment in which at least one head ($H$) appears.  Clearly, this subset of $\Omega$, which contains the elements $\{TH, HT, HH\}$, is not currently expressed anywhere. Likewise, the subset of $\Omega$ in which only two coins of the same side appear, is not currently expressed.\\
+Although $\Omega$ contains every element of possible occurrence, its members alone are not enough to answer any possible question we may have about the outcome of the experiment. Suppose, for example, we were interested in knowing which elements of $\Omega$ constitute the outcome of the experiment in which at least one head ($H$) appears.  Clearly, this subset of $\Omega$, which contains the elements $\{TH, HT, HH\}$, is not currently expressed. Likewise, the subset of $\Omega$ in which only two coins of the same side appear ($\{HH, TT\}$), is not currently expressed.\\
 
-To address this problem, we define the set of subsets of the experiment, called an \textbf{algebra}, that captures the feasible questions to ask, as to the occurrences that could happen in any experiment.
+To address this problem, we define a set of subsets of $\Omega$, called an \textbf{algebra}, that captures the feasible questions to ask, as to the occurrences that may happen in the experiment.
 
-\begin{definition}{\textbf{Algebra}}\label{def:algebra}
+\begin{definition}[\textbf{Algebra}]\label{def:algebra}
 	Let $\Omega$ be a set of points $\omega$. A system $\mathscr{A}$ of subsets of $\Omega$ is an Algebra if:
 	\begin{enumerate}
 		\item $\Omega \in \mathscr{A}$;
@@ -25,19 +28,16 @@ To address this problem, we define the set of subsets of the experiment, called 
 
 With definition \ref{def:algebra} in mind, we can now consider the \textit{algebra} for $\Omega = \{HH, HT, TH, HH\}$ in which we toss two fair coins:
 
-\begin{figure}[h]
-	\centering
-	\begin{verbatim}
-		{{}, {HH}, {HT}, {TH}, {TT}, {HH, HT}, {HH, TH}, {HH, TT},
-		{HT, TH}, {HT, TT}, {TH, TT}, {HH, HT, TH}, {HH, HT, TT},
-		{HH, TH, TT}, {HT, TH, TT}, {HH, HT, TH, TT}}
-	\end{verbatim}
-  \caption{The algebra of an experiment: tossing a coin twice.}
-\end{figure}
+\begin{verbatim}
+	{{}, {HH}, {HT}, {TH}, {TT}, {HH, HT}, {HH, TH},
+	{HH, TT}, {HT, TH}, {HT, TT}, {TH, TT},
+	{HH, HT, TH}, {HH, HT, TT}, {HH, TH, TT}, {HT, TH, TT},
+	{HH, HT, TH, TT}}
+\end{verbatim}
 
-Experiments are not necessarily countably finite. Some experiments may be countably infinite (e.g., the natural numbers), or even uncountably infinite (e.g., the subset of real numbers between 0 and 1). Concerning a more abstract space $\Omega$, we then need to impose an additional property to an algebra called the \textit{$\sigma$-additivity}.
+Universes are not necessarily countably finite. Some may be countably infinite (e.g., the natural numbers), or even uncountably infinite (e.g., the subset of real numbers between 0 and 1). Concerning a more abstract space $\Omega$, we then need to impose an additional property to an algebra called the \textit{$\sigma$-additivity}.
 
-\begin{definition}{\textbf{$\salg$}}\label{salgebra}
+\begin{definition}[\textbf{$\salg$}]label{salgebra}
 	A system $\salgF$ of subsets of $\Omega$ is a $\salg$ if it is an algebra and it satisfies the $\sigma$-additive property:
 	\begin{equation*}
 		\text{If } \{A_n\}_{n\geq 1} \in \salgF \Rightarrow \bigcup_{k=1}^{\infty} A_k \in \salgF.
@@ -63,11 +63,11 @@ Experiments are not necessarily countably finite. Some experiments may be counta
 
 \end{definition}
 
-Defintion \ref{generated_sigma_algebra} is then, the smallest $\salg$ that cointains $A$. This definition is useful in the construction of one particular $\salg$ of subsets of $\RNums$.\\
+Defintion \ref{generated_sigma_algebra} is the smallest $\salg$ that cointains $A$. This definition is useful in the construction of one particular $\salg$ of subsets of $\RNums$.\\
 
 Consider the collection of open intervals $(a,b) \in \RNums$. For every $a \leq b$, the smallest $\salg$ generated by this collection is known as the Borel $\salg$ of subsets of $\RNums$.
 
-\begin{definition}{\textbf{The Borel $\salg$}}\label{def:borel_sigma_alg}.
+\begin{definition}[\textbf{The Borel $\salg$}]\label{def:borel_sigma_alg}
 		\begin{equation}
 			\borelsalg := \sigma\{(a,b) \subseteq \RNums:a\leq b\}.
 		\end{equation}
@@ -75,15 +75,15 @@ Consider the collection of open intervals $(a,b) \in \RNums$. For every $a \leq 
 
 Definition \ref{def:borel_sigma_alg} is the smallest $\salg$ that contains all open intervals in the real line. Furthermore, it can be proven that $[a, b]$, $(a,\infty)$, $(-\infty, b)$, $[a, b)$, $(a, b]$ are all elements in $\borelsalg$.\\
 
-Concerning the set of elements $\Omega$, equipped with a $\salg \ \salgF$, yields an important definition that will formalize an abstract space in which we can further develop a theory.
+Concerning the set of elements $\Omega$, equipped with a $\salg \ \salgF$, yields a crucial definition that will formalize an abstract space in which we can further develop a theory.
 
-\begin{definition}{\textbf{Measurable Space}.} \label{def:measurable_space}
-	If $\salgF$ is a $\salg$ of subsets of $\Omega$, $(\Omega, \salgF)$ is said to be a measurable space. If $A$ is a set in $\salgF$, we say that $A$ is $\salgF$-measurable (or measurable w.r.t. $\salgF$)
+\begin{definition}[\textbf{Measurable Space}] \label{def:measurable_space}
+	If $\salgF$ is a $\salg$ of subsets of $\Omega$, $(\Omega, \salgF)$ is said to be a measurable space. If $A$ is a set in $\salgF$, we say that $A$ is $\salgF$-measurable ---or measurable with respect to (w.r.t.) $\salgF$---
 \end{definition}
 
 Definition \ref{def:measurable_space} urges an auxiliary way to make sense of the information provided by $(\Omega, \salgF)$. Concretely, we now define a way to fathom any abstract measurable space.
 
-\begin{definition}{\textbf{Measure}.}
+\begin{definition}[\textbf{Measure}]
 	Let $\bar{\mathbb R} := \mathbb R \cup \{-\infty, \infty\}$ be the extended real line and let $(\Omega, \salgF)$ be a measurable space. It is said that a function $\mu: \salgF \rightarrow \bar{\mathbb R}$ is a measure over $(\Omega, \salgF)$ if
 	\begin{enumerate}
 		\item $\mu(\emptyset) = 0$;
@@ -100,7 +100,7 @@ If the last definition holds true for a given $\mu$ inside $(\Omega, \salgF)$, t
 
  Furthermore, if $\mu(\Omega) < \infty$ then, $\mu$ is said to be a finite measure. Lastly, if  $\mu(\Omega) = 1$, then $\mu$ is said to be a probability, which we denote $\Pm \equiv \mu$. Consequently, $\ProbSpace$ is said to be a \textbf{probability space}. We formalize this last definition as follows:
 
-\begin{definition}{\textbf{Kolmogorov's Axiom System}.} 	\label{def:kolmogorov_axions}
+\begin{definition}[\textbf{Kolmogorov's Axiom System}]\label{def:kolmogorov_axions}
 	An ordered triple $\ProbSpace$ where
 	\begin{enumerate}
 		\item $\Omega$ is a set of points $\omega$;
@@ -148,7 +148,7 @@ Furthermore, a probability distribution function has the following properties:
 \end{definition}
 
 
-The function $f$ is known as the \textbf{probability density function} of the random variable $X$. Perhaps one of the most known probability density functions, and crucial tool for this work, is the density function of the normal distribution:
+The function $f$ is known as the \textbf{probability density function} (p.d.f.) of the random variable $X$. Perhaps one of the most known probability density functions, and crucial tool for this work, is the p.d.f. of the normal distribution:
 
 \begin{equation}\label{eq:normal_distribution}
 	\phi(x|\mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x - \mu)^2}{2\sigma^2}}.
@@ -179,7 +179,7 @@ We start the motivation of an Lebesgue integral by defining the most basic class
 		\end{cases}
 	\]
 	To simplify the notation, we will also denote $\ind_A(\omega)$ as $\ind_A$.
-	We define the \textbf{Lebesgue integral} of $\ind_A$ with respect to (w.r.t.) $\mu$ as
+	We define the \textbf{Lebesgue integral} of $\ind_A$ w.r.t. $\mu$ as
 	\begin{equation}
 		\int_\Omega \ind_A(\omega) d\mu(\omega) := \mu(A).
 	\end{equation}
@@ -206,11 +206,15 @@ We start the motivation of an Lebesgue integral by defining the most basic class
 
 %% TODO: add theorem (proof?) that that any continuous function can be approximating as the limit of simple functions
 
+\begin{theorem}
+	If $f:\RNums\to[0, \infty]$ is measurable, then there exist a collection of real-valued simple functions $\{f_i\}_{i\geq 0}$ on $f$ such that $0 \leq f_1 \leq \ldots \leq f$ and $f_n \to f$ pointwise.
+\end{theorem}
+
 %% Approximation by Simple Functions %%
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/simple_sine.pdf}	
-	\caption{Approximation of a Borel-Measurable Function}
+	\caption{Approximation to the Borel-measurable function $\sin^2(x) + x$ via a sequence of simple functions}
 	\label{fig:simple_approx_sine}
 \end{figure}
 
@@ -284,7 +288,7 @@ We start the motivation of an Lebesgue integral by defining the most basic class
 	\end{equation}
 \end{definition}
 
-If $X$ is any measurable function, we define the negative and positive parts of $X$:
+If $X$ is any measurable function, we define the positive and negative parts of $X$ as:
 \begin{align}
 	X^+ := \max\{X(\omega), 0\} \\
 	X^- := \max\{-X(\omega), 0\}
@@ -347,7 +351,7 @@ If $A \in \salgF$, we define
 	For disjoint sets $\{A_i\}_{i\geq1}$
 \end{theorem}
 
-For a proof of theorem \ref{th:salg-lebesgue-int} see \aycite{applebaum}. Consider \ref{def:lebesgue_integral}, \ref{prop:integral_positive_measure}, together with \ref{th:salg-lebesgue-int}. It is then clear, that the Lebesgue integral for random variables $X \in \ProbSpace$ such that $X(\omega) \geq 0 \ \forall \ \omega \in \Omega$ is then a measure defined over $(\RNums, \borelsalg)$. This last remark yields a corollary that will aid in the result of one of the fundamental theorems of integration and convergence. 
+For a proof of theorem \ref{th:salg-lebesgue-int} see \aycite{applebaum}. Consider \ref{def:lebesgue_integral}, \ref{prop:integral_positive_measure}, together with theorem \ref{th:salg-lebesgue-int}. It is then clear, that the Lebesgue integral for random variables $X \in \ProbSpace$ such that $X(\omega) \geq 0 \ \forall \ \omega \in \Omega$ is then a measure defined over $(\RNums, \borelsalg)$. This last is followed by a corollary that will aid in the result of one of the fundamental theorems of integration and convergence. 
 
 \begin{corollary} \label{cor:partition_limit_integral}
 	Let $X: \Omega \to \RNums$ a nonnegative measurable function and $\{E_n\}_{n\geq 1}$ a sequence of sets in $\Omega$ such that $E_n \subseteq E_{n+1}$ for every $n \in \mathbb{N}$. Denote $E = \bigcup_{n=1}^{\infty} E_n$. Then,
@@ -426,7 +430,7 @@ Let $\{X_n\}_{n\geq 1}$ be a sequence of nonnegative functions where $X_i: \Omeg
 	If $f_n \to f$ a.e. then $f_n \to f$ in measure
 \end{proposition}
 
-\begin{theorem} \textbf{Bounded Convergence Theorem}
+\begin{theorem}[\textbf{Bounded Convergence Theorem}]
 	If the sequence $\{f_n\}_{n\geq 1}$ of measurable functions is uniformly bounded and if $f_n \to f$ in measure then,
 	\begin{equation}
 		\lim_{n\to\infty} \int_\Omega f_n = 	\int_\Omega \lim_{n\to\infty} f_n d\mu = \int_\Omega f d\mu
@@ -461,7 +465,7 @@ Let $\{X_n\}_{n\geq 1}$ be a sequence of nonnegative functions where $X_i: \Omeg
 	since $\{\omega : |g_n(\omega)| > \epsilon\}$ converges to an empty set as $n\to\infty$. This completes the proof since $\epsilon > 0$ is as small as desired.
 \end{proof}
 
-\begin{theorem} \label{th:fatous_lemma} \textbf{Fatou's Lemma}
+\begin{theorem}[\textbf{Fatou's Lemma}]\label{th:fatous_lemma}
 If $\{f_n\}_{n\geq 1}$ is a sequence of nonnegative measurable functions such that $f_n \to f$ in measure. Then,
 \begin{equation}
 	\int\lim_{n\to\infty}\inf f_n d\mu = \int f d\mu \leq \lim_{n\to\infty}\inf\int f_n d\mu
@@ -492,7 +496,7 @@ If $\{f_n\}_{n\geq 1}$ is a sequence of nonnegative measurable functions such th
 	As $0 \leq g \leq f$ is arbitrary, choosing $g = f$ concretes the proof.
 \end{proof}
 
-\begin{theorem} \textbf{Dominated Convergence Theorem}
+\begin{theorem}[\textbf{Dominated Convergence Theorem}]
 If the sequence $\{f_n\}_{n\geq 1}$ is such that $f_n \to f$ in measure, and $|f_n| \leq g$ for measurable $g$, and all $n$, $\omega$ then,
 \begin{equation}
 	\lim_{n\to\infty}\int f_n d\mu = \int \lim_{n\to\infty} f_n d\mu  = \int f d\mu
@@ -519,9 +523,9 @@ If the sequence $\{f_n\}_{n\geq 1}$ is such that $f_n \to f$ in measure, and $|f
 \end{proof}
 
 \section{Expectations}
-We the tools surveyed so far we now introduce a new concept, that of the expectation of a random variable. Aridly put, we will define an expectation as the integral of a random variable w.r.t. its probability measure. Nonetheless, the concept of an expectation under a probability space $\ProbSpace$ serves a practical purpose that will be of much use throughout the rest of this work.
+We the tools surveyed so far, we can now introduce a new concept, that of the expectation of a random variable. Aridly put, we will define an expectation as the integral of a random variable w.r.t. its probability measure. Nonetheless, the concept of an expectation under a probability space $\ProbSpace$ serves a practical purpose that will be of much use throughout the rest of this work.
 
-\begin{definition} (\textbf{Expectation})
+\begin{definition}[\textbf{Expectation}]
 	Let $X$ be a random variable on $\ProbSpace$. The integral of $X$ w.r.t. the measure $\Pm$ is known as the expectation of $X$ w.r.t. $\Pm$. 
 	\begin{equation}
 		\mathbb{E}_{\Pm}[X] := \int_\Omega X d\Pm
@@ -536,8 +540,7 @@ We the tools surveyed so far we now introduce a new concept, that of the expecta
 		\end{equation}
 \end{theorem}
 
-% TODO: ---- Explain better!! ----
-Measuring elements is often times clearer on Borel-measurable sets as opposed to on some abstract $\salg$. Theorem \ref{th:h1_borel} then assures us that if $h$ is Borel-measurable and belongs to an integrable abstract space $L_1\ProbSpace$, we can find an equivalent probability space $(\RNums, \borelsalg, P_X)$ for which $h \in L_1(\RNums, \borelsalg, P_X)$. Aside of its usefulness, proving \ref{th:h1_borel} sheds a light on the requirements the involve its existence. Taking note on how to prove this last theorem will be of much use once we deal with more abstract spaces.\\
+Measuring elements is often times clearer on Borel-measurable sets as opposed to on some abstract $\salg$. Theorem \ref{th:h1_borel} then assures us that if $h$ is Borel-measurable and belongs to an integrable abstract space $L_1\ProbSpace$, we can find an equivalent probability space $(\RNums, \borelsalg, P_X)$ for which $h \in L_1(\RNums, \borelsalg, P_X)$.\\
 
 As a synthesis for the following proof, we will make use of the \textit{standard machine} approach. In it, we will prove the theorem using indicator functions; then, by linearity, it is true for simple function; finally, we conclude using the monotone convergence theorem.\\
 
@@ -582,7 +585,7 @@ Finally, let $h$ be a nonnegative Borel-Measurable function. Then, there exists 
 \end{align*}
 \end{proof}
 
-Now, recall that if $X$ is any random variable with density function $f(x)$ then, for any $B \in \borelsalg$,
+Now, recall that if $X$ is any random variable with p.d.f. $f(x)$ then, for any $B \in \borelsalg$,
 \begin{equation*}
 	P_X(B) = \int_\RNums  f(x) dx.
 \end{equation*}
@@ -597,8 +600,8 @@ The same argument as theorem \ref{th:h1_borel} results in the following corollar
 
 We now state, without proof, a theorem that allows to work with different measures under a given measure space.
 
-\begin{theorem}\textbf{Radon Nikodym Theorem}.\label{th:radon-nikodym}
-Let $\mu$ and $\lambda$ be $\sigma$-finite positive measures defined on $(\Omega, \mathscr{F})$ such that for every $A \in \mathscr{F}$, $\lambda(A) = 0 \implies \mu(A)= 0$. Then, there exists a function $f: \Omega \to [0, \infty]$ such that
+\begin{theorem}[\textbf{Radon Nikodym Theorem}]\label{th:radon-nikodym}
+Let $\mu$ and $\lambda$ be $\sigma$-finite positive measures defined on $(\Omega, \mathscr{F})$ such that, for every $A \in \mathscr{F}$, $\lambda(A) = 0 \implies \mu(A)= 0$. Then, there exists a function $f: \Omega \to [0, \infty]$ such that
 \[
 	\mu(A) = \int_A f d\lambda.
 \]
@@ -608,7 +611,7 @@ Where the function $f$ is defined up to sets with measure zero. $f$ is sometimes
 
 The Radon-Nikodym theorem paves way for the following definition.
 
-\begin{definition}\textbf{Conditional Expectation w.r.t. a $\sigma$-algebra}
+\begin{definition}[\textbf{Conditional Expectation w.r.t. a $\sigma$-algebra}]
 The conditional expectation of a nonnegative random variable $X$ with respect to the $\sigma$-algebra $\mathscr{G}$ is a nonnegative random variable denoted $\mathbb{E}[X | \mathscr{G}]$ or $\mathbb{E}[X | \mathscr{G}](\omega)$ such that,
 \begin{enumerate}
 	\item $\mathbb{E}[X | \mathscr{G}]$ is $\mathscr{G}$-measurable; and
@@ -618,7 +621,7 @@ The conditional expectation of a nonnegative random variable $X$ with respect to
 
 \end{definition}
 
-\begin{definition}\textbf{Conditional Probability}.
+\begin{definition}[\textbf{Conditional Probability}]
 	Let $B\in\salgF$. The conditional expectation $\mathbb{E}[B | \mathscr{G}] := \Pm(B | \mathscr{G})$ is defined as the conditional probability of $B$ w.r.t. the $\salg$ $\mathscr{G} \subseteq \salgF$
 \end{definition}
 
@@ -647,9 +650,9 @@ The conditional expectation of a nonnegative random variable $X$ with respect to
 
 
 \section{Stochastic Processes, Filtrations \& Martingales}
-Hitherto the random variables for which we have been taking measures from constitute a single outcome of an experiment. In pursuance of a model that describes the dynamics of financial assets over time, we require a way to pinpoint both place in time, and distribution of a random variable. In other words, we would like to represent the evolution of a distribution over time in which random variables take values. This last idea yields to a comprehensive definition for the movement of any random variable indexed by time.
+Hitherto the random variables for which we have been taking measures from constitute a single outcome of an experiment. In pursuance of a model that describes the dynamics of financial assets over time, we require a way to pinpoint both place in time, and distribution of a random variable. In other words, we would like to represent the evolution of a distribution over time in which random variables take values. With this idea, we can formulate a comprehensive mathematical definition for the movement of any random variable indexed by time.
 
-\begin{definition}\textbf{Stochastic Process}
+\begin{definition}[\textbf{Stochastic Process}]
 	Let $\ProbSpace$ be a probability space. A stochastic process is a set of random variables that takes values in some set $S$ called the \textbf{state space}, and are indexed by some set $T$.
 	\begin{equation}
 		\{X_t \ | \ t \in T\}.
@@ -695,9 +698,9 @@ Where,
 
 Consider figure \ref{fig:stochastic_process}, where we graph a single path of the stochastic process $\ctspr$ in which $X_t \sim \mathcal{N}(0, t)$ (see eq. \ref{eq:normal_distribution}). Indeed, $\ctspr$ can be seen as either a function indexed by $T$, in which case we graph the path of a single trajectory (red colored); or, for fixed $t\geq 0$, as a single random variable with probability density function $\phi(x | 0, t)$.\\
 
-With stochastic processes well defined, the next step is to measure the outcome of an event at a given $t \geq 0$. A stochastic process need not be $\borelsalg$-measurable for every $t$ (as seen on the last example). The values that any $\ctspr$ can take at a certain $t$ may vary. For this reason, it is sensible to equip a stochastic process, with $\salg$s of subsets of $\salgF$ that give us clue as to the subsets that are \textit{reasonable} to measure at a given $t$. 
+With stochastic processes well defined, the next step is to measure the outcome of an event at a given $t \geq 0$. Unlike this last example, stochastic processes need not be $\borelsalg$-measurable for every $t$. The values that any $\ctspr$ can take at a certain $t$ may vary. For this reason, it is sensible to equip a stochastic process, with $\salg$s of subsets of $\salgF$ that give us clue as to the subsets that are \textit{reasonable} to measure at a given $t$. 
 
-\begin{definition} \textbf{Filtration}.
+\begin{definition}[\textbf{Filtration}]
 Let $\ProbSpace$ a probability space. A filtration is a non-decreasing sequence of sub-$\salg$s of $\salgF$, $\{\salgF_n\}_{n\geq 0}$ such that 
 \[
 	\salgF_t \leq \salgF_s \ \forall \ 0 \leq t \leq s.
@@ -710,10 +713,9 @@ The minimal $\salg$ generated by $\ctspr$ at time $\tau$ is known as the \textbf
 
 In a discrete time process, we denote the minimal $\salg$ generated by $\dtspr$ up to time $k$ as $\{X_1, \ldots, X_k\} := \sigma(\{X_1, \ldots, X_k\})$.\\
 
+We conclude this chapter by defining a particular subset of the family of stochastic processes. We will limit ourselves to define it here and develop its intuition in the following chapter.
 
-A recurrent topic throughout this work is a particular case of stochastic process. We will limit ourselves to define it here and develop its intuition in the following chapter.
-
-\begin{definition} \textbf{Martingale}.
+\begin{definition}[\textbf{Martingale}]
 	An stochastic process $\ctspr$ defined over $\ProbSpace$ is said to be a martingale w.r.t. a filtration $\{\salgF_n\}_{n\geq 0}$ if, for all $t \geq 0$, and $t \leq s$,
 	\begin{enumerate}
 		\item $X_t$ is $\salgF_t$-measurable;
@@ -722,7 +724,7 @@ A recurrent topic throughout this work is a particular case of stochastic proces
 	\end{enumerate}
 \end{definition}
 
-\begin{theorem} \textbf{Doob's Martingale Inequality}. \label{th:doob_martingale}
+\begin{theorem}[\textbf{Doob's Martingale Inequality}]\label{th:doob_martingale}
 	If. $\ctspr$ is a continuous-time martingale, then 
 	\begin{equation}
 		\Pm(\sup_{t\in [0, T]} |X_t| \geq \lambda) \leq \frac{1}{\lambda^p}\E\left[|X_t|^p\right].
