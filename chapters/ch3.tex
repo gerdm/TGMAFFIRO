@@ -12,14 +12,23 @@
 % and the geometric brownian motion as an example of this.
 
 
-\section{Random Walks}
-As stated in the first chapter, the behavior of stocks in financial markets behaves stochastically. We cannot be certain of the value that any stock will take some future time, no matter how small the future time-interval is.\\
+% 1) Link
+In chapter one we posed the question about the theoretical value of a financial call option that starts today. Specifically, we want to answer the following question: what is today's value for a derivative that pays $\max\{S_T-K, 0\}$ at maturity? Note that, at time $T$, the payoff of the option is a function of $S_T$, since all else is given. Consequently, preceding the valuation of any option we must first take into account the dynamics of the asset we are referring to, i.e., we must come up with a model for $S_t$ for all $t \in [0,\infty)$.\\
 
-Consider a more simple example of a stochastic process: Suppose that two players (A and B) toss an even coin $d$ times, one toss for every unit of time\footnote{Note that this unit of time can be one second, one day, 5 minutes, etc.}. Whenever tails land, A will pay B \$1. On the contrary, A will receive \$1 from B. Suppose further that we decide to model how much did A won (or lost) after $n$ tosses. To do so, we define the following:
+% 2) Focus
+In the following chapter, we aim to attain a model that explains the random movements of stocks in the market. More precisely, what is needed is to describe the ``noise'' of an asset over time by virtue of stochastic processes.\\
+
+% 3) Overview
+We begin by motivating the need for such processes in a mathematically-informal way, we then lay the mathematical foundations for what is the final process that models the noise in a financial asset, and we conclude the chapter by proving remarkable properties about the latter.
+
+\section{Random Walks}
+Suppose that two players (A and B) toss an even coin $n$ times, one toss for every unit of time\footnote{Note that this unit of time can be one second, one day, 5 minutes, etc.}. Whenever tails comes up, A will pay B \$1. On the contrary, A will receive \$1 from B. Suppose further that we decide to model how much did A won (or lost) after $n$ tosses. To do so, we define the following:
 
 \begin{definition}\label{srwalk}
-	Let $\{X_j\}_{j\geq0}$ be a set of i.i.d. random variables such that $\Pm(X_i = \pm 1) = \frac{1}{2}$; $i \geq 1$. Define $M_0 = 0$ and
-	\[M_n := \sum_{k=1}^n X_k \ \forall \ k \in \mathbb{N}\] 
+	Let $\{X_j\}_{j\geq0}$ be a set of independent and identically distributed (i.i.d.) random variables such that $\Pm(X_i = \pm 1) = \frac{1}{2}$; $i \geq 1$. Define $M_0 = 0$ and
+	\begin{equation}
+		M_n := \sum_{k=1}^n X_k \ \forall \ k \in \mathbb{N}.
+	\end{equation}
 	The process $\{M_d\}_{d\geq 0}$ is known as a \textbf{symmetric random walk}
 \end{definition}
 
@@ -31,12 +40,10 @@ Consider a more simple example of a stochastic process: Suppose that two players
 	\caption{Symmetric Random Walk}
 \end{figure}
 
-Definition \ref{srwalk} captures what we intended to model. From the outset, both players start with with \$0 and, as the game progresses, whichever amount A wins, B looses it. These type of games, for which whatever one players wins, the other looses it are called \textbf{Zero-sum games}.\\
-
-From here on we can start forming questions about the intrinsic behavior of the game. 
+From here on we can start forming questions about the intrinsic behavior of the game. Consider the following proposition:
 
 \begin{proposition}\label{expectation_srw}
-	The expectation of a symmetric random walk is 0.
+	The expected value of a symmetric random walk is 0.
 \end{proposition}
 
 \begin{proof}
@@ -47,9 +54,11 @@ From here on we can start forming questions about the intrinsic behavior of the 
 	\end{align}
 \end{proof}
 
-After a large number of times for which the game is played we expect to break even. Nobody would win or loose once we played a large number of times\footnote{In fact, according to Law of Large Number, we would expect to break even after a number so large that it approaches to infinity.}\\
+This las proposition also shows that defining the symmetric random walk (def. \ref{srwalk}) captures what we intended to model. From the outset, both players start with with \$0 and, as the game progresses, whichever amount A wins, B looses it. These type of games, for which whatever one players wins, the other looses it are called \textbf{zero-sum games}.\\
 
-This type of process is also known as a fair-game. This is because what one would expect to win at any given future point in time is dependent on the amount that one has today. In other words, if both of the players start with a P\&L of \$0, then they would not expect, after a large amount of games\footnote{Mathematically speaking, the expectation of the game is zero in the sense that, as the number of games tends to infinity, the average P\&L for any of the players turn to zero} to earn any more money than what they started with: \$0.\\
+After a large number of times for which the game is played we expect to break even. Nobody would win or loose once played a large number of times\footnote{In fact, according to Law of Large Number, we would expect to break even after a number so large that it approaches to infinity.}\\
+
+A symmetric random walk also happens to be known as a fair-game. This is because what one would expect to win at any given future point in time is dependent on the amount that one has today. In other words, if both of the players start with a P\&L of \$0, then they would not expect, after a large amount of games\footnote{Mathematically speaking, the expectation of the game is zero in the sense that, as the number of games tends to infinity, the average P\&L for any of the players turn to zero} to earn any more money than what they started with: \$0.\\
 
 To see why, consider the following proposition
 
@@ -70,7 +79,7 @@ This shows that the expected value of a game at a future time is a martingale. N
 
 
 \section{Scaled Random Walk}
-The simple random walk can altered such that between any two units of time the process takes $n$ steps. This is more alike to be the behavior of the financial asset we desire to model. 
+The simple random walk can altered such that between any two units of time the process takes $n$ steps. This is akin to be the behavior of the financial asset we desire to model. 
 
 \begin{definition}
 	We define the \textbf{scaled random walk} $W^n(t)$ as the following transformation of the simple random walk:
