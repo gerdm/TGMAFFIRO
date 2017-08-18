@@ -153,18 +153,86 @@ In what follows of this chapter, we formalize the \textbf{Brownian motion}
 		\item $\norm{v + w} = \norm{v} + \norm{w}$.
 	\end{enumerate}
 \end{definition}	
-We say that $(V, \norm{\cdot})$ is a complete normed spaced (or a Banach space) i, for $\{v_n\}_{n\geq 0}$, and $\{v_m\}_{m\geq 0}$; $\norm{v_n - v_m} \to 0$ as $n, m \to \infty$. The sequence $\{\norm{v_m, v_n}_{n,m \geq 0}\}$ is known as a \textbf{Cauchy sequence}. This last fact imposes the existence of $v\in V$ such that $\lim_{n\to\infty} v_n = v$.
+We say that $(V, \norm{\cdot})$ is a complete normed spaced (or a Banach space) if, for $\{v_n\}_{n\geq 0}$, and $\{v_m\}_{m\geq 0}$; $\norm{v_n - v_m} \to 0$ as $n, m \to \infty$. The sequence $\{\norm{v_m, v_n}\}_{n,m \geq 0}$ is known as a \textbf{Cauchy sequence}. This last fact imposes the existence of $v\in V$ such that $\lim_{n\to\infty} v_n = v$.
 
 \begin{definition}
-Let $\ProbSpace$ be a measurable space, we define the $L_2$ space ($L_2\ProbSpace$) as the family of random variables such that
+Let $\ProbSpace$ be a measurable space, we define the $L_2$ space ($L_2\ProbSpace $) as the family of random variables such that
 	\begin{equation}
 		\norm{X}_2:= \left(\E[|X|^2] \right)^{1/2} < \infty
 	\end{equation}
-	
 \end{definition}
 
 %TODO: Proof!
 It can be shown that if $X$, $Y$ are two random variables such that $\Pm(X=Y) = 1$, then the linear normed space $(L_2, \norm{\cdot}_2)$ is a Banach space.
+
+\begin{definition}
+	An \textbf{inner product} over a linear space $V$ is a function $\innerprod{\cdot}{\cdot} : V\times V \to \RNums$ such that, for every $x\text{,}y\text{,}z\in V$ and $\alpha\text{,}\beta \in \RNums$,
+	\begin{enumerate}
+		\item $\innerprod{x}{y} = \innerprod{y}{x}$;
+		\item $\innerprod{x}{x} \geq 0$;
+		\item $\innerprod{\alpha x + \beta y}{z} = \alpha\innerprod{x}{z} + \beta\innerprod{y}{z}$; and
+		\item $\innerprod{x}{x} = 0 \iff x = 0_n$
+	\end{enumerate}	
+\end{definition}
+
+\begin{definition}\label{def:isometry}
+	Let $(V_1, \norm{\cdot}_1)$ and $(V_2, \norm{\cdot}_2)$ two normed vector spaces with inner product $\innerprod{\cdot}{\cdot}_1$, $\innerprod{\cdot}{\cdot}_2$ respectively. It is said that a linear function $I:V_1\to V_2$ is an \textbf{isometry} if, for every, $v\in V_1$,
+	\begin{equation}
+		\norm{I(v)}_2  = \norm{v}_1.
+	\end{equation}
+\end{definition}
+
+\begin{remark}
+	From definition \ref{def:isometry} it follows that
+	\begin{equation}
+		\innerprod{I(v)}{I(u)}_2 = \innerprod{v}{u}_1 \ \forall \ v,u\in V_1.
+	\end{equation}
+\end{remark}
+
+%TODO: Complete the enlightening proposition
+\begin{definition}
+	Let $(V, \norm{\cdot}_V)$ a complete normed space and $(W, \norm{\cdot}_W)$ a normed space. Let $U\subseteq V$ dense, and $I:U\to W$ and isometry. Then,
+	\begin{enumerate}
+		\item $I(\cdot)$ can be extended to all $V$ ($I: V\to W$); and
+		\item $I(\cdot)$ is also an isometry for $V$ ($\norm{I(v)}_W = \norm{I(v)}_V$).
+	\end{enumerate}
+\end{definition}
+
+\begin{proposition}\label{def:hilbert_space}
+	Let $\innerprod{\cdot}{\cdot}$	 an inner product defined over $V$ and define $\norm{\cdot}:=\sqrt{\innerprod{\cdot}{\cdot}}$ then,
+	\begin{enumerate}
+		\item $|\innerprod{x}{y}| \leq \norm{x} \norm{y}$;
+		\item $\norm{x}$ defines a norm over $V$; and
+		\item if $x_n \to x$ and $y_m \to y$, then $\innerprod{x_n}{y_n} \to \innerprod{x}{y}$.
+	\end{enumerate}
+\end{proposition}
+
+\begin{remark}
+	If the norm over $V$ as defined in \ref{def:hilbert_space} is complete, then $(V, \innerprod{\cdot}{\cdot}$ is said to be a \textbf{Hilbert space}.
+\end{remark}
+
+For any two random variables $X\text{,}Y\in L_2\ProbSpace$, we will define their inner product
+\begin{equation}
+	\innerprod{X}{Y} := \E[XY]
+\end{equation}
+As a consequence,
+\begin{align}
+	\norm{X}_2 &= \sqrt{\E[X^2]}\text{; and} \\
+	\E[XY] &= \norm{X}_2 \norm{Y}_2 = \sqrt{\E[X^2]} \sqrt{\E[Y^2]}.
+\end{align}
+
+\begin{definition}[\textbf{$L_2$ convergence}] ]
+	Let $\dtspr, X \in L_2$. We say that $X_n\to X$ in $L_2$ iff $\norm{X_n - X}_2\to 0$, i.e., $\E[(X_n - X)^2] \to 0$.
+\end{definition}
+
+\begin{proposition}
+	Let $\ctspr$ a stochastic process in $L_2$ ($\norm{X_t} < \infty$ for every $t\in T$) then,
+	\begin{enumerate}
+		\item There exists a random variable $X\in L_2$ such that $X_t \to X$ in $L_2$ whenever $t\to t_0$; and
+		\item There exists $\ell \in \RNums$ such that $\E[X_{t_n}X_{t'_m}] \to \ell$ as $n\text{,}m \to \infty$ for any two sequences $\{t_n\}$ and $\{t'_m\}$ where $t_n \to t_0$ and $t'_m \to t_0$
+	\end{enumerate}
+\end{proposition}
+
 
 \section{Brownian Motion}
 \begin{definition}\label{def:brownian_motion}
@@ -251,7 +319,7 @@ Asking how much does $W(t)$ oscillates between $D$ posses the question of whethe
 	\begin{equation}
 		\lim_{||\Pi||\to 0} 2 \sum_{j=0}^{n-1}||\Pi||\cdot (t_{j+1} - t_{j}) = \lim_{||\Pi||\to 0} 2 ||\Pi|| T = 0
 	\end{equation}
-	$\therefore \lim_{||\Pi||\to 0} Q_\Pi = T$ almost surely.
+	Therefore, $\lim_{||\Pi||\to 0} Q_\Pi = T$ almost surely.
 \end{proof}
 
 We state theorem \ref{th:quadratic_brownian_motion} informally by writing
