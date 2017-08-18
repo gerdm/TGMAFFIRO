@@ -1,341 +1,273 @@
-\documentclass[../TGMAFFIRO]{subfiles}
+\documentclass[../TGMAFFIRO.tex]{subfiles}
 
 \begin{document}
-	
 
-% TODO: write about what's to expect about this chapter: explain what is to come in this chapter and how will it be developed, following the next steps.
-% 	*The first part will relax riguourous assumptions 
-% in order to build an intuition of the brownian motion as the limit of a random walk
-% 	* The second part will get into he details of L2 spaces and the connection with
-% the BM and the rest of the work
-% 	* The third and final part will prove some important components of the brownian motion
-% and the geometric brownian motion as an example of this.
+%TODO: Revise and correct
+\section{Introduction}
+Broadly speaking, financial instruments can be grouped into two distinct categories: \textit{underlying}s and \textit{derivatives}. The former refers to stocks, bonds, commodities, foreign exchange currencies, etc; while the latter refers to any \say{financial instrument whose value depends on (or derives from) the value of other, more basic, underlying variables} (Hull 2015).\\
+
+A financial institution might be interested in selling these derivatives as a service and charge a fee for it. The question then arises, how much should the financial institution charge for these products? As a first attempt to \textit{price} any of these derivatives, one could charge the expected value of the derivative in the future, discounted at some rate $r$. Simply put, assuming we can sell many units of a given product, by \textbf{Kolmogorov's Strong Law of Large Numbers (LLN)}, we would expect, in the long run, to break even:
+
+\begin{theorem}
+    Let $\{X_n\}_{n\geq 1}$ be a collection of i.i.d. random variables with mean $\mu$. Denote $S_n = \frac{1}{n}\sum_{i=1}^n X_n$. Then, with probability one,
+    \begin{equation}
+        S_n \to \mu
+    \end{equation}
+\end{theorem}
 
 
-% 1) Link
-In chapter one we posed the question about the theoretical value of a financial call option that starts today. Specifically, we want to answer the following question: what is today's value for a derivative that pays $\max\{S_T-K, 0\}$ at maturity? Note that, at time $T$, the payoff of the option is a function of $S_T$, since all else is given. Consequently, preceding the valuation of any option we must first take into account the dynamics of the asset we are referring to, i.e., we must come up with a model for $S_t$ for all $t \in [0,\infty)$.\\
+%%% TODO: write about the failure of this approach by pricing a forward that could lead to arbitrage and a loss for the financial institution
+Feasible as it may seem, as pointed out by Baxter(2003), this approach could lead to disaster for the financial institution.
 
-% 2) Focus
-In the following chapter, we aim to attain a model that explains the random changes of financial assets. More precisely, what is needed is to describe the ``noise'' of an asset over time by virtue of stochastic processes.\\
 
-% 3) Overview
-We begin by motivating the need for such processes in a mathematically-informal way; we continue laying the mathematical foundations for what is the final process to model the \textit{noise}; finally, we conclude the chapter by proving remarkable properties about the latter.
+\section{One-Step Binomial Models}
+In order to generalize an arbitrage-free approach to price any derivative, we would like to construct a model that truly reflects the market (unlike the LLN approach). In its simplest form, this market should consist of a cash bond and a stock. We will assume, that the market moves in discrete units of time.\\
 
-\section{Random Walks}
-Suppose that two players (A and B) toss an even coin $n$ times, one toss for every unit of time\footnote{Note that this unit of time can be one second, one day, 5 minutes, etc.}. Whenever tails comes up, A will pay B \$1. On the contrary, A will receive \$1 from B. Suppose further that we decide to model how much did A won (or lost) after $n$ tosses. To do so, we define the following:
+\textbf{The Stock}\\
+Between any two units of time (e.g. from $t=0$ to $t=1$), the stock can either go up with probability $p$, or down with probability $1-p$; it will have an initial value $S_0$ and, with any of these movements, the stock is multiplied by an up factor $u$, or a down factor $d$, depending on where it moves to. Evidently, $0 < d < 1 < u$. Finally, we will assume that unlimited amounts of the stock can be bought at any time and there is no cost incurred.
 
-\begin{definition}\label{srwalk}
-	Let $\{X_j\}_{j\geq0}$ be a set of independent and identically distributed (i.i.d.) random variables for which $\Pm(X_i = \pm 1) = \frac{1}{2}$; $i \geq 1$. Define $M_0 = 0$ and
-	\begin{equation}
-		M_n := \sum_{k=1}^n X_k \ \forall \ n \in \mathbb{N}.
-	\end{equation}
-	The process $\{M_d\}_{d\geq 0}$ is known as a \textbf{symmetric random walk}
-\end{definition}
-
-%%% Symmetric random walk figure %%%
 \begin{figure}
-	\label{fig:symmetric_random_walk}
-	\centering
-	\includegraphics[width=0.9\textwidth]{images/symmetric_random_walk}
-	\caption{Path of a Symmetric Random Walk}
+\centering
+\begin{tikzpicture}
+    \draw[->] (0,0) node[left]{$S_0$} --(2, 0.5) node[pos=0.5, sloped, above] {$p$};
+    \node[right] at (2, 0.5) {$S_0u$};
+
+    \draw[->] (0,0) --(2, -0.5) node[pos=0.5, sloped, below] {$1-p$};
+    \node[right] at (2, -0.5) {$S_0d$};
+\end{tikzpicture}
+
 \end{figure}
 
-\begin{proposition}\label{prop:expectation_srw}
-	The expected value of a symmetric random walk is 0.
-\end{proposition}
+\textbf{The Bond}\\
+The bank account represents the time value of money. We will assume a constant, risk-free, continuously compounding interest rate $r$. For $\$B_0$ invested at $t=0$, said rate guarantees, at the end of $T$ periods, $B_0 e^{rT}$. Also, we will assume that we can lend or borrow at the same interest rate $r$.\\
 
-\begin{proof}
-	Let $n \in \mathbb{N}$ then,
-	\begin{align*}
-	\mathbb{E}(M_n) &= \mathbb{E}\left[X_0 + \sum_{i=1}^d X_i\right]\\
-				    &= 0 + n  \left( 1 \cdot \frac{1}{2} + (-1) \cdot \frac{1}{2}\right).
-	\end{align*}
-\end{proof}
+\textbf{The Derivative}\\
+This model carries within the possibility of a market that depends on the price of the stock. That is, there could be a payoff $f$ with price $f_0$ that derives its future value from the direction the stock took. Either $f_u$ if it went up, or $f_d$ if it went down.
 
-Proposition \ref{prop:expectation_srw} shows that the definition of a symmetric random walk (\ref{srwalk}) captures what we intended to model. From the outset, both players start with with \$0 and, as the game progresses, whichever amount A wins, B looses it. The type of games, in which the amount player $A$ wins, player $B$ losses it are called \textbf{zero-sum games}.\\
+\subsection{Pricing}
+We can now ask whether we can construct a portfolio such that replicates $f$ from a suitable strategy, thus paying the promised amount. What we are looking for is to guarantee the value of the derivative at the moment of settlement, thus hedging the risk away.\\
 
-After a large number of times played we expect to break even. Nobody would win or loose once played a large number of times\footnote{In fact, according to Law of Large Number, we would expect to break even after a number so large that it approaches to infinity.}\\
+Consider the portfolio $(\phi, \psi)$, where $\phi$ denotes the number of shares for stock $S$ in the portfolio and $\psi$ denotes the amount in the bank. At $t=0$, this portfolio is worth
 
-A symmetric random walk also happens to be known as a fair-game. This is because what one would expect to win at any given future point in time is dependent on the amount that one has today. In other words, if both of the players start with a P\&L of \$0, then they would not expect, after a large amount of games\footnote{Mathematically speaking, the expectation of the game is zero in the sense that, as the number of games tends to infinity, the average P\&L for any of the players turn to zero} to earn any more money than what they started with: \$0.\\
+\begin{equation*}
+    \phi S_0 + \psi B_0
+\end{equation*}
 
-To see why, consider the following proposition
+At $t=\delta t$, this portfolio will be worth one of two possible values:
 
-\begin{proposition}
-	The simple random walk is a martingale for $k < \ell$
-\end{proposition}
+\begin{align*}
+    \phi S_0u + \psi B_0e^{r \delta t}\\
+    \phi S_0d + \psi B_0e^{r \delta t}
+\end{align*}
 
-\begin{proof}
-	\begin{align*}
-				\mathbb{E}[M_\ell|\salgF_k] &= \mathbb{E}[(M_\ell - M_k) + M_k | \salgF_k] \\
-				&= \mathbb{E}[(M_\ell - M_k) | \salgF_k] + \mathbb{E}[M_k | \salgF_k] \\
-				&= \mathbb{E}[M_\ell - M_k] + M_k\\
-				&= M_k
-	\end{align*}
-\end{proof}
+With this in mind, we now turn to answer our question. In order to hedge the risk, we would like to find values for $(\phi, \psi)$ in order to replicate the payoff:
 
-No matter the point in time in the future that we refer to, the value that one would expect to have in the future the one that we have today. As a consequence, the only \textit{useful} information we have today about the future value of the game, is the one we have today.
+\begin{align*}
+    \phi S_0u + \psi B_0e^{r \delta t} = f_u\\
+    \phi S_0d + \psi B_0e^{r \delta t} = f_d
+\end{align*}
 
-\section{Scaled Random Walk}
-The simple random walk can altered such that between any two units of time the process takes $n$ steps.
+We can now solve for $\phi$ and $\psi$:
 
-\begin{definition}
-	We define the \textbf{scaled random walk} $W^n(t)$ as the following transformation of the simple random walk:
-	\[W^n(t) := \frac{1}{\sqrt{n}}M_{nt}\]
-\end{definition}
+\begin{equation*}
+    \phi S_0(u - d) = f_u - f_d\\
+\end{equation*}
 
-\begin{remark}
-	The scaled random walk has the following properties:
-	\begin{itemize}
-		\item The increments are independent: \[\left(W^n(t_{i+1}) - W^n(t_{i})\right) \perp \left(W^n(t_{j+1}) - W^n(t_{j})\right) \ \forall \ i \neq j \ i, j \geq 1\]
-		\item For $s < t$, and $ns$,  $nt$ $\in \mathbb{W}$, 
-		\begin{itemize}
-			\item $\mathbb{E}[W^n(t_{i}) - W^n(t_{j})] = 0$; and
-			\item $\mathbb{V}[W^n(t_{i}) - W^n(t_{j})] = t - s$.
-		\end{itemize}
-		\item The Scaled random walk is a martingale: for all $k < \ell$
-		\[\mathbb{E}[W^n(\ell) | \salgF_k] = W^n(k)\].
-	\end{itemize}
-\end{remark}
+\begin{equation} \label{eq:phi}
+    \phi = \frac{f_u - f_d}{S_0(u-d)}
+\end{equation}
 
-One complication arises in modeling a financial asset, that of choosing the partition between any two units of time. Consider fig.\ref{fig:scaled_random_walk}, it shows sample paths for different partitions of time. As the number of partition increases, the number of possible path increases too. Conversely, if there is only one partition, the process will reach either 1 or -1. With this in mind, the question of whether there exists a \textit{correct} partition for a particular asset may seem partial and confined.\\
+\begin{align*}
+    \psi &= e^{-r\delta t} [f_u - \phi u]\\
+         &= e^{-r\delta t} \left[f_u - \frac{f_u - f_d}{S_0(u - d)} S_0u\right]\\
+         &= e^{-r\delta t} \frac{uf_d - df_u}{u -d}
+\end{align*}
 
-%%% Scaled Random Walk figure %%%
-\begin{figure}[h]
-	\label{fig:scaled_random_walk}
-	\centering
-	\includegraphics[width=0.9\textwidth]{images/scaled_random_walk}
-	\caption{Scaled Random Walk}
-\end{figure}
+Thus, buying the portfolio $(\phi, \psi)$ guaranteed the payoff at $t=\delta_t$. Denote $\mathcal{V}$ the value of the portfolio at $t=0$. The value of $\mathcal{V}$ is:
 
+\begin{align*}
+    \mathcal{V} &= \phi S_0 + \psi\\
+                &= \left[\frac{f_u - f_d}{S_0(u - d)}S_0\right] + \left[e^{-r\delta_t}\right]\\
+                &= e^{-r\delta_t}\left[\frac{e^{r\delta_t}(f_u - f_d + uf_d - df_u)}{u - d}\right]\\
+                &= e^{-r\delta_t}\left[\frac{e^{r\delta_t}f_u - df_u}{u-d} + \frac{uf_d - e^{r\delta_t}f_d}{u-d}\right]
+\end{align*}
 
-To further develop this theory we will start assuming that the market moves in continuous time. This, as we will later see, allow us to use more sophisticated methods to work with the process while generalizing this to any market we desire. This assumptions leads to an important theorem that will help us keep building the model for the financial asset.
+\begin{equation} \label{eq:v_price_complete}
+    \therefore \mathcal{V} = e^{-r\delta_t}\left[f_u \frac{e^{r\delta_t} - d}{u - d} + f_d \frac{u - e^{r\delta_t}}{u-d}\right]
+\end{equation}
 
-\begin{theorem}\label{th:convergence_rw}
-	Let $t \geq 0$. As $n \to \infty$, the distribution of the scaled random walk $W^n(t)$ converges to a normal distribution with mean $0$ and variance $t$.
-\end{theorem}
+$\mathcal{V}$ is the arbitrage-free price for this derivative. Consider any other price $\mathcal{P} < \mathcal{V}$. Buying the portfolio $\mathcal{P}$ and selling $\mathcal{V}$ at $t=0$ guarantees, at $t=\delta_t$, enough money to settle and earn $\mathcal{V}-\mathcal{P}$ risk-free. The same argument can be done for a value $\mathcal{P} > \mathcal{V}$.\\
 
-\begin{proof}
-	We will show that the moment generating function for a symmetric random walk tends to the moment generation function of a normal with $\mu = 0$ and $\sigma^2 = t$.\\
-	
-	Denote $\varphi_n(u)$ and $\varphi(u)$ the moment generating functions of the symmetric random walk and the normal distribution respectively. We will then show that $\varphi_n(u) \to \varphi(u)$. Where $\varphi_n(u) = \left(\frac{1}{2}e^{\frac{u}{\sqrt{n}}} + \frac{1}{2}e^{-\frac{u}{\sqrt{n}}}\right)^{nt}$ and $\varphi(u) = e^{\frac{1}{2}u^2t}$ (Refer to appendix \ref{proof:mgf_srm} and \ref{proof:mgf_nd} for the derivation of both moment generating functions).\\
-	
-	Since,
-	\begin{equation*}
-		\varphi_n(u) = \left(\frac{1}{2}e^{\frac{u}{\sqrt{n}}} + \frac{1}{2}e^{-\frac{u}{\sqrt{n}}}\right)^{nt}.
-	\end{equation*}
-	Then,
-	\begin{equation}
-		\ln\varphi_n(u) = nt\cdot\ln\left(\frac{1}{2}e^{\frac{u}{\sqrt{n}}} + \frac{1}{2}e^{-\frac{u}{\sqrt{n}}}\right).
-	\end{equation}
-	Let $x = \frac{1}{\sqrt{n}}$, and take the limit as $n$ tends to infinity,
-	\begin{align*}
-		\lim_{n\to\infty}\ln\varphi_n(u) &= \ln\lim_{n\to\infty}\varphi_n(u) \tag*{($\varphi_n$ is cont. at $n > 0$) }\\
-		&= \lim_{x\to 0} \frac{t\ln\left(\frac{1}{2}e^{ux}+ \frac{1}{2}e^{-ux}\right)}{x^2}
-		\intertext{Applying l'H\^opital's rule}
-		&= \frac{t}{2}\lim_{x\to 0}\frac{\frac{u}{2}e^{ux} - \frac{u}{2}e^{-ux}}{x}
-		\intertext{Applying l'H\^opital's rule again}
-		&= \frac{t}{2}\lim_{x\to 0}\left(\frac{u^2}{2}e^{ux} + \frac{u^2}{2}e^{-ux} \right).
-	\end{align*}
-	
-	We conclude, $\lim_{n\to\infty}\varphi_n(u) = e^{\frac{1}{2}u^2t}$.
-\end{proof}
+What, then, would have happened, had we decided to replicate this payoff using only the bank account and the probabilities $p$ and $1-p$? Accordingly, we would've priced the derivative at the present value of the expected payoff under the $\mathbb{P}$ measure. Denote $\hat{\mathcal{V}}$ this alternate value, then:
 
-Theorem \ref{th:convergence_rw} shows the distribution that follows at every time $t$ if we assume that the market moves continuously. The process that emerges from this assumption is paramount in what follows. In fact, this process has a name of its own, which we will denote the \textbf{Brownian motion}.\\
-
-In what follows of this chapter, we formalize the \textbf{Brownian motion}
-\section{$L_2$ Spaces}
-\begin{definition}
-	let $V$ a linear space, we define a \textbf{norm} over v as the function $\norm{\cdot}: v \in V \to \RNums$ such that, for every $v\in V$, $\alpha \in \RNums$
-	\begin{enumerate}
-		\item $\norm{v}\geq 0$;
-		\item $\norm{v} = 0 \iff v = 0$;
-		\item $\norm{\alpha x} = |\alpha| \norm{x}$; and
-		\item $\norm{v + w} = \norm{v} + \norm{w}$.
-	\end{enumerate}
-\end{definition}	
-We say that $(V, \norm{\cdot})$ is a complete normed spaced (or a Banach space) if, for $\{v_n\}_{n\geq 0}$, and $\{v_m\}_{m\geq 0}$; $\norm{v_n - v_m} \to 0$ as $n, m \to \infty$. The sequence $\{\norm{v_m, v_n}\}_{n,m \geq 0}$ is known as a \textbf{Cauchy sequence}. This last fact imposes the existence of $v\in V$ such that $\lim_{n\to\infty} v_n = v$.
-
-\begin{definition}
-Let $\ProbSpace$ be a measurable space, we define the $L_2$ space ($L_2\ProbSpace $) as the family of random variables such that
-	\begin{equation}
-		\norm{X}_2:= \left(\E[|X|^2] \right)^{1/2} < \infty
-	\end{equation}
-\end{definition}
-
-%TODO: Proof!
-It can be shown that if $X$, $Y$ are two random variables such that $\Pm(X=Y) = 1$, then the linear normed space $(L_2, \norm{\cdot}_2)$ is a Banach space.
-
-\begin{definition}
-	An \textbf{inner product} over a linear space $V$ is a function $\innerprod{\cdot}{\cdot} : V\times V \to \RNums$ such that, for every $x\text{,}y\text{,}z\in V$ and $\alpha\text{,}\beta \in \RNums$,
-	\begin{enumerate}
-		\item $\innerprod{x}{y} = \innerprod{y}{x}$;
-		\item $\innerprod{x}{x} \geq 0$;
-		\item $\innerprod{\alpha x + \beta y}{z} = \alpha\innerprod{x}{z} + \beta\innerprod{y}{z}$; and
-		\item $\innerprod{x}{x} = 0 \iff x = 0_n$
-	\end{enumerate}	
-\end{definition}
-
-\begin{definition}\label{def:isometry}
-	Let $(V_1, \norm{\cdot}_1)$ and $(V_2, \norm{\cdot}_2)$ two normed vector spaces with inner product $\innerprod{\cdot}{\cdot}_1$, $\innerprod{\cdot}{\cdot}_2$ respectively. It is said that a linear function $I:V_1\to V_2$ is an \textbf{isometry} if, for every, $v\in V_1$,
-	\begin{equation}
-		\norm{I(v)}_2  = \norm{v}_1.
-	\end{equation}
-\end{definition}
-
-\begin{remark}
-	From definition \ref{def:isometry} it follows that
-	\begin{equation}
-		\innerprod{I(v)}{I(u)}_2 = \innerprod{v}{u}_1 \ \forall \ v,u\in V_1.
-	\end{equation}
-\end{remark}
-
-%TODO: Complete the enlightening proposition
-\begin{definition}
-	Let $(V, \norm{\cdot}_V)$ a complete normed space and $(W, \norm{\cdot}_W)$ a normed space. Let $U\subseteq V$ dense, and $I:U\to W$ and isometry. Then,
-	\begin{enumerate}
-		\item $I(\cdot)$ can be extended to all $V$ ($I: V\to W$); and
-		\item $I(\cdot)$ is also an isometry for $V$ ($\norm{I(v)}_W = \norm{I(v)}_V$).
-	\end{enumerate}
-\end{definition}
-
-\begin{proposition}\label{def:hilbert_space}
-	Let $\innerprod{\cdot}{\cdot}$	 an inner product defined over $V$ and define $\norm{\cdot}:=\sqrt{\innerprod{\cdot}{\cdot}}$ then,
-	\begin{enumerate}
-		\item $|\innerprod{x}{y}| \leq \norm{x} \norm{y}$;
-		\item $\norm{x}$ defines a norm over $V$; and
-		\item if $x_n \to x$ and $y_m \to y$, then $\innerprod{x_n}{y_n} \to \innerprod{x}{y}$.
-	\end{enumerate}
-\end{proposition}
-
-\begin{remark}
-	If the norm over $V$ as defined in \ref{def:hilbert_space} is complete, then $(V, \innerprod{\cdot}{\cdot}$ is said to be a \textbf{Hilbert space}.
-\end{remark}
-
-For any two random variables $X\text{,}Y\in L_2\ProbSpace$, we will define their inner product
 \begin{equation}
-	\innerprod{X}{Y} := \E[XY]
+    \hat{\mathcal{V}} = \exp(-r\delta_t)\mathbb{E}[f] = \exp(-r\delta_t)[f_u \cdot p + f_d \cdot (1- p) ]
+\end{equation}\\
+
+
+Pricing $\hat{\mathcal{V}}$ for $f$ does not guarantee $\hat{\mathcal{V}} = \mathcal{V}$, which could lead to arbitrage otherwise. Assuming $\hat{\mathcal{V}} \neq \mathcal{V}$, the expected payoff of $f$ would not be $\hat{\mathcal{V}}$, investors would be inclined to make a profit, thereby breaking the assumption that every position taken on the derivative is independent of one another; we cannot expect to break even in the long run.
+
+
+\subsection{The Q Measure}
+Coming back to our arbitrage-free price 
+
+\begin{equation*}
+    \mathcal{V} = e^{-r\delta_t}\left[f_u \frac{e^{r\delta_t} - d}{u - d} + f_d \frac{u - e^{r\delta_t}}{u-d}\right]
+\end{equation*}
+
+Denote
+\begin{equation}
+    q:= \frac{\exp{r\delta_t} - d}{u - d} \Longrightarrow 1-q = \frac{u - \exp{(r\delta_t)}}{u-d}
+\end{equation}\\
+
+We can argue that $d < \exp{(r\delta_t)} < u$ implies no arbitrage. To see why, 
+\begin{enumerate}
+\item Suppose $\exp{(r\delta_t)} < d < u$.\\
+    At t=0 we can borrow $\$S_0$ and buy the stock. At $t=1$, we collect either $S_0u$ or $S_0d$, thereby making a risk-free profit of $S_0(u - \exp{(r\delta_t)})$ or $S_0(d - \exp{(r\delta_t)})$
+
+\item Suppose $d < u < \exp{(r\delta_t)}$\\
+    At $t=0$, lend $\$S_0$ and short the stock. At $t=1$, collect $\S_0\exp{(r\delta_t)}$ and buy the stock at either $S_0u$ or $S_0d$. Again, this guarantees a risk-free profit of either $S_0(\exp{(r\delta_t)} - u)$ or $S_0(\exp{(r\delta_t)} - d)$
+\end{enumerate}
+
+Being $d < \exp{(r\delta_t)} < u$ implies $0 < q < 1$. We can rewrite \ref{eq:v_price_complete} as
+
+\begin{equation} \label{eq:v_price}
+    \mathcal{V} = \exp{(-r\delta_t)}[S_0u\cdot q + S_0d \cdot (1-q)]
 \end{equation}
-As a consequence,
-\begin{align}
-	\norm{X}_2 &= \sqrt{\E[X^2]}\text{; and} \\
-	\E[XY] &= \norm{X}_2 \norm{Y}_2 = \sqrt{\E[X^2]} \sqrt{\E[Y^2]}.
-\end{align}
 
-\begin{definition}[\textbf{$L_2$ convergence}] ]
-	Let $\dtspr, X \in L_2$. We say that $X_n\to X$ in $L_2$ iff $\norm{X_n - X}_2\to 0$, i.e., $\E[(X_n - X)^2] \to 0$.
-\end{definition}
+$\mathcal V$ is the expectation under a measure probability $\mathbb Q$; it not the expected value of the derivative, but a change in the measure of the tree such that guarantees no arbitrage.
 
-\begin{proposition}
-	Let $\ctspr$ a stochastic process in $L_2$ ($\norm{X_t} < \infty$ for every $t\in T$) then,
-	\begin{enumerate}
-		\item There exists a random variable $X\in L_2$ such that $X_t \to X$ in $L_2$ whenever $t\to t_0$; and
-		\item There exists $\ell \in \RNums$ such that $\E[X_{t_n}X_{t'_m}] \to \ell$ as $n\text{,}m \to \infty$ for any two sequences $\{t_n\}$ and $\{t'_m\}$ where $t_n \to t_0$ and $t'_m \to t_0$
-	\end{enumerate}
-\end{proposition}
+\section{$n$-period Binomial Tree Model}
+In order to generalize our model to $n$ periods we only need to consider each node as the root of another binomial tree. Consequently, we get a tree with $n$ periods and $2^n$ nodes at $t=n$.
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+    % First Node
+    \draw[-] (0,0) -- (0.5, 0.5);
+    \draw[-] (0,0) -- (0.5, -0.5);
+    \draw[black, fill=black](0.5,-0.5) circle (.3ex);
+    \draw[black, fill=black](0.5,0.5) circle (.3ex); 
+    \draw[black, fill=black](0,0) circle (.3ex);
+
+    % 1) up node
+    \draw[-](0.5, 0.5) -- (1, 1);
+    \draw[-](0.5, 0.5) -- (1, 0);
+    \draw[fill=black] (1,1) circle (.3ex);
+    \draw[fill=black] (1,0) circle (.3ex);
+    % 1) down node 
+    \draw[-](0.5, -0.5) -- (1, 0);
+    \draw[-](0.5, -0.5) -- (1, -1);
+    \draw[fill=black] (1,-1) circle (.3ex);
+    
+    % Connection points
+    \draw[black](1.3, 1) circle (.1ex);
+    \draw[black](1.6, 1) circle (.1ex);
+    \draw[black](1.9, 1) circle (.1ex);
+
+    \draw[black](1.3, 0) circle (.1ex);
+    \draw[black](1.6, 0) circle (.1ex);
+    \draw[black](1.9, 0) circle (.1ex);
 
 
-\section{Brownian Motion}
-\begin{definition}\label{def:brownian_motion}
-	A \textbf{Brownian Motion} with parameter $\sigma^2$ is a stochastic process $\{W_t \in \RNums:t\geq 0\}$ that satisfies the following properties:
-	\begin{itemize}
-		\item $W_0 = 0$
-		\item The trajectories are continuous
-		\item The process has independent increments
-		\item $\forall \ 0 \leq s \leq t \Longrightarrow (W_t - W_s) \sim N(0, \sigma^2(s - t)$
-	\end{itemize}
-\end{definition}
+    \draw[black](1.3, -1) circle (.1ex);
+    \draw[black](1.6, -1) circle (.1ex);
+    \draw[black](1.9, -1) circle (.1ex);
+    
+    \draw[black](2.5, 0.3) circle (.1ex);
+    \draw[black](2.5, 0) circle (.1ex);
+    \draw[black](2.5, -0.3) circle (.1ex);
 
-\begin{remark}
-	A Brownian Motion with $\sigma^2 = 1$ is known as a Standard Brownian Motion.
-\end{remark}
+    % 2.1) up node
+    \draw[-, red](2, 1) -- (2.5, 1.5);
+    \draw[-, red](2, 1) -- (2.5, 0.5);
+    \draw[red, fill=red] (2.5, 1.5) circle (.3ex);
+    \draw[red, fill=red] (2.5,0.5) circle (.3ex);
+    % 2.2) down node 
+    \draw[-](2, -1) -- (2.5, -0.5);
+    \draw[-](2, -1) -- (2.5, -1.5);
+    \draw[fill=black] (2.5,-0.5) circle (.3ex);
+    \draw[fill=black] (2.5,-1.5) circle (.3ex);
 
-The Brownian Motion is a first desirable result since it allow us to work in continuous time. Furthermore, it allow us to measure a probability at every $t\geq 0$ with tools already known for continuous random variables. 
-
-%%% Arithmetic Brownian Motion Image %%%
-\begin{figure}[h]
-	\centering
-	\label{fig:Brownian_Motion}
-	\includegraphics[width=0.9\textwidth]{images/bm}
-	\caption{Sample Paths of a Brownian Motion}
+    \node[font=\fontsize{4}{4}] at (0, -2) {$0\delta_t$};
+    \node[font=\fontsize{4}{4}] at (0.5, -2) {$1\delta_t$};
+    \node[font=\fontsize{4}{4}] at (1, -2) {$2\delta_t$};
+    \draw (1.32, -2) circle (.1ex);
+    \draw (1.59, -2) circle (.1ex);
+    \draw (1.86, -2) circle (.1ex);
+    \node[font=\fontsize{4}{4}] at (2.5, -2) {$n\delta_t$};
+\end{tikzpicture}
+\caption{The $n$-period model}
 \end{figure}
 
-Although it is computationally impossible to properly simulate a Brownian Motion, it can be approximated via the scaled random walk for big $n$. Figure \ref{fig:Brownian_Motion} shows this idea approximating a brownian motion with $n=9000$. In pursuance of pricing a European call option, we will see that it is possible to arrive at a closed form solution for these types of option. Nevertheless, more complex products may or may not have a closed form solution\\
+To motivate this generalized model, we will now present an example of a $3$-period binomial model.
+% Find another name for this example..
+\subsection{An Example}
+Suppose that at $t=0$ we have a stock $S_0$ that can go up up by a factor of $1.20$, or down by a factor of $0.80$. Assume further that the $\mathbb{P}$ measure probability for an up move is $\frac{3}{4}$, finally, suppose $r=0$. Being consistent with the notation used, $u=1.20$, $d=0.80$, $p = \frac{3}{4}$ and $ 1 - p = \frac{1}{4}$. We want to price a call option on $S_0$ with strike price $k=100$.Denote this claim, at $t=4$, $f$, and $S_n$ as the value of $S$ at maturity. We can represent this claim as:
 
-To further develop the properties of the Brownian Motion, let us define the following:
-\begin{definition}\label{def:quadratic_variation}
-	Let $f$ be a real-valued function defined over $[0, T]$. Consider a partition $\Pi= \{t_i\}_{i=0}^{n}$ over $[0, T]$ where $t_0 = 0$, $t_n = T$, and $||\Pi|| = \max_j\{t_{j+1} - t_j\}$. We define the \textbf{Quadratic Variation} of $f$ up to time $T$ as
-	\[
-		[f, f]_T := \lim_{||\Pi|| \to 0} \sum_{t=0}^{n-1}\left[f(t_{j+1}) - f(t_{j})\right]^2
-	\]
-\end{definition}
-
-
-The quadratic variation for a function $f$ represents the amount of total quadratic oscillation inside $D = [0,T]$. It can be shown (see \aycite{shreve}) that for $f \in C^1(D)$, $[f,f]_T = 0$.\\
-	
-Asking how much does $W(t)$ oscillates between $D$ posses the question of whether $W(t) \in C^1(D)$. The answer is no, since the Brownian Motion is a continuous, nowhere-differentiable function. A consequence of this last remark is the following.
-
-\begin{theorem}\label{th:quadratic_brownian_motion}
-	Let $W(t)$ be a Standard Brownian Motion, then $[W, W]_T = T \ \forall \ T \geq 0$ almost surely.
-\end{theorem}
-
-\begin{proof}
-	Let $\Pi = \{t_j\}_{j=0}^n$ be a partition of $[0, T]$. Define the sample quadratic variation corresponding to this partition to be
-	
-	\[
-		Q_{\Pi} = \sum_{j=0}^{n-1}(W_{t_{j+1}} - W_{t_{j}})^2
-	\]
-	
-	To show that $[W, W]_T = T$, is equivalent to show that, as $n\to\infty$, $\mathbb{E}[Q_\Pi] = T$ and $\mathbb{V}(Q_\Pi) = 0$ almost surely.\\
-	
-	First note that, by definition of the Standard Brownian Motion,
-	\begin{equation}\label{eq:exp_change_bm}
-		\mathbb{E}[(W_{t_{j+1}} - W_{t_{j}})^2] = \mathbb{V}[W_{t_{j+1}} - W_{t_{j}}] = t_{j+1} - t_{j}
-	\end{equation}
-	
-	\begin{equation}\label{eq:var_change_bm}
-		\mathbb{V}([W_{t_{j+1}} - W_{t_{j}}]^2) = 2(t_{j+1} - t_{j})^2
-	\end{equation}
-	
-	Refer to appendix \ref{proof:var_change_bm} for a derivation of eq. \ref{eq:var_change_bm}.\\
-	
-	Consider now
-	\begin{align*}
-		\mathbb{E}[Q_\Pi] &= \mathbb{E}[\sum_{j=0}^{n-1}(W_{t_{j+1}} - W_{t_{j})}^2] \\
-		&= \sum_{j=0}^{n-1}\mathbb{E}[(W_{t_{j+1}} - W_{t_{j}})^2] \\
-		&= \sum_{j=0}^{n-1}(t_{j+1} - t_{j}) \\
-		&= T
-	\end{align*}
-	
-	Now,
-	\begin{align*}
-		\mathbb{V}(Q_T) &= \mathbb{V}(\sum_{j=0}^{n-1}(W_{t_{j+1}} - W_{t_{j}})^2) \shortintertext{By independence,}
-		&=  \sum_{j=0}^{n-1}\mathbb{V}((W_{t_{j+1}} - W_{t_{j}})^2)\\
-		&= \sum_{j=0}^{n-1} 2(t_{j+1} - t_{j})^2 \\
-		&\leq 2 \sum_{j=0}^{n-1}||\Pi||\cdot (t_{j+1} - t_{j}) \numberthis
-	\end{align*}
-	
-	Finally, note that
-	
-	\begin{equation}
-		\lim_{||\Pi||\to 0} 2 \sum_{j=0}^{n-1}||\Pi||\cdot (t_{j+1} - t_{j}) = \lim_{||\Pi||\to 0} 2 ||\Pi|| T = 0
-	\end{equation}
-	Therefore, $\lim_{||\Pi||\to 0} Q_\Pi = T$ almost surely.
-\end{proof}
-
-We state theorem \ref{th:quadratic_brownian_motion} informally by writing
 \begin{equation}
-	dW^2 = dt
+    f = [S_n - k]^+
 \end{equation}
 
-Two final consequences of \ref{th:quadratic_brownian_motion} are the following
-\begin{equation}\label{eq:wt_0}
-	\lim_{||\Pi||\to 0} \sum_{j=0}^{n-1}(W_{t_{j+1}} - W_{t_{j}})(t_{j+1} - t_{j}) = 0
-\end{equation}
+Since the stock can either move up or down with known factors $u$ and $d$ respectively, we know all the values the stock can take up to $t=3$. For example, from $t=0$ to $t=1$, the stock can either move to $100 \cdot 1.20$, or down to $100 \cdot 0.80$.
 
-\begin{equation}\label{eq:w2_0}
-	\lim_{||\Pi||\to 0} \sum_{j=0}^{n-1}(t_{j+1} - t_{j})^2 = 0
-\end{equation}
+\begin{figure}
+\centering
+\begin{tikzpicture}
+    \node (s) at (0,0) {100};
 
-Equations \ref{eq:wt_0} and \ref{eq:w2_0} are informally expressed as $dW_tdt = 0$ and $dt^2 = 0$
+    \node[above right = 0.5cm of s] (su) {120}; \draw[->] (s) -- (su);
+    \node[below right = 0.5cm of s] (sd) {80};  \draw[->] (s) -- (sd);
 
+    \node[above right = 0.5cm of su] (suu) {144}; \draw[->] (su) -- (suu);
+    \node[below right = 0.5cm of su] (sud) { 96}; \draw[->] (su) -- (sud); \draw[->] (sd) -- (sud);
+    \node[below right = 0.5cm of sd] (sdd) { 64}; \draw[->] (sd) -- (sdd);
+
+    \node[above right = 0.5cm of suu] (suuu) {172.8}; \draw[->] (suu) -- (suuu);
+    \node[below right = 0.5cm of suu] (suud) {115.2}; \draw[->] (suu) -- (suud); \draw[->] (sud) -- (suud);
+    \node[below right = 0.5cm of sud] (sudd) { 76.8}; \draw[->] (sud) -- (sudd); \draw[->] (sdd) -- (sudd);
+    \node[below right = 0.5cm of sdd] (sddd) { 51.2}; \draw[->] (sdd) -- (sddd);
+\end{tikzpicture}
+\caption{The Stock Process}
+\end{figure}
+
+Given $f$ and the stock-tree process we can compute, for example, the amount to be paid if the stock moves up at every step. Under this scenario, $S_3 = 172.8$. Then $f(S_3) = [172.8 - 110]^+ = 62.80$, which means that the buyer of the option would receive $\$62.80$. Computing the claim at every last node yields a set of claims at maturity.\\
+
+With the set of claims at maturity, we proceed to find the value of the option at every other node in the tree solving iteratively from $t=2$ to $t=0$.\\
+
+For example, the upper node at $t=2$ is computed by taking the discounted expectation under the $\mathbb{Q}$ measure as shown in \ref{eq:v_price}. Were the stock to climb up two times then, the payoff at $t=3$ can either be 62.8 or 5.2. Denote $f^{uu}_2$ the value the derivative at $t=2$ for the upper node, its value is then
+
+\begin{equation*}
+    f^{uu}_2 = \exp(-0)[62.8q + 5.2(1-q)] = 34; \  q = \frac{0 - 0.80}{1.20 - 0.80}
+\end{equation*}\\
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+    \node (s) at (0,0) {10.45};
+
+    \node[above right = 0.5cm of s] (su) {18.3}; \draw[->] (s) -- (su);
+    \node[below right = 0.5cm of s] (sd) {2.60};  \draw[->] (s) -- (sd);
+
+    \node[red, above right = 0.5cm of su] (suu) {34}; \draw[->] (su) -- (suu);
+    \node[below right = 0.5cm of su] (sud) {2.60}; \draw[->] (su) -- (sud); \draw[->] (sd) -- (sud);
+    \node[below right = 0.5cm of sd] (sdd) {0.00}; \draw[->] (sd) -- (sdd);
+
+    \node[above right = 0.5cm of suu] (suuu) {62.8}; \draw[->] (suu) -- (suuu);
+    \node[below right = 0.5cm of suu] (suud) {5.20}; \draw[->] (suu) -- (suud); \draw[->] (sud) -- (suud);
+    \node[below right = 0.5cm of sud] (sudd) {0.00}; \draw[->] (sud) -- (sudd); \draw[->] (sdd) -- (sudd);
+    \node[below right = 0.5cm of sdd] (sddd) {0.00}; \draw[->] (sdd) -- (sddd);
+
+    \draw[red, dashed] (2,0.65) -- (4,0.65) -- (4, 2.7) -- (2, 2.7) -- (2, 0.65);
+    \end{tikzpicture}
+\caption{The Claim Tree}
+\end{figure}
+
+Loosely speaking, every node in the claim-tree represents the value of the option at every step. Evidently, at $t=3$, the value of the option can only be its current value since there is nowhere to move elsewhere in the tree. At $t=0$ we have the risk-free value for the option that guarantees no arbitrage.\\
+
+To see why this is true, suppose we were to sell this option at \$10.45. For the sake of the argument, suppose the stock moves up two times and down at the last time-tick. If 10.45 is truly the arbitrage-free price option, we should be able to replicate the movement of the stock at each time interval and arrive at the payoff without incurring any other cost.\\
+
+According to equation \ref{eq:phi}, at $t=0$ we would need to buy 0.3925 units of $S$ and borrow 28.8 to cover the expenses; if the price goes up at $t=1$, aroung 0.65 units of the stock are required, which would lead to a purchase of 0.26 extra units of the stock, thus incrementing the amount borrowed to 60.2. At $t=2$, 1 unit of $S$ is required, increasing the amount borrowed to 110. Finally, at $t=3$, the stock takes a down move and \$5.2 is the amount owed to the option buyer. \\
+
+The final value in the position of the stock is $S_0 u ^ 2 d \cdot \phi = 115.20$, minus the \$110 owed, brings the total value of the portfolio to \$5.20, exacltly the amount required to fulfill the obligation.
 \end{document}
