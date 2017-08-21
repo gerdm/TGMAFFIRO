@@ -3,12 +3,14 @@ import numpy as np
 class BSpline(object):
     def __init__(self, knots, degree):
         self.knots = knots
+        self.len_knots = len(knots)
         self.degree = degree
 
     def eval(self, t, knot, degree=None):
         """
         Evaluate the B-Spline at a given knot and t in the
-        range of knots.
+        range of knots. Optional to evaluate the bspline at
+        a different degree as the one assigned at the initializiation
         
         Parameters
         ---------
@@ -30,6 +32,12 @@ class BSpline(object):
         if degree is None:
             degree = self.degree
 
+        if knot + degree + 1  >= self.len_knots:
+            err = ("BSpline cannot be evaluated for "
+                   "{knot} + {degree} + 1 >= {lenkn}"
+                   .format(knot=knot, degree=degree,
+                   lenkn=self.len_knots))
+            raise IndexError(err)
 
         if degree == 0:
             degree0_spline = lambda t, k: (self.knots[k] <= t < self.knots[k + 1]) * 1
@@ -45,3 +53,40 @@ class BSpline(object):
             term2 = (self.knots[knot + degree + 1] - t) / (self.knots[knot + degree + 1] - self.knots[knot + 1])
 
             return term1 * B_k_dm1_t + term2 * B_kp1_dm1_t
+
+    def integrate(self, knot, limsup, liminf=-np.Inf):
+        """
+        Evalute the integral of the B-Spline from liminf to limsup
+
+        Parameters
+        ---------
+        knot:   float
+                The knot to integrate the bspline
+        limsup: float
+                The upper limit of the integral
+        liminf: float, optional
+                The lower limit of the integral (default to enp.Inf)
+            
+        Returns
+        -------
+        float
+            The integration of the bspline from liminf to limsup
+        """
+        if liminf != -np.Inf:
+            lower_integral = integrate(knot, liminf)
+            upper_integral = integrate(knot, limsup)
+            return upper_integral - lower_integral
+        else:
+            k = int(knot)
+            total_integration = 0
+            while k + self.degree + 3 <= self.len_knots:
+                kd1 = k + self.degree + 1
+                constant = (self.knots[kd1] - self.knots[k]) / (self.degree + 1)
+                spline_val = self.eval(limsup, k, degree=self.degree + 1)
+                total_integration += constant * spline_val
+                k += 1
+            return total_integration
+
+
+    def diff(self, t):
+        pass
