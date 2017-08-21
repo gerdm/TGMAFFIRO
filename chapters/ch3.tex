@@ -3,7 +3,7 @@
 \begin{document}
 
 % Link
-As we saw in the first chapter, a financial institution selling financial derivatives must take into account certain factors in order to price a derivate, avoiding the occurrence of arbitrage against it. One must then inquire about the \textit{correct} price to charge for any of these derivatives. Consider the valuation of the forward seen on chapter 1. One may price it as the expected value of the derivative at maturity, discounted at some rate $r$. Simply put, assuming we can sell many units of a given product, by \textbf{Kolmogorov's Strong Law of Large Numbers (LLN)}, we would expect, in the long run, to break even:
+As we saw in the first chapter, a financial institution selling financial derivatives must take into account certain factors in order to avoid the occurrence of arbitrage against it. One must then inquire about the \textit{correct} price to charge for any of these derivatives. Consider the valuation of the forward seen on chapter 1. One may price it as the expected value of the asset at maturity, discounted at some rate $r$. Simply put, assuming we can sell many units of a given product, by \textbf{Kolmogorov's Strong Law of Large Numbers (LLN)}, we would expect, in the long run, to break even:
 
 \begin{theorem}
     Let $\{X_n\}_{n\geq 1}$ be a collection of i.i.d. random variables with mean $\mu$. Denote $S_n = \frac{1}{n}\sum_{i=1}^n X_n$. Then, with probability one,
@@ -13,19 +13,19 @@ As we saw in the first chapter, a financial institution selling financial deriva
 \end{theorem}
 
 %TODO: Complete forward valuation proof; answer: why is it not feasible to value a forward like that? because it does not reflect the market
-Feasible as it may seem, as pointed out by Baxter(2003), this approach could lead to disaster for the financial institution. Nonetheless, it can be easily shown that the the arbitrage-free price of a forward is the discounted value of the current price of the stock.\\
+Feasible as it may seem, as pointed out by Baxter(2003), this approach could lead to disaster for the financial institution. Nonetheless, by following no-arbitrage arguments, it can be shown that the the price of a forward is the discounted value of the current price of the stock.\\
 
 % Focus
-In this chapter, we aim to develop an intuition behind option valuation, and give a hint on what is to expect from a more mathematically-robust model; we present the binomial tree model, and relax the mathematical-rigor used in the previous chapter.\\
+In this chapter, we aim to develop an intuition behind option valuation, and give a hint on what is to expect from a more mathematically-robust model. To achieve the latter we present the binomial tree model, and relax the mathematical-rigor used in the previous chapter.\\
 
 % Overview
-We develop this chapter twofold: we first lay the foundations required to value an option using a binomial tree; the second chapter comprises the generalization of the latter and an example of its usage.
+We develop this chapter twofold: we first lay the foundations required to value an option using a single binomial tree; the second chapter comprises the generalization of the single binomial tree and an example of its usage.
 
 \section{One-Step Binomial Models}
-In order to generalize an arbitrage-free approach to price an option, we would like to construct a model that truly reflects the market (unlike the LLN approach). In its simplest form, this market should consist of a cash bond and a stock. We will assume, that the market moves in discrete units of time.\\
+In order to generalize an arbitrage-free approach to price a European option on a stock, it is desirable to construct a model that truly reflects the market (unlike the LLN approach). In its simplest form, this market should consist of a cash bond and a stock. We will assume, that the market moves in discrete units of time.\\
 
 \textbf{The Stock}\\
-Between any two units of time (e.g. from $t=0$ to $t=1$), the stock can either go up with probability $p$, or down with probability $1-p$; it will have an initial value $S_0$; and, with any of these movements, the stock is multiplied by an up factor $u$, or a down factor $d$, depending on where it moves to. Evidently, $0 < d < 1 < u$. Finally, we will assume that unlimited amounts of the stock can be bought at any time and there is no cost incurred in the transaction.\\
+Between any two units of time (e.g. from $t=0$ to $t=1$) the stock can either go up with probability $p$, or down with probability $1-p$; it will have an initial value $S_0$; and, with any of these movements, the stock goes up by a factor $u$, or a down by a factor $d$. Evidently, $0 < d < 1 < u$. Finally, we will assume that unlimited amounts of the stock can be bought at any time and there is no cost incurred in the transaction.\\
 
 \begin{figure}[h!]
 \centering
@@ -36,17 +36,28 @@ Between any two units of time (e.g. from $t=0$ to $t=1$), the stock can either g
     \draw[->] (0,0) --(2, -0.5) node[pos=0.5, sloped, below] {$1-p$};
     \node[right] at (2, -0.5) {$S_0d$};
 \end{tikzpicture}
-
+\caption{Possible path of the stock after one unit of time.}
 \end{figure}
 
 \textbf{The Bond}\\
 The bank account represents the time value of money. We will assume a constant, risk-free, continuously compounding interest rate $r$. For $\$B_0$ invested at $t=0$, said rate guarantees, at the end of $T$ periods, $B_0 e^{rT}$. Also, we will assume that we can lend or borrow at the same interest rate $r$.\\
 
 \textbf{The Derivative}\\
-This model carries within the possibility of a market that depends on the price of the stock. That is, there could be a payoff $f$ with price $f_0$ that derives its future value from the direction the stock took. Either $f_u$ if it went up, or $f_d$ if it went down.
+This simple market carries within the possibility of a third that depends on the price of the stock. That is, there could be a payoff with price $f_0$ today that derives its future value from the direction the stock takes: either $f_u$ if it went up, or $f_d$ if it went down.
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+    \draw[->] (0,0) node[left]{$f_0$} --(2, 0.5) node[pos=0.5, sloped, above] {$S_0u$};
+    \node[right] at (2, 0.5) {$f_u$};
+    \draw[->] (0,0) --(2, -0.5) node[pos=0.5, sloped, below] {$S_0d$};
+    \node[right] at (2, -0.5) {$f_d$};
+\end{tikzpicture}
+\end{figure}
+
 
 \subsection{Pricing}
-We can now ask whether we can construct a portfolio such that replicates $f$ from a suitable strategy, thus paying the promised amount. What we are looking for is to guarantee the value of the derivative at the moment of settlement, thus hedging the risk away.\\
+We can now ask whether we can construct a portfolio that replicates $f$ from a suitable strategy, thus paying the promised amount. What we are looking for is to guarantee the value of the derivative at the moment of settlement, thus hedging the risk away.\\
 
 Consider the portfolio $(\phi, \psi)$, where $\phi$ denotes the number of shares for stock $S$ in the portfolio and $\psi$ denotes the amount in the bank. At $t=0$, this portfolio is worth
 
@@ -54,15 +65,9 @@ Consider the portfolio $(\phi, \psi)$, where $\phi$ denotes the number of shares
     \phi S_0 + \psi B_0
 \end{equation*}
 
-At $t=\delta t$, this portfolio will be worth one of two possible values:
+At $t=\delta t$, this portfolio will be worth either $\phi S_0u + \psi B_0e^{r \delta t}$, or $\phi S_0d + \psi B_0e^{r \delta t}$.\\
 
-\begin{align*}
-    \phi S_0u + \psi B_0e^{r \delta t}\\
-    \phi S_0d + \psi B_0e^{r \delta t}
-\end{align*}
-
-With this in mind, we now turn to answer our question. In order to hedge the risk, we would like to find values for $(\phi, \psi)$ in order to replicate the payoff:
-
+With this in mind, we now turn to answer our intiial question. In order to hedge the risk, we would like to find values for $(\phi, \psi)$ in order to replicate the payoff:
 \begin{align*}
     \phi S_0u + \psi B_0e^{r \delta t} = f_u\\
     \phi S_0d + \psi B_0e^{r \delta t} = f_d
@@ -107,7 +112,7 @@ What, then, would have happened, had we decided to replicate this payoff using o
 \end{equation}
 
 
-Pricing $\hat{\mathcal{V}}$ for $f$ does not guarantee $\hat{\mathcal{V}} = \mathcal{V}$, which could lead to arbitrage otherwise. Assuming $\hat{\mathcal{V}} \neq \mathcal{V}$, the expected payoff of $f$ would not be $\hat{\mathcal{V}}$, investors would be inclined to make a profit, thereby breaking the assumption that every position taken on the derivative is independent of one another; we cannot expect to break even in the long run.
+Pricing $\hat{\mathcal{V}}$ for $f$ does not guarantee $\hat{\mathcal{V}} = \mathcal{V}$, which could lead to arbitrage otherwise. Assuming $\hat{\mathcal{V}} \neq \mathcal{V}$, the expected payoff of $f$ would not be $\hat{\mathcal{V}}$, market participants would be inclined to make a profit, thereby breaking the assumption that every position taken on the derivative is independent of one another; we cannot expect to break even in the long run.
 
 
 \subsection{The Q Measure}
@@ -137,7 +142,7 @@ Being $d < \exp{(r\delta_t)} < u$ implies $0 < q < 1$. We can rewrite \ref{eq:v_
     \mathcal{V} = \exp{(-r\delta_t)}[S_0u\cdot q + S_0d \cdot (1-q)]
 \end{equation}
 
-$\mathcal V$ is the expectation under a measure probability $\mathbb Q$; it not the expected value of the derivative, but a change in the measure of the tree such that guarantees no arbitrage. Theoretically, this is backed up by the Radon-Nikodym derivative (see theorem \ref{th:radon-nikodym}).
+$\mathcal V$ is the expectation under a measure probability $\mathbb Q$; it is not the expected value of the derivative, but a change in the measure of the tree such that guarantees no arbitrage. Theoretically, this is backed up by the Radon-Nikodym derivative (see theorem \ref{th:radon-nikodym}).
 
 \section{Generalized Binomial Tree Model}
 In order to generalize our model to $n$ periods we only need to consider each node as the root of another binomial tree. Consequently, we get a tree with $n$ periods and $2^n$ nodes at $t=n$.\\
@@ -205,13 +210,15 @@ In order to generalize our model to $n$ periods we only need to consider each no
 To motivate this generalized model, we will now present an example of a $3$-period binomial model.
 % Find another name for this example..
 \subsection{An Example}
-Suppose that at $t=0$ we have a stock $S_0$ that can go up up by a factor of $1.20$, or down by a factor of $0.80$. Assume further that the $\mathbb{P}$ measure probability for an up move is $\frac{3}{4}$, finally, suppose $r=0$. Being consistent with the notation used, $u=1.20$, $d=0.80$, $p = \frac{3}{4}$ and $ 1 - p = \frac{1}{4}$. We want to price a call option on $S_0$ with strike price $k=100$.Denote this claim, at $t=4$, $f$, and $S_n$ as the value of $S$ at maturity. We can represent this claim as:
+Suppose that at $t=0$ we have a stock worth $S_0=100$ that can go up by a factor of $1.20$, or down by a factor of $0.80$. Assume further that the $\mathbb{P}$ measure probability for an up move is $\frac{3}{4}$, finally, suppose $r=0$. Being consistent with the notation used, $u=1.20$, $d=0.80$, $p = \frac{3}{4}$ and $ 1 - p = \frac{1}{4}$.\\
+
+We set up to price a call option on $S_0$ with strike price $K=110$, three periods from now. Denote $f_t$ the value of the derivative at time $t$. The payoff at maturity ($t=3$) is
 
 \begin{equation}
-    f = \max\{S_n - K, 0\} =: [S_n - K]^+
+    f_3 = \max\{S_3 - K, 0\} =: [S_3 - K]^+
 \end{equation}
 
-Since the stock can either move up or down with known factors $u$ and $d$ respectively, we know all the values the stock can take up to $t=3$. For example, from $t=0$ to $t=1$, the stock can either move to $100 \cdot 1.20$, or down to $100 \cdot 0.80$.
+Since $S$ can either move up or down with known factors $u$ and $d$ respectively, we know all the values the stock can take up to $t=3$. For example, from $t=0$ to $t=1$, the stock can either move to $100 \cdot 1.20$, or down to $100 \cdot 0.80$.\\
 
 \begin{figure}
 \centering
@@ -233,9 +240,9 @@ Since the stock can either move up or down with known factors $u$ and $d$ respec
 \caption{The Stock Process}
 \end{figure}
 
-Given $f$ and the stock-tree process we can compute, for example, the amount to be paid if the stock moves up at every step. Under this scenario, $S_3 = 172.8$. Then $f(S_3) = [172.8 - 110]^+ = 62.80$, which means that the buyer of the option would receive $\$62.80$. Computing the claim at every last node yields a set of claims at maturity.\\
+Given $f$ and the stock-tree process we can compute, for example, the amount to be paid if the stock moves up at every step. Under this scenario, $S_3 = 172.8$. Then $f(S_3) = [172.8 - 110]^+ = 62.80$, which means that the buyer of the option would receive $\$62.80$. Computing the payoff at every last node yields a set of payoffs at maturity.\\
 
-With the set of claims at maturity, we proceed to find the value of the option at every other node in the tree solving iteratively from $t=2$ to $t=0$.\\
+With the set of payoffs at maturity, we proceed to find the value of the option at every other node in the tree solving iteratively from $t=2$ to $t=0$.\\
 
 For example, the upper node at $t=2$ is computed by taking the discounted expectation under the $\mathbb{Q}$ measure as shown in \ref{eq:v_price}. Were the stock to climb up two times then, the payoff at $t=3$ can either be 62.8 or 5.2. Denote $f^{uu}_2$ the value the derivative at $t=2$ for the upper node, its value is then
 
@@ -260,16 +267,17 @@ For example, the upper node at $t=2$ is computed by taking the discounted expect
     \node[below right = 0.5cm of sud] (sudd) {0.00}; \draw[->] (sud) -- (sudd); \draw[->] (sdd) -- (sudd);
     \node[below right = 0.5cm of sdd] (sddd) {0.00}; \draw[->] (sdd) -- (sddd);
 
-    \draw[red, dashed] (2,0.65) -- (4,0.65) -- (4, 2.7) -- (2, 2.7) -- (2, 0.65);
+    \draw[red, dashed] (2,0.65) -- (4.1,0.65) -- (4.1, 2.8) -- (2, 2.8) -- (2, 0.65);
     \end{tikzpicture}
 \caption{The Claim Tree}
 \end{figure}
 
 Loosely speaking, every node in the claim-tree represents the value of the option at every step. Evidently, at $t=3$, the value of the option can only be its current value since there is nowhere to move elsewhere in the tree. At $t=0$ we have the risk-free value for the option that guarantees no arbitrage.\\
 
+% TODO: Add definition of self-financing portfolio
 To see why this is true, suppose we were to sell this option at \$10.45. For the sake of the argument, suppose the stock moves up two times and down at the last time-tick. If 10.45 is truly the arbitrage-free price option, we should be able to replicate the movement of the stock at each time interval and arrive at the payoff without incurring any other cost.\\
 
-According to equation \ref{eq:phi}, at $t=0$ we would need to buy 0.3925 units of $S$ and borrow 28.8 to cover the expenses; if the price goes up at $t=1$, aroung 0.65 units of the stock are required, which would lead to a purchase of 0.26 extra units of the stock, thus incrementing the amount borrowed to 60.2. At $t=2$, 1 unit of $S$ is required, increasing the amount borrowed to 110. Finally, at $t=3$, the stock takes a down move and \$5.2 is the amount owed to the option buyer. \\
+According to equation \ref{eq:phi}, at $t=0$ we would need to buy 0.3925 units of $S$ and borrow 28.8 to cover the expenses; if the price goes up at $t=1$, around 0.65 units of the stock are required, which would lead to a purchase of 0.26 extra units of the stock, thus incrementing the amount borrowed to 60.2. At $t=2$, 1 unit of $S$ is required, increasing the amount borrowed to 110. Finally, at $t=3$, the stock takes a down move and \$5.2 is the amount owed to the option buyer. \\
 
 The final value in the position of the stock is $S_0 u ^ 2 d \cdot \phi = 115.20$, minus the \$110 owed, brings the total value of the portfolio to \$5.20, exacltly the amount required to fulfill the obligation.
 \end{document}

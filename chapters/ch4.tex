@@ -15,11 +15,13 @@
 % 1) Link
 In chapter one we posed the question about the theoretical value of a financial call option that starts today. Specifically, we want to answer the following question: what is today's value for a derivative that pays $\max\{S_T-K, 0\}$ at maturity? Note that, at time $T$, the payoff of the option is a function of $S_T$, since all else is given. Consequently, preceding the valuation of any option we must first take into account the dynamics of the asset we are referring to, i.e., we must come up with a model for $S_t$ for all $t \in [0,\infty)$.\\
 
+As saw in chapter \ref{ch:option_pricing}, the basic assumption about the financial asset we want to value is that is is always positive, it starts at a known value and has a component that allow us to determine the possible paths it may take.
+
 % 2) Focus
-In the following chapter, we aim to attain a model that explains the random changes of financial assets. More precisely, what is needed is to describe the ``noise'' of an asset over time by virtue of stochastic processes.\\
+In the following chapter, we aim to attain a model that explains the random changes of financial assets in continuous time. Since we assume that the stock follows both a stochastic component and a deterministic one, we intent to describe the ``noise'' of an asset over time in continuous time.\\
 
 % 3) Overview
-We begin by motivating the need for such processes in a mathematically-informal way; we continue laying the mathematical foundations for what is the final process to model the \textit{noise}; finally, we conclude the chapter by proving remarkable properties about the latter.
+We begin by motivating the need for such process in a mathematically-informal way; we continue laying the mathematical foundations for what is the final process to model the \textit{noise}: the Brownian motion; finally, we conclude the chapter by proving remarkable properties about the latter.
 
 \section{Random Walks}
 Suppose that two players (A and B) toss an even coin $n$ times, one toss for every unit of time\footnote{Note that this unit of time can be one second, one day, 5 minutes, etc.}. Whenever tails comes up, A will pay B \$1. On the contrary, A will receive \$1 from B. Suppose further that we decide to model how much did A won (or lost) after $n$ tosses. To do so, we define the following:
@@ -156,9 +158,9 @@ In what follows of this chapter, we formalize the \textbf{Brownian motion}
 We say that $(V, \norm{\cdot})$ is a complete normed spaced (or a Banach space) if, for $\{v_n\}_{n\geq 0}$, and $\{v_m\}_{m\geq 0}$; $\norm{v_n - v_m} \to 0$ as $n, m \to \infty$. The sequence $\{\norm{v_m, v_n}\}_{n,m \geq 0}$ is known as a \textbf{Cauchy sequence}. This last fact imposes the existence of $v\in V$ such that $\lim_{n\to\infty} v_n = v$.
 
 \begin{definition}
-Let $\ProbSpace$ be a measurable space, we define the $L_2$ space ($L_2\ProbSpace $) as the family of random variables such that
+Let $\ProbSpace$ be a measurable space, we define the $L_2$ space $L_2\ProbSpace $ as the family of random variables such that
 	\begin{equation}
-		\norm{X}_2:= \left(\E[|X|^2] \right)^{1/2} < \infty
+		\norm{X}_2:= \left(\E[|X|^2] \right)^{1/2} < \infty.
 	\end{equation}
 \end{definition}
 
@@ -171,7 +173,7 @@ It can be shown that if $X$, $Y$ are two random variables such that $\Pm(X=Y) = 
 		\item $\innerprod{x}{y} = \innerprod{y}{x}$;
 		\item $\innerprod{x}{x} \geq 0$;
 		\item $\innerprod{\alpha x + \beta y}{z} = \alpha\innerprod{x}{z} + \beta\innerprod{y}{z}$; and
-		\item $\innerprod{x}{x} = 0 \iff x = 0_n$
+		\item $\innerprod{x}{x} = 0 \iff x = 0_n$.
 	\end{enumerate}	
 \end{definition}
 
@@ -190,13 +192,13 @@ It can be shown that if $X$, $Y$ are two random variables such that $\Pm(X=Y) = 
 \end{remark}
 
 %TODO: Complete the enlightening proposition
-\begin{definition}
+\begin{proposition}
 	Let $(V, \norm{\cdot}_V)$ a complete normed space and $(W, \norm{\cdot}_W)$ a normed space. Let $U\subseteq V$ dense, and $I:U\to W$ and isometry. Then,
 	\begin{enumerate}
 		\item $I(\cdot)$ can be extended to all $V$ ($I: V\to W$); and
 		\item $I(\cdot)$ is also an isometry for $V$ ($\norm{I(v)}_W = \norm{I(v)}_V$).
 	\end{enumerate}
-\end{definition}
+\end{proposition}
 
 \begin{proposition}\label{def:hilbert_space}
 	Let $\innerprod{\cdot}{\cdot}$	 an inner product defined over $V$ and define $\norm{\cdot}:=\sqrt{\innerprod{\cdot}{\cdot}}$ then,
@@ -208,7 +210,7 @@ It can be shown that if $X$, $Y$ are two random variables such that $\Pm(X=Y) = 
 \end{proposition}
 
 \begin{remark}
-	If the norm over $V$ as defined in \ref{def:hilbert_space} is complete, then $(V, \innerprod{\cdot}{\cdot}$ is said to be a \textbf{Hilbert space}.
+	If the norm over $V$ as defined in \ref{def:hilbert_space} is complete, then $(V, \innerprod{\cdot}{\cdot})$ is said to be a \textbf{Hilbert space}.
 \end{remark}
 
 For any two random variables $X\text{,}Y\in L_2\ProbSpace$, we will define their inner product
@@ -225,7 +227,7 @@ As a consequence,
 	Let $\dtspr, X \in L_2$. We say that $X_n\to X$ in $L_2$ iff $\norm{X_n - X}_2\to 0$, i.e., $\E[(X_n - X)^2] \to 0$.
 \end{definition}
 
-\begin{proposition}
+\begin{proposition}[\textbf{criteria for the existence of a limit in $L_2$}]
 	Let $\ctspr$ a stochastic process in $L_2$ ($\norm{X_t} < \infty$ for every $t\in T$) then,
 	\begin{enumerate}
 		\item There exists a random variable $X\in L_2$ such that $X_t \to X$ in $L_2$ whenever $t\to t_0$; and
@@ -233,6 +235,30 @@ As a consequence,
 	\end{enumerate}
 \end{proposition}
 
+
+\begin{definition}[\textbf{$L_2$ continuity}]
+We say that a stochastic $\ctspr$ process is $L_2$ continuous if
+	\begin{equation}
+	  X_{t+h} \to X_t \text{ as } h\to 0 \ \forall \ t\in T 
+	\end{equation}
+\end{definition}
+
+\begin{remark}
+By Jensen's inequality, 
+	\begin{equation}
+		\E[(X_{t+h} - X_{t})^2] \geq \left(\E[X_{t+h} - X_{t}]\right)^2	= \left(\E[X_{t+h}] - \E[X_{t}]\right)^2
+	\end{equation}
+It follows that if $X_t$ is $L_2$ continuous, $\E[X_t]$ is $L_2$ continuous. Since $\E[(\cdot)^2] < \infty$, it is also bounded from above, ergo, $\E[\cdot]$ is defined as well.
+\end{remark}
+
+\begin{theorem}
+	Suppose $\E[X_t]$ is $L_2$ continuous, then $X_t$ is $L_2$ continuous if $Cov(X_k, X_s)$ is continuous at $(t,t)$.
+\end{theorem}
+
+%TODO: poooooooooof!
+\begin{proof}
+	
+\end{proof}
 
 \section{Brownian Motion}
 \begin{definition}\label{def:brownian_motion}
