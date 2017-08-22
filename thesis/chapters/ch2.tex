@@ -37,7 +37,7 @@ With definition \ref{def:algebra} in mind, we can now consider the \textit{algeb
 
 Universes are not necessarily countably finite. Some may be countably infinite (e.g., the natural numbers), or even uncountably infinite (e.g., the subset of real numbers between 0 and 1). Concerning a more abstract space $\Omega$, we then need to impose an additional property to an algebra called the \textit{$\sigma$-additivity}.
 
-\begin{definition}[\textbf{$\salg$}]label{salgebra}
+\begin{definition}[\textbf{$\salg$}]\label{def:sigma_algebra}
 	A system $\salgF$ of subsets of $\Omega$ is a $\salg$ if it is an algebra and it satisfies the $\sigma$-additive property:
 	\begin{equation*}
 		\text{If } \{A_n\}_{n\geq 1} \in \salgF \Rightarrow \bigcup_{k=1}^{\infty} A_k \in \salgF.
@@ -45,7 +45,7 @@ Universes are not necessarily countably finite. Some may be countably infinite (
 \end{definition}
 
 \begin{remark}
-	For $\{A_n\}_{n\geq 1} \in \salgF$ then, definition \ref{salgebra} is equivalent to say that
+	For $\{A_n\}_{n\geq 1} \in \salgF$ then, definition \ref{def:sigma_algebra} is equivalent to say that
 	\begin{equation*}
 		\text{If } \{A_n\}_{n\geq 1} \in \salgF \Rightarrow \bigcap_{k=1}^{\infty} A_k \in \salgF.
 	\end{equation*}
