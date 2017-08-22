@@ -5,7 +5,7 @@
 \usepackage{amsfonts}
 
 \mode<presentation>{\usetheme{Madrid}}
-\input{../imports}
+\input{../misc/commands}
 
 \title{Theoretical Grounds and Market Adaptations of Financial Fx and Interest Rate Options}
 \author{Gerardo Dur\'an Mart\'in}
@@ -23,19 +23,78 @@
 \end{frame}
 
 \section{Financial Markets}
+
+%% Instruments
 \begin{frame}
-	\frametitle{This is the First Slide}	
-	This is the first time I am writing something in beamer
+	\frametitle{Financial Markets}
+	\framesubtitle{The Instruments}
+	
+	\begin{columns}[c]	
+	
+	\column{0.45\textwidth}
+	\begin{itemize}
+		\item <1-| alert@1> Bonds
+		\item <2-| alert@2> Stocks
+		\item <3-| alert@3> Foreign Exchange Currencies
+		\item <4-| alert@4> Derivatives
+	\end{itemize}
+	
+	\column{0.5\textwidth}
+	\only<1>{
+	A Bond is a debt obligation, its main function is to raise capital for the issuer of the bond. In turn, the buyer of the bond receives interest on the amount loaned.
+	}
+	\only<2>{
+	A stock is a security that represents ownership on a fraction of a corporation. The return on the company for the owner of a stock is represented as a dividend.
+	}
+	\only<3>{
+	``One country’s currency freely convertible in the foreign exchange market.'' (Kozikowski, 2013)
+	}
+	\only<4>{
+	``[A derivative is] a financial instrument whose value depends on (or derives from) the values of other, more basic, underlying variables.'' (Hull, 2014)
+	}
+	\end{columns}
+\end{frame}
+
+%%Forwards
+\begin{frame}
+\frametitle{Financial Markets}
+\framesubtitle{Derivatives: An Example}
+
+	\begin{definition}[Forward]
+		A forward is a derivative contract that gives the buyer both the right, and the obligation to to purchase a specified amount of the stock at some future time $T$ at a price $K$. The value of the forward today is 0.
+	\end{definition}
+	The payoff of the forward is $S_T - K$. What is the $K$ such that the contract has zero value today and has no possibility of arbitrage?
+	
+	\begin{figure}
+	\includegraphics[width=0.45\textwidth]{../images/foward_payoff}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Financial Markets}
+\framesubtitle{Derivatives: An Example}
+Assume a continuously compounded interest rate $r$, denote $S_t$ the value of the stock at time $t$. At $t=T$ the value of the forward is
+$$
+	S_T - K = 0
+$$
+
+By no arbitrage, the present value of the strategy is
+$$
+	S_0 - Ke^{-rT} = 0 \implies K = S_0e^{rT}
+$$
+%TODO: add why 'by no arbitrage' the latter is true.
+Therefore, $S_0e^{rT}$ is the the value that guarantees no arbitrage.
 \end{frame}
 
 \section{Probability Theory}
-
+\begin{frame}
+\frametitle{Probability Theory}
 We work on the measurable space
 \begin{block}{Measurable Spaces}
-	\begin{equation}
-		\ProbSpace
-	\end{equation}
+	\[\ProbSpace\]
 \end{block}
+
+\end{frame}
 
 \section{Brownian Motion}
 \section{Stochastic Calculus}
