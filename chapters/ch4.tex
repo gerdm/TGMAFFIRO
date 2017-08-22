@@ -38,7 +38,7 @@ Suppose that two players (A and B) toss an even coin $n$ times, one toss for eve
 \begin{figure}
 	\label{fig:symmetric_random_walk}
 	\centering
-	\includegraphics[width=0.9\textwidth]{images/symmetric_random_walk}
+	\includegraphics[width=0.9\textwidth]{../images/symmetric_random_walk}
 	\caption{Path of a Symmetric Random Walk}
 \end{figure}
 
@@ -105,7 +105,7 @@ One complication arises in modeling a financial asset, that of choosing the part
 \begin{figure}[h]
 	\label{fig:scaled_random_walk}
 	\centering
-	\includegraphics[width=0.9\textwidth]{images/scaled_random_walk}
+	\includegraphics[width=0.9\textwidth]{../images/scaled_random_walk}
 	\caption{Scaled Random Walk}
 \end{figure}
 
@@ -244,11 +244,11 @@ We say that a stochastic $\ctspr$ process is $L_2$ continuous if
 \end{definition}
 
 \begin{remark}
-By Jensen's inequality, 
+By Jensen's inequality,
 	\begin{equation}
 		\E[(X_{t+h} - X_{t})^2] \geq \left(\E[X_{t+h} - X_{t}]\right)^2	= \left(\E[X_{t+h}] - \E[X_{t}]\right)^2
 	\end{equation}
-It follows that if $X_t$ is $L_2$ continuous, $\E[X_t]$ is $L_2$ continuous. Since $\E[(\cdot)^2] < \infty$, it is also bounded from above, ergo, $\E[\cdot]$ is defined as well.
+Note that if $X_t$ is $L_2$ continuous, $\E[(\cdot)^2] < \infty$ and is bounded from above. If follows then that $\E[X_t]$ is $L_2$ continuous since the latter implies that $\E[\cdot]$ is well defined.
 \end{remark}
 
 \begin{theorem}
@@ -281,7 +281,7 @@ The Brownian Motion is a first desirable result since it allow us to work in con
 \begin{figure}[h]
 	\centering
 	\label{fig:Brownian_Motion}
-	\includegraphics[width=0.9\textwidth]{images/bm}
+	\includegraphics[width=0.9\textwidth]{../images/bm}
 	\caption{Sample Paths of a Brownian Motion}
 \end{figure}
 
