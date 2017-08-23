@@ -522,6 +522,17 @@ If the sequence $\{f_n\}_{n\geq 1}$ is such that $f_n \to f$ in measure, and $|f
 	\]
 \end{proof}
 
+We now state, without proof, a theorem that allows to work with different measures under a given measure space.
+
+\begin{theorem}[\textbf{Radon Nikodym Theorem}]\label{th:radon-nikodym}
+Let $\mu$ and $\lambda$ be $\sigma$-finite positive measures defined on $(\Omega, \mathscr{F})$ such that, for every $A \in \mathscr{F}$, $\lambda(A) = 0 \implies \mu(A)= 0$. Then, there exists a function $f: \Omega \to [0, \infty]$ such that
+\[
+	\mu(A) = \int_A f d\lambda.
+\]
+
+Where the function $f$ is defined up to sets with measure zero. $f$ is sometimes called the Radon-Nikodym derivative and it can be written as $\frac{d\mu}{d\lambda}$
+\end{theorem}
+
 \section{Expectations}
 We the tools surveyed so far, we can now introduce a new concept, that of the expectation of a random variable. Aridly put, we will define an expectation as the integral of a random variable w.r.t. its probability measure. Nonetheless, the concept of an expectation under a probability space $\ProbSpace$ serves a practical purpose that will be of much use throughout the rest of this work.
 
@@ -598,18 +609,7 @@ The same argument as theorem \ref{th:h1_borel} results in the following corollar
 	\end{equation}
 \end{corollary}
 
-We now state, without proof, a theorem that allows to work with different measures under a given measure space.
-
-\begin{theorem}[\textbf{Radon Nikodym Theorem}]\label{th:radon-nikodym}
-Let $\mu$ and $\lambda$ be $\sigma$-finite positive measures defined on $(\Omega, \mathscr{F})$ such that, for every $A \in \mathscr{F}$, $\lambda(A) = 0 \implies \mu(A)= 0$. Then, there exists a function $f: \Omega \to [0, \infty]$ such that
-\[
-	\mu(A) = \int_A f d\lambda.
-\]
-
-Where the function $f$ is defined up to sets with measure zero. $f$ is sometimes called the Radon-Nikodym derivative and it can be written as $\frac{d\mu}{d\lambda}$
-\end{theorem}
-
-The Radon-Nikodym theorem paves way for the following definition.
+The Radon-Nikodym theorem (\ref{th:radon-nikodym}) paves way for the following definition.
 
 \begin{definition}[\textbf{Conditional Expectation w.r.t. a $\sigma$-algebra}]
 The conditional expectation of a nonnegative random variable $X$ with respect to the $\sigma$-algebra $\mathscr{G}$ is a nonnegative random variable denoted $\mathbb{E}[X | \mathscr{G}]$ or $\mathbb{E}[X | \mathscr{G}](\omega)$ such that,
@@ -618,7 +618,6 @@ The conditional expectation of a nonnegative random variable $X$ with respect to
 	\item For every $A \in \mathscr{G}$,
 	\[\int_A X d\Pm = \int_A \mathbb{E}[X | \mathscr{G}] d\Pm\].
 \end{enumerate}
-
 \end{definition}
 
 \begin{definition}[\textbf{Conditional Probability}]
@@ -637,8 +636,8 @@ The conditional expectation of a nonnegative random variable $X$ with respect to
 	\end{equation}
 \end{definition}
 
+We now note some important properties of the conditional expectation.
 \begin{proposition}
-	We now note some important properties of the conditional expectation
 	\begin{enumerate}
 		\item If $a, b \in \RNums$, $\E[\alpha X + \beta Y | \mathscr{G}]$ = $\alpha \E[X | \mathscr{G}] + \beta\E[Y | \mathscr{G}]$;
 		\item $\E[\E[X | \salgF]] = \E[X]$;
