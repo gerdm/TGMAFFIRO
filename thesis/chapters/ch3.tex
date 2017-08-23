@@ -43,7 +43,7 @@ Between any two units of time (e.g. from $t=0$ to $t=1$) the stock can either go
 The bank account represents the time value of money. We will assume a constant, risk-free, continuously compounding interest rate $r$. For $\$B_0$ invested at $t=0$, said rate guarantees, at the end of $T$ periods, $B_0 e^{rT}$. Also, we will assume that we can lend or borrow at the same interest rate $r$.\\
 
 \textbf{The Derivative}\\
-This simple market carries within the possibility of a third that depends on the price of the stock. That is, there could be a payoff with price $f_0$ today that derives its future value from the direction the stock takes: either $f_u$ if it went up, or $f_d$ if it went down.
+This simple market carries within the possibility of a third that depends on the price of the stock. That is, there could be a payoff with price $f_0$ today that derives its value from the possible directions the stock may take: either $f_u$ if it goes up, or $f_d$ otherwise
 
 \begin{figure}[h!]
 \centering
@@ -59,18 +59,18 @@ This simple market carries within the possibility of a third that depends on the
 \subsection{Pricing}
 We can now ask whether we can construct a portfolio that replicates $f$ from a suitable strategy, thus paying the promised amount. What we are looking for is to guarantee the value of the derivative at the moment of settlement, thus hedging the risk away.\\
 
-Consider the portfolio $(\phi, \psi)$, where $\phi$ denotes the number of shares for stock $S$ in the portfolio and $\psi$ denotes the amount in the bank. At $t=0$, this portfolio is worth
+Consider the portfolio $(\phi, \psi)$ with $\phi$ number of shares, and $\psi$ monetary units in the bank. At $t=0$, this portfolio is worth
 
-\begin{equation*}
+\[
     \phi S_0 + \psi B_0
-\end{equation*}
+\]
 
-At $t=\delta t$, this portfolio will be worth either $\phi S_0u + \psi B_0e^{r \delta t}$, or $\phi S_0d + \psi B_0e^{r \delta t}$.\\
+At $t=\delta_t$, this portfolio will be worth either $\phi S_0u + \psi B_0e^{r \delta_t}$, or $\phi S_0d + \psi B_0e^{r \delta_t}$.\\
 
-With this in mind, we now turn to answer our intiial question. In order to hedge the risk, we would like to find values for $(\phi, \psi)$ in order to replicate the payoff:
+With this in mind, we now turn to answer the initial question. In order to hedge the risk, we would like to find values for $(\phi, \psi)$ in order to replicate the payoff:
 \begin{align*}
-    \phi S_0u + \psi B_0e^{r \delta t} = f_u\\
-    \phi S_0d + \psi B_0e^{r \delta t} = f_d
+    \phi S_0u + \psi B_0e^{r \delta_t} = f_u\\
+    \phi S_0d + \psi B_0e^{r \delta_t} = f_d
 \end{align*}
 
 We can now solve for $\phi$ and $\psi$:
@@ -84,9 +84,9 @@ We can now solve for $\phi$ and $\psi$:
 \end{equation}
 
 \begin{align*}
-    \psi &= e^{-r\delta t} [f_u - \phi u]\\
-         &= e^{-r\delta t} \left[f_u - \frac{f_u - f_d}{S_0(u - d)} S_0u\right]\\
-         &= e^{-r\delta t} \frac{uf_d - df_u}{u -d}
+    \psi &= e^{-r\delta_t} [f_u - \phi u]\\
+         &= e^{-r\delta_t} \left[f_u - \frac{f_u - f_d}{S_0(u - d)} S_0u\right]\\
+         &= e^{-r\delta_t} \frac{uf_d - df_u}{u -d}
 \end{align*}
 
 Thus, buying the portfolio $(\phi, \psi)$ guarantees the payoff at $t=\delta_t$. Denote $\mathcal{V}$ the value of the portfolio at $t=0$. The value of $\mathcal{V}$ is:
@@ -103,7 +103,7 @@ Therefore,
 	\mathcal{V} = e^{-r\delta_t}\left[f_u \frac{e^{r\delta_t} - d}{u - d} + f_d \frac{u - e^{r\delta_t}}{u-d}\right].
 \end{equation}
 
-$\mathcal{V}$ is the arbitrage-free price for this derivative. Consider any other price $\mathcal{P} < \mathcal{V}$. Buying the portfolio $\mathcal{P}$ and selling $\mathcal{V}$ at $t=0$ guarantees, at $t=\delta_t$, enough money to settle and earn $\mathcal{V}-\mathcal{P}$ risk-free. The same argument can be done for a value $\mathcal{P} > \mathcal{V}$.\\
+$\mathcal{V}$ is the cost of a risk-free strategy that guarantees the payoff, and assures the impossibility to commit arbitrage. Consider any other price $\mathcal{P} < \mathcal{V}$. Buying the portfolio $\mathcal{P}$ and selling $\mathcal{V}$ at $t=0$ guarantees, at $t=\delta_t$, enough money to settle and earn $\mathcal{V}-\mathcal{P}$ risk-free. The same argument can be done for a value $\mathcal{P} > \mathcal{V}$.\\
 
 What, then, would have happened, had we decided to replicate this payoff using only the bank account and the probabilities $p$ and $1-p$? Accordingly, we would've priced the derivative at the present value of the expected payoff under the $\mathbb{P}$ measure. Denote $\hat{\mathcal{V}}$ this alternate value, then:
 
@@ -115,8 +115,9 @@ What, then, would have happened, had we decided to replicate this payoff using o
 Pricing $\hat{\mathcal{V}}$ for $f$ does not guarantee $\hat{\mathcal{V}} = \mathcal{V}$, which could lead to arbitrage otherwise. Assuming $\hat{\mathcal{V}} \neq \mathcal{V}$, the expected payoff of $f$ would not be $\hat{\mathcal{V}}$, market participants would be inclined to make a profit, thereby breaking the assumption that every position taken on the derivative is independent of one another; we cannot expect to break even in the long run.
 
 
+%TODO: Fix this!! Say which derivative is being used as example (a forward) and add the example of a one-period option.
 \subsection{The Q Measure}
-Coming back to our arbitrage-free price 
+Coming back to the derived, risk-free price of the option:
 
 \begin{equation*}
     \mathcal{V} = e^{-r\delta_t}\left[f_u \frac{e^{r\delta_t} - d}{u - d} + f_d \frac{u - e^{r\delta_t}}{u-d}\right]
@@ -130,19 +131,19 @@ Denote
 We can argue that $d < \exp{(r\delta_t)} < u$ implies no arbitrage. To see why, 
 \begin{enumerate}
 \item Suppose $\exp{(r\delta_t)} < d < u$.\\
-    At t=0 we can borrow $\$S_0$ and buy the stock. At $t=1$, we collect either $S_0u$ or $S_0d$, thereby making a risk-free profit of $S_0(u - \exp{(r\delta_t)})$ or $S_0(d - \exp{(r\delta_t)})$
+    At t=0 we can borrow $\$S_0$ and buy the stock. At $t=\delta_t$, we collect either $S_0u$ or $S_0d$, thereby making a risk-free profit of $S_0(u - \exp{(r\delta_t)})$ or $S_0(d - \exp{(r\delta_t)})$
 
 \item Suppose $d < u < \exp{(r\delta_t)}$\\
-    At $t=0$, lend $\$S_0$ and short the stock. At $t=1$, collect $S_0\exp{(r\delta_t)}$ and buy the stock at either $S_0u$ or $S_0d$. Again, this guarantees a risk-free profit of either $S_0(\exp{(r\delta_t)} - u)$ or $S_0(\exp{(r\delta_t)} - d)$
+    At $t=0$, lend $\$S_0$ and short the stock. At $t=\delta_t$, collect $S_0\exp{(r\delta_t)}$ and buy the stock at either $S_0u$ or $S_0d$. Again, this guarantees a risk-free profit of either $S_0(\exp{(r\delta_t)} - u)$ or $S_0(\exp{(r\delta_t)} - d)$
 \end{enumerate}
 
 Being $d < \exp{(r\delta_t)} < u$ implies $0 < q < 1$. We can rewrite \ref{eq:v_price_complete} as
-
 \begin{equation} \label{eq:v_price}
     \mathcal{V} = \exp{(-r\delta_t)}[S_0u\cdot q + S_0d \cdot (1-q)]
 \end{equation}
 
-$\mathcal V$ is the expectation under a measure probability $\mathbb Q$; it is not the expected value of the derivative, but a change in the measure of the tree such that guarantees no arbitrage. Theoretically, this is backed up by the Radon-Nikodym derivative (see theorem \ref{th:radon-nikodym}).
+
+$\mathcal V$ is the discounted expectation under a probability measure $\mathbb Q$; it is not the expected value of the derivative, but a change in the measure of the tree such that guarantees no arbitrage. Theoretically, this is backed up by the Radon-Nikodym derivative (see theorem \ref{th:radon-nikodym}).
 
 \section{Generalized Binomial Tree Model}
 In order to generalize our model to $n$ periods we only need to consider each node as the root of another binomial tree. Consequently, we get a tree with $n$ periods and $2^n$ nodes at $t=n$.\\
