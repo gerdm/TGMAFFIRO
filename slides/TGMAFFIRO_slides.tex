@@ -7,6 +7,10 @@
 \usepackage{bbm}
 \usepackage{tikz}
 \usetikzlibrary{arrows,shapes,positioning}
+\usepackage{url} % insert Urls in bib
+\usepackage[numbers]{natbib}
+\bibliographystyle{plainnat}
+
 
 \newtheorem{proposition}{Proposition}[section]
 
@@ -425,5 +429,8 @@ We rewrite (\ref{eq:v_price_complete}) as
 \end{equation}
 $\mathcal V$ is the discounted expectation under a probability measure $\mathbb Q$, and a martingale.
 \end{frame}
+
+\nocite{*}
+\bibliography{../misc/ref}
 
 \end{document}

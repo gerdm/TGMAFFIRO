@@ -220,10 +220,18 @@ For any two random variables $X\text{,}Y\in L_2\ProbSpace$, we will define their
 As a consequence,
 \begin{align}
 	\norm{X}_2 &= \sqrt{\E[X^2]}\text{; and} \\
-	\E[XY] &= \norm{X}_2 \norm{Y}_2 = \sqrt{\E[X^2]} \sqrt{\E[Y^2]}.
+	\E[XY] &\leq \norm{X}_2 \norm{Y}_2 = \sqrt{\E[X^2]} \sqrt{\E[Y^2]}.
 \end{align}
 
-\begin{definition}[\textbf{$L_2$ convergence}] ]
+\begin{proposition}\label{prop:convergence_expectation}
+Let $X_n\to X$ and $Y_n\to Y$ in $L_2$ then
+\begin{equation}
+  E[X_nY_m] \to E[XY]
+\end{equation}
+
+\end{proposition}
+
+\begin{definition}[\textbf{$L_2$ convergence}]
 	Let $\dtspr, X \in L_2$. We say that $X_n\to X$ in $L_2$ iff $\norm{X_n - X}_2\to 0$, i.e., $\E[(X_n - X)^2] \to 0$.
 \end{definition}
 
@@ -252,11 +260,41 @@ Note that if $X_t$ is $L_2$ continuous, $\E[(\cdot)^2] < \infty$ and is bounded 
 \end{remark}
 
 \begin{theorem}
-	Suppose $\E[X_t]$ is $L_2$ continuous, then $X_t$ is $L_2$ continuous if $Cov(X_k, X_s)$ is continuous at $(t,t)$.
+	Suppose $\E[X_t]$ is $L_2$ continuous, then $X_t$ is $L_2$ continuous iff $Cov(X_k, X_s) := \E[(X_k - \E[X_k])(X_s - \E[X_s])]$ is continuous at $(t,t)$.
 \end{theorem}
 
-%TODO: poooooooooof!
 \begin{proof}
+First we note that $X$ is $L_2$ continuous iff $X^\prime:= \{X - \E[X]\}$ is $L_2$ continuous.
+
+Also, $X_t^\prime$ has $\E[X_t^\prime] = 0$ and
+\begin{align*}
+	Cov(X_t^\prime, X_t^\prime) &= \E[(X_t^\prime) ^ 2] \\
+								&= \E[(X_t^\prime)^2] \\
+								&= \E[(X_t - \E[X_t])^2] \\
+								&= Cov(X_t, X_t)
+\end{align*}
+
+Implying that 
+\begin{equation}\label{eq:expectation_L2_continuous}
+  \E[X_t] = 0
+\end{equation}
+
+
+($\Rightarrow$ Since $X_t$ is $L_2$ continuous, there exists $h$, $h^\prime$ such that $X_{t+h} \to X_t$ and $X_{t+h^\prime} \to X_t$. It follows by proposition \ref{prop:convergence_expectation} and (\ref{eq:expectation_L2_continuous})
+\begin{align*}
+	Cov(X_{t+h}, X_{t+h^\prime}) &= \E[(X_{t+h} - \E[X_{t+h}])(X_{t+h^\prime} - \E[X_{t+h^\prime}])]\\
+								 &= \E[X_{t+h}X_{t+h^\prime}]\\
+								 &\to \E[(X_{t})^2].
+\end{align*}
+
+$\Leftarrow$) Suppose $Cov(X_t, X_t)$ is continuous,
+\begin{align*}
+	\E[(X_{t+h} - X_t)^2] &= \E[X^2_{t+h}] + \E[X^2_{t}] - 2\E[X_{t}X_{t+h}]\\
+						  &\to 2\E[X^2_t] -  2\E[X^2_t]\\
+						  &= 0.
+\end{align*}
+
+Implying the convergence of $X_t$ in $L_2$.
 	
 \end{proof}
 
