@@ -191,6 +191,14 @@ It can be shown that if $X$, $Y$ are two random variables such that $\Pm(X=Y) = 
 	\end{equation}
 \end{remark}
 
+\begin{definition}[Dense Space]
+	Let $(V, \norm{\cdot}$) a Banach space, we say that $U \subseteq V$ is dense on $V$ if for every $v\in V$, then there exists $\{u_k\}_{k\geq 1} \subseteq U$ such that 
+	\begin{equation}
+		\lim_{k\to\infty} \norm{v - u_k} = 0
+	\end{equation}
+
+\end{definition}
+
 %TODO: Complete the enlightening proposition
 \begin{proposition}
 	Let $(V, \norm{\cdot}_V)$ a complete normed space and $(W, \norm{\cdot}_W)$ a normed space. Let $U\subseteq V$ dense, and $I:U\to W$ and isometry. Then,
@@ -284,7 +292,7 @@ Implying that
 \begin{align*}
 	Cov(X_{t+h}, X_{t+h^\prime}) &= \E[(X_{t+h} - \E[X_{t+h}])(X_{t+h^\prime} - \E[X_{t+h^\prime}])]\\
 								 &= \E[X_{t+h}X_{t+h^\prime}]\\
-								 &\to \E[(X_{t})^2].
+								 &\to \E[(X_{t})^2] \text{ as } h \to 0.
 \end{align*}
 
 $\Leftarrow$) Suppose $Cov(X_t, X_t)$ is continuous,
@@ -295,8 +303,14 @@ $\Leftarrow$) Suppose $Cov(X_t, X_t)$ is continuous,
 \end{align*}
 
 Implying the convergence of $X_t$ in $L_2$.
-	
 \end{proof}
+
+\begin{definition}[$L_2$ differentiability]
+Let $\ctspr$ a stochastic process defined on an $L_2$. We say that $X$ is $L_2$ differentiability at some point $t\in T$ if there exists another random variable $X^\prime$ such that.
+\begin{equation}
+	\frac{X_{t+h}- X_t}{h} \to X^\prime_t \text{ as } h\to 0
+\end{equation}
+\end{definition}
 
 \section{Brownian Motion}
 \begin{definition}\label{def:brownian_motion}
@@ -324,6 +338,48 @@ The Brownian Motion is a first desirable result since it allow us to work in con
 \end{figure}
 
 Although it is computationally impossible to properly simulate a Brownian Motion, it can be approximated via the scaled random walk for big $n$. Figure \ref{fig:Brownian_Motion} shows this idea approximating a brownian motion with $n=9000$. In pursuance of pricing a European call option, we will see that it is possible to arrive at a closed form solution for these types of option. Nevertheless, more complex products may or may not have a closed form solution\\
+
+\begin{proposition}[Covariance of brownian motion]\label{prop:cov_brownian_motion}
+Let $W_t$ a one dimensional brownian motion process, then
+\[
+	Cov(W_t, W_s) = \min\{t, s\}
+\]
+\end{proposition}
+
+\begin{proof}
+Let $W_t$ a brownian motion process, and
+\begin{equation}
+	Cov(W_t, W_s) = \E[(W_s - \E[W_s])(W_t - \E[W_t])]
+\end{equation}
+Consider, by definition of the brownian motion, that $\E[W_s] = \E[W_s - W_0] = 0$, and let $ t > s$. It follows that
+\begin{align*}
+	Cov(W_t, W_s) &= \E[W_sW_t] \\
+				  &= \E[W_sW_t - W_sW_s + W_sW_s]\\
+				  &= \E[W_s(W_t - W_s)] + \E[W_s^2]\\
+				  &= \E[(W_s - W_0)]\E[(W_t - W_s)] + \E[W_s^2]\\
+				  &= t.
+\end{align*}
+If $t < s$, it follows that $Cov(W_t, W_s) = s$.
+\end{proof}
+
+\begin{remark}
+	Since $\E[W_t] = 0$ and $Cov(W_t, W_s) \geq 0$ for every $t, s \geq 0$
+	A consequence of proposition \ref{prop:cov_brownian_motion}
+\end{remark}
+
+%TODO: differentiability of brownian motion proof
+\begin{proposition}
+	Let $W_t$ a one dimensional Brownian motion process. Then $W_t$ is nowhere $L_2$ differentiable.
+\end{proposition}
+\begin{proof}
+Let $W_t$ a one dimensional brownian motion process, and consider $W_{t+h} - W_t \sim N(0, h\sigma^2)$. Then,
+\begin{align*}
+	\E[\frac{1}{h}\left(W_{t+h} - W_t\right)^2] &= \frac{1}{h^2}\E[(W_{t+h} - W_t)^2]\\
+												&= \frac{1}{h^2}\V[(W_{t+h} - W_t)^2]\\
+												&= \frac{1}{h^2}(h\sigma^2)
+\end{align*}
+Evidently, as $h\to 0$, 
+\end{proof}
 
 To further develop the properties of the Brownian Motion, let us define the following:
 \begin{definition}\label{def:quadratic_variation}
