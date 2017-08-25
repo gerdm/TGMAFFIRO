@@ -6,7 +6,7 @@ class BSpline(object):
         self.len_knots = len(knots)
         self.degree = degree
 
-    def eval(self, t, knot, degree=None, out_bounds_eval=False):
+    def keval(self, t, knot, degree=None, out_bounds_eval=False):
         """
         Evaluate the B-Spline at a given knot and t in the
         range of knots. Optional to evaluate the bspline at
@@ -52,9 +52,9 @@ class BSpline(object):
             return degree0_spline(t, knot)
         else:
             # B_k^{(d-1)}(t)
-            B_k_dm1_t = self.eval(t, knot, degree = degree-1)
+            B_k_dm1_t = self.keval(t, knot, degree = degree-1)
             # B_{k+1}^{(d-1)}(t)
-            B_kp1_dm1_t = self.eval(t, knot + 1, degree = degree-1)
+            B_kp1_dm1_t = self.keval(t, knot + 1, degree = degree-1)
             # Auxiliary values to comute the bspline
             term1 = (t - self.knots[knot]) / (self.knots[knot + degree] - self.knots[knot])
             term2 = (self.knots[knot + degree + 1] - t) / (self.knots[knot + degree + 1] - self.knots[knot + 1])
@@ -67,7 +67,7 @@ class BSpline(object):
 
         Parameters
         ---------
-        knot:   float
+        knot:   int
                 The knot to integrate the bspline
         limsup: float
                 The upper limit of the integral
@@ -80,8 +80,8 @@ class BSpline(object):
             The integration of the bspline from liminf to limsup
         """
         if liminf != -np.Inf:
-            lower_integral = integrate(knot, liminf)
-            upper_integral = integrate(knot, limsup)
+            lower_integral = self.integrate(knot, liminf)
+            upper_integral = self.integrate(knot, limsup)
             return upper_integral - lower_integral
         else:
             k = int(knot)
@@ -89,7 +89,7 @@ class BSpline(object):
             while k + self.degree + 3 <= self.len_knots:
                 kd1 = k + self.degree + 1
                 constant = (self.knots[kd1] - self.knots[k]) / (self.degree + 1)
-                spline_val = self.eval(limsup, k, degree=self.degree + 1)
+                spline_val = self.keval(limsup, k, degree=self.degree + 1)
                 total_integration += constant * spline_val
                 k += 1
             return total_integration
@@ -115,9 +115,9 @@ class BSpline(object):
         """
         degree_minus1 = self.degree - 1
         # B_k^{(d-1)}(t)
-        B_k_dm1_t = self.eval(t, knot, degree=degree_minus1)
+        B_k_dm1_t = self.keval(t, knot, degree=degree_minus1)
         # B_{k+1}^{(d-1)}(t)
-        B_kp1_dm1_t = self.eval(t, knot+1, degree=degree_minus1)
+        B_kp1_dm1_t = self.keval(t, knot+1, degree=degree_minus1)
 
         term1 = self.degree / (self.knots[knot + self.degree] - self.knots[knot])
         term2 = self.degree / (self.knots[knot + self.degree + 1] - self.knots[knot + 1])
