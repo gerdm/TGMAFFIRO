@@ -1,0 +1,53 @@
+\documentclass[../TGMAFFIRO.tex]{subfiles}
+
+\begin{document}
+\section{It\^o's Integral}
+We want to make sense of
+\begin{equation}
+  \int_a^bf(t,\omega) dW_t(\omega)
+\end{equation}
+
+Where $W_t$ is a standard Brownian motion and $f$ belongs to a special family of functions denoted by $\Nfam{a}{b}$
+
+\begin{definition}
+	Let $0\leq a\leq b$. Denote $\Nfam{a}{b}$ the family of stochastic process such that
+	\begin{enumerate}
+		\item $(t, \omega) \to f(t, \omega):[0, \infty]\times\Omega \to \RNums$ is $\borelsalg\times\salgF$ measurable.
+		\item $f(t,\omega)$ is $\salgF_t$-adapted
+		\item $f\in L_2([a,b]\times\Omega)$ i.e. $\int_a^b\int_\Omega f^2 d\Pm dt = \int_a^b\Exp{f^2}dt = \Exp{\int_a^b f^2 dt} < \infty$
+	\end{enumerate}
+\end{definition}
+
+\begin{definition}[\textbf{Simple Process}]
+	We define the process $f\in \Nfam{a}{b}$ as simple if there exists a partition $\{t_i\}_{i=0}^n$ where $t_0 = a$, $t_n = b$, and $t_i < t_j \ \forall \ i < j$, such that $f$ can be represented as a lineal combination of the form
+	\begin{equation}
+		f(t) = \sum_{i=0}^{n-1}f(t_i)\ind_{[t_i, t_{i+1}]}(t)
+	\end{equation}
+\end{definition}
+
+\begin{definition}
+	We define the family of processes $f$ in $\Mfam{a}{b}$ that are processes in $\Nfam{a}{b}$ and can be written as simple processes. 
+\end{definition}
+
+\begin{definition}
+	Let $f\in\Mfam{a}{b}$, we define the It\^o integral of $f$ as
+\begin{equation}
+	  \int_a^b f(t) dW_t := \sum_{i=0}^{n-1} \Delta W_i.
+\end{equation}
+
+With $\Delta W_i := W_{t_{i+1}} - W_{t_{i}}$.\\
+We will also denote It\^o's integral as $I(f)$ ot $\int f$
+\end{definition}
+
+\begin{proposition}
+	Let $f$, $g$ $\in \Mfam{0}{t}$ then
+	\begin{enumerate}
+		\item $I(\alpha f + \beta g) = \alpha I(f) + \beta I(g)$
+		\item $\Exp{I(f)} = 0$
+		\item $\Var{I(f)} = \Exp{\left(\int_0^t f(s) dW_s\right)^2} = \Exp{\int_0^t f^2(t) dt}$
+	\end{enumerate}
+\end{proposition}
+
+\section{It\^o's Formula}
+\section{Stochastic Differential Equations}
+\end{document}

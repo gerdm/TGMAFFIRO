@@ -367,18 +367,42 @@ If $t < s$, it follows that $Cov(W_t, W_s) = s$.
 	A consequence of proposition \ref{prop:cov_brownian_motion}
 \end{remark}
 
-%TODO: differentiability of brownian motion proof
 \begin{proposition}
 	Let $W_t$ a one dimensional Brownian motion process. Then $W_t$ is nowhere $L_2$ differentiable.
 \end{proposition}
 \begin{proof}
 Let $W_t$ a one dimensional brownian motion process, and consider $W_{t+h} - W_t \sim N(0, h\sigma^2)$. Then,
-\begin{align*}
-	\E[\frac{1}{h}\left(W_{t+h} - W_t\right)^2] &= \frac{1}{h^2}\E[(W_{t+h} - W_t)^2]\\
-												&= \frac{1}{h^2}\V[(W_{t+h} - W_t)^2]\\
-												&= \frac{1}{h^2}(h\sigma^2)
-\end{align*}
-Evidently, as $h\to 0$, 
+\begin{align}
+	\E[\frac{1}{h}\left(W_{t+h} - W_t\right)^2] &= \frac{1}{h^2}\E[(W_{t+h} - W_t)^2] \nonumber\\
+												&= \frac{1}{h^2}\V[(W_{t+h} - W_t)^2] \nonumber\\
+												&= \frac{1}{h^2}(h\sigma^2)\label{eq:deriv_bmotion}
+\end{align}
+Evidently, as $h\to 0$, (\ref{eq:deriv_bmotion}) tends to infinity.\\
+
+We now suppose the Brownian motion is defined, i.e., there exists $W_t^\prime$ such that
+\begin{equation}
+  \lim_{h\to 0}\E\left[\frac{1}{h}(W_{t+h} - W_t) - W_t^\prime\right]^2 = 0.
+\end{equation}
+
+Then
+\begin{equation}
+  \lim_{h\to 0}\E\left[\left(\frac{1}{h}(W_{t+h} - W_t\right)^2 -
+  					   2\left(\frac{1}{h}(W_{t+h} - W_t\right)W_t^\prime + 
+  					   \left(W_t^\prime\right)^2\right] = 0
+\end{equation}
+
+Which implies,
+\begin{equation*}
+	\Exp{W_t^\prime}^2 =  \lim_{h\to 0}\left(\Exp{\left(\frac{1}{h}(W_{t+h} - W_t\right)^2} -
+  					   2\Exp{\left(\frac{1}{h}(W_{t+h} - W_t\right)W_t^\prime}\right)
+\end{equation*}
+
+Considering equation (\ref{eq:deriv_bmotion}), we conclude that
+\begin{equation*}
+	\Exp{W_t^\prime}^2 =  \lim_{h\to 0}\Exp{\left(\frac{1}{h}(W_{t+h} - W_t\right)^2} = \infty
+\end{equation*}
+
+Therefore, the brownian motion is $L_2$ nowhere differentiable.
 \end{proof}
 
 To further develop the properties of the Brownian Motion, let us define the following:
