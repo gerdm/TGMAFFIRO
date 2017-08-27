@@ -1,4 +1,6 @@
 %%%% COMMANDS %%%%
+\usepackage{xifthen}
+
 % Real Numbers
 \newcommand{\RNums}{\mathbb{R}}
 % sigma-algebra
@@ -37,3 +39,11 @@
 \newcommand{\Nfam}[2]{\mathcal{N}\left[#1, #2\right]}
 % Family M of processes between a and b
 \newcommand{\Mfam}[2]{\mathcal{M}\left[#1, #2\right]}
+%Change of Brownian motion
+\newcommand{\DeltaW}[1][]{%
+\ifthenelse{\isempty{#1}}{\Delta W_i}{\Delta W_#1}%
+}
+% differential w.r.t. the brownian motion
+\newcommand{\dW}[1][]{%
+\ifthenelse{\isempty{#1}}{dW}{dW_#1}%
+}
