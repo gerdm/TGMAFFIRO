@@ -1,4 +1,5 @@
 import numpy as np
+from numpy import vectorize
 
 class BSpline(object):
     def __init__(self, knots, degree):
