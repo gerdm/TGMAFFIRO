@@ -2,19 +2,30 @@
 
 \begin{document}
 \section{It\^o's Integral}
-We want to make sense of
+Let $\ProbSpace$ a probability space and consider the spaces $L_2\ProbSpace$ and $L_2([a, b]\times\Omega, \mathscr{B}\otimes\salgF)$ with inner product
 \begin{equation}
-  \int_a^bf(t,\omega) \dW[t](\omega)
+  \innerprod{f}{g} := \int_\Omega\int_0^t f(s) g(s) ds d\Pm = \Exp{\int_0^t f(s)g(s) ds},
 \end{equation}
 
-Where $W_t$ is a standard Brownian motion and $f$ belongs to a special family of functions denoted by $\Nfam{a}{b}$
+
+and norm in $L_2([a, b] \times \Omega)$
+\begin{equation}
+  \norm{f}_{[a, b] \times \Omega} := \sqrt{\innerprod{f}{f}} = \sqrt{\Exp{\int_0^t f(s)g(s) ds}}.
+\end{equation}
+
+We want to make sense of
+\begin{equation}
+  \int_a^bf(t,\omega) \dW[t](\omega).
+\end{equation}
+
+Where $W_t$ is a standard Brownian motion and $f$ belongs to a special family of functions denoted by $\Nfam{a}{b}$.
 
 \begin{definition}
 	Let $0\leq a\leq b$. Denote $\Nfam{a}{b}$ the family of stochastic process such that
 	\begin{enumerate}
-		\item $(t, \omega) \to f(t, \omega):[0, \infty]\times\Omega \to \RNums$ is $\borelsalg\times\salgF$ measurable.
-		\item $f(t,\omega)$ is $\salgF_t$-adapted
-		\item $f\in L_2([a,b]\times\Omega)$ i.e. $\int_a^b\int_\Omega f^2 d\Pm dt = \int_a^b\Exp{f^2}dt = \Exp{\int_a^b f^2 dt} < \infty$
+		\item $(t, \omega) \to f(t, \omega):[0, \infty]\times\Omega \to \RNums$ is $\borelsalg\times\salgF$ measurable;
+		\item $f(t,\omega)$ is $\salgF_t$-adapted; and
+		\item $f\in L_2([a,b]\times\Omega)$ i.e. $\int_a^b\int_\Omega f^2 d\Pm dt = \int_a^b\Exp{f^2}dt = \Exp{\int_a^b f^2 dt} < \infty$.
 	\end{enumerate}
 \end{definition}
 
@@ -83,20 +94,122 @@ We will also denote It\^o's integral as $I(f)$ ot $\int f$
 				   &= 0
 	\end{align*}
 	
-	Finally, let us consider
+	We now consider
 	\begin{align}
-		\Exp{I(f)^2} &= \Exp{\left(\sum_{i=0}^{n-1} f(t_i) \DeltaW \right)^2}\nonumber \\
-					 &= \Exp{\sum_{i=0}^{n-1}f^2(t_i)\left(\DeltaW\right)^2 +  2\sum_{i<j}f(t_i)f(t_j) \DeltaW\DeltaW[j]}\nonumber \\
-					 &= \sum_{i=0}^{n-1}\Exp{f^2(t_i)\left(\DeltaW\right)^2} + \label{eq:itois1}\\ 
-					 &\phantom{{}=1} 2\sum_{i<j}\Exp{f(t_i)f(t_j) \DeltaW\DeltaW[j]} \label{eq:itois2}
+		\Exp{I(f)^2} &= \Exp{\left(\sum_{i=0}^{n-1} f(t_i) \DeltaW \right)^2}\label{eq:itois1} \\
+					 &= \Exp{\sum_{i=0}^{n-1}f^2(t_i)\left(\DeltaW\right)^2 +  2\sum_{i<j}f(t_i)f(t_j) \DeltaW\DeltaW[j]}\nonumber \\section
+					 &= \sum_{i=0}^{n-1}\Exp{f^2(t_i)\left(\DeltaW\right)^2} + \label{eq:itois2}\\ 
+					 &\phantom{{}=1} 2\sum_{i<j}\Exp{f(t_i)f(t_j) \DeltaW\DeltaW[j]} \label{eq:itois3}
 	\end{align}
-	Consider first (\ref{eq:itois2}):
-	\begin{align}
+	Where, (\ref{eq:itois3}):
+	\begin{align*}
 		\Exp{f(t_i)f(t_j) \DeltaW\DeltaW[j]} &= \Exp{\Exp{f(t_i)f(t_j) \DeltaW\DeltaW[j]|\salgF_{t_j}}}\\
 			&= \Exp{f(t_i)f(t_j)\DeltaW\Exp{\DeltaW[j]|\salgF_{t_j}}}\\
 			&= 0
-	\end{align}
+	\end{align*}
+	
+	We can rewrite (\ref{eq:itois1}) using only (\ref{eq:itois2}), i.e.,
+	\begin{align*}
+		\Exp{I(f)^2} &= \sum_{i=0}^{n-1}\Exp{f^2(t_i)\left(\DeltaW\right)^2}\\
+		&= \sum_{i=0}^{n-1}\Exp{\Exp{f^2(t_i)\left(\DeltaW\right)^2|\salgF_{t_i}}} \\
+		&= \sum_{i=0}^{n-1}\Exp{f^2(t_i)\Exp{\left(\DeltaW\right)^2|\salgF_{t_i}}} \\
+		&= \sum_{i=0}^{n-1}\Exp{f^2(t_i)}\left(t_{i+1} - t_i\right) \\
+		&= \int_0^t \Exp{f^2(s)} ds
+	\end{align*}
 \end{proof}
+
+\begin{remark}
+	It\^o's integral as defined for $f\in\Mfam{a}{b}$ is a linear function, and indeed, an isometry since
+	\begin{equation}
+		\norm{I(f)}_{[a,b]} = \norm{f}_{[a, b]\times\Omega}
+	\end{equation}
+	We can rewrite this last statement as
+	\begin{equation}
+		\Exp{\left(\int_0^t f dWs\right)} = \int_0^t\Exp{f^2(s)} ds = \Exp{\int_0^t f^2(s) ds}
+	\end{equation}	 
+	
+	Consequently, for any $f, g \in \Mfam{0}{t}$
+	\begin{equation}
+		\innerprod{I(f)}{I(g)}_{\Omega} = \innerprod{f}{g}_{\Omega\times[0, t]}
+	\end{equation}
+
+To see why, we first note that $\innerprod{f}{g} = \int_0^t\Exp{f\cdot g}dt$. It follows that
+\begin{align*}
+	\innerprod{I(f)}{I(g)} &= \frac{1}{4}\left(\norm{I(f) + I(g)}^2 - \norm{I(f) - I(g)}^2\right)\\
+						   &= \frac{1}{4}\left(\norm{I(f + g)}^2 - \norm{I(f - g)}^2\right)\\
+						   &= \frac{1}{4}\left(\int_0^t \Exp{(f+g)^2}dt - \int_0^t \Exp{(f-g)^2}dt\right)\\
+						   &= \frac{1}{4}\left(\int_0^t\Exp{f^2 + 2f\cdot g + g^2 - f^2 + 2f\cdot g - g^2} dt\right)\\
+						   &= \int_0^t\Exp{f\cdot g} dt \\
+						   &= \Exp{\int_0^t \left(f\cdot g\right) dt}\\
+						   &= \innerprod{f}{g}
+\end{align*}
+\end{remark}
+
+%TODO: Add Proof
+\begin{proposition}\label{prop:bounded_simple_borel}
+	Let $f:[0, t]\to \RNums$ a Borel-measurable function such that $|f|\leq M$, and define $f_n:[0, t]\to \RNums$ as
+	\begin{equation}
+		f_n(\tau) := n\int_0^\tau e^{-n(\tau-s)}f(s) ds; \ 0 \leq \tau \leq t.
+	\end{equation}
+Then, $\{f_n\}$ is uniformly bounded by $M$ and $f_n \to f$ ($\mu$ a.e.) for every $\tau\in [0, t]$.
+\end{proposition}
+
+\begin{proposition}
+	The space $\Mfam{0}{t}$ is dense in $\Nfam{0}{t}$ under $L_2([a,b]\times\Omega)$. That is, for every $f\in\Nfam{0}{t}$, there exists a sequence $\{f_n\}_{n\geq 1} \in \Mfam{0}{t}$ such that
+	\begin{equation}
+		\Exp{\left(\int_0^t |f_n(s) - f(s)|dW_s\right)^2} \to 0.
+	\end{equation}
+	
+\begin{proof}
+We first note that 
+\begin{equation}
+	\Exp{\left(\int_0^t |f_n(s) - f(s)|dW_s\right)^2} = \Exp{\int_0^t\left|f_n(s) - f(s) \right|^2 ds} \to 0.
+\end{equation}
+
+\textbf{Step 1}: Continuous and bounded $f\in\Nfam{0}{t}$.\\
+Let $g(\cdot, \omega)\in \Nfam{0}{t}$ continuous for each $\omega$. Then there exist a set $\{h_n\}_{n\geq 1}$ of simple processes in $\Mfam{0}{t}$ such that 
+	\begin{equation}
+		\Exp{\int_0^t\left(g - h_n\right)^2 ds}	\to 0
+	\end{equation}
+
+Let $h_n(t, \omega) = \sum_{j=0}^{n-1}g(t_i)	\ind_{[t_i, t_{i+1}](t)}$. Then, $h_n$ is simple and,
+\begin{equation}
+  \lim_{n\to\infty} g - h_n = 0
+\end{equation}
+
+Since $g - h_n$ converges to 0 (a.e.), the convergence is also in measure. Consequently, from the bounded convergence theorem we have that
+\begin{equation}
+  \lim_{n\to\infty} \int_0^t\left(g - h_n\right)^2 ds = 0 \ \forall \ \omega \in \Omega.
+\end{equation}
+
+Finally, by the dominated convergence theorem we see that
+\begin{align*}
+  \lim_{n\to\infty} \int_\Omega\left(\int_0^t\left(g - h_n\right)^2 ds\right)d\Pm &=  \int_\Omega \lim_{n\to\infty} \left(\int_0^t\left(g - h_n\right)^2 ds\right)d\Pm \\
+  &= \Exp{\lim_{n\to\infty}\left(\int_0^t\left(g - h_n\right)^2 ds\right)} \\
+  &= 0
+\end{align*}
+
+\textbf{Step 2}: Bounded $f\in\Nfam{0}{t}$.\\
+Let $f\in\Nfam{0}{t}$ be bounded i.e., there exists $M<\infty$ such that $|f(t, \omega) \leq M|$ for every $(t,\omega) \in [a,b]\times\Omega$. Then, there exists a sequence $\{f_n\}_{n\geq 1}$ of simple functions such that $f_n \to f$ in $L_2$.\\
+
+By \ref{prop:bounded_simple_borel}, there exists $f_n$ such that $t\to f_n(t,\omega)$ is continuous for every $\omega\in\Omega$, $|f(t,\omega)|\leq M$, and $f_n(t,\Omega) \to f(t,\Omega)$. Since $f_n\to f$ a.e., then $f_n - f \to 0$ in measure, where we conclude by the bounded convergence theorem that
+	\begin{equation}
+		\Exp{\int_0^t(f_n - f)^2 ds} \to 0
+	\end{equation}
+
+\textbf{Step 3}: Any $f\in\Nfam{0}{t}$.\\
+For every $n\in\mathbb{N}$, define
+	\begin{equation}
+		f_n(t) = \begin{cases}
+					f(t) & |f(t)|\leq n\\
+					n 	 & f(t) > n \\
+					-n   & f(t) < n
+			     \end{cases}
+	\end{equation}
+It can be seen that $f_n\to f$. This implies a.e. convergence, and as a consequence, convergence in measure. Furthermore, $f_n$ is bounded by $f$ ($|f_n| \leq f$). The $L_2$ convergence follows from the dominated convergence.
+\end{proof}
+
+\end{proposition}
 
 \section{It\^o's Formula}
 \section{Stochastic Differential Equations}
