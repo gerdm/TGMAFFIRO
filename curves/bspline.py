@@ -7,6 +7,22 @@ class BSpline(object):
         self.len_knots = len(knots)
         self.degree = degree
 
+    def integrate_coef(self, coefs, limsup, liminf=-np.Inf):
+        """
+        Effectively, compute the dot product of
+        the coeficients and the integrals for all possible knots
+
+        Parameters
+        ---------
+        coefs:  numpy array -> float 
+                A set of coeficients with len(coefs) == self.len_knots
+
+
+
+        """
+        return np.sum([coef * self.integrate(knot, limsup, liminf)
+                       for knot, coef in enumerate(coefs)])
+
     def keval(self, t, knot, degree=None, out_bounds_eval=False):
         """
         Evaluate the B-Spline at a given knot and t in the
