@@ -1,17 +1,17 @@
 \documentclass[../TGMAFFIRO.tex]{subfiles}
 
 \begin{document}
-In order to explain the likelihood of certain random events, we must first define what we mean by \textit{randomness}, specify which events are being referred to, and to express, in mathematical sense, the possibility of any such event. With this in mind, we dedicate this chapter to gradually build the tools that will later be required to \textit{make sense} of random events and further develop a theory to model the dynamics of assets such as stocks and currencies.\\
+In order to explain the likelihood of certain random events, we must first define what we mean by \textit{randomness}, specify which events are being referred to, and express, in a mathematical sense, the possibility of any such event. With this in mind, we dedicate this chapter to gradually build the tools that will later be required to \textit{make sense} of random events and further develop a theory to model the dynamics of assets such as stocks and currencies.\\
 
-We begin by motivating the need of \textit{measurable spaces}, and their fundamental importance throughout this work.
+We begin by motivating the need of \textit{measurable spaces} and their fundamental importance throughout this work.
 
 \section{Measurable Spaces}
-Assume we had a fair coin and decided to represent the possible outcomes that bring about throwing it twice in a row. Let us represent with the letter $H$ the scenario in which \textit{head} lands; on the contrary, we will denote with the letter $T$ the scenario in which \textit{tail} lands. Evidently, the possible scenarios are the following: 
+Assume we had a fair coin and decided to represent the possible outcomes brought about throwing it twice in a row. Let us represent with the letter $H$ the scenario in which \textit{head} lands; on the contrary, we will denote with the letter $T$ the scenario in which \textit{tail} lands. Evidently, the possible scenarios are the following: 
 \[
 	\{HH\}, \ \{HT\}, \ \{TH\}, \ \{TT\}.
 \]
 
-By throwing the fair coin twice, we are effectively performing an \textbf{experiment}. In this context, the outcome of any possible single event in the experiment is known as the \textbf{universe}. We denote the universe with the letter greek Omega ($\Omega$).\\
+By throwing the fair coin twice, we are effectively performing an \textbf{experiment}. In this context, the outcome of any possible single event in the experiment is known as the \textbf{universe}. We denote the universe with the Greek letter Omega ($\Omega$).\\
 
 Although $\Omega$ contains every element of possible occurrence, its members alone are not enough to answer any possible question we may have about the outcome of the experiment. Suppose, for example, we were interested in knowing which elements of $\Omega$ constitute the outcome of the experiment in which at least one head ($H$) appears.  Clearly, this subset of $\Omega$, which contains the elements $\{TH, HT, HH\}$, is not currently expressed. Likewise, the subset of $\Omega$ in which only two coins of the same side appear ($\{HH, TT\}$), is not currently expressed.\\
 
@@ -141,14 +141,14 @@ Furthermore, a probability distribution function has the following properties:
 \end{enumerate}
 
 \begin{definition}
-	A random variable $X$ is said to be \textbf{absolutely continuous} is there exists a nonnegative borel-measurable function $f: \RNums\rightarrow\RNums$ such that 
+	A random variable $X$ is said to be \textbf{absolutely continuous} if there exists a nonnegative borel-measurable function $f: \RNums\rightarrow\RNums$ such that 
 	\begin{equation}
 		F_X(x) = \int_{-\infty}^{x} f(t) dt.
 	\end{equation}
 \end{definition}
 
 
-The function $f$ is known as the \textbf{probability density function} (p.d.f.) of the random variable $X$. Perhaps one of the most known probability density functions, and crucial tool for this work, is the p.d.f. of the normal distribution:
+The function $f$ is known as the \textbf{probability density function} (p.d.f.) of the random variable $X$. Perhaps one of the most well known probability density functions, and a crucial tool for this work, is the p.d.f. of the normal distribution:
 
 \begin{equation}\label{eq:normal_distribution}
 	\phi(x|\mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x - \mu)^2}{2\sigma^2}}.
@@ -165,9 +165,9 @@ We denote the normal distribution as $\mathcal{N}(\mu, \sigma^2)$. Also, if $X$ 
 
 
 \section{Lebesgue Integrals and Expectations}
-We now present the key ideas behind Lebesgue integration. As we shall later see, random movements over time (e.g. that of a stock or FX exchange rate) can be modeled as the sum of infinitesimal random changes. A through understanding of the ideas behind integration allow us to more easily understand the machinery for much more complex, stochastic models. In addition, Lebesgue integrals pave the way to the mathematical expectation, a core idea in the theory of probability.\\
+We now present the key ideas behind Lebesgue integration. As we shall later see, random movements over time (e.g. that of a stock or FX exchange rate) can be modeled as the sum of infinitesimal random changes. A thorough understanding of the ideas behind integration allow us to more easily understand the machinery for much more complex, stochastic models. In addition, Lebesgue integrals pave the way to the mathematical expectation, a core idea in the theory of probability.\\
 
-We start the motivation of an Lebesgue integral by defining the most basic class of measurable functions.
+We start the motivation of a Lebesgue integral by defining the most basic class of measurable functions.
 
 \begin{definition}
 	Let $\MeasureSpace{\mu}$ be a measure space and $X: \Omega \to \RNums$ an $\salgF$-measurable function. Denote $\ind_A(\omega)$ the indicator function of $\omega$ in a set $A$. That is,
@@ -247,7 +247,7 @@ We start the motivation of an Lebesgue integral by defining the most basic class
 \end{theorem}
 
 \begin{proof}
-	Let, $X = \sum_{i=i}^{n}x_i\ind_{A_i}$ and $Y = \sum_{j=1}^{m}y_i\ind{B_i}$. Note that $\bigcup_i A_i = \bigcup_j B_j = \Omega$. Also, $\ind_A = \sum_{i=1}^{n}\ind_{A_i}$ since $\{A_i\}$, by definition of the lebesgue integral, is a set of disjoin elements. Then, $X$ and $Y$ can be written as
+	Let, $X = \sum_{i=i}^{n}x_i\ind_{A_i}$ and $Y = \sum_{j=1}^{m}y_i\ind{B_i}$. Note that $\bigcup_i A_i = \bigcup_j B_j = \Omega$. Also, $\ind_A = \sum_{i=1}^{n}\ind_{A_i}$ since $\{A_i\}$, by definition of the Lebesgue integral, is a set of disjoint elements. Then, $X$ and $Y$ can be written as
 	\begin{align*}
 		X	&= \sum_{i=1}^{n}\ind_{A_i\cap\Omega} \\
 			&= \sum_{i=1}^{n}\ind_{A_i\cap\left(\cup B_j\right)}\\
@@ -351,7 +351,7 @@ If $A \in \salgF$, we define
 	For disjoint sets $\{A_i\}_{i\geq1}$
 \end{theorem}
 
-For a proof of theorem \ref{th:salg-lebesgue-int} see \aycite{applebaum}. Consider \ref{def:lebesgue_integral}, \ref{prop:integral_positive_measure}, together with theorem \ref{th:salg-lebesgue-int}. It is then clear, that the Lebesgue integral for random variables $X \in \ProbSpace$ such that $X(\omega) \geq 0 \ \forall \ \omega \in \Omega$ is then a measure defined over $(\RNums, \borelsalg)$. This last is followed by a corollary that will aid in the result of one of the fundamental theorems of integration and convergence. 
+For a proof of theorem \ref{th:salg-lebesgue-int} see \aycite{applebaum}. Consider \ref{def:lebesgue_integral}, \ref{prop:integral_positive_measure}, together with theorem \ref{th:salg-lebesgue-int}. It is then clear that the Lebesgue integral for random variables $X \in \ProbSpace$ such that $X(\omega) \geq 0 \ \forall \ \omega \in \Omega$ is then a measure defined over $(\RNums, \borelsalg)$. This last is followed by a corollary that will aid in the result of one of the fundamental theorems of integration and convergence. 
 
 \begin{corollary} \label{cor:partition_limit_integral}
 	Let $X: \Omega \to \RNums$ a nonnegative measurable function and $\{E_n\}_{n\geq 1}$ a sequence of sets in $\Omega$ such that $E_n \subseteq E_{n+1}$ for every $n \in \mathbb{N}$. Denote $E = \bigcup_{n=1}^{\infty} E_n$. Then,
@@ -534,7 +534,7 @@ Where the function $f$ is defined up to sets with measure zero. $f$ is sometimes
 \end{theorem}
 
 \section{Expectations}
-We the tools surveyed so far, we can now introduce a new concept, that of the expectation of a random variable. Aridly put, we will define an expectation as the integral of a random variable w.r.t. its probability measure. Nonetheless, the concept of an expectation under a probability space $\ProbSpace$ serves a practical purpose that will be of much use throughout the rest of this work.
+With the tools surveyed so far, we can now introduce a new concept, that of the expectation of a random variable. Aridly put, we will define an expectation as the integral of a random variable w.r.t. its probability measure. Nonetheless, the concept of an expectation under a probability space $\ProbSpace$ serves a practical purpose that will be of much use throughout the rest of this work.
 
 \begin{definition}[\textbf{Expectation}]
 	Let $X$ be a random variable on $\ProbSpace$. The integral of $X$ w.r.t. the measure $\Pm$ is known as the expectation of $X$ w.r.t. $\Pm$. 
@@ -553,7 +553,7 @@ We the tools surveyed so far, we can now introduce a new concept, that of the ex
 
 Measuring elements is often times clearer on Borel-measurable sets as opposed to on some abstract $\salg$. Theorem \ref{th:h1_borel} then assures us that if $h$ is Borel-measurable and belongs to an integrable abstract space $L_1\ProbSpace$, we can find an equivalent probability space $(\RNums, \borelsalg, P_X)$ for which $h \in L_1(\RNums, \borelsalg, P_X)$.\\
 
-As a synthesis for the following proof, we will make use of the \textit{standard machine} approach. In it, we will prove the theorem using indicator functions; then, by linearity, it is true for simple function; finally, we conclude using the monotone convergence theorem.\\
+As a synthesis for the following proof, we will make use of the \textit{standard machine} approach. In it, we will prove the theorem using indicator functions; then, by linearity, it is true for simple functions; finally, we conclude using the monotone convergence theorem.\\
 
 \begin{proof}
 Let $X$ be a random variable on $\ProbSpace$ and let $h$ be the indicator function for some set $B \in \borelsalg$. Then, for every $\omega \in \Omega$, $\ind_B\left(X(\omega) \right) = 1$ iff $\omega \in X^{-1}(B) := \{\omega \in \Omega | X(\omega) \in B\}$. This is because for $\ind_B(X(\omega))$ to be 1, the value $X(\omega)$ in $\borelsalg$, say $x$, is an element in $B$ if and only if, the inverse image of $X$ over $B$ i.e. the set of elements $\omega$ that comprise $B$ through a mapping from $X$, has $\omega$ as an element in it.\\
@@ -691,7 +691,7 @@ Where,
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.90\textwidth]{../images/stoch_process_3d}
-	\caption{Distribution and Path of an Stochastic Process.}
+	\caption{Distribution and Path of a Stochastic Process.}
 	\label{fig:stochastic_process}
 \end{figure}
 
@@ -715,7 +715,7 @@ In a discrete time process, we denote the minimal $\salg$ generated by $\dtspr$ 
 We conclude this chapter by defining a particular subset of the family of stochastic processes. We will limit ourselves to define it here and develop its intuition in the following chapter.
 
 \begin{definition}[\textbf{Martingale}]\label{def:martingale}
-	An stochastic process $\ctspr$ defined over $\ProbSpace$ is said to be a martingale w.r.t. a filtration $\{\salgF_n\}_{n\geq 0}$ if, for all $0 \geq s \leq t$,
+	A stochastic process $\ctspr$ defined over $\ProbSpace$ is said to be a martingale w.r.t. a filtration $\{\salgF_n\}_{n\geq 0}$ if, for all $0 \geq s \leq t$,
 	\begin{enumerate}
 		\item $X_t$ is $\salgF_t$-measurable;
 		\item $X_t$ is in $L_1$ (i.e. is is measurable for all $t$); and
