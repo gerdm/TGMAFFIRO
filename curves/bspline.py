@@ -9,7 +9,7 @@ class BSpline(object):
 
     def integrate_coef(self, coefs, limsup, liminf=-np.Inf):
         """
-        Effectively, compute the dot product of
+        Compute the dot product of
         the coeficients and the integrals for all possible knots
 
         Parameters
