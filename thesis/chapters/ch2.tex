@@ -165,7 +165,7 @@ We denote the normal distribution as $\mathcal{N}(\mu, \sigma^2)$. Also, if $X$ 
 
 
 \section{Lebesgue Integrals and Expectations}
-We now present the key ideas behind Lebesgue integration. As we shall later see, random movements over time (e.g. that of a stock or FX exchange rate) can be modeled as the sum of infinitesimal random changes. A thorough understanding of the ideas behind integration allow us to more easily understand the machinery for much more complex, stochastic models. In addition, Lebesgue integrals pave the way to the mathematical expectation, a core idea in the theory of probability.\\
+We now present the key ideas behind Lebesgue integration. As we shall later see, random movements over time (e.g. a stock or FX exchange rate) can be modeled as the sum of infinitesimal random changes. A thorough understanding of the ideas behind integration allow us to more easily understand the machinery for much more complex, stochastic models. In addition, Lebesgue integrals pave the way to the mathematical expectation, a core idea in the theory of probability.\\
 
 We start the motivation of a Lebesgue integral by defining the most basic class of measurable functions.
 
@@ -408,7 +408,7 @@ Let $\{X_n\}_{n\geq 1}$ be a sequence of nonnegative functions where $X_i: \Omeg
 		\lim_{n\to\infty}\int_\Omega X_n d\mu \geq \lim_{n\to\infty}\int_{A_n} c\cdot h d\mu
 	\end{equation}
 	
-	Taking account of the linearity property for lebesgue integrals and corollary \ref{cor:partition_limit_integral},
+	Taking account of the linearity property for Lebesgue integrals and corollary \ref{cor:partition_limit_integral},
 	\begin{equation}
   		\lim_{n\to\infty}\int_{A_n} c\cdot h d\mu = c\int_{\Omega} \cdot h d\mu
 	\end{equation}
@@ -418,7 +418,7 @@ Let $\{X_n\}_{n\geq 1}$ be a sequence of nonnegative functions where $X_i: \Omeg
   		\lim_{n\to\infty}\int_\Omega X_n d\mu \geq \lim_{k\to\infty} \left(1 - \frac{1}{k}\right)\int_{\Omega} h d\mu = \int_{\Omega} \cdot h d\mu
 	\end{equation}
 	
-	Choosing and arbitrary $h$, we find that
+	Choosing an arbitrary $h$, we find that
 	\begin{equation}
   		\lim_{n\to\infty}\int_\Omega X_n d\mu \geq \sup\left\{\int_{\Omega} h d\mu\right\} = \int_\Omega X d\mu
 	\end{equation}

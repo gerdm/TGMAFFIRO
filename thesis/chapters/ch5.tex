@@ -154,7 +154,7 @@ To see why, we first note that $\innerprod{f}{g} = \int_0^t\Exp{f\cdot g}dt$. It
 Then, $\{f_n\}$ is uniformly bounded by $M$ and $f_n \to f$ ($\mu$ a.e.) for every $\tau\in [0, t]$.
 \end{proposition}
 
-\begin{proposition}
+\begin{proposition}\label{prop:l2_convergence_ito_integral}
 	The space $\Mfam{0}{t}$ is dense in $\Nfam{0}{t}$ under $L_2([a,b]\times\Omega)$. That is, for every $f\in\Nfam{0}{t}$, there exists a sequence $\{f_n\}_{n\geq 1} \in \Mfam{0}{t}$ such that
 	\begin{equation}
 		\Exp{\left(\int_0^t |f_n(s) - f(s)|dW_s\right)^2} \to 0.
@@ -208,8 +208,26 @@ For every $n\in\mathbb{N}$, define
 	\end{equation}
 It can be seen that $f_n\to f$. This implies a.e. convergence, and as a consequence, convergence in measure. Furthermore, $f_n$ is bounded by $f$ ($|f_n| \leq f$). The $L_2$ convergence follows from the dominated convergence.
 \end{proof}
-
 \end{proposition}
+
+\begin{definition}[\textbf{It\^o's Integral for $f\in\Nfam{0}{t}$}]
+	Let $f\in\Nfam{0}{t}$. By proposition \ref{prop:l2_convergence_ito_integral} there exists a sequence of simple processes $\{f_n\}_{n} \in \Mfam{0}{t}$ such that
+	\begin{equation}
+		\Exp{\int_0^t (f_n - f)^2 dt} \to 0
+	\end{equation}
+	
+	Then, the sequence $\{I(f_n)\}$ is a Cauchy sequence in $L_2\ProbSpace$ because
+	\begin{align*}
+		\Exp{(I(f_n) - I(f))^2} &= \Exp{\left|\int_0^t f_n dW - \int_0^t f dW\right|^2} \text{ (in $\ProbSpace$)} \\
+								&= \Exp{\int_0^t(f_n - f)^2 ds} \text{ (in $([0,t]\times)\Omega,\mathscr B{([0,t])}\times\salgF, \lambda\times\Pm $)}
+	\end{align*}
+	
+	Therefore, there exists a r.v. $I(f)\in L_2$ such that $I(f_n) \to I(f)$ in $L_2$. This limit is known as the \textbf{It\^o Integral}, and. we write:
+	\begin{equation}
+		I(f) := \int_0^t f(t, \omega) dW_t(\omega) = \lim_{n\to\infty}\int_0^t f_n(t,\omega) dW_t(\omega) \text{ (in $L_2$)}
+	\end{equation}
+
+\end{definition}
 
 \section{It\^o's Formula}
 \section{Stochastic Differential Equations}

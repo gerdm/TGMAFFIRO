@@ -15,7 +15,7 @@
 % 1) Link
 In chapter one we posed the question about the theoretical value of a financial call option that starts today. Specifically, we want to answer the following question: what is today's value for a derivative that pays $\max\{S_T-K, 0\}$ at maturity? Note that, at time $T$, the payoff of the option is a function of $S_T$, since all else is given. Consequently, preceding the valuation of any option we must first take into account the dynamics of the asset we are referring to, i.e., we must come up with a model for $S_t$ for all $t \in [0,\infty)$.\\
 
-As saw in chapter \ref{ch:option_pricing}, the basic assumption about the financial asset we want to value is that is is always positive, it starts at a known value and has a component that allow us to determine the possible paths it may take.
+As stated in chapter \ref{ch:option_pricing}, some basic assumption about the financial asset we desire to model is that is is always positive, it starts at a known value and has stochastic component that allow us to determine the possible paths it may take.
 
 % 2) Focus
 In the following chapter, we aim to attain a model that explains the random changes of financial assets in continuous time. Since we assume that the stock follows both a stochastic component and a deterministic one, we intent to describe the ``noise'' of an asset over time in continuous time.\\
@@ -24,7 +24,7 @@ In the following chapter, we aim to attain a model that explains the random chan
 We begin by motivating the need for such process in a mathematically-informal way; we continue laying the mathematical foundations for what is the final process to model the \textit{noise}: the Brownian motion; finally, we conclude the chapter by proving remarkable properties about the latter.
 
 \section{Random Walks}
-Suppose that two players (A and B) toss an even coin $n$ times, one toss for every unit of time\footnote{Note that this unit of time can be one second, one day, 5 minutes, etc.}. Whenever tails comes up, A will pay B \$1. On the contrary, A will receive \$1 from B. Suppose further that we decide to model how much did A won (or lost) after $n$ tosses. To do so, we define the following:
+Suppose that two players (A and B) toss an even coin $n$ times, one toss for every unit of time\footnote{Note that this unit of time can be one second, one day, 5 minutes, etc.}. Whenever tails comes up, A will pay B \$1. On the contrary, A will receive \$1 from B. Suppose further that we decide to model how much A won (or lost) after $n$ tosses. To do so, we define the following:
 
 \begin{definition}\label{srwalk}
 	Let $\{X_j\}_{j\geq0}$ be a set of independent and identically distributed (i.i.d.) random variables for which $\Pm(X_i = \pm 1) = \frac{1}{2}$; $i \geq 1$. Define $M_0 = 0$ and
@@ -54,16 +54,16 @@ Suppose that two players (A and B) toss an even coin $n$ times, one toss for eve
 	\end{align*}
 \end{proof}
 
-Proposition \ref{prop:expectation_srw} shows that the definition of a symmetric random walk (\ref{srwalk}) captures what we intended to model. From the outset, both players start with with \$0 and, as the game progresses, whichever amount A wins, B looses it. The type of games, in which the amount player $A$ wins, player $B$ losses it are called \textbf{zero-sum games}.\\
+Proposition \ref{prop:expectation_srw} shows that the definition of a symmetric random walk (\ref{srwalk}) captures what we intend to model. From the outset, both players start with with \$0 and, as the game progresses, whichever amount A wins, B loses. The type of games, in which the amount player $A$ wins, player $B$ loses, are called \textbf{zero-sum games}.\\
 
-After a large number of times played we expect to break even. Nobody would win or loose once played a large number of times\footnote{In fact, according to Law of Large Number, we would expect to break even after a number so large that it approaches to infinity.}\\
+After a large number of times played we expect to break even. Nobody would win or lose once played a large number of times\footnote{In fact, according to the Law of Large Numbers, we would expect to break even after a number so large that it zapproaches infinity.}\\
 
 A symmetric random walk also happens to be known as a fair-game. This is because what one would expect to win at any given future point in time is dependent on the amount that one has today. In other words, if both of the players start with a P\&L of \$0, then they would not expect, after a large amount of games\footnote{Mathematically speaking, the expectation of the game is zero in the sense that, as the number of games tends to infinity, the average P\&L for any of the players turn to zero} to earn any more money than what they started with: \$0.\\
 
 To see why, consider the following proposition
 
 \begin{proposition}
-	The simple random walk is a martingale for $k < \ell$
+	The simple random walk is a martingale for $k < \ell$.
 \end{proposition}
 
 \begin{proof}
@@ -75,10 +75,10 @@ To see why, consider the following proposition
 	\end{align*}
 \end{proof}
 
-No matter the point in time in the future that we refer to, the value that one would expect to have in the future the one that we have today. As a consequence, the only \textit{useful} information we have today about the future value of the game, is the one we have today.
+Regardless the point in future time, the value that one would expect to have in the future the one that we have today. As a consequence, the only \textit{useful} information is that which we have today about the future value of the game.
 
 \section{Scaled Random Walk}
-The simple random walk can altered such that between any two units of time the process takes $n$ steps.
+The simple random walk can be altered such that between any two units of time the process takes $n$ steps.
 
 \begin{definition}
 	We define the \textbf{scaled random walk} $W^n(t)$ as the following transformation of the simple random walk:
@@ -95,7 +95,7 @@ The simple random walk can altered such that between any two units of time the p
 			\item $\mathbb{V}[W^n(t_{i}) - W^n(t_{j})] = t - s$.
 		\end{itemize}
 		\item The Scaled random walk is a martingale: for all $k < \ell$
-		\[\mathbb{E}[W^n(\ell) | \salgF_k] = W^n(k)\].
+		\[\mathbb{E}[W^n(\ell) | \salgF_k] = W^n(k).\]
 	\end{itemize}
 \end{remark}
 
@@ -110,7 +110,7 @@ One complication arises in modeling a financial asset, that of choosing the part
 \end{figure}
 
 
-To further develop this theory we will start assuming that the market moves in continuous time. This, as we will later see, allow us to use more sophisticated methods to work with the process while generalizing this to any market we desire. This assumptions leads to an important theorem that will help us keep building the model for the financial asset.
+To further develop this theory we will start assuming that the market moves in continuous time. This, as we will later see, allows us to use more sophisticated methods to work with the process while generalizing this to any market we desire. This assumption leads to an important theorem that will help us keep building the model for the financial asset.
 
 \begin{theorem}\label{th:convergence_rw}
 	Let $t \geq 0$. As $n \to \infty$, the distribution of the scaled random walk $W^n(t)$ converges to a normal distribution with mean $0$ and variance $t$.
@@ -327,7 +327,7 @@ Let $\ctspr$ a stochastic process defined on an $L_2$. We say that $X$ is $L_2$ 
 	A Brownian Motion with $\sigma^2 = 1$ is known as a Standard Brownian Motion.
 \end{remark}
 
-The Brownian Motion is a first desirable result since it allow us to work in continuous time. Furthermore, it allow us to measure a probability at every $t\geq 0$ with tools already known for continuous random variables. 
+The Brownian Motion is a first desirable result since it allows us to work in continuous time. Furthermore, it allows us to measure a probability at every $t\geq 0$ with tools already known for continuous random variables. 
 
 %%% Arithmetic Brownian Motion Image %%%
 \begin{figure}[h]
@@ -416,7 +416,7 @@ To further develop the properties of the Brownian Motion, let us define the foll
 
 The quadratic variation for a function $f$ represents the amount of total quadratic oscillation inside $D = [0,T]$. It can be shown (see \aycite{shreve}) that for $f \in C^1(D)$, $[f,f]_T = 0$.\\
 	
-Asking how much does $W(t)$ oscillates between $D$ posses the question of whether $W(t) \in C^1(D)$. The answer is no, since the Brownian Motion is a continuous, nowhere-differentiable function. A consequence of this last remark is the following.
+Asking how much does $W(t)$ oscillate between $D$ poses the question of whether $W(t) \in C^1(D)$. The answer is no, since the Brownian Motion is a continuous, nowhere-differentiable function. A consequence of this last remark is the following.
 
 \begin{theorem}\label{th:quadratic_brownian_motion}
 	Let $W(t)$ be a Standard Brownian Motion, then $[W, W]_T = T \ \forall \ T \geq 0$ almost surely.

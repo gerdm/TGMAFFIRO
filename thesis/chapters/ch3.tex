@@ -3,7 +3,7 @@
 \begin{document}
 
 % Link
-As we saw in the first chapter, a financial institution selling financial derivatives must take into account certain factors in order to avoid the occurrence of arbitrage against it. One must then inquire about the \textit{correct} price to charge for any of these derivatives. Consider the valuation of the forward seen on chapter 1. One may price it as the expected value of the asset at maturity, discounted at some rate $r$. Simply put, assuming we can sell many units of a given product, by \textbf{Kolmogorov's Strong Law of Large Numbers (LLN)}, we would expect, in the long run, to break even:
+As stated in the first chapter, a financial institution selling financial derivatives must take into account certain factors in order to avoid the occurrence of arbitrage against it. One must then inquire about the \textit{correct} price to charge for any of these derivatives. Consider the valuation of the forward seen on chapter 1. One may price it as the expected value of the asset at maturity, discounted at some rate $r$. Simply put, assuming we can sell many units of a given product, by \textbf{Kolmogorov's Strong Law of Large Numbers (LLN)}, we would expect, in the long run, to break even:
 
 \begin{theorem}
     Let $\{X_n\}_{n\geq 1}$ be a collection of i.i.d. random variables with mean $\mu$. Denote $S_n = \frac{1}{n}\sum_{i=1}^n X_n$. Then, with probability one,
@@ -13,13 +13,13 @@ As we saw in the first chapter, a financial institution selling financial deriva
 \end{theorem}
 
 %TODO: Complete forward valuation proof; answer: why is it not feasible to value a forward like that? because it does not reflect the market
-Feasible as it may seem, as pointed out by Baxter(2003), this approach could lead to disaster for the financial institution. Nonetheless, by following no-arbitrage arguments, it can be shown that the the price of a forward is the discounted value of the current price of the stock.\\
+Feasible as this may seem, as pointed out by \aycite{baxter}, this approach could lead to disaster for the financial institution. Nonetheless, by following no-arbitrage arguments, it can be shown that the the price of a forward is the discounted value of the current price of the stock.\\
 
 % Focus
-In this chapter, we aim to develop an intuition behind option valuation, and give a hint on what is to expect from a more mathematically-robust model. To achieve the latter we present the binomial tree model, and relax the mathematical-rigor used in the previous chapter.\\
+In this chapter, we aim to develop an intuition behind option valuation, and give a hint on what is to expect from a more mathematically-robust model. To achieve the latter we present the binomial-tree model, and relax the mathematical rigor used in the previous chapter.\\
 
 % Overview
-We develop this chapter twofold: we first lay the foundations required to value an option using a single binomial tree; the second chapter comprises the generalization of the single binomial tree and an example of its usage.
+We develop this chapter twofold: we first lay the foundations required to value an option using a single binomial tree; the second chapter comprises the generalization of the single binomial tree and we provide an example of its usage.
 
 \section{One-Step Binomial Models}
 In order to generalize an arbitrage-free approach to price a European option on a stock, it is desirable to construct a model that truly reflects the market (unlike the LLN approach). In its simplest form, this market should consist of a cash bond and a stock. We will assume, that the market moves in discrete units of time.\\
