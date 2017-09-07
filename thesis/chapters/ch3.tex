@@ -3,7 +3,7 @@
 \begin{document}
 
 % Link
-As stated in the first chapter, a financial institution selling financial derivatives must take into account certain factors in order to avoid the occurrence of arbitrage against it. One must then inquire about the \textit{correct} price to charge for any of these derivatives. Consider the valuation of the forward seen on chapter 1. One may price it as the expected value of the asset at maturity, discounted at some rate $r$. Simply put, assuming we can sell many units of a given product, by \textbf{Kolmogorov's Strong Law of Large Numbers (LLN)}, we would expect, in the long run, to break even:
+As stated in the first chapter, a financial institution selling financial derivatives must take into account certain factors in order to avoid the occurrence of arbitrage against it. One must then inquire about the \textit{correct} price to charge for any of these derivatives. Consider the valuation of the forward seen on chapter 1. Given that a forward is an obligation at a future date, one may price it as the expected value of the asset at maturity, discounted at some rate $r$. Simply put, assuming we can sell many units of a given product, by \textbf{Kolmogorov's Strong Law of Large Numbers (LLN)}, we would expect, in the long run, to break even:
 
 \begin{theorem}
     Let $\{X_n\}_{n\geq 1}$ be a collection of i.i.d. random variables with mean $\mu$. Denote $S_n = \frac{1}{n}\sum_{i=1}^n X_n$. Then, with probability one,
@@ -13,10 +13,39 @@ As stated in the first chapter, a financial institution selling financial deriva
 \end{theorem}
 
 %TODO: Complete forward valuation proof; answer: why is it not feasible to value a forward like that? because it does not reflect the market
-Feasible as this may seem, as pointed out by \aycite{baxter}, this approach could lead to disaster for the financial institution. Nonetheless, by following no-arbitrage arguments, it can be shown that the the price of a forward is the discounted value of the current price of the stock.\\
+Feasible as this may seem, as pointed out by \aycite{baxter}, this approach could lead to disaster for a financial institution. Let us develop the informal argument about the value of the forward as given in section \ref{sect:risk_hedge_arbitrage}. We first recall that the payoff of a long forward is given by $S - K$. What, then, is the value of $K$ such that no arbitrage is possible?\\
+
+Let us consider a continuously compounded interest rate $r$ and denote $S_t$ the value of the asset at time $t$. At $t=T$, we want $K$ such that the value of the forward is
+
+\begin{equation}\label{eq:forward_future}
+  S_T - K = 0
+\end{equation}
+
+A first useful result to compute the present value of the forward is to note that if a payoff has some specified future value, then the present value of the payoff must be the same. That is,
+if (\ref{eq:forward_future}) specifies the value of the forward at a future date, then it's price today is the present value of the factors that make the payoff:
+\begin{equation}
+  S_0 - e^{-rT}K = 0
+\end{equation}
+
+
+\begin{figure}[hbt]
+  \includegraphics[width=0.9\textwidth]{../images/foward_payoff}
+  \caption{Payoff of a forward at maturity}
+\end{figure}
+
+We then conclude that $K=S_0e^{rT}$. To see why, consider any other $K^\prime > K$
+\begin{itemize}
+	\item at $t=0$, borrow $S_0$; purchase the stock; and take a short position on the forward.
+	\item at $t=T$, receive $K^\prime$; deliver the forward; and repay $S_0e^{rT}$. Profit $K^\prime - S_0 e^{rT}$.
+\end{itemize}
+
+The same riskless profit can be made if $K^\prime < K$, by taking a long position on the forward.\\
+
 
 % Focus
-In this chapter, we aim to develop an intuition behind option valuation, and give a hint on what is to expect from a more mathematically-robust model. To achieve the latter we present the binomial-tree model, and relax the mathematical rigor used in the previous chapter.\\
+With this last example, it is easy to see that the theoretical price anyone should offer for a financial derivative should be such that in which no arbitrage is possible.\\
+
+ In this chapter we aim to develop an intuition behind option valuation for an arbitrage-free price, and hint on what is to expect from a more mathematically-robust model. To achieve the latter we present the binomial-tree model, and relax the mathematical rigor used in the previous chapter.\\
 
 % Overview
 We develop this chapter twofold: we first lay the foundations required to value an option using a single binomial tree; the second chapter comprises the generalization of the single binomial tree and we provide an example of its usage.

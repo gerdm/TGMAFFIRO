@@ -6,42 +6,16 @@ In order to explain the likelihood of certain random events, we must first defin
 We begin by motivating the need of \textit{measurable spaces} and their fundamental importance throughout this work.
 
 \section{Measurable Spaces}
-Assume we had a fair coin and decided to represent the possible outcomes brought about throwing it twice in a row. Let us represent with the letter $H$ the scenario in which \textit{head} lands; on the contrary, we will denote with the letter $T$ the scenario in which \textit{tail} lands. Evidently, the possible scenarios are the following: 
-\[
-	\{HH\}, \ \{HT\}, \ \{TH\}, \ \{TT\}.
-\]
-
-By throwing the fair coin twice, we are effectively performing an \textbf{experiment}. In this context, the outcome of any possible single event in the experiment is known as the \textbf{universe}. We denote the universe with the Greek letter Omega ($\Omega$).\\
-
-Although $\Omega$ contains every element of possible occurrence, its members alone are not enough to answer any possible question we may have about the outcome of the experiment. Suppose, for example, we were interested in knowing which elements of $\Omega$ constitute the outcome of the experiment in which at least one head ($H$) appears.  Clearly, this subset of $\Omega$, which contains the elements $\{TH, HT, HH\}$, is not currently expressed. Likewise, the subset of $\Omega$ in which only two coins of the same side appear ($\{HH, TT\}$), is not currently expressed.\\
-
-To address this problem, we define a set of subsets of $\Omega$, called an \textbf{algebra}, that captures the feasible questions to ask, as to the occurrences that may happen in the experiment.
-
-\begin{definition}[\textbf{Algebra}]\label{def:algebra}
-	Let $\Omega$ be a set of points $\omega$. A system $\mathscr{A}$ of subsets of $\Omega$ is an Algebra if:
-	\begin{enumerate}
-		\item $\Omega \in \mathscr{A}$;
-		\item If $A, B \in \mathscr{A} \Rightarrow A \cap B \in \mathscr{A}$; and
-		\item If $A \in \mathscr{A} \Rightarrow A^\mathsf{c} \in \salgF$.
-	\end{enumerate}
-\end{definition}
-
-With definition \ref{def:algebra} in mind, we can now consider the \textit{algebra} for $\Omega = \{HH, HT, TH, HH\}$ in which we toss two fair coins:
-
-\begin{verbatim}
-	{{}, {HH}, {HT}, {TH}, {TT}, {HH, HT}, {HH, TH},
-	{HH, TT}, {HT, TH}, {HT, TT}, {TH, TT},
-	{HH, HT, TH}, {HH, HT, TT}, {HH, TH, TT}, {HT, TH, TT},
-	{HH, HT, TH, TT}}
-\end{verbatim}
 
 Universes are not necessarily countably finite. Some may be countably infinite (e.g., the natural numbers), or even uncountably infinite (e.g., the subset of real numbers between 0 and 1). Concerning a more abstract space $\Omega$, we then need to impose an additional property to an algebra called the \textit{$\sigma$-additivity}.
 
 \begin{definition}[\textbf{$\salg$}]\label{def:sigma_algebra}
-	A system $\salgF$ of subsets of $\Omega$ is a $\salg$ if it is an algebra and it satisfies the $\sigma$-additive property:
-	\begin{equation*}
-		\text{If } \{A_n\}_{n\geq 1} \in \salgF \Rightarrow \bigcup_{k=1}^{\infty} A_k \in \salgF.
-	\end{equation*}
+	Let $\Omega$ be a set of points $\omega$. A system $\salgF$ of subsets of $\Omega$ is a $\salg$ if:
+	\begin{enumerate}
+		\item $\Omega \in \salgF$;
+		\item If $\{A_n\}_{n\geq 1} \in \salgF \Rightarrow \bigcup_{k=1}^{\infty} A_k \in \salgF.$; and
+		\item If $A \in \salgF \Rightarrow A^\mathsf{c} \in \salgF$.
+	\end{enumerate}
 \end{definition}
 
 \begin{remark}
