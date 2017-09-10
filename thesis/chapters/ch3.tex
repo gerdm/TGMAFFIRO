@@ -8,25 +8,23 @@ As stated in the first chapter, a financial institution selling financial deriva
 \begin{theorem}
     Let $\{X_n\}_{n\geq 1}$ be a collection of i.i.d. random variables with mean $\mu$. Denote $S_n = \frac{1}{n}\sum_{i=1}^n X_n$. Then, with probability one,
     \begin{equation}
-        S_n \to \mu
+        S_n \to \mu.
     \end{equation}
 \end{theorem}
 
-%TODO: Complete forward valuation proof; answer: why is it not feasible to value a forward like that? because it does not reflect the market
 Feasible as this may seem, as pointed out by \aycite{baxter}, this approach could lead to disaster for a financial institution. Let us develop the informal argument about the value of the forward as given in section \ref{sect:risk_hedge_arbitrage}. We first recall that the payoff of a long forward is given by $S - K$. What, then, is the value of $K$ such that no arbitrage is possible?\\
 
 Let us consider a continuously compounded interest rate $r$ and denote $S_t$ the value of the asset at time $t$. At $t=T$, we want $K$ such that the value of the forward is
 
 \begin{equation}\label{eq:forward_future}
-  S_T - K = 0
+  S_T - K = 0.
 \end{equation}
 
 A first useful result to compute the present value of the forward is to note that if a payoff has some specified future value, then the present value of the payoff must be the same. That is,
 if (\ref{eq:forward_future}) specifies the value of the forward at a future date, then it's price today is the present value of the factors that make the payoff:
 \begin{equation}
-  S_0 - e^{-rT}K = 0
+  S_0 - e^{-rT}K = 0.
 \end{equation}
-
 
 \begin{figure}[hbt]
   \includegraphics[width=0.9\textwidth]{../images/foward_payoff}
@@ -91,7 +89,7 @@ We can now ask whether we can construct a portfolio that replicates $f$ from a s
 Consider the portfolio $(\phi, \psi)$ with $\phi$ number of shares, and $\psi$ monetary units in the bank. At $t=0$, this portfolio is worth
 
 \[
-    \phi S_0 + \psi B_0
+    \phi S_0 + \psi B_0.
 \]
 
 At $t=\delta_t$, this portfolio will be worth either $\phi S_0u + \psi B_0e^{r \delta_t}$, or $\phi S_0d + \psi B_0e^{r \delta_t}$.\\
@@ -105,17 +103,17 @@ With this in mind, we now turn to answer the initial question. In order to hedge
 We can now solve for $\phi$ and $\psi$:
 
 \begin{equation*}
-    \phi S_0(u - d) = f_u - f_d\\
+    \phi S_0(u - d) = f_u - f_d.\\
 \end{equation*}
 
 \begin{equation} \label{eq:phi}
-    \phi = \frac{f_u - f_d}{S_0(u-d)}
+    \phi = \frac{f_u - f_d}{S_0(u-d)}.
 \end{equation}
 
 \begin{align*}
     \psi &= e^{-r\delta_t} [f_u - \phi u]\\
          &= e^{-r\delta_t} \left[f_u - \frac{f_u - f_d}{S_0(u - d)} S_0u\right]\\
-         &= e^{-r\delta_t} \frac{uf_d - df_u}{u -d}
+         &= e^{-r\delta_t} \frac{uf_d - df_u}{u -d}.
 \end{align*}
 
 Thus, buying the portfolio $(\phi, \psi)$ guarantees the payoff at $t=\delta_t$. Denote $\mathcal{V}$ the value of the portfolio at $t=0$. The value of $\mathcal{V}$ is:
@@ -137,7 +135,7 @@ $\mathcal{V}$ is the cost of a risk-free strategy that guarantees the payoff, an
 What, then, would have happened, had we decided to replicate this payoff using only the bank account and the probabilities $p$ and $1-p$? Accordingly, we would've priced the derivative at the present value of the expected payoff under the $\mathbb{P}$ measure. Denote $\hat{\mathcal{V}}$ this alternate value, then:
 
 \begin{equation}
-    \hat{\mathcal{V}} = \exp(-r\delta_t)\mathbb{E}[f] = \exp(-r\delta_t)[f_u \cdot p + f_d \cdot (1- p) ]
+    \hat{\mathcal{V}} = \exp(-r\delta_t)\mathbb{E}[f] = \exp(-r\delta_t)[f_u \cdot p + f_d \cdot (1- p) ].
 \end{equation}
 
 
@@ -149,26 +147,26 @@ Pricing $\hat{\mathcal{V}}$ for $f$ does not guarantee $\hat{\mathcal{V}} = \mat
 Consider  (\ref{eq:v_price_complete}) with payoff $S_T - K$.
 
 \begin{equation*}
-    \mathcal{V} = e^{-r\delta_t}\left[S_0u \frac{e^{r\delta_t} - d}{u - d} + S_0d \frac{u - e^{r\delta_t}}{u-d}\right]
+    \mathcal{V} = e^{-r\delta_t}\left[S_0u \frac{e^{r\delta_t} - d}{u - d} + S_0d \frac{u - e^{r\delta_t}}{u-d}\right].
 \end{equation*}
 
 Denote
 \begin{equation}
-    q:= \frac{\exp{r\delta_t} - d}{u - d} \Longrightarrow 1-q = \frac{u - \exp{(r\delta_t)}}{u-d}
+    q:= \frac{\exp{r\delta_t} - d}{u - d} \Longrightarrow 1-q = \frac{u - \exp{(r\delta_t)}}{u-d}.
 \end{equation}\\
 
 We can argue that $d < \exp{(r\delta_t)} < u$ implies no arbitrage. To see why, 
 \begin{enumerate}
 \item Suppose $\exp{(r\delta_t)} < d < u$.\\
-    At t=0 we can borrow $\$S_0$ and buy the stock. At $t=\delta_t$, we collect either $S_0u$ or $S_0d$, thereby making a risk-free profit of $S_0(u - \exp{(r\delta_t)})$ or $S_0(d - \exp{(r\delta_t)})$
+    At t=0 we can borrow $\$S_0$ and buy the stock. At $t=\delta_t$, we collect either $S_0u$ or $S_0d$, thereby making a risk-free profit of $S_0(u - \exp{(r\delta_t)})$ or $S_0(d - \exp{(r\delta_t)})$.
 
 \item Suppose $d < u < \exp{(r\delta_t)}$\\
-    At $t=0$, lend $\$S_0$ and short the stock. At $t=\delta_t$, collect $S_0\exp{(r\delta_t)}$ and buy the stock at either $S_0u$ or $S_0d$. Again, this guarantees a risk-free profit of either $S_0(\exp{(r\delta_t)} - u)$ or $S_0(\exp{(r\delta_t)} - d)$
+    At $t=0$, lend $\$S_0$ and short the stock. At $t=\delta_t$, collect $S_0\exp{(r\delta_t)}$ and buy the stock at either $S_0u$ or $S_0d$. Again, this guarantees a risk-free profit of either $S_0(\exp{(r\delta_t)} - u)$ or $S_0(\exp{(r\delta_t)} - d)$.
 \end{enumerate}
 
 Being $d < \exp{(r\delta_t)} < u$ implies $0 < q < 1$. We can rewrite \ref{eq:v_price_complete} as
 \begin{equation} \label{eq:v_price}
-    \mathcal{V} = \exp{(-r\delta_t)}[S_0u\cdot q + S_0d \cdot (1-q)]
+    \mathcal{V} = \exp{(-r\delta_t)}[S_0u\cdot q + S_0d \cdot (1-q)].
 \end{equation}
 
 
@@ -245,7 +243,7 @@ Suppose that at $t=0$ we have a stock worth $S_0=100$ that can go up by a factor
 We set up to price a call option on $S_0$ with strike price $K=110$, three periods from now. Denote $f_t$ the value of the derivative at time $t$. The payoff at maturity ($t=3$) is
 
 \begin{equation}
-    f_3 = \max\{S_3 - K, 0\} =: [S_3 - K]^+
+    f_3 = \max\{S_3 - K, 0\} =: [S_3 - K]^+.
 \end{equation}
 
 Since $S$ can either move up or down with known factors $u$ and $d$ respectively, we know all the values the stock can take up to $t=3$. For example, from $t=0$ to $t=1$, the stock can either move to $100 \cdot 1.20$, or down to $100 \cdot 0.80$.\\
@@ -277,7 +275,7 @@ With the set of payoffs at maturity, we proceed to find the value of the option 
 For example, the upper node at $t=2$ is computed by taking the discounted expectation under the $\mathbb{Q}$ measure as shown in \ref{eq:v_price}. Were the stock to climb up two times then, the payoff at $t=3$ can either be 62.8 or 5.2. Denote $f^{uu}_2$ the value the derivative at $t=2$ for the upper node, its value is then
 
 \begin{equation*}
-    f^{uu}_2 = \exp(-0)[62.8q + 5.2(1-q)] = 34; \  q = \frac{0 - 0.80}{1.20 - 0.80}
+    f^{uu}_2 = \exp(-0)[62.8q + 5.2(1-q)] = 34; \  q = \frac{0 - 0.80}{1.20 - 0.80}.
 \end{equation*}\\
 
 \begin{figure}

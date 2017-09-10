@@ -71,7 +71,7 @@ To see why, consider the following proposition
 				\mathbb{E}[M_\ell|\salgF_k] &= \mathbb{E}[(M_\ell - M_k) + M_k | \salgF_k] \\
 				&= \mathbb{E}[(M_\ell - M_k) | \salgF_k] + \mathbb{E}[M_k | \salgF_k] \\
 				&= \mathbb{E}[M_\ell - M_k] + M_k\\
-				&= M_k
+				&= M_k.
 	\end{align*}
 \end{proof}
 
@@ -82,13 +82,13 @@ The simple random walk can be altered such that between any two units of time th
 
 \begin{definition}
 	We define the \textbf{scaled random walk} $W^n(t)$ as the following transformation of the simple random walk:
-	\[W^n(t) := \frac{1}{\sqrt{n}}M_{nt}\]
+	\[W^n(t) := \frac{1}{\sqrt{n}}M_{nt}.\]
 \end{definition}
 
 \begin{remark}
 	The scaled random walk has the following properties:
 	\begin{itemize}
-		\item The increments are independent: \[\left(W^n(t_{i+1}) - W^n(t_{i})\right) \perp \left(W^n(t_{j+1}) - W^n(t_{j})\right) \ \forall \ i \neq j \ i, j \geq 1\]
+		\item The increments are independent: \[\left(W^n(t_{i+1}) - W^n(t_{i})\right) \perp \left(W^n(t_{j+1}) - W^n(t_{j})\right) \ \forall \ i \neq j \ i, j \geq 1.\]
 		\item For $s < t$, and $ns$,  $nt$ $\in \mathbb{W}$, 
 		\begin{itemize}
 			\item $\mathbb{E}[W^n(t_{i}) - W^n(t_{j})] = 0$; and
@@ -194,7 +194,7 @@ It can be shown that if $X$, $Y$ are two random variables such that $\Pm(X=Y) = 
 \begin{definition}[Dense Space]
 	Let $(V, \norm{\cdot}$) a Banach space, we say that $U \subseteq V$ is dense on $V$ if for every $v\in V$, then there exists $\{u_k\}_{k\geq 1} \subseteq U$ such that 
 	\begin{equation}
-		\lim_{k\to\infty} \norm{v - u_k} = 0
+		\lim_{k\to\infty} \norm{v - u_k} = 0.
 	\end{equation}
 
 \end{definition}
@@ -234,7 +234,7 @@ As a consequence,
 \begin{proposition}\label{prop:convergence_expectation}
 Let $X_n\to X$ and $Y_n\to Y$ in $L_2$ then
 \begin{equation}
-  E[X_nY_m] \to E[XY]
+  \Exp{X_nY_m} \to \Exp{XY}.
 \end{equation}
 
 \end{proposition}
@@ -247,7 +247,7 @@ Let $X_n\to X$ and $Y_n\to Y$ in $L_2$ then
 	Let $\ctspr$ a stochastic process in $L_2$ ($\norm{X_t} < \infty$ for every $t\in T$) then,
 	\begin{enumerate}
 		\item There exists a random variable $X\in L_2$ such that $X_t \to X$ in $L_2$ whenever $t\to t_0$; and
-		\item There exists $\ell \in \RNums$ such that $\E[X_{t_n}X_{t'_m}] \to \ell$ as $n\text{,}m \to \infty$ for any two sequences $\{t_n\}$ and $\{t'_m\}$ where $t_n \to t_0$ and $t'_m \to t_0$
+		\item There exists $\ell \in \RNums$ such that $\E[X_{t_n}X_{t'_m}] \to \ell$ as $n\text{,}m \to \infty$ for any two sequences $\{t_n\}$ and $\{t'_m\}$ where $t_n \to t_0$ and $t'_m \to t_0$.
 	\end{enumerate}
 \end{proposition}
 
@@ -255,14 +255,14 @@ Let $X_n\to X$ and $Y_n\to Y$ in $L_2$ then
 \begin{definition}[\textbf{$L_2$ continuity}]
 We say that a stochastic $\ctspr$ process is $L_2$ continuous if
 	\begin{equation}
-	  X_{t+h} \to X_t \text{ as } h\to 0 \ \forall \ t\in T 
+	  X_{t+h} \to X_t \text{ as } h\to 0 \ \forall \ t\in T.
 	\end{equation}
 \end{definition}
 
 \begin{remark}
 By Jensen's inequality,
 	\begin{equation}
-		\E[(X_{t+h} - X_{t})^2] \geq \left(\E[X_{t+h} - X_{t}]\right)^2	= \left(\E[X_{t+h}] - \E[X_{t}]\right)^2
+		\E[(X_{t+h} - X_{t})^2] \geq \left(\E[X_{t+h} - X_{t}]\right)^2	= \left(\E[X_{t+h}] - \E[X_{t}]\right)^2.
 	\end{equation}
 Note that if $X_t$ is $L_2$ continuous, $\E[(\cdot)^2] < \infty$ and is bounded from above. If follows then that $\E[X_t]$ is $L_2$ continuous since the latter implies that $\E[\cdot]$ is well defined.
 \end{remark}
@@ -279,12 +279,12 @@ Also, $X_t^\prime$ has $\E[X_t^\prime] = 0$ and
 	Cov(X_t^\prime, X_t^\prime) &= \E[(X_t^\prime) ^ 2] \\
 								&= \E[(X_t^\prime)^2] \\
 								&= \E[(X_t - \E[X_t])^2] \\
-								&= Cov(X_t, X_t)
+								&= Cov(X_t, X_t).
 \end{align*}
 
 Implying that 
 \begin{equation}\label{eq:expectation_L2_continuous}
-  \E[X_t] = 0
+  \E[X_t] = 0.
 \end{equation}
 
 
@@ -308,7 +308,7 @@ Implying the convergence of $X_t$ in $L_2$.
 \begin{definition}[$L_2$ differentiability]
 Let $\ctspr$ a stochastic process defined on an $L_2$. We say that $X$ is $L_2$ differentiability at some point $t\in T$ if there exists another random variable $X^\prime$ such that.
 \begin{equation}
-	\frac{X_{t+h}- X_t}{h} \to X^\prime_t \text{ as } h\to 0
+	\frac{X_{t+h}- X_t}{h} \to X^\prime_t \text{ as } h\to 0.
 \end{equation}
 \end{definition}
 
@@ -316,10 +316,10 @@ Let $\ctspr$ a stochastic process defined on an $L_2$. We say that $X$ is $L_2$ 
 \begin{definition}\label{def:brownian_motion}
 	A \textbf{Brownian Motion} with parameter $\sigma^2$ is a stochastic process $\{W_t \in \RNums:t\geq 0\}$ that satisfies the following properties:
 	\begin{itemize}
-		\item $W_0 = 0$
-		\item The trajectories are continuous
-		\item The process has independent increments
-		\item $\forall \ 0 \leq s \leq t \Longrightarrow (W_t - W_s) \sim N(0, \sigma^2(s - t)$
+		\item $W_0 = 0$;
+		\item The trajectories are continuous; 
+		\item The process has independent increments; and
+		\item $\forall \ 0 \leq s \leq t \Longrightarrow (W_t - W_s) \sim N(0, \sigma^2(s - t)$.
 	\end{itemize}
 \end{definition}
 
@@ -342,14 +342,14 @@ Although it is computationally impossible to properly simulate a Brownian Motion
 \begin{proposition}[Covariance of brownian motion]\label{prop:cov_brownian_motion}
 Let $W_t$ a one dimensional brownian motion process, then
 \[
-	Cov(W_t, W_s) = \min\{t, s\}
+	Cov(W_t, W_s) = \min\{t, s\}.
 \]
 \end{proposition}
 
 \begin{proof}
 Let $W_t$ a brownian motion process, and
 \begin{equation}
-	Cov(W_t, W_s) = \E[(W_s - \E[W_s])(W_t - \E[W_t])]
+	Cov(W_t, W_s) = \E[(W_s - \E[W_s])(W_t - \E[W_t])].
 \end{equation}
 Consider, by definition of the brownian motion, that $\E[W_s] = \E[W_s - W_0] = 0$, and let $ t > s$. It follows that
 \begin{align*}
@@ -363,8 +363,7 @@ If $t < s$, it follows that $Cov(W_t, W_s) = s$.
 \end{proof}
 
 \begin{remark}
-	Since $\E[W_t] = 0$ and $Cov(W_t, W_s) \geq 0$ for every $t, s \geq 0$
-	A consequence of proposition \ref{prop:cov_brownian_motion}
+	Since $\E[W_t] = 0$ and $Cov(W_t, W_s) \geq 0$ for every $t, s \geq 0$.
 \end{remark}
 
 \begin{proposition}
@@ -375,7 +374,7 @@ Let $W_t$ a one dimensional brownian motion process, and consider $W_{t+h} - W_t
 \begin{align}
 	\E[\frac{1}{h}\left(W_{t+h} - W_t\right)^2] &= \frac{1}{h^2}\E[(W_{t+h} - W_t)^2] \nonumber\\
 												&= \frac{1}{h^2}\V[(W_{t+h} - W_t)^2] \nonumber\\
-												&= \frac{1}{h^2}(h\sigma^2)\label{eq:deriv_bmotion}
+												&= \frac{1}{h^2}(h\sigma^2).\label{eq:deriv_bmotion}
 \end{align}
 Evidently, as $h\to 0$, (\ref{eq:deriv_bmotion}) tends to infinity.\\
 
@@ -388,18 +387,18 @@ Then
 \begin{equation}
   \lim_{h\to 0}\E\left[\left(\frac{1}{h}(W_{t+h} - W_t\right)^2 -
   					   2\left(\frac{1}{h}(W_{t+h} - W_t\right)W_t^\prime + 
-  					   \left(W_t^\prime\right)^2\right] = 0
+  					   \left(W_t^\prime\right)^2\right] = 0.
 \end{equation}
 
 Which implies,
 \begin{equation*}
 	\Exp{W_t^\prime}^2 =  \lim_{h\to 0}\left(\Exp{\left(\frac{1}{h}(W_{t+h} - W_t\right)^2} -
-  					   2\Exp{\left(\frac{1}{h}(W_{t+h} - W_t\right)W_t^\prime}\right)
+  					   2\Exp{\left(\frac{1}{h}(W_{t+h} - W_t\right)W_t^\prime}\right).
 \end{equation*}
 
 Considering equation (\ref{eq:deriv_bmotion}), we conclude that
 \begin{equation*}
-	\Exp{W_t^\prime}^2 =  \lim_{h\to 0}\Exp{\left(\frac{1}{h}(W_{t+h} - W_t\right)^2} = \infty
+	\Exp{W_t^\prime}^2 =  \lim_{h\to 0}\Exp{\left(\frac{1}{h}(W_{t+h} - W_t\right)^2} = \infty.
 \end{equation*}
 
 Therefore, the brownian motion is $L_2$ nowhere differentiable.
@@ -409,7 +408,7 @@ To further develop the properties of the Brownian Motion, let us define the foll
 \begin{definition}\label{def:quadratic_variation}
 	Let $f$ be a real-valued function defined over $[0, T]$. Consider a partition $\Pi= \{t_i\}_{i=0}^{n}$ over $[0, T]$ where $t_0 = 0$, $t_n = T$, and $||\Pi|| = \max_j\{t_{j+1} - t_j\}$. We define the \textbf{Quadratic Variation} of $f$ up to time $T$ as
 	\[
-		[f, f]_T := \lim_{||\Pi|| \to 0} \sum_{t=0}^{n-1}\left[f(t_{j+1}) - f(t_{j})\right]^2
+		[f, f]_T := \lim_{||\Pi|| \to 0} \sum_{t=0}^{n-1}\left[f(t_{j+1}) - f(t_{j})\right]^2.
 	\]
 \end{definition}
 
@@ -426,18 +425,18 @@ Asking how much does $W(t)$ oscillate between $D$ poses the question of whether 
 	Let $\Pi = \{t_j\}_{j=0}^n$ be a partition of $[0, T]$. Define the sample quadratic variation corresponding to this partition to be
 	
 	\[
-		Q_{\Pi} = \sum_{j=0}^{n-1}(W_{t_{j+1}} - W_{t_{j}})^2
+		Q_{\Pi} = \sum_{j=0}^{n-1}(W_{t_{j+1}} - W_{t_{j}})^2.
 	\]
 	
 	To show that $[W, W]_T = T$, is equivalent to show that, as $n\to\infty$, $\mathbb{E}[Q_\Pi] = T$ and $\mathbb{V}(Q_\Pi) = 0$ almost surely.\\
 	
 	First note that, by definition of the Standard Brownian Motion,
 	\begin{equation}\label{eq:exp_change_bm}
-		\mathbb{E}[(W_{t_{j+1}} - W_{t_{j}})^2] = \mathbb{V}[W_{t_{j+1}} - W_{t_{j}}] = t_{j+1} - t_{j}
+		\mathbb{E}[(W_{t_{j+1}} - W_{t_{j}})^2] = \mathbb{V}[W_{t_{j+1}} - W_{t_{j}}] = t_{j+1} - t_{j}.
 	\end{equation}
 	
 	\begin{equation}\label{eq:var_change_bm}
-		\mathbb{V}([W_{t_{j+1}} - W_{t_{j}}]^2) = 2(t_{j+1} - t_{j})^2
+		\mathbb{V}([W_{t_{j+1}} - W_{t_{j}}]^2) = 2(t_{j+1} - t_{j})^2.
 	\end{equation}
 	
 	Refer to appendix \ref{proof:var_change_bm} for a derivation of eq. \ref{eq:var_change_bm}.\\
@@ -447,7 +446,7 @@ Asking how much does $W(t)$ oscillate between $D$ poses the question of whether 
 		\mathbb{E}[Q_\Pi] &= \mathbb{E}[\sum_{j=0}^{n-1}(W_{t_{j+1}} - W_{t_{j})}^2] \\
 		&= \sum_{j=0}^{n-1}\mathbb{E}[(W_{t_{j+1}} - W_{t_{j}})^2] \\
 		&= \sum_{j=0}^{n-1}(t_{j+1} - t_{j}) \\
-		&= T
+		&= T.
 	\end{align*}
 	
 	Now,
@@ -455,31 +454,31 @@ Asking how much does $W(t)$ oscillate between $D$ poses the question of whether 
 		\mathbb{V}(Q_T) &= \mathbb{V}(\sum_{j=0}^{n-1}(W_{t_{j+1}} - W_{t_{j}})^2) \shortintertext{By independence,}
 		&=  \sum_{j=0}^{n-1}\mathbb{V}((W_{t_{j+1}} - W_{t_{j}})^2)\\
 		&= \sum_{j=0}^{n-1} 2(t_{j+1} - t_{j})^2 \\
-		&\leq 2 \sum_{j=0}^{n-1}||\Pi||\cdot (t_{j+1} - t_{j}) \numberthis
+		&\leq 2 \sum_{j=0}^{n-1}||\Pi||\cdot (t_{j+1} - t_{j}). \numberthis
 	\end{align*}
 	
 	Finally, note that
 	
 	\begin{equation}
-		\lim_{||\Pi||\to 0} 2 \sum_{j=0}^{n-1}||\Pi||\cdot (t_{j+1} - t_{j}) = \lim_{||\Pi||\to 0} 2 ||\Pi|| T = 0
+		\lim_{||\Pi||\to 0} 2 \sum_{j=0}^{n-1}||\Pi||\cdot (t_{j+1} - t_{j}) = \lim_{||\Pi||\to 0} 2 ||\Pi|| T = 0.
 	\end{equation}
 	Therefore, $\lim_{||\Pi||\to 0} Q_\Pi = T$ almost surely.
 \end{proof}
 
 We state theorem \ref{th:quadratic_brownian_motion} informally by writing
 \begin{equation}
-	dW^2 = dt
+	dW^2 = dt.
 \end{equation}
 
 Two final consequences of \ref{th:quadratic_brownian_motion} are the following
 \begin{equation}\label{eq:wt_0}
-	\lim_{||\Pi||\to 0} \sum_{j=0}^{n-1}(W_{t_{j+1}} - W_{t_{j}})(t_{j+1} - t_{j}) = 0
+	\lim_{||\Pi||\to 0} \sum_{j=0}^{n-1}(W_{t_{j+1}} - W_{t_{j}})(t_{j+1} - t_{j}) = 0.
 \end{equation}
 
 \begin{equation}\label{eq:w2_0}
-	\lim_{||\Pi||\to 0} \sum_{j=0}^{n-1}(t_{j+1} - t_{j})^2 = 0
+	\lim_{||\Pi||\to 0} \sum_{j=0}^{n-1}(t_{j+1} - t_{j})^2 = 0.
 \end{equation}
 
-Equations \ref{eq:wt_0} and \ref{eq:w2_0} are informally expressed as $dW_tdt = 0$ and $dt^2 = 0$
+Equations \ref{eq:wt_0} and \ref{eq:w2_0} are informally expressed as $dW_tdt = 0$ and $dt^2 = 0$.
 
 \end{document}
