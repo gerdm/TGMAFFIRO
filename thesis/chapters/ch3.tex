@@ -142,9 +142,9 @@ What, then, would have happened, had we decided to replicate this payoff using o
 Pricing $\hat{\mathcal{V}}$ for $f$ does not guarantee $\hat{\mathcal{V}} = \mathcal{V}$, which could lead to arbitrage otherwise. Assuming $\hat{\mathcal{V}} \neq \mathcal{V}$, the expected payoff of $f$ would not be $\hat{\mathcal{V}}$, market participants would be inclined to make a profit, thereby breaking the assumption that every position taken on the derivative is independent of one another; we cannot expect to break even in the long run.
 
 
-%TODO: Fix this!! Say which derivative is being used as example (a forward) and add the example of a one-period option.
+%TODO: Explain more about the Q-measure
 \subsection{The Q Measure}
-Consider  (\ref{eq:v_price_complete}) with payoff $S_T - K$.
+Consider  (\ref{eq:v_price_complete}) with payoff $S_T - K$ (a long forward).
 
 \begin{equation*}
     \mathcal{V} = e^{-r\delta_t}\left[S_0u \frac{e^{r\delta_t} - d}{u - d} + S_0d \frac{u - e^{r\delta_t}}{u-d}\right].

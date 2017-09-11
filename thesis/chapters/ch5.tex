@@ -223,13 +223,76 @@ It can be seen that $f_n\to f$. This implies a.e. convergence, and as a conseque
 								&= \Exp{\int_0^t(f_n - f)^2 ds} \text{ (in $([0,t]\times)\Omega,\mathscr B{([0,t])}\times\salgF, \lambda\times\Pm $)}.
 	\end{align*}
 	
-	Therefore, there exists a r.v. $I(f)\in L_2$ such that $I(f_n) \to I(f)$ in $L_2$. This limit is known as the \textbf{It\^o Integral}, and. we write:
+	Therefore, there exists a random variable $I(f)\in L_2$ such that $I(f_n) \to I(f)$ in $L_2$. This limit is known as the \textbf{It\^o Integral}, and. we write:
 	\begin{equation}
 		I(f) := \int_0^t f(t, \omega) dW_t(\omega) = \lim_{n\to\infty}\int_0^t f_n(t,\omega) dW_t(\omega) \text{ (in $L_2$)}.
 	\end{equation}
+\end{definition}
 
+\begin{proposition}[\textbf{Properties for $f$, $g$ $\in \Nfam{0}{t}$}]
+	Let $f, g \in \Nfam{0}{t}$ then,
+	\begin{equation}
+		\Exp{\int_0^t f dW_s} = 0;
+	\end{equation}
+	
+	\begin{equation}
+		\Var{\int_0^t f dW_s} = \Exp{\left(\int_0^t f dW_s\right)} = \Exp{\int_0^t f^2 ds}\text{; and}
+	\end{equation}
+	
+	\begin{equation}
+		cov\left(\int_0^tfdW_s, \int_0^tgdW_s\right) = \int_0^t \Exp{f\cdot g} ds.
+	\end{equation}
+\end{proposition}
+
+\begin{definition}[\textbf{Indefinte Integral}]
+	Let $f\in \Nfam{0}{T}$, we define the indefinite It\^o integral
+	\begin{equation}
+		X(t) := \int_0^t f(s) dW_s \ \forall \ t\in[0, T].
+	\end{equation}
+\end{definition}
+
+\begin{proposition}
+	Let $f\in\Nfam{0}{T}$ and $X(t)$ an indefinite integral then,
+	\begin{enumerate}
+		\item $X(\cdot)$ is adapted to $\salgF$, i.e., $X(t)$ is $\salgF_t$-measurable for all $t\in[0, T]$; \label{it:adapted-int}
+		\item $X(t)$ is an $L_2$ process and a $\salgF_t$-martingale
+	\end{enumerate}
+\end{proposition}
+
+%TODO: Complete proof
+\begin{proof}
+\end{proof}
+
+
+%TODO: proof??
+\begin{theorem}
+	Let $f\in\Nfam{0}{T}$. There exists a $t$-continuous version of
+	\begin{equation}
+		\int_0^t f(s,\omega) dW_s(\omega) \ 0\leq t \leq T.
+	\end{equation}
+I.e., there exists a $t$-continuous stochastic process $Y_t$ defined over $\ProbSpace$ such that
+\begin{equation}
+	\Pm\left[Y_t = \int_0^tf(s,\omega) dW_s(\omega)\right] = 1 \ \forall \ 0\leq t \leq T.
+\end{equation}
+\end{theorem}
+
+\section{Extensions of It\^o's Integral}
+\begin{definition}
+	Let $W(\cdot) := \{W_t : t\geq 0\}$ a Brownian motion process over $\ProbSpace$ and let $\mathscr{G}$, a family of $\salg$s where
+	\begin{enumerate}
+		\item $\mathscr{G}(s) \subseteq \mathscr{G}(t)$ for all $0\leq s \leq t$;
+		\item $W(\cdot)$ is adapted to $\mathscr{G}(\cdot)$, i.e.,
+		\item For all $f\geq 0$ and $h > 0$, $W_{t+h} - W_t$ is independent of $\mathscr{G}(t)$.
+	\end{enumerate}
 \end{definition}
 
 \section{It\^o's Formula}
+\begin{definition}[\textbf{It\^o Process}]
+	let $W_t$ a standard Brownian motion on $\ProbSpace$. We define the It\^o process $X(t)$ over $\ProbSpace$ as
+	\begin{equation}
+		X(t) := \int_0^t\mu(s,\omega) ds  + \int_0^t\sigma(s,\omega) dW_s
+	\end{equation}
+
+\end{definition}
 \section{Stochastic Differential Equations}
 \end{document}
