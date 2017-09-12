@@ -47,3 +47,9 @@
 \newcommand{\dW}[1][]{%
 \ifthenelse{\isempty{#1}}{dW}{dW_#1}%
 }
+
+\newcommand{\partialwrt}[3][]{
+\ifthenelse{\isempty{#1}}
+{\frac{\partial #2}{\partial #3}}
+{\frac{\partial^{#1} #2}{\partial #3^{#1}}}
+}

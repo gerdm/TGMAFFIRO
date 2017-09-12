@@ -291,9 +291,84 @@ I.e., there exists a $t$-continuous stochastic process $Y_t$ defined over $\Prob
 \begin{definition}[\textbf{It\^o Process}]
 	let $W_t$ a standard Brownian motion on $\ProbSpace$. We define the It\^o process $X(t)$ over $\ProbSpace$ as
 	\begin{equation}
-		X(t) := \int_0^t\mu(s,\omega) ds  + \int_0^t\sigma(s,\omega) dW_s
+		X(t) := \int_0^t\mu(s,\omega) ds  + \int_0^t\sigma(s,\omega) dW_s.
+	\end{equation}
+	
+	Where
+	\begin{enumerate}
+		\item $\int_0^t \mu(s,\omega) ds < \infty$; and
+		\item $\int_0^t\sigma(s,\omega) dW_s < \infty$.
+	\end{enumerate}
+	
+	The It\^o Process can also be defined in a differential form as follows:
+	\begin{equation}
+		dX(t) = \mu(t, \omega) dt + \sigma(t, \omega) \dW[t].
+	\end{equation}
+\end{definition}
+
+\begin{theorem}[\textbf{It\^o's Formula}]
+	Let $X(t)$ be an It\^o process of the form
+	\[
+		dX(t) = \mu(t, \omega) dt + \sigma(t, \omega) dW_t,
+	\]
+	and $g(t, \omega) \in C^2([0, \infty]\times\RNums)$. Then,
+	\begin{equation}
+		Y(t) := g(t, X_t)
+	\end{equation}
+	is also an It\^o Process where
+	
+	\begin{equation}
+		dY(t) = \partialwrt{g}{t}(t, X(t)) dt + \partialwrt{g}{x}(t, X(t)) \left(dX(t)\right) + \frac{1}{2}\partialwrt[2]{g}{x} (t, X(t)) \left(dX(t)\right)^2
+	\end{equation}	
+\end{theorem}
+
+\begin{proposition}\label{prop:on_bounded_ito_g}
+We may assume that $g$ and its two first derivatives are bounded in the following integral:
+\begin{equation}\label{eq:g_bounded}
+  g(0, X(0)) + \int_0^t \left(\partialwrt{g}{s} + \mu\partialwrt{g}{s} + \sigma^2\partialwrt[2]{g}{x}\right) ds + \int_0^t\sigma^2(s, \omega) dW_s
+\end{equation}
+
+Where $X(s) = \int_0^t \mu(s, \omega) ds + \int_0^t \sigma(s, \omega) dW_s$.
+
+\begin{proof}
+	For fixed $t\geq 0$ and $n\in\mathbb{N}$ we define $g_n(s, x) = g(s, x)$ for all $s \leq t$, $|x|\leq n$. For fixed $\omega$ define $\tau_n(\omega) = \tau_n := \inf\{s>0: |X(s,\omega)| \geq n\}$, and
+	
+	\begin{equation}\label{eq:equivalence_stop_time_integral}
+		\int_0^{t} \sigma(s,\omega) \partialwrt{g_n}{x}(s, X(s)) \ind_{s\leq \tau_n} dW_s = \int_0^{t\wedge\tau_n} \sigma(s,\omega) \partialwrt{g_n}{x} (s, X(s)) dW_s.
 	\end{equation}
 
-\end{definition}
+Note that \ref{eq:equivalence_stop_time_integral} takes values up to $\min\{t, \tau_n\}$, which are the bounds defined for $g_n$ (it would be zero otherwise) then,
+
+	\begin{equation}
+	  \int_0^{t\wedge\tau_n} \sigma(s,\omega) \partialwrt{g_n}{x} (s, X(s)) dW_s = \int_0^{t\wedge\tau_n} \sigma(s,\omega) \partialwrt{g}{x} (s, X(s)) dW_s.
+	\end{equation}
+	
+
+It follows from (\ref{eq:g_bounded}) that $g(t\wedge\tau_n, X(t\wedge\tau_n))$ equals
+\begin{equation}
+  g(0, X(0)) + \int_0^{t\wedge\tau_n} \left(\partialwrt{g}{s} + \mu\partialwrt{g}{s} + \sigma^2\partialwrt[2]{g}{x}\right) ds + \int_0^{t\wedge\tau_n}\sigma^2(s, \omega) dW_s
+\end{equation}
+
+Finally,
+
+\begin{equation}
+  \Pm(\tau_n \geq t) = 	\Pm(\inf	\{s: |X_s| \leq n\} > t) \to 1
+\end{equation}
+
+Which shows that $g$ is bounded for all $n \geq 1$.
+\end{proof}
+\end{proposition}
+
+\begin{proof}[proof of It\^o's formula]
+	Consider $g_n \in C^2([0, \infty]\times\RNums)$ such that $g_n$ and its two first derivates are bounded for all $n$, and converge uniformly to $g$, $\partialwrt{g}{t}$, $\partialwrt{g}{x}$, and $\partialwrt[2]{g}{t}$. By \ref{prop:on_bounded_ito_g}, we can assume that such sequence of function exists.\\
+	
+	Taking $g(t, X(t))$ and expanding as a taylor series we see that:
+	\begin{equation}
+		g(t, X(t)) = g(0, X_0) + \sum_{i=0}^{n-1}\Delta g(t_i, X_i);
+	\end{equation}
+	
+	Where 
+\end{proof}
+
 \section{Stochastic Differential Equations}
 \end{document}
