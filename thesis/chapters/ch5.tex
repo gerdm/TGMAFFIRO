@@ -261,6 +261,11 @@ It can be seen that $f_n\to f$. This implies a.e. convergence, and as a conseque
 
 %TODO: Complete proof
 \begin{proof}
+For $f\in\Mfam{0}{t}$, \ref{it:adapted-int} follows from the definition of an It\^o Integral:
+\begin{equation}
+  \int_0^t f(s) dW_s = \sum_{i=0}^{n-1} f(t_i) \Delta W_i;
+\end{equation}
+for $f\in\Nfam{0}{t}$, \ref{it:adapted-int} follows considering its limit in $L_2$.
 \end{proof}
 
 
@@ -287,7 +292,7 @@ I.e., there exists a $t$-continuous stochastic process $Y_t$ defined over $\Prob
 	\end{enumerate}
 \end{definition}
 
-\section{It\^o's Formula}
+\section{It\^o's Formula}\label{th:itos_formula}
 \begin{definition}[\textbf{It\^o Process}]
 	let $W_t$ a standard Brownian motion on $\ProbSpace$. We define the It\^o process $X(t)$ over $\ProbSpace$ as
 	\begin{equation}
@@ -317,7 +322,7 @@ I.e., there exists a $t$-continuous stochastic process $Y_t$ defined over $\Prob
 	\end{equation}
 	is also an It\^o Process where
 	
-	\begin{equation}
+	\begin{equation}\label{eq:itos_formula}
 		dY(t) = \partialwrt{g}{t}(t, X(t)) dt + \partialwrt{g}{x}(t, X(t)) \left(dX(t)\right) + \frac{1}{2}\partialwrt[2]{g}{x} (t, X(t)) \left(dX(t)\right)^2
 	\end{equation}	
 \end{theorem}
@@ -360,15 +365,72 @@ Which shows that $g$ is bounded for all $n \geq 1$.
 \end{proposition}
 
 \begin{proof}[proof of It\^o's formula]
-	Consider $g_n \in C^2([0, \infty]\times\RNums)$ such that $g_n$ and its two first derivates are bounded for all $n$, and converge uniformly to $g$, $\partialwrt{g}{t}$, $\partialwrt{g}{x}$, and $\partialwrt[2]{g}{t}$. By \ref{prop:on_bounded_ito_g}, we can assume that such sequence of function exists.\\
+	In order to prove \ref{th:itos_formula} we will consider another representation of It\^o's formula replacing $dX(t) = \mu dt + \sigma dW_t$ in (\ref{eq:itos_formula}). It then follows that
 	
-	Taking $g(t, X(t))$ and expanding as a taylor series we see that:
+	\begin{align*}
+		&\partialwrt{g}{t}(t, X(t)) dt + \partialwrt{g}{x}(t, X(t)) \left(dX(t)\right) + \frac{1}{2}\partialwrt[2]{g}{x} (t, X(t)) \left(dX(t)\right)^2 \\
+		&= \partialwrt{g}{t}(t, X(t)) dt + \partialwrt{g}{x}(t, X(t)) \left(\mu dt + \sigma dW_t\right) + \\
+		&\phantom{{}=1} \frac{1}{2}\partialwrt[2]{g}{x} (t, X(t)) \left(\mu dt + \sigma dW_t\right)^2.
+	\end{align*}
+	
+	Rearranging terms and integrating both sides, 
 	\begin{equation}
-		g(t, X(t)) = g(0, X_0) + \sum_{i=0}^{n-1}\Delta g(t_i, X_i);
+  Y(t) = \int_0^t \left(\partialwrt{g}{s}{(s, X_s)} + \mu\partialwrt{g}{x}{(s, X_s)} + \frac{\sigma^2}{2}\partialwrt[2]{g}{x}{(s, X_s)}\right)ds + \int_0^t \sigma dW_t.
+	\end{equation}
+
+	Let us take into account $g_n \in C^2([0, \infty]\times\RNums)$ such that $g_n$ and its two first derivates are bounded for all $n$, and converge uniformly to $g$, $\partialwrt{g}{t}$, $\partialwrt{g}{x}$, and $\partialwrt[2]{g}{t}$. By \ref{prop:on_bounded_ito_g}, we can assume that such sequence of functions exists.\\
+	
+	Taking $g(t, X(t))$ and expanding as a Taylor series we see that:
+	\begin{equation}\label{eq:taylor_g}
+		g(t, X(t)) = g(0, X(0)) + \sum_{i=0}^{n-1}\Delta g(t_i, X_i);
 	\end{equation}
 	
-	Where 
+	where 
+	\[
+		\Delta g(t_i, X_i) = \partialwrt{g}{t}\Delta t_i + \partialwrt{g}{t} \Delta X_i + \frac{1}{2}\partialwrt[2]{g}{t} (\Delta t_i)^2 + \frac{\partial^2 g}{\partial x \partial y}(\Delta t_i)(\Delta X_i) + R_i
+	\]
+	
+	We note that, as $\Delta t_i \to 0$,
+\begin{align} 
+\partialwrt{g}{t} \Delta t_i &\to \partialwrt{g}{t} dt
+\end{align}
+
+\begin{align} 
+\partialwrt{g}{x} \Delta X_i &= \partialwrt{g}{x}\left(\mu\Delta t_i + \sigma \Delta W_i \right) \nonumber \\
+&\to  \partialwrt{g}{x}(\mu dt + \sigma dW_t)
+\end{align}
+
+\begin{align}
+\frac{1}{2}\partialwrt[2]{g}{x} (\Delta X_i)^2 &= \frac{1}{2}\partialwrt[2]{g}{x} (\mu\Delta t_i + \sigma \Delta W_i)^2 \nonumber\\
+&= \frac{1}{2}\partialwrt[2]{g}{x} (\mu^2 (\Delta t_i)^2 + 2\sigma\mu \Delta W_i \Delta t_i + \sigma^2 (\Delta W_i)^2) \nonumber\\
+&\to \frac{1}{2} \sigma^2 dt
+\end{align}
+
+Finally, 
+\begin{equation}
+  R_i = \bigO((\Delta t_i)^3 + (\Delta t_i)^2(\Delta X_i) + (\Delta t_i)(\Delta X_i)^2 + (\Delta X_i)^3).
+\end{equation}
+
+Expanding $\Delta X_i$ and cancelling out terms we find out that
+
+\begin{align}
+  R_i &= \bigO((\Delta t_i)^3 + (\Delta t_i)^2(\Delta W_i)) + (\Delta t_i)(\Delta W_i))^2 + (\Delta W_i)^3) \nonumber \\
+  	&= \bigO((\Delta t_i)^3 + (\Delta t_i)^2(\Delta W_i)) + (\Delta t_i)(\Delta t_i) + (\Delta W_i)^2(\Delta W_i))\nonumber \\
+  	&= \bigO((\Delta t_i)^2(\Delta t_i + \Delta W_i + 1) + \Delta t_i \Delta W_i) \label{eq:residual_ito_formula}.
+\end{align}
+
+We note that $(\Delta t_i)^2 \to 0$ and $(\Delta t_i)(\Delta W_i) \to 0$, thus (\ref{eq:residual_ito_formula}) goes to 0.\\
+
+We conclude that the limit (in $L_2$) of (\ref{eq:taylor_g}) is
+
+\begin{align}
+	g(t, X(t)) &= g(0, X_0) + \int_0^t\left( \partialwrt{g}{s}ds + \partialwrt{g}{x}{\mu ds} + \partialwrt{g}{x}{\sigma dW_s} + \frac{1}{2}\partialwrt[2]{g}{s}{\sigma^2 ds} \right)\\
+			 &= g(0, X_0) + \int_0^t\left(\partialwrt{g}{s} + \mu \partialwrt{g}{x} +\sigma^2 \partialwrt[2]{g}{s} \right)ds + \int_0^t\sigma \partialwrt{g}{x}{dW_s}.
+\end{align}
 \end{proof}
 
+\begin{theorem}[\textbf{The General It\^o Formula}]
+	
+\end{theorem}
 \section{Stochastic Differential Equations}
 \end{document}
