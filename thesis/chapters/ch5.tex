@@ -255,17 +255,44 @@ It can be seen that $f_n\to f$. This implies a.e. convergence, and as a conseque
 	Let $f\in\Nfam{0}{T}$ and $X(t)$ an indefinite integral then,
 	\begin{enumerate}
 		\item $X(\cdot)$ is adapted to $\salgF$, i.e., $X(t)$ is $\salgF_t$-measurable for all $t\in[0, T]$; \label{it:adapted-int}
-		\item $X(t)$ is an $L_2$ process and a $\salgF_t$-martingale
+		\item $X(t)$ is an $L_2$ process and a $\salgF_t$-martingale \label{it:ito-martingale}
 	\end{enumerate}
 \end{proposition}
 
-%TODO: Complete proof
 \begin{proof}
 For $f\in\Mfam{0}{t}$, \ref{it:adapted-int} follows from the definition of an It\^o Integral:
 \begin{equation}
   \int_0^t f(s) dW_s = \sum_{i=0}^{n-1} f(t_i) \Delta W_i;
 \end{equation}
-for $f\in\Nfam{0}{t}$, \ref{it:adapted-int} follows considering its limit in $L_2$.
+for $f\in\Nfam{0}{t}$, \ref{it:adapted-int} follows considering its limit in $L_2$.\\
+
+To prove \ref{it:ito-martingale}, recall first that $\Exp{I(f)} = 0$ and $\Var{I(f)} = \int\Exp{f^2} dt$ then, $X(\cdot)$ is adapted, has mean zero, and variance $\int_0^t\Exp{f^2} dt$. We are left to show that
+\begin{equation}
+  \Exp{X(t) | \salgF_s} = X(s) \ \forall \ s \leq t.
+\end{equation}
+
+Noting that
+\begin{align}
+  X(t) &= \int_0^s f dW + \int_s^t f dW\\
+  	&= X(s) + \int_s^t f dW,
+\end{align}
+
+proving that $\Exp{\int_s^t f dW | \salgF_s}= 0$ concludes the proof.\\
+
+Suppose first that $f\in\Mfam{0}{T}$, it follows that
+\begin{align}
+	\Exp{\int_s^t fdW | \salgF_s}  &= \Exp{\sum_{i=0}^{n-1}f(t_i) \Delta W_i | \salgF_s}\nonumber\\
+	&= \sum_{i=0}^{n-1}\Exp{f(t_i)\Delta W_i | \salgF_s}\label{eq:expectation_fi_salgs}.
+\end{align}
+
+Taking account of the fact that $\salgF_s \subseteq \salgF_{t_i}$ (take $S=t_0$) and considering (\ref{eq:expectation_fi_salgs}) we write
+\begin{align}
+  \Exp{f(t_i)\Delta W_i | \salgF_s} &= \Exp{\Exp{f(t_i)\Delta W_i | \salgF_{t_i}}| \salgF_s}\\
+  &=\Exp{f(t_i)\Exp{\Delta W_i}| \salgF_s}\\
+  &= 0
+\end{align}
+
+We generalize this result for $f\in\Nfam{0}{T}$ by means of the $L_2$ convergence.
 \end{proof}
 
 
