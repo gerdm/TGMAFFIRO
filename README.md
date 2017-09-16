@@ -1,5 +1,5 @@
 # Theoretical Grounds and Market Adaptations of Financial FX and Interest Rate Options
-.
+```
 ├── README.md
 ├── binomial_model
 │   ├── 100_call_option.pdf
@@ -57,3 +57,4 @@
         └── ch5.tex
 
 10 directories, 45 files
+```
