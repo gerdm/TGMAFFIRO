@@ -223,7 +223,7 @@ It can be seen that $f_n\to f$. This implies a.e. convergence, and as a conseque
 								&= \Exp{\int_0^t(f_n - f)^2 ds} \text{ (in $([0,t]\times)\Omega,\mathscr B{([0,t])}\times\salgF, \lambda\times\Pm $)}.
 	\end{align*}
 	
-	Therefore, there exists a random variable $I(f)\in L_2$ such that $I(f_n) \to I(f)$ in $L_2$. This limit is known as the \textbf{It\^o Integral}, and. we write:
+	Therefore, there exists a random variable $I(f)\in L_2$ such that $I(f_n) \to I(f)$ in $L_2$. This limit is known as the \textbf{It\^o Integral}. We write:
 	\begin{equation}
 		I(f) := \int_0^t f(t, \omega) dW_t(\omega) = \lim_{n\to\infty}\int_0^t f_n(t,\omega) dW_t(\omega) \text{ (in $L_2$)}.
 	\end{equation}
@@ -319,8 +319,9 @@ I.e., there exists a $t$-continuous stochastic process $Y_t$ defined over $\Prob
 	\end{enumerate}
 \end{definition}
 
-\section{It\^o's Formula}\label{th:itos_formula}
-\begin{definition}[\textbf{It\^o Process}]
+\section{It\^o's Formula}
+
+\begin{definition}[\textbf{It\^o Process}]\label{def:ito_process}
 	let $W_t$ a standard Brownian motion on $\ProbSpace$. We define the It\^o process $X(t)$ over $\ProbSpace$ as
 	\begin{equation}
 		X(t) := \int_0^t\mu(s,\omega) ds  + \int_0^t\sigma(s,\omega) dW_s.
@@ -338,7 +339,7 @@ I.e., there exists a $t$-continuous stochastic process $Y_t$ defined over $\Prob
 	\end{equation}
 \end{definition}
 
-\begin{theorem}[\textbf{It\^o's Formula}]
+\begin{theorem}[\textbf{It\^o's Formula}]\label{th:itos_formula}
 	Let $X(t)$ be an It\^o process of the form
 	\[
 		dX(t) = \mu(t, \omega) dt + \sigma(t, \omega) dW_t,
@@ -456,8 +457,78 @@ We conclude that the limit (in $L_2$) of (\ref{eq:taylor_g}) is
 \end{align}
 \end{proof}
 
-\begin{theorem}[\textbf{The General It\^o Formula}]
+\begin{definition}[\textbf{General $n$ It\^o Process}]
+	Let $W_t(\omega)$ be an $n$-dimensional Brownian motion, and $\{\mu_i\}_{i\in\{1,\ldots,n\}}$, $\{\sigma_{ij}\}_{i\in\{1,\ldots,n\}, j\in\{1,\ldots,m\}}$ satisfying conditions 1 and 2 as defined on \ref{def:ito_process}. We define the \textit{general it\^o process} as the collection of $X(t) = \{X^{(1)}(t), \ldots, X^{(n)}(t)\}$ processes where
+	\begin{equation}
+		dX^{(k)} = \mu_k dt + \sum_{j=1}^{m}\sigma_{kj} dW_j.
+	\end{equation}
+
+If we represent $\mu$ as a matrix ($n\times 1$) of elements $m_i$; $\sigma$ a matrix ($n\times m$) matrix of elements $\sigma_{ij}$. We represent the general It\^o Process as
+\begin{equation}
+  dX_t := dX(t) = \mu dt + \sigma dW_t.
+\end{equation}
+\end{definition}
 	
+\begin{theorem}[\textbf{The General It\^o Formula}]\label{th:general_ito_formula}
+	Let $dX_t = \mu dt + \sigma dW_t $ be an $n$-dimensional It\^o process and $g:[0,\infty)\times\RNums^n\to\RNums^n$ then, $g(t, X_t) =: Y(t)$ is again an It\^o process whose $k$-th entry is given by
+	\begin{equation}
+		dY^{(k)} = \partialwrt{g_k}{t}{(t, X)} dt + \sum_i \partialwrt{g_k}{x_i}{(t, X)}(dX_i) + \frac{1}{2}\sum_{i,j}\frac{\partial^2g_k}{\partial x_i\partial x_j} (dX_i)(dX_j).\label{eq:general_ito_formula}
+	\end{equation}
 \end{theorem}
+
+%TODO: Add graph of simulated process
+As an example of \ref{th:general_ito_formula} we consider $X(t)$, $Y(t)$ It\^o processes in $\RNums$, where
+
+\begin{align}
+	dX_t = \mu_1 dt + \sigma_1 dW^{(1)}_t\nonumber\\
+	dY_t = \mu_2 dt + \sigma_2 dW^{(2)}_t\nonumber
+\end{align}
+ and $g(x,y) = xy$. What is the dynamic of $g(X_t, Y_t)$?\\
+
+If we expand (\ref{eq:general_ito_formula}) for $X_t$ and $Y_t$ we have
+\begin{align}
+  d(X_t, Y_t) &= \partialwrt{g}{t}{} dt + \left(\partialwrt{g}{x} dX_t + \partialwrt{g}{y} dY_t \right) + \nonumber \\
+  & \frac{1}{2}\left(2\frac{\partial^2g_k}{\partial x\partial y} dX dY + \partialwrt[2]{g}{x} (dX_t)^2 + \partialwrt[2]{g}{y} (dY_t)^2 \right). \label{eqproof:ito_prod_formula}
+\end{align}
+
+Where $\partialwrt{g}{t} = 0$, $\partialwrt{g}{x} = Y_t$, $\partialwrt{g}{y} = X_t$, $\frac{\partial^2g_k}{\partial x\partial y} = 1$, $\partialwrt[2]{g}{x} = 0$, and $\partialwrt[2]{g}{y} = 0$. We rewrite (\ref{eqproof:ito_prod_formula}) as
+
+\begin{equation}
+  d(X_t, Y_t) = X_t dY_t + Y_t dX_t + dX_t dY_t. \label{eq:ito_rule_product}
+\end{equation}
+
 \section{Stochastic Differential Equations}
+Suppose $S_t$ is the price of a stock at time $t$, then $dS_t$ measures the change in the value of the stock at around $t$ (an infinitesimal-time interval). Given that the change in the value of the asset is
+
+\begin{equation}
+	\frac{dS_t}{S_t} = \mu dt + \sigma dW_t, \label{eq:stock_dynamic}
+\end{equation}
+
+What is $S_t$ that satisfies (\ref{eq:stock_dynamic})?\\
+
+Consider $g(t, x)= \log x$ and $dS_t = S_t(\mu dt + \sigma dW_t)$, we see that
+\begin{align}
+	\left(dS_t\right)^2 &= (S_t)^2(\mu dt + \sigma dW_t)^2\\
+		&= (S_t)^2(\mu^2 \left(dt\right)^2 + \mu\sigma (dtdW_t) + \sigma^2 (dW_t)^2)\\
+		&= S_t^2\sigma^2 dt
+\end{align}
+
+We solve $d(\log S_t)$ using \ref{th:itos_formula}.
+\begin{align}
+	d(\log S_t) &= \partialwrt{g}{t}{(t, S_t)} dS_t + \partialwrt{g}{x}{(t, S_t)} dS_t + \partialwrt[2]{g}{x}{(t, S_t)} (dS_t)^2 \nonumber \\
+&= \frac{1}{S_t}\left(S_t(\mu dt + \sigma dW_t)\right) + \frac{1}{2}\left(-\frac{1}{S_t^2} \right)S_t^2\sigma^2 dt \nonumber \\
+&= \mu dt + \sigma dW_t - \frac{1}{2}\sigma^2 dt \nonumber \\
+&= \left(\mu - \frac{1}{2}\sigma^2\right)dt + \sigma dW_t. \label{eqproof:stock_dynamic}
+\end{align}
+
+Integrating both sides of (\ref{eqproof:stock_dynamic}) it follows that
+\begin{equation}
+	\log\left(\frac{S_t}{S_0}\right) = \left(\mu - \frac{1}{2}\sigma^2\right) t + \sigma\int_0^t dW_s.
+\end{equation}
+
+Therefore,
+\begin{equation}
+  S_t = S_0e^{\left(\mu - \frac{1}{2}\sigma^2\right) t + \sigma\int_0^t dW_s}.
+\end{equation}
+
 \end{document}
