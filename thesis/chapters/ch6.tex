@@ -1,0 +1,51 @@
+\documentclass[../TGMAFFIRO.tex]{subfiles}
+
+\begin{document}
+\section{Markets}
+\begin{definition}[\textbf{Markets}]
+	A market $X(t) = \{X_i(t)\}_{i=0}^n$ is an $\salgF_t$ adapted $n+1$ It\^o Process where
+	\begin{equation}
+		dX_0 = \rho(t,\omega) X_0(t) dt; \ X(0) = 1, \label{eq:safe_investment}
+	\end{equation}
+	
+	and
+	\begin{equation}
+		dX_i = \mu_i(t,\omega) dt + \sum_{j=1}^{m}\sigma_{ij}(t,\omega)dW_j(t) \label{eq:risky_asset}.
+	\end{equation}
+\end{definition}
+
+We regard (\ref{eq:safe_investment}) as the safe asset in the market due the lack of a diffusion term. With this in mind, $\rho$ represents the average rate of return for the safe investment\\
+
+On the other hand, (\ref{eq:risky_asset}) represent a risky asset. In this context, $\mu_i$ represent the drift term or, in other words, the average rate of return for asset $i$, while $\sigma_{ij}$ represents the amount of variation for the asset $i$ (note that we are generally defining a risky asset as a sum of different \textit{uncertainty} factors). In effect, $\sigma_{ij}$ is the diffusion term of the stock.\\
+
+For a more convenient notation, let $W(t) = \{W_i(t)\}_{i=1}^{m}$ be represented by a $m\times 1$ matrix and $\sigma_i$ by a $1\times m$ matrix of elements $\{\sigma{ij}\}_{j=1}^{m}$ then,
+\begin{equation}
+  dX_i = \mu_i(t,\omega) dt + \sigma_idW(t).
+\end{equation}
+
+\begin{definition}[\textbf{Normalized Markets}]
+	The market $\market$ is said to be normalized if $X_0(0)= 1$
+\end{definition}
+
+We may define a normalized market transforming every entry of $\market$ as $\bar{X_i}(t) = X_0^{-1}(t)X_i(t)$. It follows that
+\begin{equation}
+  \bar{X}(t) = (1, \bar{X}_1(t), \ldots, \bar{X}_n(t))
+\end{equation}
+
+As pointed out by \aycite{oksendal}, normalizing the market ``corresponds to regarding the price $X_0(t)$ of the safe investment as the unit of price (the numeraire) and computing the other prices in therms of this unit.''
+
+\begin{remark}
+	Since $dX_0 = \rho X_0 dt$, we see that $X_0(t) = e^{\int_0^t\rho(s,\omega) ds}$. Let
+	\begin{equation}
+		\nu(t) := X^{-1}_0(t) = e^{-\int_0^t\rho(s,\omega) ds}.
+	\end{equation}
+This implies
+\begin{align}
+	d\bar X_i &= d\left(\nu(t)X_i(t)\right) \nonumber \\
+			&= \nu(t)dX_i + X_id\nu(t) + d\nu(t)dX_i(t)\nonumber\\
+			&= \nu(t) [\mu_i dt + \sigma_i dW(t)] + X_i[\nu(t))(-\rho dt)] + \nonumber\\
+			&\phantom{{}=1} [\nu(t)(-\rho dt)\cdot(\mu_i dt + \sigma_i dW(t))]\nonumber\\
+			&=\nu(t)[(\mu_i - X_i\rho)dt + \sigma_i dW(t)]
+\end{align}
+\end{remark}
+\end{document}
