@@ -97,14 +97,6 @@ Although the bank decided to cover its position in order to fulfill its future o
 
 This simple example presents the key ideas to take account of whenever we try to price any derivative. By replicating what the trader did, the bank would be hedged and would not incur in anyone making an arbitrage. Composing an effective hedge may not be so easy for every contract.\\
 
-Let us consider another example: a derivative that provides to the buyer the option to buy a stock at a future date and at a predetermined price. What we would like is to know the present value of this derivative, such that it allows for an effective hedge and prevent anyone from making an arbitrage.\\
-
-This type of derivative is known as a European Option and, at the time of maturity, the payoff provided by this contract is the following
-
-\begin{equation}
-	\max\{S-K, 0\}.
-\end{equation}
-
 %% Importing Call payoff from images folder
 \begin{figure}[h]
 	\centering
@@ -112,6 +104,15 @@ This type of derivative is known as a European Option and, at the time of maturi
 	\includegraphics[width=0.7\textwidth]{../images/Call.pdf}	
 	\caption{European Call Payoff}
 \end{figure}
+
+
+Let us consider another example: a derivative that provides to the buyer the option to buy a stock at a future date and at a predetermined price. What we would like is to know the present value of this derivative, such that it allows for an effective hedge and prevent anyone from making an arbitrage.\\
+
+This type of derivative is known as a European Option and, at the time of maturity, the payoff provided by this contract is given by
+
+\begin{equation}
+	\max\{S-K, 0\}.
+\end{equation}
 
 Note that the payoff of this derivative is \textit{stochastic} in sense that we cannot be certain of the price the stock will reach some future time from now. Then, we cannot be sure of the future payoff of the stock.\\
 

@@ -480,8 +480,8 @@ If we represent $\mu$ as a matrix ($n\times 1$) of elements $m_i$; $\sigma$ a ma
 As an example of \ref{th:general_ito_formula} we consider $X(t)$, $Y(t)$ It\^o processes in $\RNums$, where
 
 \begin{align}
-	dX_t = \mu_1 dt + \sigma_1 dW^{(1)}_t\nonumber\\
-	dY_t = \mu_2 dt + \sigma_2 dW^{(2)}_t\nonumber
+	dX_t &= \mu_1 dt + \sigma_1 dW^{(1)}_t\nonumber, \text{ and}\\
+	dY_t &= \mu_2 dt + \sigma_2 dW^{(2)}_t\nonumber.
 \end{align}
  and $g(x,y) = xy$. What is the dynamic of $g(X_t, Y_t)$?\\
 
@@ -531,4 +531,93 @@ Therefore,
   S_t = S_0e^{\left(\mu - \frac{1}{2}\sigma^2\right) t + \sigma\int_0^t dW_s}.
 \end{equation}
 
+\begin{theorem}[\textbf{Feynman-Kac}]
+	Consider the following partial differential equation
+	\begin{equation}
+		\partialwrt{C}{t}{(t,x)}	 + \mu(t, x)\partialwrt{C}{x}{(t,x)} + \frac{1}{2}\sigma^2(t,x)\partialwrt[2]{C}{x}{(t,x)}  - V(t,x)C(t,x) + f(x,t) = 0 \label{eq:feynman_kac_pde}.
+	\end{equation}
+	Defined for $x\in\RNums$, $t\in[0,T]$ and subject to the final boundary condition $C(T, X_T) = P(X_T)$. Then, $C(x,t)$ can be written as the following conditional expectation
+	\begin{equation}
+	C(t, x) = \Exp{\int_t^Te^{-\int_t^r V(X_\tau, \tau) d\tau} f(X_r, r) dr + e^{-\int_t^TV(\tau, X_\tau) d\tau} P(X_T)| \salgF_t}.
+	\end{equation}
+
+Where $X_t$ is the It\^o process $dX_t = \mu(t,x) dt + \sigma(t, X_t) dW_t$.
+\end{theorem}
+
+\begin{proof}
+Let
+\begin{equation}
+	Y_s = e^{-\int_t^s V(\tau, X_\tau) d\tau}C(X_s, s) + \int_t^s e^{-\int_t^rV(\tau, X_\tau)}f(X_r, r) dr.
+\end{equation}
+
+Applying It\^o's product rule (\ref{eq:ito_rule_product}) we get
+\begin{align}
+	dY_s &= d\left(e^{-\int_t^s V(\tau, X_\tau) d\tau}C(X_s, s) + \int_t^s e^{-\int_t^rV(\tau, X_\tau)}f(X_r, r) dr\right) \nonumber \\
+	&= d\left(e^{-\int_t^s V(\tau, X_\tau) d\tau}\right)C(X_s, s) + e^{-\int_t^s V(\tau, X_\tau) d\tau}d\left(C(X_s, s)\right) + \nonumber \\
+	&\phantom{{}=1} d\left(e^{-\int_t^s V(\tau, X_\tau) d\tau}\right)d\left(C(X_s, s)\right) + d\left(\int_t^s e^{-\int_t^rV(\tau, X_\tau)}f(X_r, r) dr\right) \label{eqproof:feynman_kac_Ys1}.
+\end{align}
+
+Where we note
+\begin{equation}
+  d\left(e^{-\int_t^s V(\tau, X_\tau) d\tau}\right) = e^{-\int_t^s V(\tau, X_\tau) d\tau}\left(-V(s, X_s) ds\right).
+\end{equation}
+
+It follows that 
+\begin{equation}
+    d\left(e^{-\int_t^s V(\tau, X_\tau) d\tau}\right)d\left(C(s, X_s)\right) = 0, 
+\end{equation}
+and
+\begin{equation}
+  d\left(\int_t^s e^{-\int_t^rV(\tau, X_\tau)}f(X_r, r) dr\right) = e^{-\int_t^rV(\tau, X_\tau)}f(X_s, s) ds.
+\end{equation}
+
+We rewrite (\ref{eqproof:feynman_kac_Ys1}) as
+\begin{align}
+  dY_s &= -V(s, X_s)e^{-\int_t^s V(\tau, X_\tau) d\tau}C(s, X_s) ds + e^{-\int_s^t V(\tau, X_\tau)d\tau}d(C(s, X_s))\nonumber +\\
+   &\phantom{{}=1}e^{-\int_t^s V(\tau, X_\tau)d\tau}f(s, X_s) ds\label{eqproof:feynman_kac_Ys2}.
+\end{align}
+
+Applying It\^o's formula to $d(C(s, X_s))$,
+\begin{align}
+  d(C(s, X_s)) &= \partialwrt{C}{s}{(s, X_s)} + \mu\partialwrt{C}{x}{(s, X_s)}(dX_s) + \frac{1}{2}\sigma^2\partialwrt{C}{x}{(s, X_s)} (dX_s) ^ 2\nonumber\\
+  	&= \partialwrt{C}{s}{(s, X_s)} + \mu\partialwrt{C}{x}{(s, X_s)}(\mu ds + \sigma dW_s) + \frac{1}{2}\sigma^2\partialwrt{C}{x}{(s, X_s)} \sigma^2 dt,
+\end{align}
+
+we expand (\ref{eqproof:feynman_kac_Ys2}) 
+\begin{align}
+  dY_s &= -V(s, X_s)e^{-\int_t^s V(\tau, X_\tau) d\tau}C(s, X_s) ds + \nonumber \\
+   &\phantom{{}=1} \partialwrt{C}{s}{(s, X_s)} + \mu\partialwrt{C}{x}{(s, X_s)}(\mu ds + \sigma dW_s) + \frac{1}{2}\sigma^2\partialwrt{C}{x}{(s, X_s)} \sigma^2 dt\nonumber + \\
+   &\phantom{{}=1} e^{-\int_t^s V(\tau, X_\tau)d\tau}f(s, X_s) ds\label{eqproof:feynman_kac_Ys3}.
+\end{align}
+
+Rearranging terms in (\ref{eqproof:feynman_kac_Ys3}) and considering (\ref{eq:feynman_kac_pde}),
+\begin{equation}
+	dY_s =e^{-\int_t^s V(\tau, X_\tau) d\tau} \sigma \partialwrt{C}{x}{(s, X_s)}dW_s \label{eqproof:feynman_kac_Ys4}.
+\end{equation}
+
+Integrating both sides of (\ref{eqproof:feynman_kac_Ys4}),
+\begin{equation}
+  \int_t^T dY_s =\int_t^T e^{-\int_t^s V(\tau, X_\tau) d\tau} \sigma \partialwrt{C}{x}{(s, X_s)}dW_s ds,
+\end{equation}
+
+and denoting $h(X_s) = e^{-\int_t^s V(\tau, X_\tau) d\tau} \sigma \partialwrt{C}{x}{(s, X_s)}$ we conclude that it is an It\^o integral which implies that taking its expectation conditioned up to $t$ yields
+\begin{equation}
+  \Exp{Y_T - Y_t|\salgF_t} = \Exp{h(X_\tau) dW_t|\salgF_t} = 0.
+\end{equation}
+It follows
+\begin{align}
+	\Exp{Y_T|\salgF_t} &= \Exp{Y_t|\salgF_t}\nonumber\\
+	&= \Exp{e^{-\int_t^t V(\tau, X_\tau) d\tau}C(t, X_t) + \int_t^t e^{-\int_t^rV(\tau, X_\tau)}f(X_r, r) dr|\salgF_t}\nonumber\\
+	&= \Exp{C(t, X_t)|\salgF_t}\nonumber\\
+	&= C(t, X_t).\label{eqproof:feynman_kac_exp}
+\end{align}
+
+Noting the final boundary condition and (\ref{eqproof:feynman_kac_exp}),
+\begin{align}
+  C(t, X_t) &= \Exp{Y_T|\salgF_t} \nonumber\\
+  	&= \Exp{e^{-\int_t^T V(\tau, X_\tau) d\tau}C(T, X_T) + \int_t^T e^{-\int_t^rV(\tau, X_\tau)}f(X_r, r) dr|\salgF_t}\nonumber\\
+  	&= \Exp{e^{-\int_t^T V(\tau, X_\tau) d\tau}P(X_T) + \int_t^T e^{-\int_t^rV(\tau, X_\tau)}f(X_r, r) dr|\salgF_t}\nonumber
+\end{align}
+
+\end{proof}
 \end{document}

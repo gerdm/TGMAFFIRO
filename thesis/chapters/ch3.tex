@@ -174,9 +174,7 @@ Being $d < \exp{(r\delta_t)} < u$ implies $0 < q < 1$. We can rewrite \ref{eq:v_
 $\mathcal V$ is the discounted expectation under a probability measure $\mathbb Q$; it is not the expected value of the derivative, but a change in the measure of the tree such that guarantees no arbitrage. Theoretically, this is backed up by the Radon-Nikodym derivative (see theorem \ref{th:radon-nikodym}).
 
 \section{Generalized Binomial Tree Model}
-In order to generalize our model to $n$ periods we only need to consider each node as the root of another binomial tree. Consequently, we get a tree with $n$ periods and $2^n$ nodes at $t=n$.\\
-
-\begin{figure}
+\begin{figure}[h]
 \centering
 \begin{tikzpicture}
     % First Node
@@ -236,6 +234,8 @@ In order to generalize our model to $n$ periods we only need to consider each no
 \caption{The $n$-period model}
 \end{figure}
 
+In order to generalize our model to $n$ periods we only need to consider each node as the root of another binomial tree. Consequently, we get a tree with $n$ periods and $2^n$ nodes at $t=n$.\\
+
 To motivate this generalized model, we will now present an example of a $3$-period binomial model.
 % Find another name for this example..
 \subsection{An Example}
@@ -249,7 +249,7 @@ We set up to price a call option on $S_0$ with strike price $K=110$, three perio
 
 Since $S$ can either move up or down with known factors $u$ and $d$ respectively, we know all the values the stock can take up to $t=3$. For example, from $t=0$ to $t=1$, the stock can either move to $100 \cdot 1.20$, or down to $100 \cdot 0.80$.\\
 
-\begin{figure}
+\begin{figure}[h]
 \centering
 \begin{tikzpicture}
     \node (s) at (0,0) {100};
