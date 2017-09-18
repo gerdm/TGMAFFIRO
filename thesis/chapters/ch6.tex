@@ -3,9 +3,9 @@
 \begin{document}
 \section{Markets}
 \begin{definition}[\textbf{Markets}]
-	A market $X(t) = \{X_i(t)\}_{i=0}^n$ is an $\salgF_t$ adapted $n+1$ It\^o Process where
+	A market $X(t) = \{X_i(t)\}_{i=0}^n$ is an $\salgF^{(m)}_t$-adapted $n+1$ It\^o Process where
 	\begin{equation}
-		dX_0 = \rho(t,\omega) X_0(t) dt; \ X(0) = 1, \label{eq:safe_investment}
+		dX_0 = \rho(t,\omega) X_0(t) dt; \ X(0) = 1; \label{eq:safe_investment}
 	\end{equation}
 	
 	and
@@ -45,7 +45,124 @@ This implies
 			&= \nu(t)dX_i + X_id\nu(t) + d\nu(t)dX_i(t)\nonumber\\
 			&= \nu(t) [\mu_i dt + \sigma_i dW(t)] + X_i[\nu(t))(-\rho dt)] + \nonumber\\
 			&\phantom{{}=1} [\nu(t)(-\rho dt)\cdot(\mu_i dt + \sigma_i dW(t))]\nonumber\\
-			&=\nu(t)[(\mu_i - X_i\rho)dt + \sigma_i dW(t)]
+			&=\nu(t)[(\mu_i - \rho X_i)dt + \sigma_i dW(t)] \label{eq:discounted_market}.
 \end{align}
+
+Considering (\ref{eq:discounted_market}) as $d\XBar_i(t) = \nu(t)[(\mu_i dt + \sigma_i dW(t)) - \rho X_i(t)] = \nu(t)[dX_i(t) - \rho X_i(t)]$, we can represent the discounted market in the following matrix form:
+\begin{equation}
+  d\XBar(t) = \nu(t)[dX(t) - \rho X(t)]. \label{eq:discounted_market_matrix}
+\end{equation}
+
 \end{remark}
+
+\begin{definition}[\textbf{Portfolio}]
+	A portfolio $\theta(t)$ in the market $\market$ is an ($n+1$)-dimensional $(t,\omega)$-measurable and $\salgF_t^{(m)}$-adapted stochastic process
+	\begin{equation}
+		\theta(t,\omega) = \{\theta_{i}(t,\omega)\}_{i=0}^{n} \ \forall \ t\in[0, T].
+	\end{equation}
+\end{definition}
+
+The value $\theta_i(t,\omega)$ represents the amount of units for the asset $X_i$ held at time $t$.
+
+\begin{definition}[\textbf{The value process}]
+	The value at time $t$ for the portfolio $\theta$ is defined as
+	\begin{equation}
+		V(t) = \innerprod{\theta(t)}{X(t)} = \theta(t) \cdot X(t)
+	\end{equation}
+\end{definition}
+The value $\theta_i(t,\omega)$ represents the amount of units for the asset $X_i$ held at time $t$.
+
+\begin{definition}[\textbf{Self-financing portfolio}]
+	The portfolio $\theta(t)$ is said to be self-financing if
+	\begin{equation}
+	\int_0^T\{|\theta_0\rho(s)X_0(s) + \sum_{i=1}^{n}\theta_i(s)\mu(s)| + \sum_{j=1}^m\left[\sum_{i=1}^n\theta_i(s)\sigma_{ij}(s)\right]^2\} ds < \infty,
+	\end{equation}
+and 
+\begin{equation}
+  dV(t) = \innerprod{\theta(t)}{dX(t)} \iff V(t) = V(0)  + \int_0^t \theta(s) dX(s).
+\end{equation}
+
+The change in the value of the portfolio is given uniquely by the change in the value of the asset; there is no influx or outflow of money for every $t\in(0,T]$.
+\end{definition}
+
+\begin{remark}
+	Let $\theta$ be self-financing in the market $\market$ and denote
+	\begin{equation}
+		\bar V^\theta(t) = \theta(t)\bar X(t) = \nu(t) V^\theta(t)
+	\end{equation}
+the normalized (or discounted) value process.
+
+Then,
+\begin{align}
+	d\valueProcessNorm{t	} &= \nu(t) d\valueProcess{t} + d\nu(t) \valueProcess{t} + d\nu(t) d\valueProcess{t}\nonumber\\
+	&= \nu(t)\theta(t)dX(t) + \valueProcess{t}\nu(t)(-\rho(t)dt)\nonumber\\
+	&= \nu(t)\theta(t)\left[dX(t) - X(t)\rho(t)dt\right]\nonumber\\
+	&= \nu(t)d\XBar(t).\label{eq:change_norm_value_process}
+\end{align}
+
+Where (\ref{eq:change_norm_value_process}) follows from (\ref{eq:discounted_market_matrix}). We conclude that $\theta$ is also self-financing in $\normarket$.
+\end{remark}
+
+
+\begin{definition}[\textbf{Admissible Portfolio}]
+	A self-financing portfolio is said to be admissible if $\valueProcessNorm{t}$ is (a.s) lower bounded. i.e., there exists $L < \infty$ such that
+	\begin{equation}
+		\valueProcess{t, \omega}  \geq -L \ \text{for a.a. } (t,\omega) \in [0,T]\times \Omega.
+	\end{equation}
+\end{definition}
+
+\begin{definition}[\textbf{An arbitrage}]
+	An admissible portfolio is said to be an arbitrage if $V(0) = 0$ and
+	\begin{itemize}
+		\item $\valueProcess{T} \geq 0$ a.s.; and
+		\item $\Pm\left(\valueProcess{T} > 0 \right) > 0$.
+	\end{itemize}
+\end{definition}
+
+It turns out that having a market constraint to only admissible portfolios lead to a market with arbitrage (see \aycite{oksendal}). We are interested in markets where no arbitrage is possible. If so, what requirements other constraints are necessary for $\market$ such that no arbitrage is possible?
+
+\begin{definition}
+	A measure $\Qm \sim \Pm$ for which the normalized price process $\normarket$ is a (local) martingale w.r.t. $\Qm$ is called an equivalent local martingale measure (EMM).
+\end{definition}
+
+\begin{proposition}
+	Suppose there exists an equivalent local martingale measure $\Qm$ for the market $\normarket$ then $\market$ is an arbitrage-free market.
+\end{proposition}
+
+\begin{proposition}\label{prop:qmartingale-market}
+	Suppose there exists an $m$-dimensional process $u$ in the extended family for It\^o integrals, where $X(t, \omega) = \{X_i(t,\omega)_{i=1}^n\}$ and
+	\begin{equation}
+		\sigma(t,\omega)u(t,\omega) = \mu(t, \omega) - \rho(t, \omega)X(t,\omega).
+	\end{equation}
+
+Let us define the measure $\Qm$, and the process $\QBm{t}$ such that
+\[
+	d\Qm(\omega) = e^{-\int_0^Tu(t,\omega) dW(t) - \frac{1}{2}\int_0^Tu^2(t,\omega) dt}d\Pm,
+\]
+
+and
+\[
+	\QBm{t} := \int_0^tu(s,\omega) ds + W(t).
+\]
+Then,
+\begin{enumerate}
+	\item $\QBm{t}$ is a Brownian motion and a $\salgF_t^{(m)}$-martingale w.r.t. $\Qm$;
+	\item The representation of the normalized market $\normarket$ is given by
+	\begin{align*}
+		d\XBar_0(t) &= 0 \\
+		d\XBar_i(t) &= \nu(t)\sigma_i d\QBm{t}
+	\end{align*}
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	The first part of \ref{prop:qmartingale-market} follows from the Girsanov theorem. For the second one consider $d\XBar_i$ and (\ref{eq:discounted_market}) then,
+	\begin{align*}
+		d\XBar_i &= d(\nu(t)X_i(t)) \\
+		&= \nu(t)[(\mu_i - \rho X_i)dt + \sigma_i dW(t)]\\
+		&= \nu(t)[(\mu_i - \rho X_i)dt + \sigma_i (d\QBm{t} - u_i(t)dt)]\\
+		&= \nu(t)[(\mu_i - \rho X_i)dt + \sigma_i (d\QBm{t} - \frac{\mu_i - \rho X_i(t)}{\sigma_i})dt]\\
+		&= \nu(t)\sigma_id\QBm{t}. 
+	\end{align*}
+\end{proof}
 \end{document}

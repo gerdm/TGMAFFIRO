@@ -477,7 +477,7 @@ If we represent $\mu$ as a matrix ($n\times 1$) of elements $m_i$; $\sigma$ a ma
 \end{theorem}
 
 %TODO: Add graph of simulated process
-As an example of \ref{th:general_ito_formula} we consider $X(t)$, $Y(t)$ It\^o processes in $\RNums$, where
+As an example of \ref{th:general_ito_formula} we consider $X(t)$, $Y(t)$ It\^o processes in $\RNums$ where
 
 \begin{align}
 	dX_t &= \mu_1 dt + \sigma_1 dW^{(1)}_t\nonumber, \text{ and}\\
@@ -616,7 +616,7 @@ Noting the final boundary condition and (\ref{eqproof:feynman_kac_exp}),
 \begin{align}
   C(t, X_t) &= \Exp{Y_T|\salgF_t} \nonumber\\
   	&= \Exp{e^{-\int_t^T V(\tau, X_\tau) d\tau}C(T, X_T) + \int_t^T e^{-\int_t^rV(\tau, X_\tau)}f(X_r, r) dr|\salgF_t}\nonumber\\
-  	&= \Exp{e^{-\int_t^T V(\tau, X_\tau) d\tau}P(X_T) + \int_t^T e^{-\int_t^rV(\tau, X_\tau)}f(X_r, r) dr|\salgF_t}\nonumber
+  	&= \Exp{e^{-\int_t^T V(\tau, X_\tau) d\tau}P(X_T) + \int_t^T e^{-\int_t^rV(\tau, X_\tau)}f(X_r, r) dr|\salgF_t}\nonumber.
 \end{align}
 
 \end{proof}
