@@ -165,4 +165,37 @@ Then,
 		&= \nu(t)\sigma_id\QBm{t}. 
 	\end{align*}
 \end{proof}
+
+\begin{definition}[\textbf{Claims}]
+\begin{enumerate}
+	\item A contigent claim $T$ is a lower bounded $\salgF_t^{(m)}$-measurable random variable $C(\omega)$;
+	\item A claim $C(\omega)$ is said to be attainable if there exists an admissible portfolio $\theta(t)$ and $z\in\RNums$ such that
+	\[
+		C(\omega) = V_z^{\theta}(T) := z + \int_0^T \theta(t)dX(t); \text{ and}
+	\]
+	% with z as our initial fortune we can ﬁnd an admissible portfolio θ(t) which generates a value V z θ (T) at time T which a.s. equals F: V_z^\theta(T,\omega) = C(\omega) for a.a, \omega
+	\item A market $\market$ is said to be complete if every bounded claim at time $T$ is attainable.
+\end{enumerate}
+\end{definition}
+
+%TODO: we are considering a model with two components, namely, the risk free asset and the risky asset from which we will derive the price from.
+% C is a twice co
+\begin{theorem}[\textbf{Black-Scholes Equation}]
+	Consider a payoff $g(\omega)$ at time $T$. The price of the payoff at time $0\leq t\leq T$ is given by $C(t,S_t)$, where $C$ is the solution to the partial differential equation
+	\begin{equation}
+		\partialwrt{C}{t} + \frac{1}{2}\sigma^2S^2\partialwrt[2]{C}{S} + rS\partialwrt{C}{S} - rC = 0,
+	\end{equation}
+
+with final boundary condition $C(T,S_T) = g(S_T)$.
+\end{theorem}
+
+\begin{proof}
+	Let $C(t, S_t)$ the value of the payoff at time $t$ and $dS_t = S_t(\mu dt + \sigma dW_t)$ the dynamics of the stock. The derivative of $C$ is given by
+	\begin{align}
+		dC(t,S_t) &= \partialwrt{C}{t}{(t, S_t)} dt + \partialwrt{C}{s}{(t, S_t)} dS_t + \frac{1}{2}\partialwrt[2]{C}{s}{(t, S_t)} (dS_t)^2 \nonumber \\
+			&= \partialwrt{C}{t}{(t, S_t)} dt + \partialwrt{C}{s}{(t, S_t)} (\mu dt + \sigma dW_t) + \frac{1}{2}\partialwrt[2]{C}{s}{(t, S_t)} (S_t\sigma)^2 dt \nonumber\\
+			&= \left(\partialwrt{C}{t}{(t, S_t)} + \mu S_t\partialwrt{C}{s}(t, S_t) + (S_t\sigma)^2\frac{1}{2}\partialwrt[2]{C}{s}{(t, S_t)} \right) dt  + S_t\sigma\partialwrt{C}{s}{(t, S_t)} \nonumber
+	\end{align}
+
+\end{proof}
 \end{document}
