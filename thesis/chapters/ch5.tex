@@ -618,6 +618,43 @@ Noting the final boundary condition and (\ref{eqproof:feynman_kac_exp}),
   	&= \Exp{e^{-\int_t^T V(\tau, X_\tau) d\tau}C(T, X_T) + \int_t^T e^{-\int_t^rV(\tau, X_\tau)}f(X_r, r) dr|\salgF_t}\nonumber\\
   	&= \Exp{e^{-\int_t^T V(\tau, X_\tau) d\tau}P(X_T) + \int_t^T e^{-\int_t^rV(\tau, X_\tau)}f(X_r, r) dr|\salgF_t}\nonumber.
 \end{align}
+\end{proof}
+
+
+\section{Girsanov}
+\begin{theorem}[\textbf{The Lévy characterization of the Brownian Motion}]
+	let $W_t$ be a one dimensional Brownian Motion adapted to $\salgF_t$. Then $(W_t^2 - t)$ is a martingale w.r.t. $\salgF$.
+	The converse is also true: if $\ctspr$ is any continuous time stochastic process adapted to $\salgF_t$ such that
+	\begin{itemize}
+		\item $X_0 = 0$;
+		\item $X_t$ is a martingale w.r.t. $\salgF_t$; and
+		\item $(X_t^2 - t)$ is a martingale w.r.t. $\salgF_t$.
+	\end{itemize}
+	
+	Then $X_t$ is a Brownian motion.
+\end{theorem}
+
+\begin{proposition}
+	Let $\mu$ and $\lambda$ be two probability measures defined over $(\Omega, \salgF)$ where $d\lambda(\omega) = f(\omega)d\mu(\omega)$ for some $f\in L_1$. If $X$ is a random variable over $(\Omega, \salgF)$ such that
+	\begin{equation}
+		\ExpMeasure{\lambda}{|X|} = \int_\Omega |X(\omega)| f(\omega) d\mu(\omega) < \infty,
+	\end{equation}
+	and $\mathscr{H}\subseteq\salgF$ a $\salg$. Then,
+	\begin{equation}
+	  \ExpMeasure{\lambda}{X|\mathscr{H}} \cdot \ExpMeasure{\mu}{f|\mathscr{H}} = \ExpMeasure{\mu}{fX|\mathscr H} \text{ a.s.}
+	\end{equation}
+\end{proposition}
+
+\begin{proof}
+	Let $H\in\mathscr{H}$. By definition of the conditional expectation,
+	\begin{align}
+		\int_H \ExpMeasure{\lambda}{X|\mathscr H} fd\mu &= \int_H \ExpMeasure{\lambda}{X|\mathscr H} d\lambda\nonumber\\
+		&= \int_H X d\lambda\nonumber \\
+		&= \int_H (Xf)d\mu\nonumber \\
+		&= \int_H \ExpMeasure{\lambda}{Xf|\mathscr H} d\mu
+	\end{align}
+	
+On the other hand,
 
 \end{proof}
 \end{document}
