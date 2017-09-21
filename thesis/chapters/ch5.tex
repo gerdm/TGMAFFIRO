@@ -622,7 +622,7 @@ Noting the final boundary condition and (\ref{eqproof:feynman_kac_exp}),
 
 
 \section{Girsanov}
-\begin{theorem}[\textbf{The Lévy characterization of the Brownian Motion}]
+\begin{theorem}[\textbf{Lévy's characterization of Brownian Motion}]\label{th:levy_brownian motion}
 	let $W_t$ be a one dimensional Brownian Motion adapted to $\salgF_t$. Then $(W_t^2 - t)$ is a martingale w.r.t. $\salgF$.
 	The converse is also true: if $\ctspr$ is any continuous time stochastic process adapted to $\salgF_t$ such that
 	\begin{itemize}
@@ -634,7 +634,7 @@ Noting the final boundary condition and (\ref{eqproof:feynman_kac_exp}),
 	Then $X_t$ is a Brownian motion.
 \end{theorem}
 
-\begin{proposition}
+\begin{proposition}\label{prop:expectation_two_measures}
 	Let $\mu$ and $\lambda$ be two probability measures defined over $(\Omega, \salgF)$ where $d\lambda(\omega) = f(\omega)d\mu(\omega)$ for some $f\in L_1$. If $X$ is a random variable over $(\Omega, \salgF)$ such that
 	\begin{equation}
 		\ExpMeasure{\lambda}{|X|} = \int_\Omega |X(\omega)| f(\omega) d\mu(\omega) < \infty,
@@ -651,10 +651,124 @@ Noting the final boundary condition and (\ref{eqproof:feynman_kac_exp}),
 		\int_H \ExpMeasure{\lambda}{X|\mathscr H} fd\mu &= \int_H \ExpMeasure{\lambda}{X|\mathscr H} d\lambda\nonumber\\
 		&= \int_H X d\lambda\nonumber \\
 		&= \int_H (Xf)d\mu\nonumber \\
-		&= \int_H \ExpMeasure{\lambda}{Xf|\mathscr H} d\mu
+		&= \int_H \ExpMeasure{\lambda}{Xf|\mathscr H} d\mu. \label{eqproof:expectation_two_measures1}
 	\end{align}
 	
 On the other hand,
+\begin{align}
+	\int_H \ExpMeasure{\lambda}{X|\salgH} fd\mu &= \int_\Omega \ExpMeasure{\lambda}{X|\salgH}\ind_H f d\mu\nonumber\\
+	&= \ExpMeasure{\mu}{\ExpMeasure{\lambda}{X|\salgH}\ind_H f}\nonumber\\
+	&= \ExpMeasure{\mu}{\ExpMeasure{\mu}{\ExpMeasure{\lambda}{X|\salgH}\ind_H f | \salgH}}\nonumber\\
+	&= \ExpMeasure{\mu}{\ind_H\ExpMeasure{\lambda}{X|\salgH} \ExpMeasure{\mu}{f | \salgH}}\nonumber\\
+	&= \int_H \ExpMeasure{\lambda}{X|\salgH} \ExpMeasure{\mu}{f | \salgH} d\mu.\label{eqproof:expectation_two_measures2}
+\end{align}
 
+If follows from (\ref{eqproof:expectation_two_measures1}) and (\ref{eqproof:expectation_two_measures2}) that
+\begin{equation}
+  \int_H \ExpMeasure{\lambda}{Xf|\mathscr H} d\mu = \int_H \ExpMeasure{\lambda}{X|\salgH} \ExpMeasure{\mu}{f | \salgH} d\mu.
+\end{equation}
+\end{proof}
+\begin{theorem}[\textbf{Girsanov Theorem v.1}]
+	Let $Y_t$ be a one dimensional It\^o process:
+	\[
+		dY_t = a(t, \omega) dt + dW_t(\omega); \ t \leq T, Y_0 = 0.
+	\]
+
+Set 
+\[
+	M_t = e^{-\int_0^t a(s,\omega) dW_s - \frac{1}{2}\int_0^t a^2(s,\omega) ds},
+\]
+
+% TODO: Prove that the following condition guarantees that the last equation is a martingale.
+such that
+\[
+	\Exp{e^{\frac{1}{2}\int_0^t a^2(s,\omega) ds}} < \infty.
+\]
+
+Define the measure $\Qm$ on $(\Omega,\salgF)$ by $d\Qm(\omega) = M_t d\Pm(\omega)$
+Then, $Y_t$ is a 1-dimensional Brownian motion w.r.t. the measure $\Qm$ defined over $(\Omega,\salgF)$ where,
+\[
+	d\Qm(\omega) = M_t d\Pm(\omega).
+\]
+\end{theorem}
+
+\begin{proof}
+By \ref{th:levy_brownian motion}, to show that $Y_t$ is indeed a Brownian motion, it must be the case that
+\begin{enumerate}
+	\item $Y_t$ is a martingale w.r.t. $\Qm$; and \label{eqproof:girsv1_1}
+	\item $Y_t^2 - t$ is a martingale w.r.t. $\Qm$. \label{eqproof:girsv1_2}
+\end{enumerate}
+
+We will assume that $a(s,\omega)$ is bounded for all $s\in[0,T]$ and $\omega\in\Omega$. To show \ref{eqproof:girsv1_1} we denote $K_t = M_t Y_t$, we consider
+\[
+	dY_t = a_t, dt + dW_t,
+\]
+
+and compute $dM_t$, $M_t = e^{X_t}$; $X_t = -\int_0^t a(s,\omega) dW_s - \frac{1}{2}\int_0^t a^2(s,\omega) ds$. Where
+\begin{equation}
+  dX_t = -a_t dW_t - \frac{1}{2}a^2_t dt \iff -a_tdW_t = \frac{1}{2}a^2_tdt + dX_t.
+\end{equation}
+
+It follows that, for $g(t, x) = e^x$,
+\begin{align}
+	dM_t = dg(X_t) &= \partialwrt{g}{t}{(t, X_t)} dt + \partialwrt{g}{x}{(t, X_t)} dX_t + \frac{1}{2}\partialwrt[2]{g}{x}{t, X_t} (dX_t)^2. \nonumber \\
+	&= e^{X_t} (dX_t) + \frac{1}{2}e^{X_t}(a^2_t dt) \nonumber \\
+	&= e^{X_t}(dX_t + \frac{1}{2}a^2_t dt) \nonumber \\
+	&= -M_ta_tdW_t.
+\end{align}
+
+Now,
+\begin{align}
+	dK_t &= d(M_tY_t)\nonumber \\
+		&= Y_t(dM_t) + M_t(dY_t) + (dM_t)(dY_t). \nonumber\\
+		&= Y_t(-M_ta_tdW_t) + + M_t(a_t, dt + dW_t) + (-M_ta_tdW_t))(a_t, dt + dW_t)\nonumber \\
+		&= M_t(-Y_t a_t dW_t + a_t dt + dW_t - a^2_tdW_tdt - a_t dt) \nonumber \\
+		&= M_t(1 - Y_t a_t)dW_t.
+\end{align}
+
+Since $dK_t$ has no drift, it proves that $M_tY_t$ is a martingale w.r.t. $\Pm$.
+
+To conclude that $Y_t$ is a martingale w.r.t. $\Qm$, let $0 \leq t \leq s \leq T$. By \ref{prop:expectation_two_measures},
+
+\[
+	\ExpMeasure{\Qm}{Y_s|\salgF_t} \cdot \ExpMeasure{\Pm}{M_s|\salgF_t} = \ExpMeasure{\Pm}{M_sY_s|\salgF_t}
+\]
+
+Then,
+\begin{align}
+	\ExpMeasure{\Qm}{Y_s | \salgF_t} &= \ExpMeasure{\Pm}{M_sY_s|\salgF_t} / \ExpMeasure{\Pm}{M_s|\salgF_t} \nonumber\\
+	&=\ExpMeasure{\Pm}{K_s|\salgF_t} / \ExpMeasure{\Pm}{M_s|\salgF_t} \nonumber\\
+	&= K_t / M_t \nonumber \\
+	&= Y_t. \label{eqproof:girsv1_3}
+\end{align}
+
+Which concludes the first part of the proof: $Y_t$ is a Brownian motion w.r.t. $\Qm$.\\
+
+To show \ref{eqproof:girsv1_2}, denote $R_t = M_tG_t(\omega)$; $G_t(\omega) := Y_t^2 -t$; and $g(t,x) = x^2- t$. As in the first, part of the proof, we will first prove that $R_t$ is a martingale w.r.t. $\Pm$, and will conclude that $G_t$ is a martingale w.r.t. $\Qm$. To do so, we see that
+\begin{align}
+	dG(t,\omega) &= \partialwrt{g}{t}{(t,Y_t)} dt + \partialwrt{g}{x}{(t,Y_t)} (dY_t) + \frac{1}{2}\partialwrt{g}{x}{(t,Y_t)}(dY_t)^2\nonumber\\
+	&= -dt + 2Y_t dY_t + (dY_t) ^2 \nonumber \\
+	&= -dt + 2Y_t dY_t + dt \nonumber \\
+	&= 2Y_t(a_t, dt + dW_t).
+\end{align}
+
+Now,
+\begin{align}
+	dR_t &= M_t (dG_t) + G_t (dM_t) + (dG_t)(dM_t)\nonumber\\
+		&= M_t(2Y_t[a_t, dt + dW_t]) + G_t(-M_ta_tdW_t) + (2Y_t[a_t, dt + dW_t])(-M_ta_tdW_t) \nonumber\\
+		&= 2Y_tM_ta_tdt + 2M_tY_tdW_t - G_tM_ta_tdW_t - 2Y_tM_ta_tdt \nonumber\\
+		&= M_t(wY_t - G_ta_t)dW_t.
+\end{align}
+
+Noting that $R_t$ is a martingale, 
+\begin{equation}
+	\ExpMeasure{\Qm}{G_s | \salgF_t} \ExpMeasure{\Pm}{M_s|\salgF_t} = \ExpMeasure{\Pm}{G_sM_s|\salgF_t}.
+\end{equation}
+Then,
+\begin{align}
+	\ExpMeasure{\Qm}{G_s | \salgF_t} &= \ExpMeasure{\Pm}{G_sM_s|\salgF_t} / \ExpMeasure{\Pm}{M_s|\salgF_t}\nonumber\\
+	&= \ExpMeasure{\Pm}{R_s|\salgF_t} / \ExpMeasure{\Pm}{M_s|\salgF_t}\nonumber\\
+	&= G_s.
+\end{align}
 \end{proof}
 \end{document}
