@@ -97,7 +97,7 @@ Then,
 	d\valueProcessNorm{t	} &= \nu(t) d\valueProcess{t} + d\nu(t) \valueProcess{t} + d\nu(t) d\valueProcess{t}\nonumber\\
 	&= \nu(t)\theta(t)dX(t) + \valueProcess{t}\nu(t)(-\rho(t)dt)\nonumber\\
 	&= \nu(t)\theta(t)\left[dX(t) - X(t)\rho(t)dt\right]\nonumber\\
-	&= \nu(t)d\XBar(t).\label{eq:change_norm_value_process}
+	&= \nu(t)\theta(t)d\XBar(t).\label{eq:change_norm_value_process}
 \end{align}
 
 Where (\ref{eq:change_norm_value_process}) follows from (\ref{eq:discounted_market_matrix}). We conclude that $\theta$ is also self-financing in $\normarket$.
@@ -194,8 +194,9 @@ with final boundary condition $C(T,S_T) = g(S_T)$.
 	\begin{align}
 		dC(t,S_t) &= \partialwrt{C}{t}{(t, S_t)} dt + \partialwrt{C}{s}{(t, S_t)} dS_t + \frac{1}{2}\partialwrt[2]{C}{s}{(t, S_t)} (dS_t)^2 \nonumber \\
 			&= \partialwrt{C}{t}{(t, S_t)} dt + \partialwrt{C}{s}{(t, S_t)} (\mu dt + \sigma dW_t) + \frac{1}{2}\partialwrt[2]{C}{s}{(t, S_t)} (S_t\sigma)^2 dt \nonumber\\
-			&= \left(\partialwrt{C}{t}{(t, S_t)} + \mu S_t\partialwrt{C}{s}(t, S_t) + (S_t\sigma)^2\frac{1}{2}\partialwrt[2]{C}{s}{(t, S_t)} \right) dt  + S_t\sigma\partialwrt{C}{s}{(t, S_t)} \nonumber
+			&= \left(\partialwrt{C}{t}{(t, S_t)} + \mu S_t\partialwrt{C}{s}(t, S_t) + (S_t\sigma)^2\frac{1}{2}\partialwrt[2]{C}{s}{(t, S_t)} \right) dt  + S_t\sigma\partialwrt{C}{s}{(t, S_t)} dW_t\nonumber
 	\end{align}
-
+	
+	Since we want $C(t, S_t)$ to tbe the value of the self-financing portfolio that attains the claim at time $T$. Then, $C(0, S_0)$ must be the replication cost, i.e., the value of the option at $t=0$. 
 \end{proof}
 \end{document}

@@ -314,8 +314,13 @@ I.e., there exists a $t$-continuous stochastic process $Y_t$ defined over $\Prob
 	Let $W(\cdot) := \{W_t : t\geq 0\}$ a Brownian motion process over $\ProbSpace$ and let $\mathscr{G}$, a family of $\salg$s where
 	\begin{enumerate}
 		\item $\mathscr{G}(s) \subseteq \mathscr{G}(t)$ for all $0\leq s \leq t$;
-		\item $W(\cdot)$ is adapted to $\mathscr{G}(\cdot)$, i.e.,
-		\item For all $f\geq 0$ and $h > 0$, $W_{t+h} - W_t$ is independent of $\mathscr{G}(t)$.
+		\item For all $t, h > 0$, $W_{t+h} - W_t$ is independent of $\mathscr{G}(t)$.
+	\end{enumerate}
+	We define the family of processes $f\in\Nhatfam{0}{T}$
+	\begin{enumerate}
+		\item $(t, \omega) \to f(t, \omega):[0, \infty]\times\Omega \to \RNums$ is $\borelsalg\times\salgF$ measurable;
+		\item $\int_0^t f^2(s) ds < \infty$ a.s.; and
+		\item $f(\cdot, \omega)$ is independent of $\mathscr{G}(\cdot)$.
 	\end{enumerate}
 \end{definition}
 
@@ -508,8 +513,8 @@ What is $S_t$ that satisfies (\ref{eq:stock_dynamic})?\\
 
 Consider $g(t, x)= \log x$ and $dS_t = S_t(\mu dt + \sigma dW_t)$, we see that
 \begin{align}
-	\left(dS_t\right)^2 &= (S_t)^2(\mu dt + \sigma dW_t)^2\\
-		&= (S_t)^2(\mu^2 \left(dt\right)^2 + \mu\sigma (dtdW_t) + \sigma^2 (dW_t)^2)\\
+	\left(dS_t\right)^2 &= (S_t)^2(\mu dt + \sigma dW_t)^2\nonumber\\
+		&= (S_t)^2(\mu^2 \left(dt\right)^2 + \mu\sigma (dtdW_t) + \sigma^2 (dW_t)^2)\nonumber\\
 		&= S_t^2\sigma^2 dt
 \end{align}
 
@@ -769,6 +774,54 @@ Then,
 	\ExpMeasure{\Qm}{G_s | \salgF_t} &= \ExpMeasure{\Pm}{G_sM_s|\salgF_t} / \ExpMeasure{\Pm}{M_s|\salgF_t}\nonumber\\
 	&= \ExpMeasure{\Pm}{R_s|\salgF_t} / \ExpMeasure{\Pm}{M_s|\salgF_t}\nonumber\\
 	&= G_s.
+\end{align}
+\end{proof}
+
+\begin{theorem}[\textbf{Girsanov Theorem V.2.}]
+	Let $Y_t \in R^n$ be an It\^o process of the form
+	\begin{equation}
+		dY_t = \beta(t,\omega) dt + \theta(t,\omega) dW_t
+	\end{equation}
+Where $\beta \in \RNums^{n}$, $\theta \in \RNums^{n\times m}$, and $W_t$ is an $n$ dimensional brownian motion.\\
+
+Suppose there exists a process $u(t,\omega), \alpha(t, \omega) \in \Nhatfam{0}{T}$ such that
+\[
+	\theta(t,\omega) u(t,\omega) = \beta(t, \omega) - \alpha(t, \omega),
+\]
+
+and 
+\[
+	\Exp{e^{\frac{1}{2}\int_0^T u^2(t,\omega) dt}} < \infty.
+\]
+
+Denote
+\begin{equation}
+	M_t(\omega) = e^{-\left(\int_0^t u(s,\omega) dW_s + \frac{1}{2}\int_0^t u^2(s, \omega) ds\right)},
+\end{equation}
+and $d\Qm = M_t d\Pm$ over $\salgF_t$. Then,
+\begin{equation}
+  \hat W_t := \int_0^t u(s,\omega) ds + W_t
+\end{equation}
+is a Brownian motion w.r.t. $\Qm$ and, in terms of $\hat W_t$, $Y_t$ has the stochastic integral representation
+
+\begin{equation}
+	dY_t(\omega) = \alpha(t,\omega) dt + \theta(t, \omega) d\hat W_t.	
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+	By the Girsanov Theorem V.1, $\hat W_t$ is a Brownian motion w.r.t. $\Qm$ considering
+	\begin{itemize}
+		\item $\hat W_t = \int_0^t u(s,\omega) ds + W_t$, then $dW_t = d\hat W_t - u(t,\omega) dt$;
+		\item $dY_t = \beta(t,\omega) dt + \theta(t,\omega) dW_t$; and
+		\item $\alpha(t,\omega) = \beta(t,\omega) - \theta(t,\omega) u(t,\omega)$.
+	\end{itemize}	
+Then,
+\begin{align}
+	dY_t &= \beta(t,\omega) dt + \theta(t,\omega) dW_t\nonumber\\
+	&= \beta(t,\omega) dt + \theta(t,\omega)[\hat W_t - u(t,\omega) dt]\nonumber\\
+	&= [\beta(t,\omega) - \theta(t,\omega)u(t,\omega)]dt + \theta(t,\omega)\hat W_t\nonumber\\
+	&= \alpha(t,\omega) dt + \theta(t,\omega)\hat W_t
 \end{align}
 \end{proof}
 \end{document}
