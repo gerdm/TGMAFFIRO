@@ -96,8 +96,8 @@ Then,
 \begin{align}
 	d\valueProcessNorm{t	} &= \nu(t) d\valueProcess{t} + d\nu(t) \valueProcess{t} + d\nu(t) d\valueProcess{t}\nonumber\\
 	&= \nu(t)\theta(t)dX(t) + \valueProcess{t}\nu(t)(-\rho(t)dt)\nonumber\\
-	&= \nu(t)\theta(t)\left[dX(t) - X(t)\rho(t)dt\right]\nonumber\\
-	&= \nu(t)\theta(t)d\XBar(t).\label{eq:change_norm_value_process}
+	&= \theta(t)\nu(t)\left[dX(t) - X(t)\rho(t)dt\right]\nonumber\\
+	&= \theta(t)d\XBar(t).\label{eq:change_norm_value_process}
 \end{align}
 
 Where (\ref{eq:change_norm_value_process}) follows from (\ref{eq:discounted_market_matrix}). We conclude that $\theta$ is also self-financing in $\normarket$.
@@ -178,8 +178,7 @@ Then,
 \end{enumerate}
 \end{definition}
 
-%TODO: we are considering a model with two components, namely, the risk free asset and the risky asset from which we will derive the price from.
-% C is a twice co
+%TODO: we are considering a model with two components, namely, the risk free asset and the risky asset from which we will derive the price from. Since this market is normalized, then we only consider the asset as the risky stock in this market.xxxxxx
 \begin{theorem}[\textbf{Black-Scholes Equation}]
 	Consider a payoff $g(\omega)$ at time $T$. The price of the payoff at time $0\leq t\leq T$ is given by $C(t,S_t)$, where $C$ is the solution to the partial differential equation
 	\begin{equation}
@@ -189,6 +188,7 @@ Then,
 with final boundary condition $C(T,S_T) = g(S_T)$.
 \end{theorem}
 
+% We will prove the Black-Scholes formula vía replication following a rather informal, yet enlightning, argument
 \begin{proof}
 	Let $C(t, S_t)$ the value of the payoff at time $t$ and $dS_t = S_t(\mu dt + \sigma dW_t)$ the dynamics of the stock. The derivative of $C$ is given by
 	\begin{align}
@@ -197,6 +197,18 @@ with final boundary condition $C(T,S_T) = g(S_T)$.
 			&= \left(\partialwrt{C}{t}{(t, S_t)} + \mu S_t\partialwrt{C}{s}(t, S_t) + (S_t\sigma)^2\frac{1}{2}\partialwrt[2]{C}{s}{(t, S_t)} \right) dt  + S_t\sigma\partialwrt{C}{s}{(t, S_t)} dW_t\nonumber
 	\end{align}
 	
-	Since we want $C(t, S_t)$ to tbe the value of the self-financing portfolio that attains the claim at time $T$. Then, $C(0, S_0)$ must be the replication cost, i.e., the value of the option at $t=0$. 
-\end{proof}
+	Since $C(T, S_T)$ represents the contingent final payoff, then $C(0, S_0)$ is to be the price of the portfolio that replicates the payoff of the option, i.e., the value of the option. On the other hand, we know that the value of the replicating portfolio is given by
+	
+	\begin{equation} \label{eqproof:value_porfolio_bs_1}
+		dV^\theta(t) = \theta_0(t)dX_0  + \theta_1 dX_1
+	\end{equation}
+	
+	Let us denote $\pi(t)$ as the total amount of money held in the stock at time $t$, i.e., value of the portfolio considering only the stocks. 	Recall that $\theta_0(t)$ and $\theta_1(t)$ represent total of units in the bank (resp. stock) held at time $t$. With this in mind, we can represent the total units held in stock as the total value given by the stocks divided by the market value of a single stock ($\pi(t) / X_1(t)$). Conversely, we can represent the total units in the bank account as the value of the portfolio given by the units in the bank account divided by the value the bank account at time $t$ ($(V^\theta(t) - \pi(t)) / X_0(t)$) with this in mind, we rewrite (\ref{eqproof:value_porfolio_bs_1}) as
+	
+	\begin{align}
+		dV^\theta(t) &=  \frac{V^\theta(t) - \pi(t)}{X_0}dX_0 + \frac{\pi(t)}{X_1} dX_1 \\
+		&= \frac{V^\theta(t) - \pi(t)}{X_0} () + \frac{\pi(t)}{X_1} dX_1
+	\end{align}
+	
+ \end{proof}
 \end{document}
