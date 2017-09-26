@@ -258,6 +258,19 @@ with final boundary condition $C(T,S_T) = g(S_T)$.
  \end{proof}
  
  \begin{remark}
- 	The Black-Scholes formula (\ref{eq:black-scholes-formula}), together with condition (\ref{eq:replication_condition}) means that we can replicate the payoff $g(S_T)$ if we adjust the portfolio accordingly. Furthermore, the price of the derivative at time $t$ does not depend on the mean return rate of the underlying $\mu$.
+ 	The Black-Scholes formula (\ref{eq:black-scholes-formula}), together with condition (\ref{eq:replication_condition}) means that we can replicate the payoff $g(S_T)$ if we adjust the portfolio accordingly. Furthermore, the price of the derivative at time $t$ does not depend on the mean return rate of the underlying $\mu$. Solving for $C$ then, implies getting the price of the derivative for which replication can be performed.
  \end{remark}
+ 
+ \section{Risk-Neutral Pricing}
+ Another approach to value the option is to compute the expected value of the derivative under the risk-neutral probability $\Qm$. By Girsanov's Theorem, we know there exists a unique probability $\Qm$ under which $W^\Qm$ is a Brownian Motion. In fact, \ref{prop:qmartingale-market} guarantees that the discounted market value of the stock $S_t$ is a martingale
+ 
+ \begin{align*}
+ 	dS_t = S_t(r dt + \sigma dW_t) 
+ \end{align*}
+ 
+ \begin{equation}
+ 	\ExpMeasure{\Qm}{e^{-rT}g(S_T)} = \ExpMeasure{\Qm}{e^{-rT}[S_t - K]^+}
+ \end{equation}
+
+ 
 \end{document}

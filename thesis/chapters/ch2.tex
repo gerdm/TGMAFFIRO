@@ -315,8 +315,6 @@ If $A \in \salgF$, we define
 	\end{equation}
 \end{proposition}
 
-%TODO Add hints in how to solve them (a generalization of integrals of simple functions)
-
 \begin{theorem} \label{th:salg-lebesgue-int}
 	Let $\MeasureSpace{\mu}$ be a measurable space, and $X$ a nonnegative $\salgF$-measurable function. If $X: \Omega \to \RNums$, the mapping from $\Omega \to [0, \infty]$ given by $A \to \int_A f d\mu$ is $\sigma$-additive, i.e.
 	\begin{equation}
@@ -495,6 +493,14 @@ If the sequence $\{f_n\}_{n\geq 1}$ is such that $f_n \to f$ in measure, and $|f
 		\int f d\mu \geq \lim_{n\to\infty} \inf \int f_n d\mu.
 	\]
 \end{proof}
+
+\begin{definition}[\textbf{Equivalence}]
+	Let $\mu$, $\lambda$ two measures defined on a measure space $(\Omega, \salgF)$. The measure $\mu$ is said to be equivalent to $\lambda$ if and only if each measure is absolutely continuous w.r.t. the other. We write this as
+	\begin{equation}
+		\mu \sim \lambda \iff (\mu(A) > 0 \iff \lambda(A) > 0)
+	\end{equation}
+
+\end{definition}
 
 We now state, without proof, a theorem that allows to work with different measures under a given measure space.
 
