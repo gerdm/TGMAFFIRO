@@ -131,7 +131,7 @@ It turns out that having a market constraint to only admissible portfolios lead 
 \end{proposition}
 
 \begin{proposition}\label{prop:qmartingale-market}
-	Suppose there exists an $m$-dimensional process $u$ in the extended family for It\^o integrals, where $X(t, \omega) = \{X_i(t,\omega)_{i=1}^n\}$ and
+	Suppose there exists an $m$-dimensional process $u$ in the extended family for It\^o integrals, where $X(t, \omega) = \{X_i(t,\omega)\}_{i=1}^n$ and
 	\begin{equation}
 		\sigma(t,\omega)u(t,\omega) = \mu(t, \omega) - r(t, \omega)X(t,\omega).
 	\end{equation}
@@ -163,7 +163,7 @@ Then,
 		&= \nu(t)[(\mu_i - r X_i)dt + \sigma_i dW(t)]\\
 		&= \nu(t)[(\mu_i - r X_i)dt + \sigma_i (d\QBm{t} - u_i(t)dt)]\\
 		&= \nu(t)[(\mu_i - r X_i)dt + \sigma_i (d\QBm{t} - \frac{\mu_i - r X_i(t)}{\sigma_i})dt]\\
-		&= \nu(t)\sigma_id\QBm{t}. 
+		&= \nu(t)\sigma_id\QBm{t}.
 	\end{align*}
 \end{proof}
 
@@ -172,16 +172,72 @@ Then,
 	\item A contigent claim $T$ is a lower bounded $\salgF_t^{(m)}$-measurable random variable $C(\omega)$;
 	\item A claim $C(\omega)$ is said to be attainable if there exists an admissible portfolio $\theta(t)$ and $z\in\RNums$ such that
 	\[
-		C(\omega) = V_z^{\theta}(T) := z + \int_0^T \theta(t)dX(t); \text{ and}
+		C(\omega) = V_z^{\theta}(T) := z + \int_0^T \theta(t)dX(t) \text{a.s. and,}
 	\]
+	
+	\begin{equation}
+		\valueProcessNorm{T}	 = z + \int_0^t \nu(s)\sum_{i=1}^{n}\theta_i(s)\sigma_i(s) dW^\Qm_s \ \forall \ 0 \leq t \leq T
+	\end{equation} 
+	is a $\Qm$-martingale. If such $\theta$ exists, it is called a replicating portfolio.
 	% with z as our initial fortune we can ﬁnd an admissible portfolio θ(t) which generates a value V z θ (T) at time T which a.s. equals F: V_z^\theta(T,\omega) = C(\omega) for a.a, \omega
 	\item A market $\market$ is said to be complete if every bounded claim at time $T$ is attainable.
 \end{enumerate}
 \end{definition}
 
-\section{Black-Scholes Formula}
+\textbf{
+In what follows, we will assume $u(t,\omega) \in \Nhatfam{0}{T}$ such that
+\begin{equation}\label{eq:condition_change_measure}
+	\sigma(t,\omega) u(t,\omega) = \mu(t,\omega) - r(t,\omega) X_t,
+\end{equation}
+and let $\Qm$, and $W_t^\Qm$ such that
+\begin{align}
+  d\Qm = e^{-\left(\int_0^t u(t,\omega) dW_t + \frac{1}{2}\int_0^T u^2(t,\omega) dt\right)} d\Pm \label{eq:emmq} \\
+  W^\Qm_t := \int_0^t (s,\omega) ds + W_t
+\end{align}
+}
 
-%TODO: we are considering a model with two components, namely, the risk free asset and the risky asset from which we will derive the price from. Since this market is normalized, then we only consider the asset as the risky stock in this market.
+
+
+\begin{theorem}\label{th:arbitrage_free_market}
+	Suppose there exists a process $u(t,\omega) \in \Nhatfam{0}{T}$ for $X(t,\omega) = (X_1(t,\omega), \ldots, X_n(t,\omega))$ such that
+	\begin{equation}
+		\sigma(t,\omega) u(t,\omega) = \mu(t, \omega) - \rho(t,\omega) X(t,\omega)
+	\end{equation}
+	for a.a. $(t,\omega)$ and such that
+	
+	\begin{equation}\label{eq:condition_arbitrage_free_market}
+		\Exp{e^{\frac{1}{2}u^2(t,\omega) dt}} < \infty.
+	\end{equation}
+	
+	Then the market has no arbitrage.
+\end{theorem}
+
+\begin{theorem}\label{th:complete_market}
+	The market $\market$ is a compete if and only if there exists $\sigma(t,\omega)$ invertible for a.a. $(t,\omega)$:
+		
+	\begin{equation}
+		\sigma^{-1}(t,\omega) \sigma(t,\omega) = I_m \Rightarrow Rank(\sigma) = m
+	\end{equation}
+\end{theorem}
+
+\begin{theorem}
+	Let $C$ a European claim at time $T$ such that $\ExpMeasure{\Qm}{\nu(t)C} < \infty$ for a given complete market $\market$. Then, the price of $C$ is
+	
+	\begin{equation}
+		p(C) = q(C) = \ExpMeasure{\Qm}{\nu(t)C}
+	\end{equation}
+
+\end{theorem}
+
+\section{Black-Scholes}
+For now on, we assume a market that consists of two securities: a bond, or cash account, ($B_t$), and a stock ($S_t$). By doing this, we are effectively accessing a market with a risk-free security and a risky one. The dynamics of these two securities are as follows:
+\begin{itemize}
+	\item $dB_t = r B_t dt$
+	\item $dS_t = S_t(\mu dt + \sigma dW_t)$
+\end{itemize}
+
+With $r, \mu, \sigma \in \RNums$.
+
 \begin{theorem}[\textbf{Black-Scholes Equation}]
 	Consider a payoff $g(\omega)$ at time $T$. The price of the payoff at time $0\leq t\leq T$ is given by $C(t,S_t)$, where $C$ is the solution to the partial differential equation
 	
@@ -262,12 +318,23 @@ with final boundary condition $C(T,S_T) = g(S_T)$.
  \end{remark}
  
  \section{Risk-Neutral Pricing}
+  Pricing under replication denotes the key idea behind the Black-Scholes model: the price of the option today is the cost of the self-financing portfolio that I (the seller) should buy at the beginning of the contract in order to guarantee the final payoff.\\
+ 
+  Consider once again the two-security market proposed, condition (\ref{eq:condition_change_measure}) becomes
+\[
+	\sigma S_t u(t,\omega) = \mu S_t - r S_t \Rightarrow u = \sigma^{-1}(\mu - \sigma)
+\]
+
+
+As a consequence, we have an equivalent martingale measure $\Qm$ as defined on (\ref{eq:emmq}), hence no arbitrage by \ref{th:arbitrage_free_market}, and a complete market by \ref{th:arbitrage_free_market}
+
+ 
+ One might inquire about the price in terms, not in replicating the option, but rather about the \textit{fair} price for which both parties to pay for both buyer and seller. 
+ 
+ It turns out that, if the market is complete, 
+ 
  Another approach to value the option is to compute the expected value of the derivative under the risk-neutral probability $\Qm$. By Girsanov's Theorem, we know there exists a unique probability $\Qm$ under which $W^\Qm$ is a Brownian Motion. In fact, \ref{prop:qmartingale-market} guarantees that the discounted market value of the stock $S_t$ is a martingale
- 
- \begin{align*}
- 	dS_t = S_t(r dt + \sigma dW_t) 
- \end{align*}
- 
+  
  \begin{equation}
  	\ExpMeasure{\Qm}{e^{-rT}g(S_T)} = \ExpMeasure{\Qm}{e^{-rT}[S_t - K]^+}
  \end{equation}

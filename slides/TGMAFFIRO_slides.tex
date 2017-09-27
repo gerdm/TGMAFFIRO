@@ -27,6 +27,14 @@
 %Generates the title page
 \frame{\titlepage}
 
+\begin{frame}
+	\frametitle{Raison d'\^etre}
+	\begin{enumerate}
+		\item<1-> \textit{Plain vanilla} option pricing plays a big part in the derivatives' market;
+		\item<2-> option pricing is mainly presented as a deeply esoteric subject that is too deep to delve into, or a complex one that requires a profound understanding in stochastic-calculus and analysis;
+		\item<3-> I try to present the theory in a robust yet, accessible level for an undergraduate.
+	\end{enumerate}
+\end{frame}
 \AtBeginSection[]{
 \begin{frame}
 	\frametitle{Table of Contents}
@@ -160,199 +168,8 @@ The payoff of the option is $\max\{S_T - K, 0\}$. What is the price of the optio
 \end{figure}
 \end{frame}
 
-\section{Probability and Measure Theory}
-\begin{frame}
-\frametitle{Probability Theory}
-
-We will work on the following probability space.
-\begin{definition}[Probability Space: Kolmogorov's Axiom System]
-An ordered tripe $\ProbSpace$ where
-\begin{itemize}
-	\item $\Omega$ is a set of points $\omega$;
-	\item $\salgF$ is a $\salg$ of elements of $\Omega$; and
-	\item $\Pm$ is a probability on $\salgF$. 
-\end{itemize}
-\end{definition}
-
-\begin{definition}[Random Variable]
-	\[
-		X^{-1}(B) = \{\omega \in \Omega | X(\omega) \in B\} \ \forall \ B \subseteq \borelsalg.
-	\]
-\end{definition}
-\end{frame}
-
-%% Integrals
-\begin{frame}
-\frametitle{Integrals}
-
-\only<1>{
-\begin{definition}[Integral v.1]
-	Let $\MeasureSpace{\mu}$ be a measure space, we define the Lebesgue integral (or integral)of the indicator function $\ind_A$ w.r.t. $\mu$ as
-	\[
-		\int_\Omega \ind_A d\mu := \mu(A)
-	\]
-\end{definition}
-}
-
-\only<2>{
-\begin{definition}[Simple Function]
-	Let $(\Omega, \salgF)$ a measurable space and $X$ an $\salgF$-measurable function. It is said that $X$ is a \textbf{simple function} if it takes only a unique finite number of values $\{x_i\}_{i=1}^{n} \in \RNums$ over measurable sets $\{A_i\}$. Then, $X$ can be written as
-	\[
-		X(\omega) = \sum_{i=1}^{n}x_i\ind_{A_i}
-	\]
-\end{definition}
-
-\begin{definition}[Integral v.2]
-	let $X$ be a simple function, we define the integral of $X$ w.r.t. $\mu$ as:
-	\[
-		\int_\Omega X(\omega) d\mu(\omega) := \sum_{i=1}^{n}x_i\mu(A_i)
-	\]
-\end{definition}
-}
-
-\only<3>{
-\begin{definition}[Integral v.3]
-For any nonnegative function $X$, we define the integral of $X$ w.r.t. a measure $\mu$ as
-\[
-	\int_\Omega Xd\mu := \sup\left\{\int_\Omega h d\mu \ | \ 0 \leq h \leq X \text{, $h$ is simple}\right\}
-\]
-\end{definition}
-\begin{figure}
-	\includegraphics[width=0.50\textwidth]{../images/simple_sine}
-\end{figure}
-}
-\end{frame}
-
-\begin{frame}
-If $X$ is any measurable function, we define the positive and negative parts of $X$ as:
-\begin{align}
-	X^+ := \max\{X(\omega), 0\} \\
-	X^- := \max\{-X(\omega), 0\}
-\end{align}
-
-Thus, $X = X^+ - X^-$, and $|X| = X^+ + X^-$. Since both parts of $X$ are positive, their integrals are well defined.\\
-
-\begin{definition}[$L_1$ spaces]
-We denote by $L_1 \equiv L_1\MeasureSpace{\mu}$ the family of integrable functions w.r.t. $\mu$. Note that $X \in L_1$ if and only if $|X| \in L_1$. i.e.,
-
-\begin{equation}
-	\int_\Omega |X| d\mu = \int_\Omega X^+ d\mu + \int_\Omega X^- d\mu < \infty
-\end{equation}
-\end{definition}
-\end{frame}
-
-\begin{frame}
-\begin{proposition}
-	For any $X$, $Y$ $\salgF$-measurable functions in $L_1$; $A$, $B$ members of $\salgF$:
-	\[
-		X \geq 0 \implies \int_\Omega X d\mu \geq 0
-	\]
-	
-	If $X \leq Y$ (monotonicity),
-	\[
-		\int_\Omega X d\mu \leq \int_\Omega Y d\mu
-	\]
-	
-	If $A \subseteq B$ and $X \geq 0$,
-	\[
-		\int_A X d\mu \leq \int_B X d\mu
-	\]
-	
-	If $\alpha$, $\beta$ $\in \RNums$ (linearity),
-	\[
-	\int_\Omega (\alpha X + \beta Y) d\mu = \alpha \int_\Omega X d\mu + \beta \int_\Omega Y d\mu
-	\]
-\end{proposition}
-\end{frame}
-
-\begin{frame}
-\begin{theorem}[\textbf{Radon Nikodym Theorem}]\label{th:radon-nikodym}
-Let $\mu$ and $\lambda$ be $\sigma$-finite positive measures defined on $(\Omega, \mathscr{F})$ such that, for every $A \in \mathscr{F}$, $\lambda(A) = 0 \implies \mu(A)= 0$. Then, there exists a function $f: \Omega \to [0, \infty]$ such that
-\[
-	\mu(A) = \int_A f d\lambda.
-\]
-
-Where the function $f$ is defined up to sets with measure zero. $f$ is sometimes called the Radon-Nikodym derivative and it can be written as $\frac{d\mu}{d\lambda}$
-\end{theorem}
-
-\end{frame}
-
-%% Expectation
-\begin{frame}
-\frametitle{Expectation}
-	\begin{definition}
-		Let $X$ be a r.v. on $\ProbSpace$, we define the expectation of $X$ with respect to (w.r.t.) $\Pm$ as
-		\[
-			\E[X] := \int_\Omega X(\omega) d\Pm(\omega)
-		\]
-	\end{definition}
-	
-	\begin{definition}[Conditional Expectation w.r.t. a $\sigma$-algebra]
-The conditional expectation of a nonnegative random variable $X$ with respect to the $\sigma$-algebra $\mathscr{G}$ is a nonnegative random variable denoted $\mathbb{E}[X | \mathscr{G}]$ or $\mathbb{E}[X | \mathscr{G}](\omega)$ such that,
-\begin{enumerate}
-	\item $\mathbb{E}[X | \mathscr{G}]$ is $\mathscr{G}$-measurable; and
-	\item For every $A \in \mathscr{G}$,
-	\[\int_A X d\Pm = \int_A \mathbb{E}[X | \mathscr{G}] d\Pm\].
-\end{enumerate}
-\end{definition}
-\end{frame}
-
-\begin{frame}
-\begin{proposition}
-	\begin{enumerate}
-		\item If $a, b \in \RNums$, $\E[\alpha X + \beta Y | \mathscr{G}]$ = $\alpha \E[X | \mathscr{G}] + \beta\E[Y | \mathscr{G}]$;
-		\item $\E[\E[X | \salgF]] = \E[X]$;
-		\item $\E[\E[X | \salgF_2] | \salgF_1]$ = $[X | \salgF_1]$ if $\salgF_1 \subseteq \salgF_2$;
-		\item $\E[\E[X | \salgF_2] | \salgF_1]$ = $[X | \salgF_2]$ if $\salgF_2 \subseteq \salgF_1$; and
-		\item Let $X$ be a random variable such that $X \perp \mathscr{G}$ then, $\E[X|\mathscr{G}] = \E[X]$. Consequently, for any borel-measurable function $h$, $\E[h(X)|\mathscr{G}] = \E[h(X)]$.
-	\end{enumerate}
-\end{proposition}
-\end{frame}
-
-\begin{frame}
-\frametitle{Stochastic Processes}
-
-\only<1>{
-\begin{definition}[\textbf{Stochastic Process}]
-	Let $\ProbSpace$ be a probability space. A stochastic process is a set of random variables that takes values in some set $S$ called the \textbf{state space}, and are indexed by some set $T$.
-	\begin{equation}
-		\{X_t \ | \ t \in T\}.
-	\end{equation}
-\end{definition}
-We can consider a stochastic process as a two variable function
-\[
-	X: T\times\Omega \to S
-\]
-
-Where,
-\begin{enumerate}
-	\item For for fixed $t\in T$, $\omega \to X_t(\omega)$ is random variable; and
-	\item for fixed $\omega \in \Omega$, $t \to X_t(\omega)$ is the path of the process.
-\end{enumerate}
-}
-
-\only<2>{
-\begin{figure}
-\centering
-\includegraphics[width=0.9\textwidth]{../images/stoch_process_3d}
-\caption{Distribution and Path of a Stochastic Process.}
-\end{figure}
-}
-\end{frame}
-
-\begin{frame}
-\begin{definition}[\textbf{Martingale}]\label{def:martingale}
-	An stochastic process $\ctspr$ defined over $\ProbSpace$ is said to be a martingale w.r.t. a filtration $\{\salgF_n\}_{n\geq 0}$ if, for all $t \geq 0$, and $t \leq s$,
-	\begin{enumerate}
-		\item $X_t$ is $\salgF_t$-measurable;
-		\item $X_t$ is in $L_1$ (i.e. is is measurable for all $t$); and
-		\item $\E[X_t | \salgF_s] = X_t$.
-	\end{enumerate}
-\end{definition}
-\end{frame}
-
-
-\section{Option Pricing: A primer}
+%%%%%%% Option Pricing: A Primer %%%%%%%
+\section{A primer on Pricing}
 \begin{frame}
 \frametitle{One Step Binomial Model}
 We assume a simple market consisting of a stock and a cash bond.
@@ -430,7 +247,41 @@ We rewrite (\ref{eq:v_price_complete}) as
 $\mathcal V$ is the discounted expectation under a probability measure $\mathbb Q$, and a martingale.
 \end{frame}
 
-\nocite{*}
-\bibliography{../misc/ref}
+%%%%%%% Stochastic Caluclus %%%%%%%
+\section{Stochastic Calculus}
+\begin{frame}
+\frametitle{Dynamics}
+\framesubtitle{What if the stock moves in continuous time?}
+We need
+\begin{enumerate}
+	\item A way to model the stock;
+	\begin{itemize}
+		\item A stochastic component; and
+		\item A deterministic component.
+	\end{itemize}
+	\item Tools to analyze the stock;
+	\item A way to hedge our position;
+\end{enumerate}
+	We would expect the change in the stock be given by
+	\begin{equation}
+		\Delta S_t = \mu(t, S_t) \Delta t + \sigma(t, S_t) \Delta W_t
+	\end{equation}
+\end{frame}
+
+\begin{frame}
+\frametitle{Noise Factor}
+	The stock has to have a stochastic factor, some noise. It is logical to define this noise as a Brownian motion:
+	\begin{definition}[Brownian Motion]
+	\begin{itemize}
+		\item $W_0 = 0$;
+		\item The trajectories are continuous; 
+		\item The process has independent increments; and
+		\item $\forall \ 0 \leq s \leq t \Longrightarrow (W_t - W_s) \sim N(0, \sigma^2(s - t)$.
+	\end{itemize}
+	\end{definition}
+\end{frame}
+
+%\nocite{*}
+%\bibliography{../misc/ref}
 
 \end{document}
