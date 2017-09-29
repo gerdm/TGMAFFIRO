@@ -72,7 +72,7 @@ The value $\theta_i(t,\omega)$ represents the amount of units for the asset $X_i
 \end{definition}
 The value $\theta_i(t,\omega)$ represents the amount of units for the asset $X_i$ held at time $t$.
 
-\begin{definition}[\textbf{Self-financing portfolio}]
+\begin{definition}[\textbf{Self-financing portfolio}]\label{def:self-financing-portfolio}
 	The portfolio $\theta(t)$ is said to be self-financing if
 	\begin{equation}
 	\int_0^T\{|\theta_0r(s)X_0(s) + \sum_{i=1}^{n}\theta_i(s)\mu(s)| + \sum_{j=1}^m\left[\sum_{i=1}^n\theta_i(s)\sigma_{ij}(s)\right]^2\} ds < \infty,
@@ -220,23 +220,32 @@ and let $\Qm$, and $W_t^\Qm$ such that
 	\end{equation}
 \end{theorem}
 
-\begin{theorem}
+\begin{theorem}\label{th:european_price}
 	Let $C$ a European claim at time $T$ such that $\ExpMeasure{\Qm}{\nu(t)C} < \infty$ for a given complete market $\market$. Then, the price of $C$ is
 	
 	\begin{equation}
-		p(C) = q(C) = \ExpMeasure{\Qm}{\nu(t)C}
+		p(C) = q(C) = \ExpMeasure{\Qm}{\nu(t)C}.
 	\end{equation}
 
 \end{theorem}
 
 \section{Black-Scholes}
-For now on, we assume a market that consists of two securities: a bond, or cash account, ($B_t$), and a stock ($S_t$). By doing this, we are effectively accessing a market with a risk-free security and a risky one. The dynamics of these two securities are as follows:
+For now on, we assume a market that consists of two securities: a bond, or (cash account) $B_t$, and a stock $S_t$. Clearly, this market consists of a risk-free element, and a risky one. As before, the dynamics of these two assets are as follows:
 \begin{itemize}
-	\item $dB_t = r B_t dt$
-	\item $dS_t = S_t(\mu dt + \sigma dW_t)$
+	\item $dB_t = r B_t dt$; and
+	\item $dS_t = S_t(\mu dt + \sigma dW_t)$.
 \end{itemize}
 
 With $r, \mu, \sigma \in \RNums$.
+
+Furthermore, for some clai $C$, we assume that this claim, at time $T$ has the form
+\begin{equation}
+  C(\omega) = g(T, S_T).
+\end{equation}
+
+With the tools we currently have, it is desirable to compute the actual value of $C$ at time $t=0$. The key idea behind the following models is that of replication. Intuitively put, the fair price anyone would be willing to pay for a contingent payoff (i.e., a derivative), is the cost that the seller of the option incurs at time $t=0$ in order to make a self-financing portfolio\footnote{That is, that exists a portfolio $\theta$ that satisfies definition \ref{def:self-financing-portfolio}.}.\\
+
+In the paper ``The Pricing of Options and Corporate Liabilities'', \aycite{black-scholes} provide a replicating argument as to the price of the derivative. The underlying idea behind their model is that.
 
 \begin{theorem}[\textbf{Black-Scholes Equation}]
 	Consider a payoff $g(\omega)$ at time $T$. The price of the payoff at time $0\leq t\leq T$ is given by $C(t,S_t)$, where $C$ is the solution to the partial differential equation
@@ -257,7 +266,7 @@ with final boundary condition $C(T,S_T) = g(S_T)$.
 			&= \left(\partialwrt{C}{t}{(t, S_t)} + \mu S_t\partialwrt{C}{s}(t, S_t) + (S_t\sigma)^2\frac{1}{2}\partialwrt[2]{C}{s}{(t, S_t)} \right) dt  + S_t\sigma\partialwrt{C}{s}{(t, S_t)} dW_t\nonumber
 	\end{align}
 	
-	In order to make the notation readable, we denote $C_x = \partialwrt{C}{x}{(t, S_t)}$, and $C_{xx} = \partialwrt[2]{C}{x}{(t, S_t)}$. For which we rewrite
+	In order to relax the notation, we denote $C_x = \partialwrt{C}{x}{(t, S_t)}$, and $C_{xx} = \partialwrt[2]{C}{x}{(t, S_t)}$. For which we rewrite
 	\begin{equation}
 		dC(t, S_t) = \left(C_t + \mu S_t C_s + \frac{1}{2}(S_t\sigma)^2C_{ss} \right) dt  + S_t\sigma C_s dW_t\nonumber
 	\end{equation}
@@ -326,7 +335,11 @@ with final boundary condition $C(T,S_T) = g(S_T)$.
 \]
 
 
-As a consequence, we have an equivalent martingale measure $\Qm$ as defined on (\ref{eq:emmq}), hence no arbitrage by \ref{th:arbitrage_free_market}, and a complete market by \ref{th:arbitrage_free_market}
+As a consequence, we have an equivalent martingale measure $\Qm$ as defined on (\ref{eq:emmq}), hence no arbitrage by \ref{th:arbitrage_free_market}, and a complete market by \ref{th:arbitrage_free_market}. We conclude that, by \ref{th:european_price}, that the fair price for both buyer and seller is $c$:
+\begin{equation}
+  c = \ExpMeasure{\Qm}{\nu(T)g(S_t)}
+\end{equation}
+
 
  
  One might inquire about the price in terms, not in replicating the option, but rather about the \textit{fair} price for which both parties to pay for both buyer and seller. 
