@@ -255,7 +255,7 @@ In their paper ``The Pricing of Options and Corporate Liabilities'', \aycite{bla
 		\partialwrt{C}{t} + \frac{1}{2}\sigma^2S^2\partialwrt[2]{C}{S} + rS\partialwrt{C}{S} - rC = 0,
 	\end{equation}
 
-with final boundary condition $C(T,S_T) = g(S_T)$.
+with final boundary condition $C(T) = g(T, S_T)$.
 \end{theorem}
 
 % We will prove the Black-Scholes formula vía replication following a rather informal, yet enlightning, argument
@@ -268,9 +268,9 @@ with final boundary condition $C(T,S_T) = g(S_T)$.
 	\end{align}
 	
 	In order to relax the notation, we denote $C_x = \partialwrt{C}{x}{(t, S_t)}$, and $C_{xx} = \partialwrt[2]{C}{x}{(t, S_t)}$. For which we rewrite
-	\begin{equation}
-		dC(t, S_t) = \left(C_t + \mu S_t C_s + \frac{1}{2}(S_t\sigma)^2C_{ss} \right) dt  + S_t\sigma C_s dW_t\nonumber
-	\end{equation}
+	\[
+		dC(t, S_t) = \left(C_t + \mu S_t C_s + \frac{1}{2}(S_t\sigma)^2C_{ss} \right) dt  + S_t\sigma C_s dW_t
+	\]
 	
 	Since $C(T, S_T)$ represents the contingent final payoff, then $C(0, S_0)$ is to be the price of the claim today. On the other hand, we know that the value of the replicating portfolio is given by
 	
@@ -296,8 +296,7 @@ with final boundary condition $C(T,S_T) = g(S_T)$.
 		&= \hat \pi(t) (\mu - r) + \hat \pi(t) \sigma dW_t
 	\end{align}
 	
-	Having a replicating portfolio $V^\theta$, a claim $C$ to honor at time $T$, we need
-	
+	Having a replicating portfolio $V^\theta$, a claim $C$ to honor at time $T$, we need	
 	\begin{equation}
 		\valueProcess{T} = g(S_T) = C(T, S_T),
 	\end{equation}

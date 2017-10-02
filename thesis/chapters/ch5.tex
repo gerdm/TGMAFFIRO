@@ -50,6 +50,12 @@ With $\Delta W_i := W_{t_{i+1}} - W_{t_{i}}$.\\
 We will also denote It\^o's integral as $I(f)$ or $\int f$.
 \end{definition}
 
+\begin{figure}[hbt]
+  \includegraphics[width=0.9\textwidth]{../images/simple_process}
+  \caption{Simple Process}
+\end{figure}
+
+
 \begin{proposition}
 	Let $f$, $g$ $\in \Mfam{0}{t}$ then
 	\begin{enumerate}
@@ -310,8 +316,8 @@ I.e., there exists a $t$-continuous stochastic process $Y_t$ defined over $\Prob
 
 \section{Extensions of It\^o's Integral}
 %TODO: the following section is dedicated to define a more general family of ito processes that those defined for N[0, t] (we want to introduce the need of a new family of proceses not in L2, and the multidimensional ito integral ).
-\begin{definition}
-	Let $W(\cdot) := \{W_t : t\geq 0\}$ a Brownian motion process over $\ProbSpace$ and let $\mathscr{G}$, a family of $\salg$s where
+\begin{definition}\label{def:extended_f}
+	Let $W(\cdot) := \{W_t : t\geq 0\}$ an n-dimensional Brownian motion process over $\ProbSpace$ and let $\mathscr{G}$, a family of $\salg$s where
 	\begin{enumerate}
 		\item $\mathscr{G}(s) \subseteq \mathscr{G}(t)$ for all $0\leq s \leq t$;
 		\item For all $t, h > 0$, $W_{t+h} - W_t$ is independent of $\mathscr{G}(t)$.
@@ -322,6 +328,13 @@ I.e., there exists a $t$-continuous stochastic process $Y_t$ defined over $\Prob
 		\item $\int_0^t f^2(s) ds < \infty$ a.s.; and
 		\item $f(\cdot, \omega)$ is independent of $\mathscr{G}(\cdot)$.
 	\end{enumerate}
+\end{definition}
+
+\begin{definition}[\textbf{It\^o Integral for processes in $\Nhatfam{0}{T}$}]
+	Consider the family of processes $f\in \Nhatfam{0}{T}$ as in definition \ref{def:extended_f}, we define the It\^o integral $\int_0^t fdW_t$  over a probability space $\ProbSpace$ as the limit (in probability) of of simple functions $f_n$ such that
+		\begin{equation}
+		\lim_{n\to \infty} \Pm\left(\left\{\omega: \int_0^t f_n(t,\omega)dW_t - \int_0^t f(t,\omega)dW_t\right\}>\epsilon \right) = 0
+	\end{equation}
 \end{definition}
 
 \section{It\^o's Formula}
@@ -335,7 +348,7 @@ I.e., there exists a $t$-continuous stochastic process $Y_t$ defined over $\Prob
 	Where
 	\begin{enumerate}
 		\item $\int_0^t \mu(s,\omega) ds < \infty$; and
-		\item $\int_0^t\sigma(s,\omega) dW_s < \infty$.
+		\item $\sigma(s,\omega) \in \Nhatfam{0}{T}$.
 	\end{enumerate}
 	
 	The It\^o Process can also be defined in a differential form as follows:
@@ -535,6 +548,13 @@ Therefore,
 \begin{equation}
   S_t = S_0e^{\left(\mu - \frac{1}{2}\sigma^2\right) t + \sigma\int_0^t dW_s}.
 \end{equation}
+
+\begin{figure}[h!]
+\centering
+  \includegraphics[width=0.9\textwidth]{../images/asset_sde}
+  \caption{SDE with $\sigma=0$ and $\sigma=0.2$}
+\end{figure}
+
 
 \begin{theorem}[\textbf{Feynman-Kac}]
 	Consider the following partial differential equation

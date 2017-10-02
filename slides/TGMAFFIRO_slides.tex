@@ -32,7 +32,8 @@
 	\begin{enumerate}
 		\item<1-> \textit{Plain vanilla} option pricing plays a big part in the derivatives' market;
 		\item<2-> option pricing is mainly presented as a deeply esoteric subject that is too deep to delve into, or a complex one that requires a profound understanding in stochastic-calculus and analysis;
-		\item<3-> I try to present the theory in a robust yet, accessible level for an undergraduate.
+		\item<3-> to present the theory in a robust yet, accessible level for an undergraduate; and
+		\item<4-> inquisitiveness.
 	\end{enumerate}
 \end{frame}
 \AtBeginSection[]{
@@ -249,36 +250,346 @@ $\mathcal V$ is the discounted expectation under a probability measure $\mathbb 
 
 %%%%%%% Stochastic Caluclus %%%%%%%
 \section{Stochastic Calculus}
+
 \begin{frame}
-\frametitle{Dynamics}
-\framesubtitle{What if the stock moves in continuous time?}
-We need
+\frametitle{In Pursuance of a continuous-time model}
+We pursue a continuous time model to price an option under such that replication (hedging) is possible and the condition of no arbitrage holds true. To do so we need
 \begin{enumerate}
-	\item A way to model the stock;
+	\item A way to model the stock:
 	\begin{itemize}
-		\item A stochastic component; and
-		\item A deterministic component.
+		\item a stochastic component, and
+		\item a deterministic component.
 	\end{itemize}
-	\item Tools to analyze the stock;
-	\item A way to hedge our position;
+	\item tools to analyze the stock; and
+	\item a way to hedge our position;
 \end{enumerate}
-	We would expect the change in the stock be given by
-	\begin{equation}
-		\Delta S_t = \mu(t, S_t) \Delta t + \sigma(t, S_t) \Delta W_t
-	\end{equation}
+\end{frame}
+
+\begin{frame}
+\frametitle{Brownian Motion}
+We would like to have a stochastic process that models the dynamic of a stock. Any asset in the market should have a deterministic factor and a stochastic (noise) factor.
+\begin{equation}
+	\Delta S_t = \underbrace{\mu(t, S_t) \Delta t}_\text{Avg. rate of return} +
+				 \underbrace{\sigma(t, S_t) \Delta W_t}_\text{Noise}
+\end{equation}
+\end{frame}
+
+\begin{frame}
+	In particular, we would like to model the following Stochastic differential equation:
+	\begin{align*}
+		\frac{dS_t}{S_t} &= \mu dt + \sigma dW_t
+	\end{align*}
+\begin{enumerate}
+	\item What is its solution? (if any);
+	\item how to model $dW_t$?;
+	\item can the model be used to hedge any payoff?.
+\end{enumerate}
 \end{frame}
 
 \begin{frame}
 \frametitle{Noise Factor}
-	The stock has to have a stochastic factor, some noise. It is logical to define this noise as a Brownian motion:
+	It is logical to define this noise as a Brownian motion:
 	\begin{definition}[Brownian Motion]
 	\begin{itemize}
 		\item $W_0 = 0$;
 		\item The trajectories are continuous; 
 		\item The process has independent increments; and
-		\item $\forall \ 0 \leq s \leq t \Longrightarrow (W_t - W_s) \sim N(0, \sigma^2(s - t)$.
+		\item $W_t - W_s \sim N(0, \sigma^2(t - s); \ 0 \leq s \leq t$.
 	\end{itemize}
 	\end{definition}
+	
+\begin{table}
+\centering
+\label{table:bm-property}
+\begin{tabular}{l|ll}
+       & $dW_t$ & $dt$ \\
+       \hline
+$dW_t$ & $dt$   & 0    \\
+$dt$   & 0      & 0   
+\end{tabular}
+\caption{Dynamics of the Brownian Motion in $L_2$}
+\end{table}
+\end{frame}
+
+\begin{frame}
+\frametitle{Dynamics}
+\framesubtitle{What if the stock moves in continuous time?}
+Let $W(\cdot)$ an n-dimensional Brownian motion process over $\ProbSpace$ and let $\mathscr{G}$, a family of $\salg$s where
+	\begin{enumerate}
+		\item $\mathscr{G}(s) \subseteq \mathscr{G}(t)$ for all $0\leq s \leq t$;
+		\item For all $t, h > 0$, $W_{t+h} - W_t$ is independent of $\mathscr{G}(t)$.
+	\end{enumerate}
+	We will be working on a family $\Nhatfam{0}{T}$ of functions such that
+	\begin{definition}[$\Nhatfam{0}{T}$]
+	\begin{enumerate}
+		\item $(t, \omega) \to f(t, \omega):[0, \infty]\times\Omega \to \RNums$ is $\borelsalg\times\salgF$ measurable;
+		\item $\int_0^t f^2(s) ds < \infty$ a.s.; and
+		\item $f(\cdot, \omega)$ is independent of $\mathscr{G}(\cdot)$.
+	\end{enumerate}
+\end{definition}
+\end{frame}
+
+\begin{frame}
+	\frametitle{The It\^o Integral}
+	We define a discrete-time It\^o Integral over $\Nhatfam{0}{T}$ as the sum of simple processes $f_n$ such that
+	\begin{equation}
+		\int_0^T f_n(t) dW_t := \sum_{i=0}^{n-1}f(t_i) \Delta W_i
+	\end{equation}
+	Where $\Delta W_i := W_{i+1} - W_i$
+\end{frame}
+
+\begin{frame}
+	\begin{figure}[hbt]
+  \includegraphics[width=0.9\textwidth]{../images/simple_process}
+  \caption{Simple Process}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{The It\^o Integral}
+	More generally, 
+	\begin{definition}
+	define It\^o integral $\int_0^t fdW_t$ for $f\in \Nhatfam{0}{T}$ over a probability space $\ProbSpace$ as the limit (in probability) of of simple functions $f_n$ such that
+		\begin{equation}
+		\lim_{n\to \infty} \Pm\left(\left\{\omega: \int_0^t f_n(t,\omega)dW_t - \int_0^t f(t,\omega)dW_t > \epsilon\right\} \right) = 0
+	\end{equation}
+	\end{definition}
+\end{frame}
+
+\begin{frame}
+\frametitle{It\^o Process}
+\begin{definition}[\textbf{It\^o Process}]
+	let $W_t$ a standard Brownian motion on $\ProbSpace$. We define the It\^o process $X(t)$ over $\ProbSpace$ as
+	\begin{equation}
+		X(t) := \int_0^t\mu(s,\omega) ds  + \int_0^t\sigma(s,\omega) dW_s.
+	\end{equation}
+		
+	Where
+	\begin{enumerate}
+		\item $\int_0^t \mu(s,\omega) ds < \infty$; and
+		\item $\sigma(s,\omega) \in \Nhatfam{0}{T}$.
+	\end{enumerate}
+\end{definition}
+
+The It\^o process is also represented in differential form:
+\begin{equation*}
+	dX(t) = \mu(t,\omega) dt + \sigma(t,\omega) dW_t
+\end{equation*}
+\end{frame}
+
+\begin{frame}
+\begin{theorem}[\textbf{It\^o's Formula}]\label{th:itos_formula}
+	Let $X(t)$ be an It\^o process of the form
+	\[
+		dX(t) = \mu(t, \omega) dt + \sigma(t, \omega) dW_t,
+	\]
+	and $g(t, \omega) \in C^2([0, \infty]\times\RNums)$. Then,
+	\begin{equation*}
+		Y(t) := g(t, X_t)
+	\end{equation*}
+	is also an It\^o Process where
+	
+	\begin{equation*}
+		dY(t) = \partialwrt{g}{t}(t, X(t)) dt + \partialwrt{g}{x}(t, X(t)) \left(dX(t)\right) + \frac{1}{2}\partialwrt[2]{g}{x} (t, X(t)) \left(dX(t)\right)^2
+	\end{equation*}	
+\end{theorem}	
+\end{frame}
+
+\begin{frame}
+In particular, It\^o's formula is the tool we need to get to a closed form for an asset with dynamics
+	\[
+	\frac{dS_t}{S_t} = \mu dt + \sigma dW_t \Rightarrow S_t = S_0e^{\left(\mu - \frac{1}{2}\sigma^2\right) t + \sigma\int_0^t dW_s}
+	\]
+	
+\begin{figure}[hbt]
+  \includegraphics[width=0.7\textwidth]{../images/asset_sde}
+  \caption{SDE with $\sigma=0$ and $\sigma=0.2$}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Black-Scholes}
+	Consider a market with two securities
+	\begin{align*}
+	dB_t &= r B_t dt \\
+	dS_t &= S_t(\mu dt + \sigma dW_t)
+	\end{align*}
+	
+\begin{theorem}[\textbf{Black-Scholes Equation}]
+	Consider a European claim $g(\omega)$ at time $T$. The price of the claim at time $0\leq t\leq T$ is given by $C(t,S_t)$, where $C$ is the solution to the partial differential equation
+	
+	\begin{equation}\label{eq:black-scholes-formula}
+		\partialwrt{C}{t} + \frac{1}{2}\sigma^2S^2\partialwrt[2]{C}{S} + rS\partialwrt{C}{S} - rC = 0,
+	\end{equation}
+
+with final boundary condition $C(T) = g(T, S_T)$.
+\end{theorem}
+\end{frame}
+
+\begin{frame}
+\frametitle{Black-Scholes Formula proof (sketch)}
+	By It\^o`s formula we have
+
+\begin{equation}
+	dC(t, S_t) = \left(C_t + \mu S_t C_s + \frac{1}{2}(S_t\sigma)^2C_{ss} \right) dt  + S_t\sigma C_s dW_t \label{eqproof:claim_bs}
+\end{equation}
+
+And, for the replicating portfolio, let $\pi(t)$ be the total amount of cash invested in $S_t$ then,
+\begin{align}
+	d\valueProcess{t} &= \theta_0(t)dB_t  + \theta_1 dS_t \nonumber \\
+					&= [r\valueProcess{t} + (\mu - r) \pi(t)] dt + \sigma\pi(t) dW_t \label{eqproof:portfolio_bs}
+\end{align}
+\end{frame}
+
+\begin{frame}
+\frametitle{Black-Scholes Formula proof (sketch) cont'd}
+	Having a replicating portfolio $V^\theta$, a claim $C$ to honor at time $T$, we need	
+\begin{equation}
+	\valueProcess{T} = g(S_T) = C(T, S_T).
+\end{equation}
+
+We can rewrite this last equation in differential form, and considering the law of one price as:
+\[
+	d\valueProcess{t} = dC(t, S_t) \ \forall \ t \in [0,T].
+\]
+
+Wich yields
+\begin{equation}
+  C_t + \frac{1}{2}(S_t\sigma)^2C_{ss} + rS_t C_s - rC = 0
+\end{equation}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Markets}
+
+We can reach to a closed-form solution in a similar-route
+\begin{definition}
+A market $X(t) = \{X_i(t)\}_{i=0}^n$ is an $\salgF^{(m)}_t$-adapted $n+1$ It\^o Process where
+\begin{equation}
+	dX_0 = r(t,\omega) X_0(t) dt; \ X(0) = 1; \label{eq:safe_investment}
+\end{equation} 
+
+and
+\begin{equation}
+	dX_i = \mu_i(t,\omega) dt + \sum_{j=1}^{m}\sigma_{ij}(t,\omega)dW_j(t) \label{eq:risky_asset}.
+\end{equation}
+\end{definition}
+\end{frame}
+
+\begin{frame}
+\begin{definition}[\textbf{Portfolio}]
+A portfolio $\theta(t)$ in the market $\market$ is an ($n+1$)-dimensional $(t,\omega)$-measurable and $\salgF_t^{(m)}$-adapted stochastic process
+\begin{equation}
+	\theta(t,\omega) = \{\theta_{i}(t,\omega)\}_{i=0}^{n} \ \forall \ t\in[0, T].
+\end{equation}
+\end{definition}
+
+\begin{definition}[\textbf{The value process}]
+The value at time $t$ for the portfolio $\theta$ is defined as
+\begin{equation}
+	V(t) = \innerprod{\theta(t)}{X(t)} = \theta(t) \cdot X(t)
+\end{equation}
+\end{definition}
+\end{frame}
+
+\begin{frame}
+\begin{definition}[\textbf{Self-financing portfolio}]\label{def:self-financing-portfolio}
+	The portfolio $\theta(t)$ is said to be self-financing if
+	\begin{equation*}
+	\int_0^T\underbrace{\{|\theta_0r(s)X_0(s) + \sum_{i=1}^{n}\theta_i(s)\mu(s)|}_{\text{Integrability ($L_1$) condition}} + \sum_{j=1}^m\underbrace{\left[\sum_{i=1}^n\theta_i(s)\sigma_{ij}(s)\right]^2}_{\text{$\Nhatfam{0}{T}$ condition}}\} ds < \infty,
+	\end{equation*}
+and 
+\begin{equation*}
+  dV(t) = \innerprod{\theta(t)}{dX(t)} \iff V(t) = V(0)  + \int_0^t \theta(s) dX(s).
+\end{equation*}
+
+\end{definition}
+\end{frame}
+
+\begin{frame}
+	\begin{definition}[\textbf{Claims}]
+\begin{enumerate}
+	\item A contigent claim $T$ is a lower bounded $\salgF_t^{(m)}$-measurable random variable $C(\omega)$;
+	\item A claim $C(\omega)$ is said to be attainable if there exists an admissible portfolio $\theta(t)$ and $z\in\RNums$ such that
+	\[
+		C(\omega) = V_z^{\theta}(T) := z + \int_0^T \theta(t)dX(t) \text{a.s. and,}
+	\]
+	
+	\begin{equation}
+		\valueProcessNorm{T}	 = z + \int_0^t \nu(s)\sum_{i=1}^{n}\theta_i(s)\sigma_i(s) dW^\Qm_s \ \forall \ 0 \leq t \leq T
+	\end{equation} 
+	is a $\Qm$-martingale. If such $\theta$ exists, it is called a replicating portfolio.
+	\item A market $\market$ is said to be complete if every bounded claim at time $T$ is attainable.
+\end{enumerate}
+\end{definition}
+\end{frame}
+
+\begin{frame}
+In what follows, we will assume $u(t,\omega) \in \Nhatfam{0}{T}$ such that
+\begin{equation}\label{eq:condition_change_measure}
+	\sigma(t,\omega) u(t,\omega) = \mu(t,\omega) - r(t,\omega) X_t,
+\end{equation}
+and let $\Qm$, and $W_t^\Qm$ such that
+\begin{align}
+  d\Qm = e^{-\left(\int_0^t u(t,\omega) dW_t + \frac{1}{2}\int_0^T u^2(t,\omega) dt\right)} d\Pm \label{eq:emmq} \\
+  W^\Qm_t := \int_0^t (s,\omega) ds + W_t
+\end{align}
+
+Then,
+\begin{itemize}
+	\item There exists an equivalent martingale measure;
+	\item therefore, no arbitrage;
+	\item which implies a complete market;
+	\item for which we conclude that there exists a fair price $c$ such that
+	\[
+		c = \ExpMeasure{\Qm}{\nu(T)g(S_t)}
+	\]
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+Since we have
+\begin{align*}
+	dS_t =  S_t(\mu dt + \sigma dW_t); \ \text{under $\Pm$}\\
+	dS_t =  S_t(r dt + \sigma dW_t); \ \text{under $\Qm$}
+\end{align*}
+We compute a risk-free price for the claim $C$ at $t=0$ as:
+\begin{align*}
+	c &= \ExpMeasure{\Qm}{\nu(T)g(S_t)}\\
+	 &= \nu(T)\ExpMeasure{\Qm}{g(S_0e^{\left(\mu - \frac{1}{2}\sigma^2\right) t + \sigma\int_0^t dW_s})}
+\end{align*}
+\end{frame}
+
+\begin{frame}
+\frametitle{The case of a call European option}
+	For a call European option we have:
+	\begin{align}
+	c &= \nu(T)\ExpMeasure{\Qm}{\max\{S_0e^{\left(\mu - \frac{1}{2}\sigma^2\right) t + \sigma\int_0^t dW_s},0\}}\\
+		&= S_0N(d_+) - Ke^{-rT}N(d_-).
+	\end{align}
+	With,
+\begin{equation}
+d_\pm = \frac{1}{\sigma \sqrt T}\left(\log \frac{S_0}{K} \pm (r - \frac{1}{2}\sigma^2)T\right)  
+\end{equation}
+\end{frame}
+
+\begin{frame}
+\frametitle{What about the Black-Scholes PDE?}
+It turns out that the Feynman-Kac formula relates the conditional risk-neutral expectation of the claim and the Black-Scholes PDE
+\begin{theorem}[\textbf{Feynman-Kac}]
+	Consider the following partial differential equation
+	\begin{equation*}
+		\partialwrt{C}{t}{(t,x)}	 + \mu(t, x)\partialwrt{C}{x}{(t,x)} + \frac{1}{2}\sigma^2(t,x)\partialwrt[2]{C}{x}{(t,x)}  - V(t,x)C(t,x) + f(x,t) = 0 \label{eq:feynman_kac_pde}.
+	\end{equation*}
+	Defined for $x\in\RNums$, $t\in[0,T]$ and subject to the final boundary condition $C(T, X_T) = P(X_T)$. Then, $C(x,t)$ can be written as the following conditional expectation
+	\begin{equation}
+	C(t, x) = \Exp{\int_t^Te^{-\int_t^r V(X_\tau, \tau) d\tau} f(X_r, r) dr + e^{-\int_t^TV(\tau, X_\tau) d\tau} P(X_T)| \salgF_t}.
+	\end{equation}
+
+Where $X_t$ is the It\^o process $dX_t = \mu(t,x) dt + \sigma(t, X_t) dW_t$.
+\end{theorem}
+
 \end{frame}
 
 %\nocite{*}
