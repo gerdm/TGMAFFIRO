@@ -143,7 +143,7 @@ Let us define the measure $\Qm$, and the process $\QBm{t}$ such that
 
 and
 \[
-	\QBm{t} := \int_0^tu(s,\omega) ds + W(t).
+	\QBm{t} := \int_0^tu(s,\omega) ds + W_t.
 \]
 Then,
 \begin{enumerate}
@@ -229,7 +229,7 @@ and let $\Qm$, and $W_t^\Qm$ such that
 
 \end{theorem}
 
-\section{Black-Scholes}
+\section{Black-Scholes PDE}
 For now on, we assume a market that consists of two securities: a bond (or cash account) $B_t$, and a stock $S_t$. Clearly, this market consists of a risk-free element, and a risky one. As before, the dynamics of these two assets are as follows:
 
 \begin{align}
@@ -338,21 +338,71 @@ with final boundary condition $C(T) = g(T, S_T)$.
 
 
 As a consequence, we have an equivalent martingale measure $\Qm$ as defined on (\ref{eq:emmq}), hence no arbitrage by \ref{th:arbitrage_free_market}, and a complete market by \ref{th:arbitrage_free_market}. We conclude that, by \ref{th:european_price}, that the fair price for both buyer and seller is $c$:
-\begin{equation}
-  c = \ExpMeasure{\Qm}{\nu(T)g(S_t)}
+\begin{equation}\label{eq:risk-neutral-price}
+  c = \ExpMeasure{\Qm}{\nu(T)g(S_T)}
 \end{equation}
 
+To make use of (\ref{eq:risk-neutral-price}), we will now turn to price a European call option, presented first in chapter 1. In the following proposition, we derive the famous closed-valued formula for the price of a European call option.
 
- 
- One might inquire about the price in terms, not in replicating the option, but rather about the \textit{fair} price for which both parties to pay for both buyer and seller. 
- 
- It turns out that, if the market is complete, 
- 
- Another approach to value the option is to compute the expected value of the derivative under the risk-neutral probability $\Qm$. By Girsanov's Theorem, we know there exists a unique probability $\Qm$ under which $W^\Qm$ is a Brownian Motion. In fact, \ref{prop:qmartingale-market} guarantees that the discounted market value of the stock $S_t$ is a martingale
-  
- \begin{equation}
- 	\ExpMeasure{\Qm}{e^{-rT}g(S_T)} = \ExpMeasure{\Qm}{e^{-rT}[S_t - K]^+}
- \end{equation}
+\begin{proposition}
+	Consider a claim $C(\omega) = g(T, S_T) = \callPayoff{S_T}$ for some $K > 0$, the price of the claim at $t=0$, under risk neutral probability is
+	\begin{equation}
+		c = S_0 \Phi(d_+) - Ke^{-rT}\Phi(d_-)
+	\end{equation}
+	Where,
+	$\Phi(\cdot)$ is the c.d.f. of a standard normal distribution and,
+	\[
+		d_\pm = \frac{1}{\sigma\sqrt{T}}\left(\log\frac{S_0}{K} + (r \pm \frac{1}{2}\sigma^2)
+		T\right)
+	\]
+\end{proposition}
+
+\begin{proof}
+	By (\ref{eq:risk-neutral-price}), the value of the payoff today is given by
+	\begin{align}
+		\ExpMeasure{\Qm}{\nu(T)g(S_T)} &= \ExpMeasure{\Qm}{\nu(T)\callPayoff{S_T}} \nonumber \\
+		&= \ExpMeasure{\Qm}{\nu(T)(S_T - K)\ind_{S_T > K}} \nonumber\\
+		&=\ExpMeasure{\Qm}{\nu(T)S_T\ind_{S_T > K}} - \nu(T)K\ExpMeasure{\Qm}{\ind_{S_T > K}}  \nonumber\\
+		&= I_1 - K\nu(T)I_2 \label{eqproof:option_price1}
+	\end{align}
+	
+	We now turn to rewrite the constraint of a call European option, namely $S_T > K$. Note that, under the $\Qm$ measure,
+	\begin{align*}
+		&S_T = S_0e^{\sigma\QBm{T} + (r - \frac{1}{2}\sigma^2)T}\\
+		\iff &\log S_T = \log S_0 + \sigma\QBm{T} + (r - \frac{1}{2}\sigma^2)T
+	\end{align*}
+	Consider $S_T > K$ then,
+	\begin{align*}
+		&\log S_T > \log K\\
+		\iff & \log S_0 + \sigma\QBm{T} + (r - \frac{1}{2}\sigma^2)T > \log K \\
+		\iff & \QBm{T}  > \frac{1}{\sigma}\left(\log K  - \log S_0 + \frac{1}{2}\sigma^2T - rT\right).
+	\end{align*}
+	We now denote $\QBm{T} \equiv Z\sqrt T \sim N(0, \sqrt{T})$, where $Z\sim N(0,1)$. And conclude that
+	\begin{equation}
+		Z > \frac{1}{\sigma\sqrt T}\left(\log K  - \log S_0 + \left(-r + \frac{1}{2}\sigma^2\right)T\right) =: -d_-.
+	\end{equation}
+	
+	Therefore, $S_T > K \Rightarrow Z > -d_-$.\\
+	
+	To get (\ref{eqproof:option_price1}), we start by solving $I_2$:
+	\begin{align}
+		\ExpMeasure{\Qm}{\ind_{S_T > K}} &= 1 \cdot \Qm(S_T > K) + 0 \cdot \Qm(S_T \leq K) \nonumber\\
+		&= \Qm(S_T > K)\nonumber\\
+		&= \Qm(Z > -d_-)\nonumber \\
+		&= \Qm(Z < d_-)\nonumber \\
+		&= \Phi(d_-)
+	\end{align}
+	
+	Continuing with $I_1$, recall that $\nu(t) = e^{-rt}$. Then,
+	\begin{align}
+		\ExpMeasure{\Qm}{\nu(T)S_T\ind_{S_T > K}} &= e^{-rT}\ExpMeasure{\Qm}{S_t\ind_{S_T > K}} \nonumber \\
+		&= e^{-rT}\ExpMeasure{\Qm}{S_0e^{\sigma\QBm{T} + (r - \frac{1}{2}\sigma^2)T}\ind_{S_T > K}} \nonumber \\
+		&= S_0 \ExpMeasure{\Qm}{S_0e^{\sigma\QBm{T} - \frac{1}{2}T\sigma^2}\ind_{S_T > K}} \nonumber \\
+		&= S_0 \ExpMeasure{\Qm}{S_0e^{\sigma\sqrt{T}Z - \frac{1}{2}T\sigma^2}\ind_{Z > -d_-}} \nonumber \\
+		&= S_0
+	\end{align}
+
+\end{proof}
 
  
 \end{document}

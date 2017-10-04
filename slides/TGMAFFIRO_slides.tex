@@ -17,7 +17,7 @@
 \mode<presentation>{\usetheme{Madrid}}
 \input{../misc/commands}
 
-\title{Theoretical Grounds and Market Adaptations of Financial Fx and Interest Rate Options}
+\title{Theoretical Grounds for the valuation of European Options}
 \author{Gerardo Dur\'an Mart\'in}
 \institute{Universidad Marista}
 
@@ -31,7 +31,7 @@
 	\frametitle{Raison d'\^etre}
 	\begin{enumerate}
 		\item<1-> \textit{Plain vanilla} option pricing plays a big part in the derivatives' market;
-		\item<2-> option pricing is mainly presented as a deeply esoteric subject that is too deep to delve into, or a complex one that requires a profound understanding in stochastic-calculus and analysis;
+		\item<2-> option pricing is mainly presented as a deeply esoteric subject that is either too deep to delve into, or a complex one that requires a profound understanding in stochastic-calculus and analysis;
 		\item<3-> to present the theory in a robust yet, accessible level for an undergraduate; and
 		\item<4-> inquisitiveness.
 	\end{enumerate}
@@ -248,9 +248,7 @@ We rewrite (\ref{eq:v_price_complete}) as
 $\mathcal V$ is the discounted expectation under a probability measure $\mathbb Q$, and a martingale.
 \end{frame}
 
-%%%%%%% Stochastic Caluclus %%%%%%%
-\section{Stochastic Calculus}
-
+\section{Brownian Motion}
 \begin{frame}
 \frametitle{In Pursuance of a continuous-time model}
 We pursue a continuous time model to price an option under such that replication (hedging) is possible and the condition of no arbitrage holds true. To do so we need
@@ -288,7 +286,7 @@ We would like to have a stochastic process that models the dynamic of a stock. A
 
 \begin{frame}
 \frametitle{Noise Factor}
-	It is logical to define this noise as a Brownian motion:
+	It is logical to define this noise as the following Brownian motion:
 	\begin{definition}[Brownian Motion]
 	\begin{itemize}
 		\item $W_0 = 0$;
@@ -329,6 +327,8 @@ Let $W(\cdot)$ an n-dimensional Brownian motion process over $\ProbSpace$ and le
 \end{definition}
 \end{frame}
 
+%%%%%%% Stochastic Calculus %%%%%%%
+\section{Stochastic Calculus}
 \begin{frame}
 	\frametitle{The It\^o Integral}
 	We define a discrete-time It\^o Integral over $\Nhatfam{0}{T}$ as the sum of simple processes $f_n$ such that
@@ -407,6 +407,7 @@ In particular, It\^o's formula is the tool we need to get to a closed form for a
 \end{figure}
 \end{frame}
 
+\section{Continuous Time Pricing}
 \begin{frame}
 	\frametitle{Black-Scholes}
 	Consider a market with two securities

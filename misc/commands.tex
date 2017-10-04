@@ -78,4 +78,6 @@
 % Value-theta-normalized: Portolio process given the portfolio theta
 \newcommand{\valueProcessNorm}[1]{\Vbar^\theta(#1)}
 %Q-Brownian Motion Process
-\newcommand{\QBm}[1]{W^\Qm(#1)}
+\newcommand{\QBm}[1]{W^\Qm_#1}
+% European Call Payoff
+\newcommand{\callPayoff}[1]{\max\{#1 - K, 0\}}
