@@ -397,12 +397,23 @@ To make use of (\ref{eq:risk-neutral-price}), we will now turn to price a Europe
 	\begin{align}
 		\ExpMeasure{\Qm}{\nu(T)S_T\ind_{S_T > K}} &= e^{-rT}\ExpMeasure{\Qm}{S_t\ind_{S_T > K}} \nonumber \\
 		&= e^{-rT}\ExpMeasure{\Qm}{S_0e^{\sigma\QBm{T} + (r - \frac{1}{2}\sigma^2)T}\ind_{S_T > K}} \nonumber \\
-		&= S_0 \ExpMeasure{\Qm}{S_0e^{\sigma\QBm{T} - \frac{1}{2}T\sigma^2}\ind_{S_T > K}} \nonumber \\
-		&= S_0 \ExpMeasure{\Qm}{S_0e^{\sigma\sqrt{T}Z - \frac{1}{2}T\sigma^2}\ind_{Z > -d_-}} \nonumber \\
-		&= S_0
+		&= S_0 \ExpMeasure{\Qm}{e^{\sigma\QBm{T} - \frac{1}{2}T\sigma^2}\ind_{S_T > K}} \nonumber \\
+		&= S_0 \ExpMeasure{\Qm}{e^{\sigma\sqrt{T}z - \frac{1}{2}T\sigma^2}\ind_{Z > -d_-}} \nonumber \\
+		&= S_0\int_{-d_-}^\infty e^{\sigma\sqrt{T}z - \frac{1}{2}T\sigma^2} \phi(z) dz \nonumber \\
+		&= S_0\int_{-d_-}^\infty e^{\sigma\sqrt{T}z - \frac{1}{2}T\sigma^2} \frac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}z^2} dz \nonumber \\
+		&= \frac{S_0}{\sqrt{2\pi}}\int_{-d_2}^{\infty}e^{-\frac{1}{2}\left(z - \sigma\sqrt{T}\right)^2} dz.\label{eqproof:option_price2}
 	\end{align}
-
+	
+	Let $u = z - \sigma\sqrt{T}$, and $d_+ := d_- + \sigma\sqrt{T}$. Then (\ref{eqproof:option_price2}) becomes
+	\begin{align}
+		&=S_0\left(\frac{1}{\sqrt{2\pi}}\int_{-d_+}^{\infty} e^{-\frac{1}{2}u^2} du\right) \nonumber \\
+		&= S_0\Qm(Z > -d_+) \nonumber\\
+		&= S_0\Qm(Z < d_+) \nonumber \\
+		&= S_0 \Phi(d_+).
+	\end{align}
 \end{proof}
+
+One may wonder about the relationship between risk-neutral pricing and the Black-Scholes PDE. Both models commit to the same idea of hedging (or replication) of the payoff by removing the.
 
  
 \end{document}
