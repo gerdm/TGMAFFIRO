@@ -338,7 +338,7 @@ with final boundary condition $C(T) = g(T, S_T)$.
 
 
 As a consequence, we have an equivalent martingale measure $\Qm$ as defined on (\ref{eq:emmq}), hence no arbitrage by \ref{th:arbitrage_free_market}, and a complete market by \ref{th:arbitrage_free_market}. We conclude that, by \ref{th:european_price}, that the fair price for both buyer and seller is $c$:
-\begin{equation}\label{eq:risk-neutral-price}
+\begin{equation}\label{eq:risk-neutral-expectation}
   c = \ExpMeasure{\Qm}{\nu(T)g(S_T)}
 \end{equation}
 
@@ -346,7 +346,8 @@ To make use of (\ref{eq:risk-neutral-price}), we will now turn to price a Europe
 
 \begin{proposition}
 	Consider a claim $C(\omega) = g(T, S_T) = \callPayoff{S_T}$ for some $K > 0$, the price of the claim at $t=0$, under risk neutral probability is
-	\begin{equation}
+	
+	\begin{equation} \label{eq:risk-neutral-price}
 		c = S_0 \Phi(d_+) - Ke^{-rT}\Phi(d_-)
 	\end{equation}
 	Where,
@@ -413,7 +414,19 @@ To make use of (\ref{eq:risk-neutral-price}), we will now turn to price a Europe
 	\end{align}
 \end{proof}
 
-One may wonder about the relationship between risk-neutral pricing and the Black-Scholes PDE. Both models commit to the same idea of hedging (or replication) of the payoff by removing the.
+One may wonder about the relationship between risk-neutral pricing and the Black-Scholes PDE. Both models commit to the idea of hedging (or replication) of the payoff by removing the risk factor, i.e., the rate of return of the risky asset $\mu$ bears no importance in either model.\\
 
- 
+We may then pose the question: what is the value of $C$ for (\ref{eq:black-scholes-formula}) and (\ref{eq:risk-neutral-expectation})? Since we are talking about a complete and arbitrage-free market, we may assume that both paths yield the same result and, in fact, this is the case. By theorem \ref{th:feynman-kac} (the Feynman-Kac formula) with $f(x,t) = 0$, and $V(x,t) = r$ we see that
+
+\begin{equation}
+	\partialwrt{C}{t} + \frac{1}{2}\sigma^2S^2\partialwrt[2]{C}{S} + rS\partialwrt{C}{S} - rC = 0 \Rightarrow \ExpMeasure{\Qm}{\nu(T)g(S_T)}.
+\end{equation}
+
+\section{Montecarlo Valuation}
+Equation (\ref{eq:risk-neutral-price}) For much more complex claims $C$ under the Black-Scholes model there may not exist a closed form formula such as the European call option $\callPayoff{S_T}$
+\begin{figure}[h!]
+  \includegraphics[width=0.90\textwidth]{../images/european_call_montecarlo}
+  \caption{250 simulation of a European Call under $\Qm$.}
+\end{figure}
+
 \end{document}

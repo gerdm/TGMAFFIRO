@@ -47,14 +47,14 @@ double get_mean_price(double S0, double K, double T, double r, double sigma, int
 int main()
 {
     double S0, K, T, r, sigma;
+    int nsimul;
+    double price;
+
     S0 = 100;
     K = 92;
     T = 150.0 / 365;
     r = 0.06;
     sigma = 0.23;
-    
-    int nsimul;
-    double price;
     
     nsimul = 1500;
     for (int i=0; i < nsimul; ++i){
