@@ -46,9 +46,9 @@ double get_mean_price(double S0, double K, double T, double r, double sigma, int
 
 int main()
 {
+    double price;
     double S0, K, T, r, sigma;
     int nsimul;
-    double price;
 
     S0 = 100;
     K = 92;

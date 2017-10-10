@@ -338,6 +338,7 @@ with final boundary condition $C(T) = g(T, S_T)$.
 
 
 As a consequence, we have an equivalent martingale measure $\Qm$ as defined on (\ref{eq:emmq}), hence no arbitrage by \ref{th:arbitrage_free_market}, and a complete market by \ref{th:arbitrage_free_market}. We conclude that, by \ref{th:european_price}, that the fair price for both buyer and seller is $c$:
+
 \begin{equation}\label{eq:risk-neutral-expectation}
   c = \ExpMeasure{\Qm}{\nu(T)g(S_T)}
 \end{equation}
@@ -423,9 +424,15 @@ We may then pose the question: what is the value of $C$ for (\ref{eq:black-schol
 \end{equation}
 
 \section{Montecarlo Valuation}
-Equation (\ref{eq:risk-neutral-price}) For much more complex claims $C$ under the Black-Scholes model there may not exist a closed form formula such as the European call option $\callPayoff{S_T}$
+For a much more complex claims $C$ under the Black-Scholes model there may not exist a closed form formula such as for the European call option. In such cases, we can rely on (\ref{eq:risk-neutral-expectation}) and the law of large numbers to converge to the expected value (under the measure $\Qm$). Since we know the dynamics of the underlying under the $\Qm$ measure, namely $dS_t = S_t\left(rdt + \sigma dW_t\right)$, it is possible simulate the path of the process up to time $T$ and compute the mean payoff at maturity.\\
+
+As an example, consider a European call option with $S_0 = 100$, $K = 92$, $r = 0.06$, $\sigma = 0.23$, and $T = 150 / 365$. If, at $t=T$, the value of the underlying falls below the value of the strike, then a payoff happens at time $T$. Figure \ref{fig:montecarlo_simulation} represents 250 simulated paths under the specified conditions; any simulated path below $K$ at maturity is highlighted.\\
+
+By (\ref{eq:risk-neutral-price}), the price of the claim today with the parameters specified above is $c\approx 12.1253$. In order to compute the 
+
 \begin{figure}[h!]
   \includegraphics[width=0.90\textwidth]{../images/european_call_montecarlo}
+  \label{fig:montecarlo_simulation}
   \caption{250 simulation of a European Call under $\Qm$.}
 \end{figure}
 
