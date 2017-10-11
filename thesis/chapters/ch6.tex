@@ -426,14 +426,45 @@ We may then pose the question: what is the value of $C$ for (\ref{eq:black-schol
 \section{Montecarlo Valuation}
 For a much more complex claims $C$ under the Black-Scholes model there may not exist a closed form formula such as for the European call option. In such cases, we can rely on (\ref{eq:risk-neutral-expectation}) and the law of large numbers to converge to the expected value (under the measure $\Qm$). Since we know the dynamics of the underlying under the $\Qm$ measure, namely $dS_t = S_t\left(rdt + \sigma dW_t\right)$, it is possible simulate the path of the process up to time $T$ and compute the mean payoff at maturity.\\
 
-As an example, consider a European call option with $S_0 = 100$, $K = 92$, $r = 0.06$, $\sigma = 0.23$, and $T = 150 / 365$. If, at $t=T$, the value of the underlying falls below the value of the strike, then a payoff happens at time $T$. Figure \ref{fig:montecarlo_simulation} represents 250 simulated paths under the specified conditions; any simulated path below $K$ at maturity is highlighted.\\
-
-By (\ref{eq:risk-neutral-price}), the price of the claim today with the parameters specified above is $c\approx 12.1253$. In order to compute the 
+In this work we will not present a formal approach to this method, but rather provide an empirical analysis on the use cases for this method.\\
 
 \begin{figure}[h!]
   \includegraphics[width=0.90\textwidth]{../images/european_call_montecarlo}
   \label{fig:montecarlo_simulation}
   \caption{250 simulation of a European Call under $\Qm$.}
+\end{figure}
+
+
+As an example, consider a European call option with $S_0 = 100$, $K = 92$, $r = 0.06$, $\sigma = 0.23$, and $T = 150 / 365$. If, at $t=T$, the value of the underlying falls below the value of the strike, then a payoff happens at time $T$. Figure \ref{fig:montecarlo_simulation} represents 250 simulated paths under the specified conditions; any simulated path below $K$ at maturity is highlighted.\\
+
+By (\ref{eq:risk-neutral-price}), the price of the claim today with the parameters specified above is $c\approx 12.1253$. In order to simulate and compute the expected value of the claim at maturity, we only need to simulate the value of the underlying at maturity, that is, $S_T$. The general approach to the mean value of the claim $C$ at time $T$ can be represented as follows:\\
+
+\begin{algorithm}[H]
+	\SetAlgoLined
+	\KwData{$S_0$, $K$, $r$, $\sigma$, $T$, $nrounds$, $nsim$}
+	\KwResult{Mean price of the claim at $t=0$}
+	Set $X \leftarrow \{0\}_{i=1}^{nrounds}$\;
+	\For{$round \leftarrow 1$ \KwTo $nrounds$}{
+	$totalPrice \leftarrow 0$\;
+		\For{$sim \leftarrow 1$ \KwTo $nsim$}{
+			$S_T = S_0e^{(r - \sigma^2/2)T + \sigma W_T}$\;
+			$C = \max\{S_T - K, 0\}$\;
+			$totalPrice \leftarrow totalPrice + C$
+		}
+		$X_{round} \leftarrow e^{-rT} \cdot \frac{totalPrice}{nsim}$\;
+	}
+	$c \leftarrow \frac{1}{nrounds} \sum_{j=1}^{nrounds}X_j$\;
+	\Return $c$\;
+	\caption{Montecarlo Pricing for a European Call Option}
+\end{algorithm}
+
+\hfill \break
+Algorithm 1 is the simplest approach, and the highlights the main idea behind Montecarlo valuation. A more optimized approach is to vectorize the algorithm. For purposes of this work, we took 10,000 rounds with 100,000 simulations in between which yielded a mean price of $\hat c \approx 12.12566$, and a standard error $SE(c) \approx .04007$.
+
+\begin{figure}[h]
+	\centering
+  \includegraphics[width=0.5\textwidth]{../images/montecarlo_distribution}
+  \caption{Mean Ddstribution of a the present value of simulated call option.}
 \end{figure}
 
 \end{document}
