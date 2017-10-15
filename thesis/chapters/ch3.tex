@@ -14,7 +14,7 @@ As stated in the first chapter, a financial institution selling financial deriva
 
 Feasible as this may seem, as pointed out by \aycite{baxter}, this approach could lead to disaster for a financial institution. Let us develop the informal argument about the value of the forward as given in section \ref{sect:risk_hedge_arbitrage}. We first recall that the payoff of a long forward is given by $S - K$. What, then, is the value of $K$ such that no arbitrage is possible?\\
 
-Let us consider a continuously compounded interest rate $r$ and denote $S_t$ the value of the asset at time $t$. At $t=T$, we want $K$ such that the value of the forward is
+Let us consider a continuously compounded interest rate $r$ and denote $S_t$ the value of the risky asset at time $t$. At $t=T$, we want $K$ such that the value of the forward is
 
 \begin{equation}\label{eq:forward_future}
   S_T - K = 0.
@@ -49,7 +49,7 @@ With this last example, it is easy to see that the theoretical price anyone shou
 % Overview
 We develop this chapter twofold: we first lay the foundations required to value an option using a single binomial tree; the second chapter comprises the generalization of the single binomial tree and we provide an example of its usage.
 
-\section{One-Step Binomial Models}
+\section{One-Step Binomial Models}\label{sect:one-step-binomial-model}
 In order to generalize an arbitrage-free approach to price a European option on a stock, it is desirable to construct a model that truly reflects the market (unlike the LLN approach). In its simplest form, this market should consist of a cash bond and a stock. We will assume, that the market moves in discrete units of time.\\
 
 \textbf{The Stock}\\
@@ -142,8 +142,6 @@ What, then, would have happened, had we decided to replicate this payoff using o
 
 Pricing $\hat{\mathcal{V}}$ for $f$ does not guarantee $\hat{\mathcal{V}} = \mathcal{V}$, which could lead to arbitrage otherwise. Assuming $\hat{\mathcal{V}} \neq \mathcal{V}$, the expected payoff of $f$ would not be $\hat{\mathcal{V}}$, market participants would be inclined to make a profit, thereby breaking the assumption that every position taken on the derivative is independent of one another; we cannot expect to break even in the long run.
 
-
-%TODO: Explain more about the Q-measure
 \subsection{The Q Measure}
 Consider  (\ref{eq:v_price_complete}) with payoff $S_T - K$ (a long forward).
 
@@ -301,12 +299,30 @@ For example, the upper node at $t=2$ is computed by taking the discounted expect
 \caption{The Claim Tree}
 \end{figure}
 
-Loosely speaking, every node in the claim-tree represents the value of the option at every step. Evidently, at $t=3$, the value of the option can only be its current value since there is nowhere to move elsewhere in the tree. At $t=0$ we have the risk-free value for the option that guarantees no arbitrage.\\
+Loosely speaking, every node in the claim-tree represents the value of the option at every step. Evidently, at $t=3$, the value of the option can only be its current value since there is nowhere to move elsewhere in the tree. At $t=0$ we have the risk-free value for the option $\mathcal V$ that guarantees no arbitrage.\\
 
-% TODO: Add definition of self-financing portfolio
 To see why this is true, suppose we were to sell this option at \$10.45. For the sake of the argument, suppose the stock moves up two times and down at the last time-tick. If 10.45 is truly the arbitrage-free price option, we should be able to replicate the movement of the stock at each time interval and arrive at the payoff without incurring any other cost.\\
 
 According to equation \ref{eq:phi}, at $t=0$ we would need to buy 0.3925 units of $S$ and borrow 28.8 to cover the expenses; if the price goes up at $t=1$, around 0.65 units of the stock are required, which would lead to a purchase of 0.26 extra units of the stock, thus incrementing the amount borrowed to 60.2. At $t=2$, 1 unit of $S$ is required, increasing the amount borrowed to 110. Finally, at $t=3$, the stock takes a down move and \$5.2 is the amount owed to the option buyer. \\
 
-The final value in the position of the stock is $S_0 u ^ 2 d \cdot \phi = 115.20$, minus the \$110 owed, brings the total value of the portfolio to \$5.20, exacltly the amount required to fulfill the obligation.
+The final value in the position of the stock is $S_0 u ^ 2 d \cdot \phi = 115.20$, minus the \$110 owed, brings the total value of the portfolio to \$5.20, exacltly the amount required to fulfill the obligation. The fact that, with an initial value $\mathcal V$, we are able to fully replicate the portfolio at maturity constitutes what we call a \textit{self-replicating portfolio}. We summarize this concept in the following definition
+
+\begin{definition}[\textbf{Self-Replicating Portfolio}]
+	For an $n$-period market with a risky asset and a cash account, a self-replicating portfolio $(\phi, \psi)$ with price $\mathcal V$ at time $t=0$, is such that guarantees the replication of the payoff $f$ by rebalancing $(\phi, \psi)$ at each time step, furthermore this replication does not need an additional influx of money to fulfill the obligation.
+\end{definition}
+
+\section{Completeness and Arbitrage}
+We will conclude our discussion to derivative's pricing with two paramount concepts in the development of a continuous-time model, that of completeness and arbitrage. The one-step binomial model, as seen on section \ref{sect:one-step-binomial-model}, has a unique set of values $(\phi, \psi)$ that replicate the payoff $f$ at maturity. Furthermore, this pair guarantees the impossibility of arbitrage.\\
+
+The aforementioned model is elegant in the sense that these two properties hold true. In general, for a two-period model, a market can consist of any number $n$ of risky assets $\{X_i\}_{i=1}^n$, and $m$ possible final payoffs $\{f_i\}_{i=1}^m$. In this case, can we guarantee that the market has a unique portfolio $\{\phi_i\}_{i=1}^{n} \in \RNums$ such that no arbitrage is possible? If latter is true case, what is the relationship of markets that have a unique price, and the impossibility of an arbitrage?
+
+To answer these two questions, we turn to informally define the concepts of completeness and arbitrage.
+
+\begin{definition}[\textbf{Arbitrage for the two period binomial model}]
+	For a two-period binomial model with risky assets $\{X_i\}_{i=1}^n$, and possible payoffs $\{f_i\}_{i=1}^m$, a portfolio $\{\phi_i\}_{i=1}^{n}$ is an arbitrage if it replicates $f$, and its present value $\mathcal V$ is different from the present market value of payoff $f$, $\bar{\mathcal V}$, such that a riskless profit can be made.
+\end{definition}
+
+\begin{definition}[\textbf{Completeness}]
+	A market $\{X_i\}_{i=1}^m$ is said to be complete if every contingent claim $f$ has a unique portfolio $\{\phi_i\}_{i=1}^m$ that replicates the portfolio.
+\end{definition}
 \end{document}
