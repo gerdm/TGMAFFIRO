@@ -314,9 +314,9 @@ The final value in the position of the stock is $S_0 u ^ 2 d \cdot \phi = 115.20
 \section{Completeness and Arbitrage}
 We will conclude our discussion to derivative's pricing with two paramount concepts in the development of a continuous-time model, that of completeness and arbitrage. The one-step binomial model, as seen on section \ref{sect:one-step-binomial-model}, has a unique set of values $(\phi, \psi)$ that replicate the payoff $f$ at maturity. Furthermore, this pair guarantees the impossibility of arbitrage.\\
 
-The aforementioned model is elegant in the sense that these two properties hold true. In general, for a two-period model, a market can consist of any number $n$ of risky assets $\{X_i\}_{i=1}^n$, and $m$ possible final payoffs $\{f_i\}_{i=1}^m$. In this case, can we guarantee that the market has a unique portfolio $\{\phi_i\}_{i=1}^{n} \in \RNums$ such that no arbitrage is possible? If latter is true case, what is the relationship of markets that have a unique price, and the impossibility of an arbitrage?
+The aforementioned model is \textit{elegant} in the sense that these two properties hold true. In general, for a two-period model, a market can consist of any number $n$ of risky assets $\{X_i\}_{i=1}^n$, and $m$ possible final payoffs $\{f_i\}_{i=1}^m$. In this case, can we guarantee that the market has a unique portfolio $\{\phi_i\}_{i=1}^{n} \in \RNums$ such that no arbitrage is possible? If latter is true case, what is the relationship of markets that have a unique price, and the impossibility of an arbitrage?
 
-To answer these two questions, we turn to informally define the concepts of completeness and arbitrage.
+To answer these two questions, we turn to define the concepts of completeness and arbitrage.
 
 \begin{definition}[\textbf{Arbitrage for the two period binomial model}]
 	For a two-period binomial model with risky assets $\{X_i\}_{i=1}^n$, and possible payoffs $\{f_i\}_{i=1}^m$, a portfolio $\{\phi_i\}_{i=1}^{n}$ is an arbitrage if it replicates $f$, and its present value $\mathcal V$ is different from the present market value of payoff $f$, $\bar{\mathcal V}$, such that a riskless profit can be made.
@@ -325,4 +325,32 @@ To answer these two questions, we turn to informally define the concepts of comp
 \begin{definition}[\textbf{Completeness}]
 	A market $\{X_i\}_{i=1}^m$ is said to be complete if every contingent claim $f$ has a unique portfolio $\{\phi_i\}_{i=1}^m$ that replicates the portfolio.
 \end{definition}
+
+For a given claim $f$, a complete market is such that, there exists only one way to replicate the payoff by means of investing in the risky assets and the cash bond. Conversely, a market without arbitrage is such that there is no possibility of making a riskless and free profit.\\
+
+\begin{proposition}\label{prop:completeness-notimply-noarbitrage}
+	For a given market $\{X_i\}_{i=1}^n$ and a claim $f$ with $m$ possible final values, 
+	\begin{equation}
+		\text{Completeness} \notiff \text{No Arbitrage}.
+	\end{equation}
+\end{proposition}
+
+To see why proposition \ref{prop:completeness-notimply-noarbitrage} is true, we present two examples inspired in the paper by \aycite{albert-jen}. For a more mathematically in depth discussion in the topic, the reader is encouraged to read their paper.\\
+
+\textbf{Example 1: Completeness $\notimplies$ No Arbitrage.}\\
+Let us consider a one step binomial model with a risky asset, and a cash account with per-period compounding with an interest rate of $r=0.5$. The risky asset has the following dynamics
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+    \draw[->] (0,0) node[left]{$S_0=9$} --(2, 0.5);
+    \node[right] at (2, 0.5) {$S_u = 10$};
+    \draw[->] (0,0) --(2, -0.5);
+    \node[right] at (2, -0.5) {$S_d = 5$};
+\end{tikzpicture}
+\caption{Dynamics of the risky asset.}
+\end{figure}
+
+Furthermore, let us consider the (simple) claim that gives us the value of the risky asset at the end of the tree, i.e., $S_u$ or $S_d$. This model, as we've seen is complete since there exists a single portfolio that replicates the claim. In this case, $(\frac{1}{5}, \frac{16}{3})$. Nonetheless, we device an arbitrage as follows: at $t=0$, short sell the stock, invest it in the bank and go long in the claim (we have $9$). At $t=1$ we have $9(1 + r) = 13.5$ in the bank account. This implies an arbitrage since the payoff we'd get will be either $S_0(1 + r) - S_u > 0$ or $S_0(1 + r) - S_d > 0$.
+
 \end{document}
