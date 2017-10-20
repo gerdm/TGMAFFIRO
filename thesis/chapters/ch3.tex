@@ -351,6 +351,41 @@ Let us consider a one step binomial model with a risky asset, and a cash account
 \caption{Dynamics of the risky asset.}
 \end{figure}
 
-Furthermore, let us consider the (simple) claim that gives us the value of the risky asset at the end of the tree, i.e., $S_u$ or $S_d$. This model, as we've seen is complete since there exists a single portfolio that replicates the claim. In this case, $(\frac{1}{5}, \frac{16}{3})$. Nonetheless, we device an arbitrage as follows: at $t=0$, short sell the stock, invest it in the bank and go long in the claim (we have $9$). At $t=1$ we have $9(1 + r) = 13.5$ in the bank account. This implies an arbitrage since the payoff we'd get will be either $S_0(1 + r) - S_u > 0$ or $S_0(1 + r) - S_d > 0$.
+Furthermore, let us consider the (simple) claim that gives us the value of the risky asset at the end of the tree, i.e., $S_u$ or $S_d$. This model, as we've seen is complete since there exists a single portfolio that replicates the claim. In this case, $(\frac{1}{5}, \frac{16}{3})$. Nonetheless, we device an arbitrage as follows: at $t=0$, short sell the stock, invest it in the bank and go long in the claim (we have $9$). At $t=1$ we have $9(1 + r) = 13.5$ in the bank account. This implies an arbitrage since the payoff we'd get will be either $S_0(1 + r) - S_u > 0$ or $S_0(1 + r) - S_d > 0$.\\
 
+\textbf{Example 2: No Arbitrage $\notimplies$ Completeness.}\\
+For this example, we turn to a different kind of model: a one-step trinomial model. In it, at the end of one period, the risky asset can either go up, down, or stay at an intermediate intermediate level price. That is, there exists factors $0 < d < m < u$ such that, at the end of one period, the risky asset can take any of the values $S_0 d := S_d$, $S_0 m := S_m$ , or $S_0 u := S_u$, as shown in figure \ref{fig:trinomial_model}.
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+    \draw[->] (0,0) node[left]{$S_0$} --(1, 1);
+    \node[right] at (1, 1) {$S_u$};
+    \draw[->] (0,0) -- (1,0);
+    \node[right] at (1,0) {$S_c$};
+    \draw[->] (0,0) --(1, -1);
+    \node[right] at (1, -1) {$S_d$};
+\end{tikzpicture}
+\caption{Trinomial model.}
+\label{fig:trinomial_model}
+\end{figure}
+
+As in the case for the binomial model, were we to replicate a claim $f$ as a function of $S$, the replicating equation, for the one-period trinomial model, would be of the form:
+
+\begin{align*}
+    \phi S_u + \psi B_0e^{r \delta_t} = f_u\\
+    \phi S_m + \psi B_0e^{r \delta_t} = f_m\\
+    \phi S_d + \psi B_0e^{r \delta_t} = f_d
+\end{align*}
+
+The span of solutions for this problem can be seen as a linear combination of elements in $\RNums^3$, that is, the tuple $(\phi, \psi)$ of elements that satisfies the system of equations spans over a plane $\RNums^2$ (or lower dimension) of solutions. Hence, this market has no unique replicating solution, which we define incompleteness.\\
+
+\begin{figure}[hbt!]
+  \includegraphics[width=0.8\textwidth]{../images/trinomial_sol}
+  \caption{Span of solutions for the trinomial model}
+\end{figure}
+
+As pointed out by \aycite{albert-jen}, the fact that $0 < d < m < u$ implies that this market has no arbitrage. Which asserts what was intended to show.\\
+
+In light of the latter example, it is tempting to say that a necessary, albeit not sufficient, condition for any market to be complete is to have the same number of assets as there are possible paths for each asset. If that were the case, what would happen for a market with a single asset and continuous movements? Before answering this important question, we must first define what such a market would look like.\\
 \end{document}
