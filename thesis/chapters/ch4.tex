@@ -5,13 +5,13 @@
 % 1) Link
 In chapter one we posed the question about the theoretical value of a financial call option that starts today. Specifically, we want to answer the following question: what is today's value for a derivative that pays $\max\{S_T-K, 0\}$ at maturity? Note that, at time $T$, the payoff of the option is a function of $S_T$, since all else is given. Consequently, preceding the valuation of any option we must first take into account the dynamics of the asset we are referring to, i.e., we must come up with a model for $S_t$ for all $t \in [0,\infty)$.\\
 
-As stated in chapter \ref{ch:option_pricing}, some basic assumption about the financial asset we desire to model is that is is always positive, it starts at a known value and has stochastic component that allow us to determine the possible paths it may take.
+As saw in chapter \ref{ch:option_pricing}, some basic assumption about the financial asset we desire to model is that is is always positive, starts at a known value, and has stochastic component that allow us to determine the possible paths it may take.\\
 
 % 2) Focus
 In the following chapter, we aim to attain a model that explains the random changes of financial assets in continuous time. Since we assume that the stock follows both a stochastic component and a deterministic one, we intent to describe the ``noise'' of an asset over time in continuous time.\\
 
 % 3) Overview
-We begin by motivating the need for such process in a mathematically-informal way; we continue laying the mathematical foundations for what is the final process to model the \textit{noise}: the Brownian motion; finally, we conclude the chapter by proving remarkable properties about the latter.
+We begin by motivating the need for such process in a mathematically-informal way; we continue laying the mathematical foundations for what is the final process to model the \textit{noise}: the Brownian motion; finally, we conclude the chapter by proving remarkable properties about the latter.\\
 
 \section{Random Walks}
 Suppose that two players (A and B) toss an even coin $n$ times, one toss for every unit of time\footnote{Note that this unit of time can be one second, one day, 5 minutes, etc.}. Whenever tails comes up, A will pay B \$1. On the contrary, A will receive \$1 from B. Suppose further that we decide to model how much A won (or lost) after $n$ tosses. To do so, we define the following:
