@@ -35,7 +35,8 @@ For a more convenient notation, let $W(t) = \{W_i(t)\}_{i=1}^{m}$ be represented
 \end{equation}
 
 
-It is desirable to measure any asset in the market \textit{relative} to a given asset. We say we have \textit{normalized} the market if every asset in the market is measured relative to the risk-free asset. We define this idea as follows
+It is desirable to measure any asset in the market \textit{relative} to a given asset. We say we have \textit{normalized} the market if every asset in the market is measured relative to the risk-free asset. Indeed, as pointed out by \aycite{oksendal}, normalizing the market ``corresponds to regarding the price $X_0(t)$ of the safe investment as the unit of price (the numeraire) and computing the other prices in therms of this unit.''
+ We define this idea as follows
 \begin{definition}[\textbf{Normalized Markets}]
 	The market $\market$ is said to be normalized if $X_0(0)= 1$.
 \end{definition}
@@ -45,10 +46,8 @@ We may define a normalized market transforming every entry of $\market$ as $\bar
   \bar{X}(t) = (1, \bar{X}_1(t), \ldots, \bar{X}_n(t)).
 \end{equation}
 
-As pointed out by \aycite{oksendal}, normalizing the market ``corresponds to regarding the price $X_0(t)$ of the safe investment as the unit of price (the numeraire) and computing the other prices in therms of this unit.''
-
 \begin{remark}
-	Since $dX_0 = r X_0 dt$, we see that $X_0(t) = e^{\int_0^tr(s,\omega) ds}$. Let
+	Since $dX_0 = r X_0 dt; X_0(0) = 1$, we see that $X_0(t) = e^{\int_0^tr(s,\omega) ds}$. Let
 	\begin{equation}
 		\nu(t) := X^{-1}_0(t) = e^{-\int_0^tr(s,\omega) ds}.
 	\end{equation}
@@ -68,6 +67,7 @@ Considering (\ref{eq:discounted_market}) as $d\XBar_i(t) = \nu(t)[(\mu_i dt + \s
 
 \end{remark}
 
+Since markets are formed by
 \begin{definition}[\textbf{Portfolio}]
 	A portfolio $\theta(t)$ in the market $\market$ is an ($n+1$)-dimensional $(t,\omega)$-measurable and $\salgF_t^{(m)}$-adapted stochastic process
 	\begin{equation}
