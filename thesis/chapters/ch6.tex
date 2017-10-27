@@ -52,6 +52,7 @@ We may define a normalized market transforming every entry of $\market$ as $\bar
 		\nu(t) := X^{-1}_0(t) = e^{-\int_0^tr(s,\omega) ds}.
 	\end{equation}
 This implies
+
 \begin{align}
 	d\bar X_i &= d\left(\nu(t)X_i(t)\right) \nonumber \\
 			&= \nu(t)dX_i + X_id\nu(t) + d\nu(t)dX_i(t)\nonumber\\
@@ -67,7 +68,8 @@ Considering (\ref{eq:discounted_market}) as $d\XBar_i(t) = \nu(t)[(\mu_i dt + \s
 
 \end{remark}
 
-Since markets are formed by
+For a given market, participants, by definition, hold at least one asset of the market they engage in. The amount of units for a given asset that a participant may hold at any point in time need not be necessary one or none, an investor may
+
 \begin{definition}[\textbf{Portfolio}]
 	A portfolio $\theta(t)$ in the market $\market$ is an ($n+1$)-dimensional $(t,\omega)$-measurable and $\salgF_t^{(m)}$-adapted stochastic process
 	\begin{equation}
