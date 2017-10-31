@@ -9,7 +9,7 @@ In this chapter, our main goal is to price European claims for continuous, compl
 In what follows, we first define what a market means in terms of a multidimensional It\^o process, we present some results and formalize necessary concepts that will be of later use in the chapter; we then select a particular model among the collection of all possible models: the Black-Scholes model and reach a price for a claim via replication argument given by the Black-Scholes PDE; we then return to pricing, albeit under a different approach, that of pricing under the risk-neutral measure, and derive the price for a European call option; we conclude the chapter reviewing the connection for both models and provide numerical results of pricing under Montecarlo methods.\\
 
 \section{Markets}
-As vaguely defined on chapter \ref{ch:fin_markets}: a market is the place where buyers meet sellers. What does this mean in terms of the assets that are actually traded? Clearly, they play a role in what a participant will either buy or sell. For a given asset, if bought, the participant may expect a return for his position over a given holding period, if sold, he may expect that the price will either fall or it is a risky position to hold.\\
+As stated in \ref{ch:fin_markets}, a market is the place where buyers meet sellers. What does this mean in terms of the assets that are actually traded? Clearly, they play a role in what a participant will either buy or sell. For a given asset, if bought, the participant may expect a return for his position over a given holding period, if sold, he may expect that the price will either fall or it is a risky position to hold.\\
 
 In light of this, we may define a market, not in terms of the players, but in terms of the traded assets: their underlying return over time and the impact that players or any other factors add as noise. 
 \begin{definition}[\textbf{Markets}]
@@ -26,7 +26,7 @@ In light of this, we may define a market, not in terms of the players, but in te
 
 We regard (\ref{eq:safe_investment}) as the safe asset in the market due the lack of a diffusion term. With this in mind, $r$ represents the instantaneous rate of return for the safe investment. In it simplest form, we might consider the safe asset as money in a cash account or a government bond with little-to-no risk.\\
 
-On the other hand, (\ref{eq:risky_asset}) represent a risky asset. In this context, $\mu_i$ represent the drift term or, in other words, the instantaneous rate of return for asset $i$, while $\sigma_{ij}$ represents the amount of variation for asset $i$ (note that we are generally defining a risky asset as a sum of different \textit{uncertainty} factors). In effect, $\sigma_{ij}$ is the $j$-th diffusion term for the $i$-th risky asset.\\
+On the other hand, (\ref{eq:risky_asset}) represent a risky asset. In this context, $\mu_i$ represent the drift term or, in other words, the instantaneous rate of return for asset $i$, while $\sigma_{ij}$ represents the amount of variation for asset $i$\footnote{Note that we are generally defining a risky asset as a sum of different \textit{uncertainty} factors}. In effect, $\sigma_{ij}$ is the $j$-th diffusion term for the $i$-th risky asset.\\
 
 For a more convenient notation, let $W(t) = \{W_i(t)\}_{i=1}^{m}$ be represented by a $m\times 1$ matrix and $\sigma_i$ by a $1\times m$ matrix of elements $\{\sigma{ij}\}_{j=1}^{m}$ then,
 
@@ -68,7 +68,7 @@ Considering (\ref{eq:discounted_market}) as $d\XBar_i(t) = \nu(t)[(\mu_i dt + \s
 
 \end{remark}
 
-For a given market, participants, by definition, hold at least one asset of the market they engage in. The amount of units for a given asset that a participant may hold at any point in time need not be necessary one or none, an investor may
+For a given market, participants, by definition, hold at least one asset of the market they engage in. The amount of units for a given asset that a participant may hold at any point in time need not be necessary one or none. For this market, we assume that a participant can be any amount of units long or short of some asset in the market. The set of units of assets that an investor holds is called a portfolio. We define this notion as follows
 
 \begin{definition}[\textbf{Portfolio}]
 	A portfolio $\theta(t)$ in the market $\market$ is an ($n+1$)-dimensional $(t,\omega)$-measurable and $\salgF_t^{(m)}$-adapted stochastic process
@@ -77,28 +77,43 @@ For a given market, participants, by definition, hold at least one asset of the 
 	\end{equation}
 \end{definition}
 
-The value $\theta_i(t,\omega)$ represents the amount of units for the asset $X_i$ held at time $t$.
+The value $\theta_i(t,\omega)$ represents the amount of units for the asset $X_i$ held at time $t$. In this sense, amount of units an investor holds for an asset $i$ is a stochastic process.\\
 
+With units held in a portfolio and the intrinsic value of all assets in the market, it is logical to represent the current value of a portfolio at time $t$ as the sum of the values in the market times the number of units in the asset. 
 \begin{definition}[\textbf{The value process}]
 	The value at time $t$ for the portfolio $\theta$ is defined as
 	\begin{equation}
 		V(t) = \innerprod{\theta(t)}{X(t)} = \theta(t) \cdot X(t)
 	\end{equation}
 \end{definition}
-The value $\theta_i(t,\omega)$ represents the amount of units for the asset $X_i$ held at time $t$.
+The value $\theta_i(t,\omega)$ represents the amount of units for the asset $X_i$ held at time $t$.\\
+
+The next definition stems from the need to define a certain kind of portfolio in which the change in the value of the portfolio is given uniquely by the change in the value of the asset; there is no influx or outflow of money at every time step $t$. In other words, we want to define a portfolio at time $t$ such that with no other than the current value of the portfolio, we can rebalance the position of the portfolio.
 
 \begin{definition}[\textbf{Self-financing portfolio}]\label{def:self-financing-portfolio}
 	The portfolio $\theta(t)$ is said to be self-financing if
-	\begin{equation}
+	\begin{equation} \label{eq:self-financing-portfolio}
 	\int_0^T\{|\theta_0r(s)X_0(s) + \sum_{i=1}^{n}\theta_i(s)\mu(s)| + \sum_{j=1}^m\left[\sum_{i=1}^n\theta_i(s)\sigma_{ij}(s)\right]^2\} ds < \infty,
-	\end{equation}
+	\end{equation} 
 and 
 \begin{equation}
   dV(t) = \innerprod{\theta(t)}{dX(t)} \iff V(t) = V(0)  + \int_0^t \theta(s) dX(s).
 \end{equation}
-
-The change in the value of the portfolio is given uniquely by the change in the value of the asset; there is no influx or outflow of money for every $t\in(0,T]$.
 \end{definition}
+
+Equation (\ref{eq:self-financing-portfolio}) may seem opaque at first in trying to explain the purpose of a self-financing portfolio. To understand this equation more clearly, let us consider dividing the equation in two. The first term to consider,
+
+\begin{equation}
+\int_0^T\{|\theta_0r(s)X_0(s) + \sum_{i=1}^{n}\theta_i(s)\mu(s)|\} ds < \infty,
+\end{equation} 
+
+is representative of the integrable functions in an $L_1$ space as defined in (\ref{eq:integrable-functions}). In this case, the requirement is that $\theta_0r(s)X_0(s) + \sum_{i=1}^{n}\theta_i(s)\mu(s)$ may be integrable w.r.t. the Lebesgue measure. The second term to consider,
+
+\begin{equation}
+\int_0^T\{\sum_{j=1}^m\left[\sum_{i=1}^n\theta_i(s)\sigma_{ij}(s)\right]^2\} ds < \infty,
+\end{equation}
+
+requires the drift terms of every asset in the market to be in the family of processes $\Nhatfam{0}{T}$.
 
 \begin{remark}
 	Let $\theta$ be self-financing in the market $\market$ and denote
