@@ -96,24 +96,25 @@ The next definition stems from the need to define a certain kind of portfolio in
 	\int_0^T\{|\theta_0r(s)X_0(s) + \sum_{i=1}^{n}\theta_i(s)\mu(s)| + \sum_{j=1}^m\left[\sum_{i=1}^n\theta_i(s)\sigma_{ij}(s)\right]^2\} ds < \infty,
 	\end{equation} 
 and 
-\begin{equation}
+
+\begin{equation} \label{eq:self-financing-value-process}
   dV(t) = \innerprod{\theta(t)}{dX(t)} \iff V(t) = V(0)  + \int_0^t \theta(s) dX(s).
 \end{equation}
 \end{definition}
 
 Equation (\ref{eq:self-financing-portfolio}) may seem opaque at first in trying to explain the purpose of a self-financing portfolio. To understand this equation more clearly, let us consider dividing the equation in two. The first term to consider,
 
-\begin{equation}
+\begin{equation}\label{eq:pt1-self-fin-port}
 \int_0^T\{|\theta_0r(s)X_0(s) + \sum_{i=1}^{n}\theta_i(s)\mu(s)|\} ds < \infty,
 \end{equation} 
 
 is representative of the integrable functions in an $L_1$ space as defined in (\ref{eq:integrable-functions}). In this case, the requirement is that $\theta_0r(s)X_0(s) + \sum_{i=1}^{n}\theta_i(s)\mu(s)$ may be integrable w.r.t. the Lebesgue measure. The second term to consider,
 
-\begin{equation}
+\begin{equation} \label{eq:pt2-self-fin-port}
 \int_0^T\{\sum_{j=1}^m\left[\sum_{i=1}^n\theta_i(s)\sigma_{ij}(s)\right]^2\} ds < \infty,
 \end{equation}
 
-requires the drift terms of every asset in the market to be in the family of processes $\Nhatfam{0}{T}$.
+requires the drift terms of every asset in the market to be in the family of processes $\Nhatfam{0}{T}$. Thus, (\ref{eq:pt1-self-fin-port}) together with (\ref{eq:pt2-self-fin-port}) require integrability conditions for the value process $V(t)$ in order to be self-financed. 
 
 \begin{remark}
 	Let $\theta$ be self-financing in the market $\market$ and denote
