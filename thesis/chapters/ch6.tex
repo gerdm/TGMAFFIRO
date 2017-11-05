@@ -143,6 +143,8 @@ Where (\ref{eq:change_norm_value_process}) follows from (\ref{eq:discounted_mark
 	\end{equation}
 \end{definition}
 
+In chapters \ref{ch:fin_markets} and \ref{ch:option_pricing} the ever so important topic of an arbitrage was mentioned. A sensible definition of what an arbitrage is, in terms of what has been defined so far, consists in defining which properties should a portfolio in this market has in order to be considered an arbitrage. To see this, consider the following definition:
+
 \begin{definition}[\textbf{An arbitrage}]
 	An admissible portfolio is said to be an arbitrage if $V(0) = 0$ and
 	\begin{itemize}
@@ -151,11 +153,17 @@ Where (\ref{eq:change_norm_value_process}) follows from (\ref{eq:discounted_mark
 	\end{itemize}
 \end{definition}
 
-It turns out that having a market constraint to only admissible portfolios lead to a market with arbitrage (see \aycite{oksendal}). We are interested in markets where no arbitrage is possible. If so, what requirements other constraints are necessary for $\market$ such that no arbitrage is possible?
+In this sense, an arbitrage is considered as a portfolio whose initial value is zero, i.e., no expenses are incurred; for certain, its value at maturity will never be below zero; and there exists an strictly positive probability of making a profit.\\
+
+It turns out that having a market constraint to only admissible portfolios lead to a market with arbitrage (see \aycite{oksendal}). We are interested in markets where no arbitrage is possible. If so, what requirements other constraints are necessary for $\market$ such that no arbitrage is possible?\\
+
+To answer this question we require additional tools to bolster the theory developed so far. The first of such tools is a characteristic measure equivalent to the `real world' probability $\Pm$ which we define as follows
 
 \begin{definition}
 	A measure $\Qm \sim \Pm$ for which the normalized price process $\normarket$ is a (local) martingale w.r.t. $\Qm$ is called an equivalent local martingale measure (EMM).
 \end{definition}
+
+The above-mentioned probability $\Qm$ is crucial considering a market governed $\Pm$
 
 \begin{proposition}
 	Suppose there exists an equivalent local martingale measure $\Qm$ for the market $\normarket$ then $\market$ is an arbitrage-free market.
