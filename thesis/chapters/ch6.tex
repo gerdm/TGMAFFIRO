@@ -159,15 +159,19 @@ It turns out that having a market constraint to only admissible portfolios lead 
 
 To answer this question we require additional tools to bolster the theory developed so far. The first of such tools is a characteristic measure equivalent to the `real world' probability $\Pm$ which we define as follows
 
-\begin{definition}
+\begin{definition} \label{def:emm}
 	A measure $\Qm \sim \Pm$ for which the normalized price process $\normarket$ is a (local) martingale w.r.t. $\Qm$ is called an equivalent local martingale measure (EMM).
 \end{definition}
 
-The above-mentioned probability $\Qm$ is crucial considering a market governed $\Pm$
+The use of a probability measure as defined in \ref{def:emm} is a departure from \textit{real} probabilities that govern a market $\market$ however, their usefulness comes not from measurements of reality, but from the insight it provides about arbitrage as the following theorem states
 
-\begin{proposition}
-	Suppose there exists an equivalent local martingale measure $\Qm$ for the market $\normarket$ then $\market$ is an arbitrage-free market.
-\end{proposition}
+\begin{theorem}\label{th:emm_norm_market}
+	Suppose there exists an equivalent local martingale measure $\Qm$ for the market $\normarket$ $\iff$ $\market$ is an arbitrage-free market.
+\end{theorem}
+
+Theorem \ref{th:emm_norm_market} is imperative in what will later constitute a theory of valuation that is sometimes referred as the \textbf{first fundamental theorem of asset pricing}.\\
+
+Likewise, another far-reaching result is presented in the following definition:
 
 \begin{proposition}\label{prop:qmartingale-market}
 	Suppose there exists an $m$-dimensional process $u$ in the extended family for It\^o integrals, where $X(t, \omega) = \{X_i(t,\omega)\}_{i=1}^n$ and
@@ -195,6 +199,8 @@ Then,
 \end{enumerate}
 \end{proposition}
 
+Notice the two consequences from proposition \ref{prop:qmartingale-market} are noteworthy: along a well chosen transformation from $\Pm$ to $\Qm$, we can guarantee that a linear combination of of $W_t$ and $u(\cdot, \omega)$ is also a Brownian motion, albeit under these circumstances, one with respect the measure $\Qm$; furthermore, the representation of the normalized market considers only the discounted risky assets under the dynamics of the Brownian motion w.r.t. $\Qm$, there is no drift term.
+ 
 \begin{proof}
 	The first part of \ref{prop:qmartingale-market} follows from the Girsanov theorem. For the second one consider $d\XBar_i$ and (\ref{eq:discounted_market}) then,
 	\begin{align*}
@@ -259,14 +265,19 @@ and let $\Qm$, and $W_t^\Qm$ such that
 	\end{equation}
 \end{theorem}
 
+Finally, we reach the last key theorem necessary to price the option. The following 
+
 \begin{theorem}\label{th:european_price}
-	Let $C$ a European claim at time $T$ such that $\ExpMeasure{\Qm}{\nu(t)C} < \infty$ for a given complete market $\market$. Then, the price of $C$ is
+	Let $C$ a European claim at time $T$ such that $\ExpMeasure{\Qm}{\nu(t)C} < \infty$ for a given complete market $\market$. Assume the price the buyer of claim is willing to pay if. $P(C)$, on the other hand, the value the seller is willing to claim in order to guarantee the payoff is $q(C)$. Then, the price of $C$ is
 	
 	\begin{equation}
 		p(C) = q(C) = \ExpMeasure{\Qm}{\nu(t)C}.
 	\end{equation}
-
 \end{theorem}
+
+Theorem \ref{th:european_price} establishes, under the given conditions, that both buyer and  seller can guarantee at a price which is given by the discounted value of the claim under $\Qm$. Note that the value given by the expectation under $\Qm$ is used as a tool and not a \textit{true} expectation.\\
+
+In what follows we will develop a particular instance of the general model proposed hitherto. Said model considers a single risky asset and a safe asset in order to replicate a European option, it is famously known as the Black-Scholes Model. We offer two variations of the model and the resulting outcomes. 
 
 \section{Black-Scholes PDE}
 For now on, we assume a market that consists of two securities: a bond (or cash account) $B_t$, and a stock $S_t$. Clearly, this market consists of a risk-free element, and a risky one. As before, the dynamics of these two assets are as follows:
