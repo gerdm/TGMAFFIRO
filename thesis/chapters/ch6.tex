@@ -171,7 +171,7 @@ The use of a probability measure as defined in \ref{def:emm} is a departure from
 
 Theorem \ref{th:emm_norm_market} is imperative in what will later constitute a theory of valuation that is sometimes referred as the \textbf{first fundamental theorem of asset pricing}.\\
 
-Likewise, another far-reaching result is presented in the following definition:
+Likewise, another far-reaching result is presented in the following proposition:
 
 \begin{proposition}\label{prop:qmartingale-market}
 	Suppose there exists an $m$-dimensional process $u$ in the extended family for It\^o integrals, where $X(t, \omega) = \{X_i(t,\omega)\}_{i=1}^n$ and
@@ -199,7 +199,7 @@ Then,
 \end{enumerate}
 \end{proposition}
 
-Notice the two consequences from proposition \ref{prop:qmartingale-market} are noteworthy: along a well chosen transformation from $\Pm$ to $\Qm$, we can guarantee that a linear combination of of $W_t$ and $u(\cdot, \omega)$ is also a Brownian motion, albeit under these circumstances, one with respect the measure $\Qm$; furthermore, the representation of the normalized market considers only the discounted risky assets under the dynamics of the Brownian motion w.r.t. $\Qm$, there is no drift term.
+Notice the two consequences from proposition \ref{prop:qmartingale-market}: along a well chosen transformation from $\Pm$ to $\Qm$, we can guarantee that a linear combination of of $W_t$ and $u(\cdot, \omega)$ is also a Brownian motion, albeit under these circumstances, one with respect the measure $\Qm$; furthermore, the representation of the normalized market considers only the discounted risky assets under the dynamics of the Brownian motion w.r.t. $\Qm$, there is no drift term.
  
 \begin{proof}
 	The first part of \ref{prop:qmartingale-market} follows from the Girsanov theorem. For the second one consider $d\XBar_i$ and (\ref{eq:discounted_market}) then,
@@ -212,7 +212,9 @@ Notice the two consequences from proposition \ref{prop:qmartingale-market} are n
 	\end{align*}
 \end{proof}
 
-\begin{definition}[\textbf{Claims}]
+Next to consider are the derivatives first presented in section \ref{subs:derivatives}. Following the logic of the model so far, we introduce the notion of a \textit{claim}, not as a function of an underlying, albeit a desired payoff at some future time $T$. From an economical perspective, if some market agent were to guarantee this payoff she would, at least, want to guarantee she can fulfill said claim. A sound approach to fulfill this obliged claim is to find a portfolio in this market that can \textit{replicate} the payoff at maturity, that is, the claim must be \textit{attainable}. Following these ideas, we define the following definition of claims and attainability considering what has been defined so far.
+
+\begin{definition}[\textbf{Claims and Attainability}]\label{def:claim-attainability}
 \begin{enumerate}
 	\item A contigent claim $T$ is a lower bounded $\salgF_t^{(m)}$-measurable random variable $C(\omega)$;
 	\item A claim $C(\omega)$ is said to be attainable if there exists an admissible portfolio $\theta(t)$ and $z\in\RNums$ such that
@@ -229,6 +231,8 @@ Notice the two consequences from proposition \ref{prop:qmartingale-market} are n
 \end{enumerate}
 \end{definition}
 
+Notice that condition 2 from definition \ref{def:claim-attainability}, requires the portfolio  be self-financing, considering some initial value $z$.\\
+
 \textbf{
 In what follows, we will assume $u(t,\omega) \in \Nhatfam{0}{T}$ such that
 \begin{equation}\label{eq:condition_change_measure}
@@ -241,7 +245,7 @@ and let $\Qm$, and $W_t^\Qm$ such that
 \end{align}
 }
 
-
+The following three theorems are of outmost importance in what will be the pricing of an specific instance of a claim under a certain predefined market. Their proofs can be found in \aycite{oksendal}. Our only concern will be that of exposing the reader these theorems for further reference. 
 
 \begin{theorem}\label{th:arbitrage_free_market}
 	Suppose there exists a process $u(t,\omega) \in \Nhatfam{0}{T}$ for $X(t,\omega) = (X_1(t,\omega), \ldots, X_n(t,\omega))$ such that
@@ -257,6 +261,8 @@ and let $\Qm$, and $W_t^\Qm$ such that
 	Then the market has no arbitrage.
 \end{theorem}
 
+First of, theorem \ref{th:arbitrage_free_market} presents the process $u(t,\omega)$ that guarantees that a given market is arbitrage-free. Considering proposition \ref{prop:qmartingale-market}, we may start seeing the relationship between a change of measure and the properties of a risk-free market.
+
 \begin{theorem}\label{th:complete_market}
 	The market $\market$ is a compete if and only if there exists $\sigma(t,\omega)$ invertible for a.a. $(t,\omega)$:
 		
@@ -264,8 +270,6 @@ and let $\Qm$, and $W_t^\Qm$ such that
 		\sigma^{-1}(t,\omega) \sigma(t,\omega) = I_m \Rightarrow Rank(\sigma) = m
 	\end{equation}
 \end{theorem}
-
-Finally, we reach the last key theorem necessary to price the option. The following 
 
 \begin{theorem}\label{th:european_price}
 	Let $C$ a European claim at time $T$ such that $\ExpMeasure{\Qm}{\nu(t)C} < \infty$ for a given complete market $\market$. Assume the price the buyer of claim is willing to pay if. $P(C)$, on the other hand, the value the seller is willing to claim in order to guarantee the payoff is $q(C)$. Then, the price of $C$ is
