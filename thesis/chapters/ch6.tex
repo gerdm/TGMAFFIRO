@@ -9,7 +9,7 @@ In this chapter, our main goal is to price European claims for continuous, compl
 In what follows, we first define what a market means in terms of a multidimensional It\^o process, we present some results and formalize necessary concepts that will be of later use in the chapter; we then select a particular model among the collection of all possible models: the Black-Scholes model and reach a price for a claim via replication argument given by the Black-Scholes PDE; we then return to pricing, albeit under a different approach, that of pricing under the risk-neutral measure, and derive the price for a European call option; we conclude the chapter reviewing the connection for both models and provide numerical results of pricing under Montecarlo methods.\\
 
 \section{Markets}
-As stated in \ref{ch:fin_markets}, a market is the place where buyers meet sellers. What does this mean in terms of the assets that are actually traded? Clearly, they play a role in what a participant will either buy or sell. For a given asset, if bought, the participant may expect a return for his position over a given holding period, if sold, he may expect that the price will either fall or it is a risky position to hold.\\
+As stated in chapter \ref{ch:fin_markets}, a market is the place where buyers meet sellers. What does this mean in terms of the assets that are actually traded? Clearly, they play a role in what a participant will either buy or sell. For a given asset, if bought, the participant may expect a return for his position over a given holding period, if sold, he may expect that the price will either fall or it is a risky position to hold.\\
 
 In light of this, we may define a market, not in terms of the players, but in terms of the traded assets: their underlying return over time and the impact that players or any other factors add as noise. 
 \begin{definition}[\textbf{Markets}]
@@ -143,7 +143,9 @@ Where (\ref{eq:change_norm_value_process}) follows from (\ref{eq:discounted_mark
 	\end{equation}
 \end{definition}
 
-In chapters \ref{ch:fin_markets} and \ref{ch:option_pricing} the ever so important topic of an arbitrage was mentioned. A sensible definition of what an arbitrage is, in terms of what has been defined so far, consists in defining which properties should a portfolio in this market has in order to be considered an arbitrage. To see this, consider the following definition:
+As first mentioned in chapters \ref{ch:fin_markets}, an arbitrage represents a riskless profit opportunity for a market player then, in chapter \ref{ch:option_pricing}, we formalized the notion of an arbitrage in terms of the amount of assets to buy (or sell) so that a discrete-time portfolio guarantees a profit with probability one at maturity.\\
+
+Considering what has been stated about an arbitrage, a sensible general definition consists in specifying which properties should a portfolio in a market ought to have in order to be considered an arbitrage. To see this, consider the following definition:
 
 \begin{definition}[\textbf{An arbitrage}]
 	An admissible portfolio is said to be an arbitrage if $V(0) = 0$ and
@@ -157,7 +159,7 @@ In this sense, an arbitrage is considered as a portfolio whose initial value is 
 
 It turns out that having a market constraint to only admissible portfolios lead to a market with arbitrage (see \aycite{oksendal}). We are interested in markets where no arbitrage is possible. If so, what requirements other constraints are necessary for $\market$ such that no arbitrage is possible?\\
 
-To answer this question we require additional tools to bolster the theory developed so far. The first of such tools is a characteristic measure equivalent to the `real world' probability $\Pm$ which we define as follows
+To answer the former we require additional tools to bolster the theory currently at hand. The first of such tools is a characteristic measure equivalent to the `real world' probability $\Pm$ which we define as follows
 
 \begin{definition} \label{def:emm}
 	A measure $\Qm \sim \Pm$ for which the normalized price process $\normarket$ is a (local) martingale w.r.t. $\Qm$ is called an equivalent local martingale measure (EMM).
@@ -212,9 +214,10 @@ Notice the two consequences from proposition \ref{prop:qmartingale-market}: alon
 	\end{align*}
 \end{proof}
 
-Next to consider are the derivatives first presented in section \ref{subs:derivatives}. Following the logic of the model so far, we introduce the notion of a \textit{claim}, not as a function of an underlying, albeit a desired payoff at some future time $T$. From an economical perspective, if some market agent were to guarantee this payoff she would, at least, want to guarantee she can fulfill said claim. A sound approach to fulfill this obliged claim is to find a portfolio in this market that can \textit{replicate} the payoff at maturity, that is, the claim must be \textit{attainable}. Following these ideas, we define the following definition of claims and attainability considering what has been defined so far.
+Next to consider are the derivatives first presented in section \ref{subs:derivatives}. Following the logic of the model so far, we introduce the notion of a \textit{claim}, not as a function of an underlying, albeit a desired payoff at some future time $T$. From an economical perspective, if some market agent were to guarantee this payoff she would, at least, want to guarantee she can fulfill said claim. A sound approach to fulfill this obliged claim is to find a portfolio in this market that can \textit{replicate} the payoff at maturity, that is, the claim must be \textit{attainable}. Following these ideas, we define the following definition for claims and attainability.
 
 \begin{definition}[\textbf{Claims and Attainability}]\label{def:claim-attainability}
+\hfill
 \begin{enumerate}
 	\item A contigent claim $T$ is a lower bounded $\salgF_t^{(m)}$-measurable random variable $C(\omega)$;
 	\item A claim $C(\omega)$ is said to be attainable if there exists an admissible portfolio $\theta(t)$ and $z\in\RNums$ such that
@@ -250,7 +253,7 @@ The following three theorems are of outmost importance in what will be the prici
 \begin{theorem}\label{th:arbitrage_free_market}
 	Suppose there exists a process $u(t,\omega) \in \Nhatfam{0}{T}$ for $X(t,\omega) = (X_1(t,\omega), \ldots, X_n(t,\omega))$ such that
 	\begin{equation}
-		\sigma(t,\omega) u(t,\omega) = \mu(t, \omega) - \rho(t,\omega) X(t,\omega)
+		\sigma(t,\omega) u(t,\omega) = \mu(t, \omega) - r(t,\omega) X(t,\omega)
 	\end{equation}
 	for a.a. $(t,\omega)$ and such that
 	
@@ -271,6 +274,8 @@ First of, theorem \ref{th:arbitrage_free_market} presents the process $u(t,\omeg
 	\end{equation}
 \end{theorem}
 
+Theorem \ref{th:complete_market} gives provide a desired property to have in order to have a complete market. In the case where $\sigma(t,\omega) \in \RNums$, i.e., a market with only one asset, this would only imply that $\sigma$ need only be positive for a market to be arbitrage-free. 
+
 \begin{theorem}\label{th:european_price}
 	Let $C$ a European claim at time $T$ such that $\ExpMeasure{\Qm}{\nu(t)C} < \infty$ for a given complete market $\market$. Assume the price the buyer of claim is willing to pay if. $P(C)$, on the other hand, the value the seller is willing to claim in order to guarantee the payoff is $q(C)$. Then, the price of $C$ is
 	
@@ -279,9 +284,9 @@ First of, theorem \ref{th:arbitrage_free_market} presents the process $u(t,\omeg
 	\end{equation}
 \end{theorem}
 
-Theorem \ref{th:european_price} establishes, under the given conditions, that both buyer and  seller can guarantee at a price which is given by the discounted value of the claim under $\Qm$. Note that the value given by the expectation under $\Qm$ is used as a tool and not a \textit{true} expectation.\\
+Finally, theorem \ref{th:european_price} establishes, under the given conditions, that both buyer and  seller can guarantee at a price which is given by the discounted value of the claim under $\Qm$. Note that the value given by the expectation under $\Qm$ is used as a tool and not a \textit{true} expectation.\\
 
-In what follows we will develop a particular instance of the general model proposed hitherto. Said model considers a single risky asset and a safe asset in order to replicate a European option, it is famously known as the Black-Scholes Model. We offer two variations of the model and the resulting outcomes. 
+In what follows we will develop a particular instance of the general model proposed hitherto. Said model considers a single risky asset and a safe asset in order to replicate a European option: This model is commonly known as the Black-Scholes Model. From this model, we can present two point of views in respect of the value of the claim today.
 
 \section{Black-Scholes PDE}
 For now on, we assume a market that consists of two securities: a bond (or cash account) $B_t$, and a stock $S_t$. Clearly, this market consists of a risk-free element, and a risky one. As before, the dynamics of these two assets are as follows:
