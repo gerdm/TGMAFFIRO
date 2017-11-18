@@ -8,8 +8,10 @@
 \usepackage{tikz}
 \usetikzlibrary{arrows,shapes,positioning}
 \usepackage{url} % insert Urls in bib
-\usepackage[numbers]{natbib}
-\bibliographystyle{plainnat}
+
+
+\bibliographystyle{plain}
+\setbeamertemplate{bibliography item}{\insertbiblabel}
 
 
 \newtheorem{proposition}{Proposition}[section]
@@ -175,8 +177,9 @@
 \end{frame}
 
 
-
+\begin{frame}[allowframebreaks]
+\tiny
 \nocite{*}
 \bibliography{../misc/ref}
-
+\end{frame}
 \end{document}
