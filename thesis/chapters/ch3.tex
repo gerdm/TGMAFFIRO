@@ -380,9 +380,16 @@ As in the case for the binomial model, were we to replicate a claim $f$ as a fun
 
 The span of solutions for this problem can be seen as a linear combination of elements in $\RNums^3$, that is, the tuple $(\phi, \psi)$ of elements that satisfies the system of equations spans over a plane $\RNums^2$ (or lower dimension) of solutions. Hence, this market has no unique replicating solution, which we define incompleteness.\\
 
+As an example, consider figure \ref{fig:incomplete_market}, which represents the payoff for a call option $\max\{S_T - K, 0\}$ with $k=100$, $r=0.03$. The plane represents the span of solutions for $f_m$ as a function of $f_d$ and $f_u$. More specifically, we find all possible combinations
+
+\begin{equation}
+	f_m =  \frac{1}{s_{d} - s_{u}} \left(- f_{d} S_{u} + f_{u} S_{d} + S_{m} \left(f_{d} - f_{u}\right)\right).
+\end{equation}
+
 \begin{figure}[hbt!]
-  \includegraphics[width=0.8\textwidth]{../images/trinomial_sol}
+  \includegraphics[width=0.9\textwidth]{../images/trinomial_sol}
   \caption{Span of solutions for the trinomial model}
+    \label{fig:incomplete_market}
 \end{figure}
 
 As pointed out by \aycite{albert-jen}, the fact that $0 < d < m < u$ implies that this market has no arbitrage. Which asserts what was intended to show.\\
