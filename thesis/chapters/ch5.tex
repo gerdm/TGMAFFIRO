@@ -1,6 +1,13 @@
 \documentclass[../TGMAFFIRO.tex]{subfiles}
 
 \begin{document}
+
+In the previous chapter we formalized the notion of a Brownian motion, which will model the \textit{noise} of an asset. We also derived important results about the dynamics of this process over an infinitesimal partition of time. \\
+
+In what follows, we desire to express the dynamics of processes with respect to the Brownian motion. That is, we want to analyze how a process, perturbed by small changes of a brownian motion, behaves over time. The analysis of stochastic processes over time leads us to formulate what we would mean by an integral and its consequences, hence the name \textit{stochastic calculus}.\\
+
+We begin by defining It\^o's integral, a crucial tool in analyzing a process \textit{perturbed} by a brownian motion; then, we extend the notion of an It\^o integral to another, more complete, space to work with; next, we prove Ito's formula, a noteworthy and necessary tool to further gain results; after, we comprehend results in the chapter and define what is called a stochastic differential equation, which allows us to express dynamics of processes in differential form and; we conclude the chapter showing Girsanov's theorem.
+
 \section{It\^o's Integral}
 Let $\ProbSpace$ a probability space and consider the spaces $L_2\ProbSpace$ and $L_2([a, b]\times\Omega, \mathscr{B}\otimes\salgF)$ with inner product
 \begin{equation}
@@ -30,14 +37,14 @@ Where $W_t$ is a standard Brownian motion and $f$ belongs to a special family of
 \end{definition}
 
 \begin{definition}[\textbf{Simple Process}]
-	We define the process $f\in \Nfam{a}{b}$ as simple if there exists a partition $\{t_i\}_{i=0}^n$ where $t_0 = a$, $t_n = b$, and $t_i < t_j \ \forall \ i < j$, such that $f$ can be represented as a lineal combination of the form
+	We define the process $f\in \Nfam{a}{b}$ as simple if there exists a partition $\{t_i\}_{i=0}^n$ where $t_0 = a$, $t_n = b$, and $t_i < t_j \ \forall \ i < j$, such that $f$ can be represented as a linear combination of the form
 	\begin{equation}
 		f(t) = \sum_{i=0}^{n-1}f(t_i)\ind_{[t_i, t_{i+1}]}(t).
 	\end{equation}
 \end{definition}
 
 \begin{definition}
-	We define the family of processes $f$ in $\Mfam{a}{b}$ that are processes in $\Nfam{a}{b}$ and can be written as simple processes. 
+	We define the family of processes $f \in \Mfam{a}{b}$ that are processes in $\Nfam{a}{b}$ and can be written as simple processes. Evidently, $\Mfam{a}{b} \subseteq \Nfam{a}{b}$.
 \end{definition}
 
 \begin{definition}
