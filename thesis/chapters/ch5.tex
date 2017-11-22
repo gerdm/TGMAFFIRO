@@ -4,9 +4,9 @@
 
 In the previous chapter we formalized the notion of a Brownian motion, which will model the \textit{noise} of an asset. We also derived important results about the dynamics of this process over an infinitesimal partition of time. \\
 
-In what follows, we desire to express the dynamics of processes with respect to the Brownian motion. That is, we want to analyze how a process, perturbed by small changes of a brownian motion, behaves over time. The analysis of stochastic processes over time leads us to formulate what we would mean by an integral and its consequences, hence the name \textit{stochastic calculus}.\\
+In what follows, we desire to carry the results already proven and express the dynamics of processes with respect to the Brownian motion. That is, we want to analyze how a process, perturbed by small changes of a brownian motion, behaves over time. The analysis of stochastic processes over time leads us to formulate what we would mean by an integral and its consequences, hence the name \textit{stochastic calculus}.\\
 
-We begin by defining It\^o's integral, a crucial tool in analyzing a process \textit{perturbed} by a brownian motion; then, we extend the notion of an It\^o integral to another, more complete, space to work with; next, we prove Ito's formula, a noteworthy and necessary tool to further gain results; after, we comprehend results in the chapter and define what is called a stochastic differential equation, which allows us to express dynamics of processes in differential form and; we conclude the chapter showing Girsanov's theorem.
+We begin by defining It\^o's integral, a crucial tool in analyzing a process \textit{perturbed} by a brownian motion; then, we extend the notion of an It\^o integral to another, more complete, space to work with; next, we prove Ito's formula, a noteworthy and necessary tool to further gain results; after, we comprehend results in the chapter and define what is called a stochastic differential equation, which allows us to express dynamics of processes in differential form and; we conclude the chapter proving Girsanov's theorem.
 
 \section{It\^o's Integral}
 Let $\ProbSpace$ a probability space and consider the spaces $L_2\ProbSpace$ and $L_2([a, b]\times\Omega, \mathscr{B}\otimes\salgF)$ with inner product
@@ -25,7 +25,9 @@ We want to make sense of
   \int_a^bf(t,\omega) \dW[t](\omega).
 \end{equation}
 
-Where $W_t$ is a standard Brownian motion and $f$ belongs to a special family of functions denoted by $\Nfam{a}{b}$.
+Where $W_t$ is a standard Brownian motion and $f$ belongs to a special family of functions denoted by $\Nfam{a}{b}$.\\
+
+To develop a theory of stochastic integration, we proceed in manner akin to what was done in  chapter \ref{ch:prob_theory} for Lebesgue integrals: we being by defining the space to be working with; then, we introduce an (stochastic) integral over indicator functions; later, we expand the definition of the integral over a discrete set; finally, we generalize it over a continuous set.
 
 \begin{definition}
 	Let $0\leq a\leq b$. Denote $\Nfam{a}{b}$ the family of stochastic process such that

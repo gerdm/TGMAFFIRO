@@ -406,7 +406,7 @@ The quadratic variation for a function $f$ represents the amount of total quadra
 Asking how much does $W(t)$ oscillate between $D$ poses the question of whether $W(t) \in C^1(D)$. The answer is no, since the Brownian Motion is a continuous, nowhere-differentiable function. A consequence of this last remark is the following.
 
 \begin{theorem}\label{th:quadratic_brownian_motion}
-	Let $W(t)$ be a Standard Brownian Motion, then $[W, W]_T = T \ \forall \ T \geq 0$ almost surely.
+	Let $W(t)$ be a standard Brownian Motion, then $[W, W]_T = T \ \forall \ T \geq 0$ almost surely.
 \end{theorem}
 
 \begin{proof}
@@ -458,15 +458,66 @@ We state theorem \ref{th:quadratic_brownian_motion} informally by writing
 	dW^2 = dt.
 \end{equation}
 
-Two final consequences of \ref{th:quadratic_brownian_motion} are the following
-\begin{equation}\label{eq:wt_0}
+We summarize two final consequences of \ref{th:quadratic_brownian_motion} in the following propositions:
+
+\begin{proposition}
+	Let $W_t$ a standard Brownian motion then
+	\begin{equation}\label{eq:wt_0}
 	\lim_{||\Pi||\to 0} \sum_{j=0}^{n-1}(W_{t_{j+1}} - W_{t_{j}})(t_{j+1} - t_{j}) = 0.
 \end{equation}
+\end{proposition}
 
-\begin{equation}\label{eq:w2_0}
-	\lim_{||\Pi||\to 0} \sum_{j=0}^{n-1}(t_{j+1} - t_{j})^2 = 0.
-\end{equation}
+\begin{proof}
+	We first note that
+	\begin{equation*}
+		|\left(W_{t_{j+1}} - W_{t_{j}}\right)(t_{j+1} - t_{j})| \leq \max_k |\left(W_{t_{k+1}} - W_{t_{k}}\right)(t_{j+1} - t_{j})|.
+	\end{equation*}
+	Then, 
+	\begin{align}
+		\sum_{j=0}^{n-1} |\left(W_{t_{j+1}} - W_{t_{j}}\right)(t_{j+1} - t_{j})| &\leq \sum_{j=0}^{n-1} \max_k |\left(W_{t_{k+1}} - W_{t_{k}}\right)(t_{j+1} - t_{j})| \nonumber\\
+		&= \max_k |W_{t_{k+1}} - W_{t_{k}})| \sum_{j=0}^{n-1}(t_{j+1} - t_{j}) \nonumber\\
+		&= \max_k |W_{t_{k+1}} - W_{t_{k}}| T.
+	\end{align}
+	Next, by the triangle inequality we have that
+	\begin{align*}
+		\left|\sum_{j=0}^{n-1}  \left(W_{t_{j+1}} - W_{t_{j}}\right)(t_{j+1} - t_{j})\right| &\leq \sum_{j=0}^{n-1} \left|\left(W_{t_{j+1}} - W_{t_{j}}\right)(t_{j+1} - t_{j})\right| \\
+			&\leq \max_k |W_{t_{k+1}} - W_{t_{k}}| T.
+	\end{align*}
+	Therefore,	
+	\begin{equation*}
+		\lim_{||\Pi||\to 0} \left|\sum_{j=0}^{n-1}  \left(W_{t_{j+1}} - W_{t_{j}}\right)(t_{j+1} - t_{j})\right| \leq \lim_{||\Pi||\to 0} \max_k |W_{t_{k+1}} - W_{t_{k}}| T = 0.
+	\end{equation*}
+\end{proof}
 
-Equations \ref{eq:wt_0} and \ref{eq:w2_0} are informally expressed as $dW_tdt = 0$ and $dt^2 = 0$.
+\begin{proposition}
+	Let $\Pi$ a partition over $[0, T]$ then,
+	\begin{equation}\label{eq:w2_0}
+		\lim_{||\Pi||\to 0} \sum_{j=0}^{n-1}(t_{j+1} - t_{j})^2 = 0.
+	\end{equation}	
+\end{proposition}
+
+\begin{proof}
+	Consider
+	\begin{align*}
+		\sum_{j=0}^{n-1}\left(t_{j+1} - t_{j}\right)	^2 &\leq \max_k \sum_{j=0}^{n-1}\left(t_{j+1} - t_{j}\right)\left(t_{k+1} - t_{k}\right) \\
+		&= \max_k \left(t_{k+1} - t_{k}\right) \sum_{j=0}^{n-1}\left(t_{j+1} - t_{j}\right)\\
+		&= ||\Pi|| T.
+	\end{align*}
+	
+	The proof follows considering the limit $||\Pi||\to 0$.
+\end{proof}
+Equations \ref{eq:wt_0} and \ref{eq:w2_0} are informally expressed as $dW_tdt = 0$ and $dt^2 = 0$, which we interpret as as the behavior of the Brownian motion over a small partition of time in a continuous time interval. Table \ref{table:bmotion_props} summarizes these last shown properties of the Brownian motion.
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{l|ll}
+      & $W_t$ & $dt$ \\
+\hline \\
+$W_t$ & $dt$  & 0    \\
+$dt$  & 0     & 0   
+\end{tabular}
+\caption{Brownian Motion Properties}
+\label{table:bmotion_props}
+\end{table}
 
 \end{document}
