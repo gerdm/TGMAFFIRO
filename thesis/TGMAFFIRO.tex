@@ -65,7 +65,34 @@
  
 % .............. It starts here ..............
 \begin{document}
-\tableofcontents
+\begin{titlepage}
+    \begin{center}
+        \vspace*{1cm}
+        
+        \Huge
+        \textbf{The Fundamentals of European Option Pricing}
+        \LARGE
+        
+        \includegraphics[width=0.5\textwidth]{../misc/UMA_logo}
+        \vspace{0.5cm}
+        
+        \textbf{TESIS}\\
+        QUE PARA OBTENER EL TITULO DE\\
+        LICENCIADO EN ACTUARIA\\
+        \vspace{0.3cm}
+        PRESENTA:\\
+        GERARDO DURAN MARTIN
+                
+        \vspace{0.8cm}
+        
+        \Large
+        Escuela de Actuaría\\
+        Universidad Marista\\
+        Noviembre, 2017
+        
+    \end{center}
+\end{titlepage}
+
 
 %\newpage
 %\vspace*{\fill} 
@@ -73,6 +100,11 @@
 %``But, have Black and Scholes not already proved it?''
 %\end{quote}
 %\vspace*{\fill}
+
+\tableofcontents
+
+\chapter*{Introduction}
+\subfile{chapters/intro}
 
 \chapter{Financial Markets}\label{ch:fin_markets}
 \subfile{chapters/ch1}
